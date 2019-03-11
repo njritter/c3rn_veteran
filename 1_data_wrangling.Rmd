@@ -8,26 +8,78 @@ output: html_document
 ```{r setup, message = FALSE}
 
 library(tidyverse)
+library(ggplot2)
 
 ```
 
 
-
 ```{r}
+# Read in raw data. This is the file downloaded from survey monkey saved as a .csv
 
-raw_data <- read.csv("data/veteran_survey_25.csv", stringsAsFactors = FALSE)
+raw_data <- read.csv("data/veteran_survey_58.csv", stringsAsFactors = FALSE)
 
 ```
 
+
 ```{r}
 
+# Question ### Data Wrangling
+
+# Pull information for only this question out of survey
 health_conditions <- 
   raw_data %>%
   select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
          X.1:X.25)
 
+# - Rename columns of health_conditions
+# - Drop first row (first row contained column names)
+# - Drop last column which contains open ended text response (deal with later)
+# - Rename some columns to have shorter names
 colnames(health_conditions) <- health_conditions[1, ]
-
 health_conditions <- health_conditions[-1, ]
+health_conditions <- 
+  health_conditions %>%
+  select(-`Other (please specify)`) %>%
+  rename(ADHD = 'Attention deficit/hyperactivity disorder (ADHD)',
+         PTSD = 'Posttraumatic stress disorder (PTSD)',
+         Gastrointestinal = 'Gastrointestinal/digestive system disorders')
+
+# Format into table for plotting
+# - count of each condition, currently only selecting top 10
+
+health_conditions_plot <-
+  health_conditions %>%
+  gather(key = condition, value = checked) %>%
+  filter(checked >= 1) %>%
+  group_by(condition) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count)) %>%
+  slice(1:10)
+
+
+# To save health_conditions_plot as a .csv file, run code below
+# write.csv(health_conditions_plot, 'health_conditions_plot.csv')
 
 ```
+
+
+
+```{r}
+# Question ### Plotting
+
+p <- health_conditions_plot %>%
+  ggplot(aes(x = reorder(condition, count), y = count)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  labs(y = 'Count', x = 'Condition')
+
+p
+
+# To save plot as a .png file, run code below
+# ggsave(filename = 'health_conditions.png', plot = p, device = 'png')
+
+```
+
+
+
+
