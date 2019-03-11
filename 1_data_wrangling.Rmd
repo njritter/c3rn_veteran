@@ -1,0 +1,33 @@
+---
+title: "Data Wrangling"
+author: "Neil Ritter"
+date: "3/10/2019"
+output: html_document
+---
+
+```{r setup, message = FALSE}
+
+library(tidyverse)
+
+```
+
+
+
+```{r}
+
+raw_data <- read.csv("data/veteran_survey_25.csv", stringsAsFactors = FALSE)
+
+```
+
+```{r}
+
+health_conditions <- 
+  raw_data %>%
+  select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         X.1:X.25)
+
+colnames(health_conditions) <- health_conditions[1, ]
+
+health_conditions <- health_conditions[-1, ]
+
+```
