@@ -14,11 +14,11 @@ library(ggplot2)
 
 
 ```{r}
-# Read in raw data. This is the file downloaded from survey monkey saved as a .csv
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
 
-raw_data_general <- read.csv("data/veteran_survey_58.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_2019-03-11.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_2019-03-11.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 
 ```
 
@@ -144,12 +144,6 @@ p_by_condition_by_partner
 
 
 
-
-
-
-##### MOVE TO ANOTHER FILE #####
-
-
 ## Marion Question 2
 
 ```{r}
@@ -175,6 +169,8 @@ condition_age <-
 ```
 
 
+
+##### MOVE TO ANOTHER FILE #####
 
 ## Marion Question 5
 

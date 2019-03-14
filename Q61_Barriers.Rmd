@@ -1,0 +1,19 @@
+---
+title: "Data Wrangling"
+author: "Neil Ritter"
+date: "3/13/2019"
+output: html_document
+---
+
+```{r}
+
+library(tidyverse)
+library(ggplot2)
+
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+```
