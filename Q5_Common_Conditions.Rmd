@@ -1,0 +1,245 @@
+---
+title: "Data Wrangling"
+author: "Neil Ritter"
+date: "3/10/2019"
+output: html_document
+---
+
+```{r setup, message = FALSE}
+
+library(tidyverse)
+library(ggplot2)
+
+```
+
+
+```{r}
+# Read in raw data. This is the file downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/veteran_survey_58.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_2019-03-11.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_2019-03-11.csv", stringsAsFactors = FALSE)
+
+```
+
+## Marion Question 1
+
+- Q5: Which of the following health conditions do you face and or have been diagnosed with? Please select all that apply.
+
+- Q88: What is your age in years?
+
+```{r}
+# Just Question 5
+
+# Pull information for only this question out of each survey
+# - Rename columns
+# - Drop first row (first row contained column names)
+# - Add survey source as a variable
+
+    ## General
+
+health_conditions_general <- 
+  raw_data_general %>%
+  select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         X:X.25)
+
+colnames(health_conditions_general) <- health_conditions_general[1, ]
+health_conditions_general <- health_conditions_general[-1, ]
+health_conditions_general <- health_conditions_general %>% mutate(source = 'general')
+
+    ## Botanist
+
+health_conditions_botanist <-
+  raw_data_botanist %>%
+  select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         X:X.25)
+
+colnames(health_conditions_botanist) <- health_conditions_botanist[1, ]
+health_conditions_botanist <- health_conditions_botanist[-1, ]
+health_conditions_botanist <- health_conditions_botanist %>% mutate(source = 'botanist')
+
+    ## Bask
+
+health_conditions_bask <-
+  raw_data_bask %>%
+  select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         X:X.25)
+
+colnames(health_conditions_bask) <- health_conditions_bask[1, ]
+health_conditions_bask <- health_conditions_bask[-1, ]
+health_conditions_bask <- health_conditions_bask %>% mutate(source = 'bask')
+
+# Bind different source dataframes together and:
+# - Drop Other column which contains open ended text response (deal with later)
+# - Rename some columns to have shorter names
+# - Convert to tidy data format for ploting 
+
+health_conditions_all <- 
+  rbind(health_conditions_general, health_conditions_botanist, health_conditions_bask) %>%
+  select(-'Other (please specify)') %>%
+  rename(ADHD = 'Attention deficit/hyperactivity disorder (ADHD)',
+         PTSD = 'Posttraumatic stress disorder (PTSD)',
+         Gastrointestinal = 'Gastrointestinal/digestive system disorders')
+
+hca_tidy <-
+  health_conditions_all %>%
+  gather(key = condition, value = checked, `Chronic pain`:Insomnia) %>%
+  filter(checked >= 1)
+
+# To save hca_tidy as a .csv file, run code below
+# write.csv(hca_tidy, 'health_conditions_all_tidy.csv')
+
+```
+
+
+```{r}
+# Plotting
+
+## By Condition
+
+by_condition <-
+  hca_tidy %>%
+  group_by(condition) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count)) %>%
+  slice(1:10) %>%
+  ungroup()
+
+# write.csv(by_condition, 'health_condition_all.csv')
+
+p_by_condition <- 
+  by_condition %>%
+  ggplot(aes(x = reorder(condition, count), y = count)) + 
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  labs(y = 'Count', x = 'Condition')
+
+p_by_condition
+# ggsave(filename = 'health_conditions_all.png', plot = p_by_condition, device = 'png')
+
+## By Condition By Partner
+
+by_condition_by_partner <-
+  hca_tidy %>%
+  group_by(condition, source) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  group_by(source) %>%
+  top_n(10, count) %>%
+  ungroup()
+
+p_by_condition_by_partner <-
+  by_condition_by_partner %>%
+  ggplot(aes(x = reorder(condition, count), y = count)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  labs(y = 'Count', x = 'Condition') +
+  facet_wrap(~source, ncol = 3)
+    
+p_by_condition_by_partner
+# ggsave(filename = 'health_conditions_partner.png', plot = p_by_condition_by_partner, device = 'png')
+
+```
+
+
+
+
+
+
+
+##### MOVE TO ANOTHER FILE #####
+
+
+## Marion Question 2
+
+```{r}
+# Q5 and Q88
+
+condition_age <- 
+  raw_data %>%
+  select(condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         X.1:X.25,
+         age = "What.is.your.age..in.years..")
+
+colnames(condition_age) <- condition_age[1, ]
+condition_age <- condition_age[-1, ]
+
+condition_age <- 
+  condition_age %>%
+  select(-`Other (please specify)`) %>%
+  rename(ADHD = 'Attention deficit/hyperactivity disorder (ADHD)',
+         PTSD = 'Posttraumatic stress disorder (PTSD)',
+         Gastrointestinal = 'Gastrointestinal/digestive system disorders',
+         Age = 'Response')
+
+```
+
+
+
+## Marion Question 5
+
+```{r}
+
+# Q61 - Do you face any of the following barriers for you to consume cannabis? (Please select all that apply)
+
+Q61 <- 
+  raw_data %>%
+  select(barrier = 'Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.',
+         X.271:X.279)
+  
+# - Rename columns of Q61
+# - Drop first row (first row contained column names)
+# - Drop last column which contains open ended text response (deal with later)
+# - Rename some columns to have shorter names
+colnames(Q61) <- Q61[1, ]
+Q61 <- Q61[-1, ]
+Q61 <- 
+  Q61 %>%
+  select(-`Other (please specify)`)
+
+# Format into table for plotting
+
+Q61_plot <- 
+  Q61 %>%
+  gather(key = reason, value = checked) %>%
+  filter(checked >= 1) %>%
+  group_by(reason) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count))
+
+# Run this to save Q61_plot as a .csv
+#write_csv(Q61_plot, 'barriers.csv')
+
+```
+
+
+```{r}
+
+p <- 
+  Q61_plot %>%
+  ggplot(aes(x = reorder(reason, count), y = count)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  labs(y = 'Count', x = 'Barrier')
+
+p
+
+# Run this to save a .png
+#ggsave(filename = 'barriers.png', plot = p, device = 'png')
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
