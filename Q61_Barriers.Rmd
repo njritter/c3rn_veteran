@@ -5,7 +5,7 @@ date: "3/13/2019"
 output: html_document
 ---
 
-```{r}
+```{r, message = FALSE}
 
 library(tidyverse)
 library(ggplot2)
@@ -16,4 +16,104 @@ library(ggplot2)
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
 
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+
+
 ```
+
+
+```{r}
+
+# Just Question 61
+
+# Pull information for only this question out of each survey
+# - Rename columns
+# - Drop first row (first row contained column names)
+# - Add survey source as a variable
+
+    ## General
+
+barriers_general <- 
+  raw_data_general %>%
+  select(barriers = "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.",
+         X.271:X.279)
+
+colnames(barriers_general) <- barriers_general[1, ]
+barriers_general <- barriers_general[-1, ]
+barriers_general <- barriers_general %>% mutate(source = 'general')
+
+
+    ## Bask
+
+barriers_bask <- 
+  raw_data_bask %>%
+  select(barriers = "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.",
+         X.271:X.279)
+
+colnames(barriers_bask) <- barriers_bask[1, ]
+barriers_bask <- barriers_bask[-1, ]
+barriers_bask <- barriers_bask %>% mutate(source = 'bask')
+
+  ## Botanist
+
+barriers_botanist <- 
+  raw_data_botanist %>%
+  select(barriers = "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.",
+         X.271:X.279)
+
+colnames(barriers_botanist) <- barriers_botanist[1, ]
+barriers_botanist <- barriers_botanist[-1, ]
+barriers_botanist <- barriers_botanist %>% mutate(source = 'botanist')
+
+# Bind different source dataframes together and:
+# - Drop Other column which contains open ended text response (deal with later)
+# - Rename some columns to have shorter names
+# - Convert to tidy data format for ploting 
+
+barriers_all <- 
+  rbind(barriers_general, barriers_botanist, barriers_bask) %>%
+  select(-'Other (please specify)')
+
+barriers_tidy <-
+  barriers_all %>%
+  gather(key = barrier, value = checked, 1:9) %>%
+  filter(checked >= 1)
+
+# To save barriers_tidy as a .csv file, run code below
+# write.csv(barriers_tidy, 'barriers_all_tidy.csv')
+
+
+```
+
+
+
+```{r}
+
+by_barrier <-
+  barriers_tidy %>%
+  group_by(barrier) %>%
+  summarize(count = n()) %>%
+  arrange(desc(count)) %>%
+  ungroup()
+
+
+# write.csv(by_barrier, 'barrier_all.csv')
+
+p_by_barrier <-
+  by_barrier %>%
+  ggplot(aes(x = reorder(barrier, count), y = count)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  labs(x = 'Barrier', y = 'Count')
+
+p_by_barrier
+```
+
+
+
+
+
+
+

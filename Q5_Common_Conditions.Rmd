@@ -83,7 +83,7 @@ health_conditions_all <-
 
 hca_tidy <-
   health_conditions_all %>%
-  gather(key = condition, value = checked, `Chronic pain`:Insomnia) %>%
+  gather(key = condition, value = checked, `Access`:Insomnia) %>%
   filter(checked >= 1)
 
 # To save hca_tidy as a .csv file, run code below
