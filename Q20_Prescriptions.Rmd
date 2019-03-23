@@ -142,6 +142,3 @@ p_by_prescriptions <-
 p_by_prescriptions
 ```
 
-
-
-
