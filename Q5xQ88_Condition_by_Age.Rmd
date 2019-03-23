@@ -37,10 +37,33 @@ single_selection <- function(data, q.name)
 
 ```{r}
 
-choose_all <- function(data, q.name, q.start, q.end){
+choose_all <- function(data){
   
+  responses <- 
+    data %>%
+    select(
+      id = "Respondent.ID",
+      question = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+      "X":"X.24")
+    
+  colnames(responses) <- responses[1, ]
+  responses <- responses[-1, ]
+  responses <- 
+    responses %>% 
+    rename(id = 1) %>%
+    gather(key = condition, value = checked, "Chronic pain":Insomnia) %>%
+    filter(checked >= 1)
+  
+  return(responses)
   
 }
+
+```
+
+
+```{r}
+
+test <- choose_all(raw_data_general)
 
 ```
 
@@ -52,29 +75,41 @@ choose_all <- function(data, q.name, q.start, q.end){
 # - Add survey source as a variable
 
     ## General
-
-general <- 
-  raw_data_general %>%
-  select(
-    id = Respondent.ID,
-    condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
-         "X":"X.25")
-
-colnames(general) <- general[1, ]
-general <- general[-1, ]
-general <- 
-  general %>% 
-  rename(id = 1) %>%
+general <-
+  choose_all(raw_data_general) %>%
   inner_join(
     single_selection(data = raw_data_general, q.name = "What.is.your.age..in.years..")
-    ) %>%
-  mutate(source = 'general')
+  )
 
 
+  ## Bask
+bask <-
+  choose_all(raw_data_bask) %>%
+  inner_join(
+    single_selection(data = raw_data_bask, q.name = "What.is.your.age..in.years..")
+  )
+
+
+  ## Botanist
+botanist <-
+  choose_all(raw_data_botanist) %>%
+  inner_join(
+    single_selection(data = raw_data_botanist, q.name = "What.is.your.age..in.years..")
+  )
 
 
 
 ```
+
+
+```{r}
+
+all <-
+  rbind(general, bask, botanist)
+
+
+```
+
 
 
 
