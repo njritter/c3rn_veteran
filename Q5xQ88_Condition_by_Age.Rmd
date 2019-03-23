@@ -1,0 +1,81 @@
+---
+title: "Q5xQ88_Condition_by_Age"
+author: "Neil Ritter"
+date: "3/22/2019"
+output: html_document
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+```
+
+
+```{r}
+
+single_selection <- function(data, q.name)
+  {
+  responses <- 
+    data %>%
+    select(id = Respondent.ID, question = q.name) %>%
+    slice(2:nrow(.))
+  
+  return(responses)
+  }
+
+```
+
+
+
+```{r}
+
+choose_all <- function(data, q.name, q.start, q.end){
+  
+  
+}
+
+```
+
+
+```{r}
+# Pull information for only this question out of each survey
+# - Rename columns
+# - Drop first row (first row contained column names)
+# - Add survey source as a variable
+
+    ## General
+
+general <- 
+  raw_data_general %>%
+  select(
+    id = Respondent.ID,
+    condition = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+         "X":"X.25")
+
+colnames(general) <- general[1, ]
+general <- general[-1, ]
+general <- 
+  general %>% 
+  rename(id = 1) %>%
+  inner_join(
+    single_selection(data = raw_data_general, q.name = "What.is.your.age..in.years..")
+    ) %>%
+  mutate(source = 'general')
+
+
+
+
+
+```
+
+
+
+
