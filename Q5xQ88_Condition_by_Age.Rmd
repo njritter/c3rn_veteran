@@ -26,13 +26,22 @@ single_selection <- function(data, q.name)
   responses <- 
     data %>%
     select(id = Respondent.ID, question = q.name) %>%
-    slice(2:nrow(.))
+    slice(2:nrow(.)) %>%
+    filter(question > 0)
   
   return(responses)
   }
 
 ```
 
+```{r}
+
+test <- single_selection(
+  data = raw_data_general,
+  q.name = "What.is.your.age..in.years..")
+
+
+```
 
 
 ```{r}
@@ -52,7 +61,8 @@ choose_all <- function(data){
     responses %>% 
     rename(id = 1) %>%
     gather(key = condition, value = checked, "Chronic pain":Insomnia) %>%
-    filter(checked >= 1)
+    filter(checked >= 1) %>%
+    select(-checked)
   
   return(responses)
   
@@ -77,7 +87,7 @@ test <- choose_all(raw_data_general)
     ## General
 general <-
   choose_all(raw_data_general) %>%
-  inner_join(
+  left_join(
     single_selection(data = raw_data_general, q.name = "What.is.your.age..in.years..")
   )
 
@@ -85,7 +95,7 @@ general <-
   ## Bask
 bask <-
   choose_all(raw_data_bask) %>%
-  inner_join(
+  left_join(
     single_selection(data = raw_data_bask, q.name = "What.is.your.age..in.years..")
   )
 
@@ -93,7 +103,7 @@ bask <-
   ## Botanist
 botanist <-
   choose_all(raw_data_botanist) %>%
-  inner_join(
+  left_join(
     single_selection(data = raw_data_botanist, q.name = "What.is.your.age..in.years..")
   )
 
@@ -105,10 +115,44 @@ botanist <-
 ```{r}
 
 all <-
-  rbind(general, bask, botanist)
+  rbind(general, bask, botanist) %>%
+  filter(!is.na(question)) %>%
+  mutate(question = as.numeric(question)) %>%
+  mutate(range = case_when(
+      question == 1 ~ "21 - 29",
+      question == 2 ~ "30 - 39",
+      question == 3 ~ "40 - 49",
+      question == 4 ~ "50 - 59",
+      question == 5 ~ "60 - 69",
+      question == 6 ~ "70+")) %>%
+  select(-id, -question)
 
 
 ```
+
+
+```{r}
+
+for_plot <- 
+  all %>%
+  group_by(range, condition) %>%
+  summarize(count = n())
+
+
+```
+
+
+```{r}
+
+p <- ggplot(data = for_plot, aes(x = condition, y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip() +
+  facet_wrap(~range)
+
+p
+
+```
+
 
 
 

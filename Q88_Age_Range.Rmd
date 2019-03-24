@@ -77,7 +77,7 @@ all_data <-
 
 for_plot <-
   all_data %>%
-  group_by(range) %>%
+  group_by(range, ) %>%
   summarize(count = n()) %>%
   ungroup()
   
