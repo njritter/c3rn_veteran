@@ -1,0 +1,87 @@
+---
+title: "Untitled"
+author: "Neil Ritter"
+date: "3/30/2019"
+output: html_document
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+# Pull out all responses for Q6 (a single selection question) and combine
+
+Q6 <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+
+Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6)
+Q6_bask <- get_single_selection(data = raw_data_bask, q.name = Q6)
+Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
+
+Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
+
+```
+
+
+```{r}
+# Pull out all responses for Q20 (a choose all question), combine, and turn
+# into a tidy data format for further processing
+
+Q20 <- 'What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.'
+Q20_final_response <- "X.135"
+
+Q20_general <- get_choose_all(raw_data_general, q.name = Q20, f.response = Q20_final_response)
+Q20_bask <- get_choose_all(raw_data_bask, q.name = Q20, f.response = Q20_final_response)
+Q20_botanist <- get_choose_all(raw_data_botanist, q.name = Q20, f.response = Q20_final_response)
+
+Q20_all <- 
+  rbind(Q20_general, Q20_bask, Q20_botanist) %>%
+  tidy_choose_all()
+
+```
+
+
+```{r}
+# Combine Q6_all and Q20_all into one dataframe
+
+Q6_Q20_all <-
+  Q6_all %>%
+  inner_join(Q20_all)
+
+```
+
+
+```{r}
+
+for_plot <- 
+  Q6_Q20_all %>%
+  group_by(response, chosen) %>%
+  summarize(count = n())
+  
+p <- 
+  ggplot(for_plot, aes(x = chosen, y = count)) +
+  geom_bar(stat = 'identity') +
+  facet_wrap(~response, ncol = 20) +
+  coord_flip()
+
+p
+
+```
+
+
+
+
+
