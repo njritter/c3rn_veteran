@@ -35,6 +35,21 @@ Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
 
 ```
 
+```{r}
+
+Q6_plot <- 
+  Q6_all %>%
+  group_by(response) %>%
+  summarize(count = n())
+
+p <- 
+  ggplot(Q6_plot, aes(x = reorder(response, count), y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip()
+
+p
+
+```
 
 ```{r}
 # Pull out all responses for Q20 (a choose all question), combine, and turn
