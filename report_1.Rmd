@@ -2,7 +2,9 @@
 title: "Report 1"
 author: "Neil Ritter"
 date: "4/5/2019"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 # Super Title
@@ -27,6 +29,7 @@ plot(1:5, 1:5)
 
 
 
+Filler text
 
 
 
