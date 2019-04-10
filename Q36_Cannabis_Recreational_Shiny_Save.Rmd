@@ -1,0 +1,59 @@
+---
+title: "Q36_Cannabis_Recreational"
+runtime: shiny
+output: html_document
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+# Pull out all responses for Q36 (a single selection question) and combine
+
+Q36 <- "Do.you.use.cannabis.for.recreational.purposes."
+
+Q36_general <- get_single_selection(data = raw_data_general, q.name = Q36)
+Q36_bask <- get_single_selection(data = raw_data_bask, q.name = Q36)
+Q36_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q36)
+
+Q36_all <- rbind(Q36_general, Q36_bask, Q36_botanist)
+
+```
+
+```{r}
+
+Q36_plot <- 
+  Q36_all %>%
+  group_by(response) %>%
+  summarize(count = n())
+
+p <- 
+  ggplot(Q36_plot, aes(x = reorder(response, count), y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip()
+
+p
+
+```
+```{r}
+
+ggsave(filename = 'Q36_Cannabis_Recreational_Use_PNG', plot = p, device = 'png')
+
+```
+
+

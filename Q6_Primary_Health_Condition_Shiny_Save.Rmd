@@ -1,0 +1,58 @@
+---
+title: "Q6_Primary_Health_Condition_Shiny"
+runtime: shiny
+output: html_document
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+# Pull out all responses for Q6 (a single selection question) and combine
+
+Q6 <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+
+Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6)
+Q6_bask <- get_single_selection(data = raw_data_bask, q.name = Q6)
+Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
+
+Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
+
+```
+
+```{r}
+
+Q6_plot <- 
+  Q6_all %>%
+  group_by(response) %>%
+  summarize(count = n())
+
+p <- 
+  ggplot(Q6_plot, aes(x = reorder(response, count), y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip()
+
+p
+
+```
+
+```{r}
+
+ggsave(filename = 'Q6_Primary_Health_Condition_PNG', plot = p, device = 'png')
+
+```

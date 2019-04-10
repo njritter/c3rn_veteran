@@ -1,0 +1,63 @@
+---
+title: "Q39_Primary_Condition_Cannabis_Helpful"
+runtime: shiny
+output: html_document
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+# Pull out all responses for Q39 (a single selection question) and combine
+
+Q39 <- "What.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful...Please.select.one."
+
+Q39_general <- get_single_selection(data = raw_data_general, q.name = Q39)
+Q39_bask <- get_single_selection(data = raw_data_bask, q.name = Q39)
+Q39_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q39)
+
+Q39_all <- rbind(Q39_general, Q39_bask, Q39_botanist)
+
+```
+
+```{r}
+
+Q39_plot <- 
+  Q39_all %>%
+  group_by(response) %>%
+  summarize(count = n())
+
+p <- 
+  ggplot(Q39_plot, aes(x = reorder(response, count), y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip()
+
+p
+
+```
+
+
+```{r}
+
+ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG', plot = p, device = 'png')
+
+```
+
+
+
+
