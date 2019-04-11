@@ -20,99 +20,55 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
 
+
+
 ```{r}
 
-# Just Question 45
+# Pull out all responses for Q45 (a choose all question), combine, and turn
+# into a tidy data format for further processing
 
-# Pull information for only this question out of each survey
-# - Rename columns
-# - Drop first row (first row contained column names)
-# - Add survey source as a variable
+Q45 <- 'What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.'
+Q45_final_response <- "X.249"
 
-    ## General
+Q45_general <- get_choose_all(raw_data_general, q.name = Q45, f.response = Q45_final_response)
+Q45_bask <- get_choose_all(raw_data_bask, q.name = Q45, f.response = Q45_final_response)
+Q45_botanist <- get_choose_all(raw_data_botanist, q.name = Q45, f.response = Q45_final_response)
 
-prescriptions_general <- 
-  raw_data_general %>%
-  select(prescription = "What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.",
-         X.227:X.249)
-
-colnames(prescriptions_general) <- prescriptions_general[1, ]
-prescriptions_general <- prescriptions_general[-1, ]
-prescriptions_general <- prescriptions_general %>% mutate(source = 'general')
-
-
-    ## Bask
-
-prescriptions_bask <- 
-  raw_data_bask %>%
-  select(prescriptions = "What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.",
-         X.227:X.249)
-
-colnames(prescriptions_bask) <- prescriptions_bask[1, ]
-prescriptions_bask <- prescriptions_bask[-1, ]
-prescriptions_bask <- prescriptions_bask %>% mutate(source = 'bask')
-
-  ## Botanist
-
-prescriptions_botanist <- 
-  raw_data_botanist %>%
-  select(prescriptions = "What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.",
-          X.227:X.249)
-
-colnames(prescriptions_botanist) <- prescriptions_botanist[1, ]
-prescriptions_botanist <- prescriptions_botanist[-1, ]
-prescriptions_botanist <- prescriptions_botanist %>% mutate(source = 'botanist')
-
+Q45_all <- 
+  rbind(Q45_general, Q45_bask, Q45_botanist) %>%
+  tidy_choose_all()
 
 ```
 
-```{r}
-
-# Bind different source dataframes together and:
-# - Drop Other column which contains open ended text response (deal with later)
-# - Rename some columns to have shorter names
-# - Convert to tidy data format for ploting 
-
-prescriptions_all <- 
-  rbind(prescriptions_general, prescriptions_botanist, prescriptions_bask) %>%
-  select(-'Other (please specify)')
-
-prescriptions_tidy <-
-  prescriptions_all %>%
-  gather(key = prescriptions, value = checked, 1:22) %>%
-  filter(checked >= 1)
-
-# To save prescriptions_tidy as a .csv file, run code below
-# write.csv(prescriptions_tidy, 'prescriptions_all_tidy.csv')
-
-```
 
 ```{r}
 
-by_prescriptions <-
-  prescriptions_tidy %>%
-  group_by(prescriptions) %>%
-  summarize(count = n()) %>%
-  arrange(desc(count)) %>%
-  ungroup()
-
-
-# write.csv(by_prescriptions, 'prescriptions_all.csv')
-
-p_by_prescriptions <-
-  by_prescriptions %>%
-  ggplot(aes(x = reorder(prescriptions, count), y = count)) +
+for_plot <- 
+  Q45_all %>%
+  group_by(response, chosen) %>%
+  summarize(count = n())
+  
+p <- 
+  ggplot(for_plot, aes(x = chosen, y = count)) +
   geom_bar(stat = 'identity') +
-  coord_flip() +
-  labs(x = 'prescriptions', y = 'Count')
+  facet_wrap(~response, ncol = 20) +
+  coord_flip()
 
-p_by_prescriptions
+p
+
 ```
 
 
 ```{r}
 # Save graph as PNG
 
-ggsave(filename = 'Q45_Medications_Replaced_Cannabis', plot = p_by_prescriptions, device = 'png')
+ggsave(filename = 'Q45_Medications_Replaced_Cannabis.png', plot = p, device = 'png')
 
 ```
+
+```{r}
+
+write.csv(for_plot, 'Q45_Medications_Replaced_Cannabis', row.names = FALSE)
+
+```
+

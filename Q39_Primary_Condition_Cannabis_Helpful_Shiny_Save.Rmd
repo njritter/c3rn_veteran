@@ -54,10 +54,13 @@ p
 
 ```{r}
 
-ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG', plot = p, device = 'png')
+ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG.png', plot = p, device = 'png')
 
 ```
+```{r}
 
+write.csv(Q39_plot, 'Q39_Primary_Condition_Cannabis_Helpful.csv', row.names = FALSE)
 
+```
 
 

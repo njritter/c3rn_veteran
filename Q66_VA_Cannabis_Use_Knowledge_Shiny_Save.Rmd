@@ -6,9 +6,11 @@ output: html_document
 
 
 ```{r, message = FALSE}
+
 library(tidyverse)
 library(ggplot2)
 source("helper.R")
+
 ```
 
 
@@ -57,5 +59,8 @@ ggsave(filename = 'Q66_VA_Cannabis_Use_Knowledge_PNG', plot = p, device = 'png')
 
 ```
 
+```{r}
 
+write.csv(Q66_plot, file = 'Q66_CSV.CSV', row.names = FALSE)
 
+```

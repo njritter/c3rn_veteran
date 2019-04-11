@@ -53,6 +53,12 @@ p
 
 ```{r}
 
-ggsave(filename = 'Q6_Primary_Health_Condition_PNG', plot = p, device = 'png')
+ggsave(filename = 'Q6_Primary_Health_Condition_PNG.png', plot = p, device = 'png')
+
+```
+
+```{r}
+
+write.csv(Q6_plot, 'Q6_Primary_Health_Condition.csv', row.names = FALSE)
 
 ```

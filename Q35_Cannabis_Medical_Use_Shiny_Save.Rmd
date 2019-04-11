@@ -53,6 +53,11 @@ p
 
 ```{r}
 
-ggsave(filename = 'Q35_Cannabis_Medical_Use_PNG', plot = p, device = 'png')
+ggsave(filename = 'Q35_Cannabis_Medical_Use_PNG.png', plot = p, device = 'png')
+
+```
+```{r}
+
+write.csv(Q35_plot, 'Q35_Cannabis_Medical_Use.csv', row.names = FALSE)
 
 ```
