@@ -65,6 +65,13 @@ for_plot <-
   group_by(chosen) %>%
   summarize(count = n())
 
+p <- 
+  ggplot(for_plot, aes(x = reorder(chosen, count), y = count)) +
+  geom_bar(stat = 'identity') +
+  coord_flip()
+
+p
+
 ```
 
 
