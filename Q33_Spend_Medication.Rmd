@@ -37,3 +37,12 @@ Q33_all <- rbind(Q33_general, Q33_bask, Q33_botanist)
 
 
 ```
+
+```{r}
+
+histogram_object <- hist(as.numeric(Q33_all$response))
+histogram_object$breaks = c(0, 200, 400, 600, 800, 1000, 1200, 1400)
+histogram_object$counts
+plot(histogram_object)
+
+```

@@ -1,0 +1,56 @@
+---
+title: "Q67 Which VA Do You Go To"
+runtime: shiny
+output: html_document
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+```
+
+```{r}
+Q67 <- "Which.VA.do.you.go.to."
+
+# Pull out all responses for Q67 (a single selection question) and combine
+
+Q67_general <- get_single_selection(data = raw_data_general, q.name = Q67)
+Q67_bask <- get_single_selection(data = raw_data_bask, q.name = Q67)
+Q67_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q67)
+
+Q67_all <- rbind(Q67_general, Q67_bask, Q67_botanist)
+
+
+```
+
+
+```{r}
+
+ggsave(Q67_all, file = "Q67_VA_Location.png")
+
+```
+
+```{r}
+
+write.csv(Q67_all, 'Q67_VA_Location.csv', row.names = FALSE)
+
+```
+
+
+
+
+
+
+
