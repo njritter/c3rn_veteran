@@ -23,7 +23,6 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 ```
 
 
-
 ```{r}
 # Pull out all responses for Q45 (a choose all question), combine, and turn
 # into a tidy data format for further processing
@@ -33,7 +32,7 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 # - Not including X.249 (Other) and X.248 (Have reduced use in past)
 
 Q45 <- 'What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.'
-Q45_final_response <- "X.247"
+Q45_final_response <- "X.249"
 
 Q45_general <- get_choose_all(raw_data_general, q.name = Q45, f.response = Q45_final_response)
 Q45_bask <- get_choose_all(raw_data_bask, q.name = Q45, f.response = Q45_final_response)
@@ -46,9 +45,9 @@ Q45_all <-
 number_of_people_who_submitted_response_to_Q45 <- length(unique(Q45_all$id))
 
 Q45_all_reduce <-
-  Q45_all %>%
-  filter(chosen != "I don’t take any medications") %>%
-  filter(chosen != "I'm not trying to reduce any medication use")
+   Q45_all %>%
+#   filter(chosen != "I don’t take any medications") %>%
+   filter(chosen != "I'm not trying to reduce any medication use")
 
 number_of_people_who_use_cannabis_to_reduce_prescription_use <- 
   length(unique(Q45_all_reduce$id))
@@ -63,7 +62,9 @@ number_of_people_who_use_cannabis_to_reduce_prescription_use <-
 for_plot <-
   Q45_all_reduce %>%
   group_by(chosen) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_use_cannabis_to_reduce_prescription_use)
 
 p <- 
   ggplot(for_plot, aes(x = reorder(chosen, count), y = count)) +
@@ -71,6 +72,30 @@ p <-
   coord_flip()
 
 p
+
+
+q <- 
+  ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_responded,2)))
+
+r
+
+
+
+
+
+
 
 ```
 
