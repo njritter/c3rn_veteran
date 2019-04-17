@@ -8,6 +8,7 @@ output: html_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 source("helper.R")
 ```
 
@@ -33,6 +34,10 @@ Q22_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q22)
 
 Q22_all <- rbind(Q22_general, Q22_bask, Q22_botanist)
 
+## Determine Question N
+
+number_of_people_who_submitted_response_to_Q22 <- length(unique(Q22_all$id))
+
 ```
 
 ```{r}
@@ -40,7 +45,9 @@ Q22_all <- rbind(Q22_general, Q22_bask, Q22_botanist)
 Q22_plot <- 
   Q22_all %>%
   group_by(response) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q22)
 
 p <- 
   ggplot(Q22_plot, aes(x = reorder(response, count), y = count)) +
@@ -51,10 +58,35 @@ p
 
 ```
 
+```{r}
+# Add percents and response counts
+
+q <- 
+  ggplot(Q22_plot, aes(x = reorder(response, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(Q22_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+
+r
+
+
+
+```
+
 
 ```{r}
 
-ggsave(filename = 'Q22_Unwanted_Medications_PNG.png', plot = p, device = 'png')
+ggsave(filename = 'Q22_Unwanted_Medications_PNG.png', plot = r, device = 'png')
 
 ```
 

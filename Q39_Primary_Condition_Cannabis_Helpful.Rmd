@@ -8,6 +8,7 @@ output: html_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 source("helper.R")
 ```
 
@@ -33,33 +34,61 @@ Q39_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q39)
 
 Q39_all <- rbind(Q39_general, Q39_bask, Q39_botanist)
 
+number_of_people_who_submitted_response_to_Q39 <- length(unique(Q39_all$id))
+
 ```
 
 ```{r}
 
-Q39_plot <- 
+for_plot <- 
   Q39_all %>%
   group_by(response) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q39)
 
 p <- 
-  ggplot(Q39_plot, aes(x = reorder(response, count), y = count)) +
+  ggplot(for_plot, aes(x = reorder(response, count), y = count)) +
   geom_bar(stat = 'identity') + 
   coord_flip()
 
 p
 
 ```
+```{r}
 
+# Add percentages
+
+q <- 
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+
+
+r
+
+
+```
 
 ```{r}
 
-ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG.png', plot = p, device = 'png')
+ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG.png', plot = r, device = 'png')
 
 ```
 ```{r}
 
-write.csv(Q39_plot, 'Q39_Primary_Condition_Cannabis_Helpful.csv', row.names = FALSE)
+write.csv(for_plot, 'Q39_Primary_Condition_Cannabis_Helpful.csv', row.names = FALSE)
 
 ```
 

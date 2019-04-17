@@ -7,6 +7,7 @@ output: html_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 source("helper.R")
 ```
 
@@ -17,6 +18,8 @@ source("helper.R")
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+
+
 
 ```
 
@@ -32,6 +35,10 @@ Q68_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q68)
 
 Q68_all <- rbind(Q68_general, Q68_bask, Q68_botanist)
 
+## Determine Question N
+
+number_of_people_who_submitted_response_to_Q68 <- length(unique(Q68_all$id))
+
 ```
 
 ```{r}
@@ -39,7 +46,9 @@ Q68_all <- rbind(Q68_general, Q68_bask, Q68_botanist)
 Q68_plot <- 
   Q68_all %>%
   group_by(response) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q68)
 
 p <- 
   ggplot(Q68_plot, aes(x = reorder(response, count), y = count)) +
@@ -51,8 +60,32 @@ p
 ```
 
 ```{r}
+# Add percents and response counts
 
-ggsave(filename = 'Q68_VA_Cannabis_Use_Support_PNG.png', plot = p, device = 'png')
+q <- 
+  ggplot(Q68_plot, aes(x = reorder(response, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(Q68_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+
+r
+
+```
+
+
+```{r}
+
+ggsave(filename = 'Q68_VA_Cannabis_Use_Support_PNG.png', plot = r, device = 'png')
 
 ```
 

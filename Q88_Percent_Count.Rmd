@@ -1,14 +1,15 @@
 ---
 title: "Q88_Age_Range"
-author: "Neil Ritter"
-date: "3/22/2019"
+author: "David Ritter"
+date: "4/17/2019"
 output: html_document
 ---
 
-```{r}
+```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
-
+library(stringr)
+source("helper.R")
 ```
 
 
@@ -22,7 +23,6 @@ raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 
 ```
 
-
 ```{r}
 # Pull information for only this question out of each survey
 # - Rename columns
@@ -30,27 +30,25 @@ raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 # - Add survey source as a variable
 
     ## General
+
 general <- 
   raw_data_general %>%
   select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.)) %>%
-  mutate(source = 'general')
+  slice(2:nrow(.))
 
 
   ## Bask
 bask <- 
   raw_data_bask %>%
   select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.)) %>%
-  mutate(source = 'bask')
+  slice(2:nrow(.))
 
 
   ## Botanist
 botanist <- 
   raw_data_botanist %>%
   select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.)) %>%
-  mutate(source = 'botanist')
+  slice(2:nrow(.))
 
 ```
 
@@ -70,6 +68,11 @@ all_data <-
     question == 5 ~ "60 - 69",
     question == 6 ~ "70+"))
 
+## Add # Responses
+
+number_of_people_who_submitted_response_to_Q88 <- length(unique(all_data$id))
+
+
 ```
 
 
@@ -79,7 +82,9 @@ for_plot <-
   all_data %>%
   group_by(range, ) %>%
   summarize(count = n()) %>%
-  ungroup()
+  ungroup() %>%
+  mutate(percent_all = count / sum(count))
+  
   
 ```
 
@@ -88,33 +93,31 @@ for_plot <-
 
 p <-
   ggplot(for_plot, aes(x = range, y = count)) +
-  geom_histogram(stat = 'identity')
-
+  geom_bar(stat = 'identity')
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 p
 
 ```
 
 ```{r}
-# Save Plot as PNG
-ggsave(filename = 'Q88_Age_Range_PNG.png', plot = p, device = 'png')
+
+q <- 
+  ggplot(for_plot, aes(x = range, y = count)) +
+  geom_bar(stat = 'identity') +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
 
 ```
 
 ```{r}
-# Save data as CSV
-write.csv(for_plot, 'Q88_Age_Range.csv', row.names = FALSE)
+
+ggsave(filename = 'Q88_Age_Responses.png', plot = q, device = 'png')
 
 ```
 
+```{r}
 
+write.csv(Q68_plot, 'Q68_VA_Cannabis_Use_Support.csv', row.names = FALSE)
 
-
-
-
-
-
-
-
-
-
-
+```

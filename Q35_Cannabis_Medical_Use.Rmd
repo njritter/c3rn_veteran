@@ -8,6 +8,7 @@ output: html_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 source("helper.R")
 ```
 
@@ -33,6 +34,11 @@ Q35_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q35)
 
 Q35_all <- rbind(Q35_general, Q35_bask, Q35_botanist)
 
+
+## Add section modified for Q 35...
+
+number_of_people_who_submitted_response_to_Q35 <- length(unique(Q35_all$id))
+
 ```
 
 ```{r}
@@ -40,7 +46,10 @@ Q35_all <- rbind(Q35_general, Q35_bask, Q35_botanist)
 Q35_plot <- 
   Q35_all %>%
   group_by(response) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q35)
+
 
 p <- 
   ggplot(Q35_plot, aes(x = reorder(response, count), y = count)) +
@@ -50,10 +59,33 @@ p <-
 p
 
 ```
+```{r}
+
+
+q <- 
+  ggplot(Q35_plot, aes(x = reorder(response, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(Q35_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+
+r
+
+```
+
 
 ```{r}
 
-ggsave(filename = 'Q35_Cannabis_Medical_Use_PNG.png', plot = p, device = 'png')
+ggsave(filename = 'Q35_Cannabis_Medical_Use_PNG.png', plot = r, device = 'png')
 
 ```
 ```{r}

@@ -44,9 +44,14 @@ Q45_all <-
 
 number_of_people_who_submitted_response_to_Q45 <- length(unique(Q45_all$id))
 
+# Filter undesirable responses
 
-number_of_people_who_use_cannabis_to_reduce_prescription_use <- 
-  length(unique(Q45_all$id))
+Q45_all_reduce <-
+   Q45_all %>%
+   filter(chosen != "I'm not trying to reduce any medication use") %>%
+   filter(chosen != "I donâ???Tt take any medications")
+
+number_of_people_who_use_cannabis_to_reduce_prescription_use <- length(unique(Q45_all_reduce$id))
 
 
 
@@ -56,7 +61,7 @@ number_of_people_who_use_cannabis_to_reduce_prescription_use <-
 ```{r}
 
 for_plot <-
-  Q45_all %>%
+  Q45_all_reduce %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -89,14 +94,24 @@ r <-
 r
 
 
-
-
-
-
-
 ```
 
 
+```{r}
+
+# Save PNG with % and Count
+
+ggsave(filename = 'Q45_Unwanted_Medications_PNG.png', plot = r, device = 'png')
+
+```
+
+```{r}
+
+# Save CSV with % 
+
+write.csv(for_plot, 'Q45_Unwanted_Medications.csv', row.names = FALSE)
+
+```
 
 
 

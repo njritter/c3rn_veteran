@@ -8,6 +8,7 @@ output: html_document
 ```{r, message = FALSE}
 library(tidyverse)
 library(ggplot2)
+library(stringr)
 source("helper.R")
 ```
 
@@ -33,6 +34,8 @@ Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
 
 Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
 
+number_of_people_who_submitted_response_to_Q6 <- length(unique(Q6_all$id))
+
 ```
 
 ```{r}
@@ -40,7 +43,9 @@ Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
 Q6_plot <- 
   Q6_all %>%
   group_by(response) %>%
-  summarize(count = n())
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q6)
 
 p <- 
   ggplot(Q6_plot, aes(x = reorder(response, count), y = count)) +
@@ -52,8 +57,31 @@ p
 ```
 
 ```{r}
+# Add percentages and N
 
-ggsave(filename = 'Q6_Primary_Health_Condition_PNG.png', plot = p, device = 'png')
+q <- 
+  ggplot(Q6_plot, aes(x = reorder(response, count), y = percent_all)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= round(percent_all,2)))
+
+q
+
+
+r <- 
+  ggplot(Q6_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+
+r
+
+```
+
+```{r}
+
+ggsave(filename = 'Q6_Primary_Health_Condition_PNG.png', plot = r, device = 'png')
 
 ```
 
