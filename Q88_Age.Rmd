@@ -12,11 +12,9 @@ library(stringr)
 source("helper.R")
 ```
 
-
-
 ```{r}
-
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
 raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
@@ -36,13 +34,11 @@ general <-
   select(question = "What.is.your.age..in.years..") %>%
   slice(2:nrow(.))
 
-
   ## Bask
 bask <- 
   raw_data_bask %>%
   select(question = "What.is.your.age..in.years..") %>%
   slice(2:nrow(.))
-
 
   ## Botanist
 botanist <- 
@@ -51,7 +47,6 @@ botanist <-
   slice(2:nrow(.))
 
 ```
-
 
 ```{r}
 # Combine General, Botanist, and Bask data frames into 1 and remove blank responses
@@ -70,13 +65,12 @@ all_data <-
 
 ## Add # Responses
 
-number_of_people_who_submitted_response_to_Q88 <- length(unique(all_data$id))
-
+number_of_people <- length(unique(all_data$id))
 
 ```
 
-
 ```{r}
+# Plot with percents and response counts
 
 for_plot <-
   all_data %>%
@@ -85,39 +79,22 @@ for_plot <-
   ungroup() %>%
   mutate(percent_all = count / sum(count))
   
-  
-```
-
-
-```{r}
-
-p <-
-  ggplot(for_plot, aes(x = range, y = count)) +
-  geom_bar(stat = 'identity')
-  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
-p
-
-```
-
-```{r}
-
-q <- 
+r <- 
   ggplot(for_plot, aes(x = range, y = count)) +
   geom_bar(stat = 'identity') +
-  geom_text(aes(label= round(percent_all,2)))
+  geom_text(aes(label= paste(round(percent_all,2), count, sep = "***")))
 
-q
-
-```
-
-```{r}
-
-ggsave(filename = 'Q88_Age_Responses.png', plot = q, device = 'png')
+r
 
 ```
 
 ```{r}
+# Save Data
 
-write.csv(for_plot, 'Q88_Age.csv', row.names = FALSE)
+ggsave(filename = 'Q88_Age.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q88_Age_83.167.csv', row.names = FALSE)
+
+write.csv(Q23_all, 'Q88_Responses_ID.csv', row.names = FALSE)
 
 ```

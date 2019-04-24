@@ -1,19 +1,17 @@
 ---
-title: "Q66_VA_Cannabis_Use_Knowledge"
-runtime: shiny
+title: "Q66 VA Cannabis Use Knowledge"
+author: "DJ"
+date: "April 24, 2019"
 output: html_document
+runtime: shiny
 ---
 
-
 ```{r, message = FALSE}
-
 library(tidyverse)
 library(ggplot2)
 library(stringr)
 source("helper.R")
-
 ```
-
 
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
@@ -23,7 +21,6 @@ raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
-
 
 ```{r}
 # Pull out all responses for Q66 (a single selection question) and combine
@@ -38,65 +35,37 @@ Q66_all <- rbind(Q66_general, Q66_bask, Q66_botanist)
 
 ## Determine Question N
 
-number_of_people_who_submitted_response_to_Q66 <- length(unique(Q66_all$id))
+number_of_people <- length(unique(Q66_all$id))
 
 ```
 
 ```{r}
+# Plot with percents and response counts
 
-Q66_plot <- 
+for_plot <- 
   Q66_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q66)
-
-p <- 
-  ggplot(Q66_plot, aes(x = reorder(response, count), y = count)) +
-  geom_bar(stat = 'identity') + 
-  coord_flip()
-
-p
-
-```
-
-```{r}
-# Add percents and response counts
-
-q <- 
-  ggplot(Q66_plot, aes(x = reorder(response, count), y = percent_all)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= round(percent_all,2)))
-
-q
-
+  mutate(percent_responded = count / number_of_people)
 
 r <- 
-  ggplot(Q66_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 
-
 r
 
-
-
-
-
-
-
 ```
 
 ```{r}
+# Save Data
 
-ggsave(filename = 'Q66_VA_Cannabis_Use_Knowledge_PNG.png', plot = r, device = 'png')
+ggsave(filename = 'Q66_VA_Cannabis_Use_Knowledge.png', plot = r, device = 'png')
 
-```
+write.csv(for_plot, 'Q66_VA_Cannabis_Use_Knowledge_76.167.csv', row.names = FALSE)
 
-```{r}
-
-write.csv(Q66_plot, file = 'Q66_CSV.CSV', row.names = FALSE)
+write.csv(Q66_all, 'Q66_Responses_ID.csv', row.names = FALSE)
 
 ```

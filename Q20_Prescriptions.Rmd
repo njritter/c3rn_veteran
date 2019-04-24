@@ -1,144 +1,76 @@
 ---
-title: "Data Wrangling"
-author: "Neil Ritter"
-date: "3/13/2019"
+title: "Q20"
+author: "DJ"
+date: "April 24, 2019"
 output: html_document
+runtime: shiny
 ---
 
 ```{r, message = FALSE}
-
 library(tidyverse)
 library(ggplot2)
-
+library(stringr)
+source("helper.R")
 ```
-
 
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
 
-raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
-
-
-```
-
-
-```{r}
-
-# Just Question 20
-
-# Pull information for only this question out of each survey
-# - Rename columns
-# - Drop first row (first row contained column names)
-# - Add survey source as a variable
-
-    ## General
-
-prescriptions_general <- 
-  raw_data_general %>%
-  select(prescription = "What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.",
-         X.115:X.136)
-
-colnames(prescriptions_general) <- prescriptions_general[1, ]
-prescriptions_general <- prescriptions_general[-1, ]
-prescriptions_general <- prescriptions_general %>% mutate(source = 'general')
-
-
-    ## Bask
-
-prescriptions_bask <- 
-  raw_data_bask %>%
-  select(prescriptions = "What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.",
-         X.115:X.136)
-
-colnames(prescriptions_bask) <- prescriptions_bask[1, ]
-prescriptions_bask <- prescriptions_bask[-1, ]
-prescriptions_bask <- prescriptions_bask %>% mutate(source = 'bask')
-
-  ## Botanist
-
-prescriptions_botanist <- 
-  raw_data_botanist %>%
-  select(prescriptions = "What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.",
-          X.115:X.136)
-
-colnames(prescriptions_botanist) <- prescriptions_botanist[1, ]
-prescriptions_botanist <- prescriptions_botanist[-1, ]
-prescriptions_botanist <- prescriptions_botanist %>% mutate(source = 'botanist')
-
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
 
-
-
-
 ```{r}
+# Pull out all responses for Q20 (a choose all question), combine, and turn
+# into a tidy data format for further processing
 
-# Bind different source dataframes together and:
-# - Drop Other column which contains open ended text response (deal with later)
-# - Rename some columns to have shorter names
-# - Convert to tidy data format for ploting 
+Q20 <- 'What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.'
+Q20_final_response <- "X.136"
 
-prescriptions_all <- 
-  rbind(prescriptions_general, prescriptions_botanist, prescriptions_bask) %>%
-  select(-'Other (please specify)')
+Q20_general <- get_choose_all(raw_data_general, q.name = Q20, f.response = Q20_final_response)
+Q20_bask <- get_choose_all(raw_data_bask, q.name = Q20, f.response = Q20_final_response)
+Q20_botanist <- get_choose_all(raw_data_botanist, q.name = Q20, f.response = Q20_final_response)
 
-prescriptions_tidy <-
-  prescriptions_all %>%
-  gather(key = prescriptions, value = checked, 1:22) %>%
-  filter(checked >= 1)
+Q20_all <- 
+  rbind(Q20_general, Q20_bask, Q20_botanist) %>%
+  tidy_choose_all()
 
-# To save prescriptions_tidy as a .csv file, run code below
-# write.csv(prescriptions_tidy, 'prescriptions_all_tidy.csv')
+
+## number of people who submitted response to Q
+
+number_of_people <- length(unique(Q20_all$id))
 
 ```
 
-
-
-
 ```{r}
+#Plot with percents and response counts
 
-by_prescriptions <-
-  prescriptions_tidy %>%
-  group_by(prescriptions) %>%
+for_plot <-
+  Q20_all %>%
+  group_by(chosen) %>%
   summarize(count = n()) %>%
-  arrange(desc(count)) %>%
-  ungroup()
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
 
-
-# write.csv(by_prescriptions, 'prescriptions_all.csv')
-
-p_by_prescriptions <-
-  by_prescriptions %>%
-  ggplot(aes(x = reorder(prescriptions, count), y = count)) +
+r <- 
+  ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
-  labs(x = 'prescriptions', y = 'Count')
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
 
-p_by_prescriptions
+r
+
 ```
-
 
 ```{r}
+# Save Data
 
-by_prescriptions <-
-  prescriptions_tidy %>%
-  group_by(prescriptions) %>%
-  summarize(count = n()) %>%
-  arrange(desc(count)) %>%
-  ungroup()
+ggsave(filename = 'Q20_Prescriptions.png', plot = r, device = 'png')
 
+write.csv(for_plot, 'Q20_Prescriptions_119.167.csv', row.names = FALSE)
 
-# write.csv(by_prescriptions, 'prescriptions_all.csv')
+write.csv(Q20_all, 'Q20_Responses_ID.csv', row.names = FALSE)
 
-p_by_prescriptions <-
-  by_prescriptions %>%
-  ggplot(aes(x = reorder(prescriptions, count), y = count)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  labs(x = 'Prescription', y = 'Count')
-
-p_by_prescriptions
 ```
-

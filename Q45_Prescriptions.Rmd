@@ -27,10 +27,6 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 # Pull out all responses for Q45 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-
-# Notes
-# - Not including X.249 (Other) and X.248 (Have reduced use in past)
-
 Q45 <- 'What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.'
 Q45_final_response <- "X.249"
 
@@ -42,16 +38,10 @@ Q45_all <-
   rbind(Q45_general, Q45_bask, Q45_botanist) %>%
   tidy_choose_all()
 
-number_of_people_who_submitted_response_to_Q45 <- length(unique(Q45_all$id))
-
-
-number_of_people_who_use_cannabis_to_reduce_prescription_use <- 
+number_of_people <- 
   length(unique(Q45_all$id))
 
-
-
 ```
-
 
 ```{r}
 
@@ -60,43 +50,29 @@ for_plot <-
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_use_cannabis_to_reduce_prescription_use)
-
-p <- 
-  ggplot(for_plot, aes(x = reorder(chosen, count), y = count)) +
-  geom_bar(stat = 'identity') +
-  coord_flip()
-
-p
-
-
-q <- 
-  ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_all)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= round(percent_all,2)))
-
-q
-
+  mutate(percent_responded = count / number_of_people)
 
 r <- 
   ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
-  geom_text(aes(label= round(percent_responded,2)))
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
 
 
 r
 
-
-
-
-
-
-
 ```
 
+```{r}
+# Save Data
 
+ggsave(filename = 'Q45_Prescriptions.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q45_Prescriptions_92.167.csv', row.names = FALSE)
+
+write.csv(Q23_all, 'Q45_Responses_ID.csv', row.names = FALSE)
+
+```
 
 
 

@@ -1,9 +1,10 @@
 ---
-title: "Q39_Primary_Condition_Cannabis_Helpful"
-runtime: shiny
+title: "Q39_Primary_Condition_Cannabis"
+author: "DJ"
+date: "April 24, 2019"
 output: html_document
+runtime: shiny
 ---
-
 
 ```{r, message = FALSE}
 library(tidyverse)
@@ -11,7 +12,6 @@ library(ggplot2)
 library(stringr)
 source("helper.R")
 ```
-
 
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
@@ -21,7 +21,6 @@ raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
-
 
 ```{r}
 # Pull out all responses for Q39 (a single selection question) and combine
@@ -34,39 +33,21 @@ Q39_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q39)
 
 Q39_all <- rbind(Q39_general, Q39_bask, Q39_botanist)
 
-number_of_people_who_submitted_response_to_Q39 <- length(unique(Q39_all$id))
+## Determine Question N
+
+number_of_people <- length(unique(Q39_all$id))
 
 ```
 
 ```{r}
+# Plot with percents and response counts
 
 for_plot <- 
   Q39_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q39)
-
-p <- 
-  ggplot(for_plot, aes(x = reorder(response, count), y = count)) +
-  geom_bar(stat = 'identity') + 
-  coord_flip()
-
-p
-
-```
-```{r}
-
-# Add percentages
-
-q <- 
-  ggplot(for_plot, aes(x = reorder(response, count), y = percent_all)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= round(percent_all,2)))
-
-q
-
+  mutate(percent_responded = count / number_of_people)
 
 r <- 
   ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
@@ -74,22 +55,17 @@ r <-
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 
-
-
 r
 
-
 ```
 
 ```{r}
+# Save Data
 
-ggsave(filename = 'Q39_Primary_Condition_Cannabis_Helpful_PNG.png', plot = r, device = 'png')
+ggsave(filename = 'Q39_Primary_Condition_Cannabis.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q39_Primary_Condition_Cannabis_92.167.csv', row.names = FALSE)
+
+write.csv(Q39_all, 'Q39_Responses_ID.csv', row.names = FALSE)
 
 ```
-```{r}
-
-write.csv(for_plot, 'Q39_Primary_Condition_Cannabis_Helpful.csv', row.names = FALSE)
-
-```
-
-

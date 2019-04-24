@@ -1,5 +1,5 @@
 ---
-title: "Q61 Barriers"
+title: "Q26"
 author: "DJ"
 date: "April 24, 2019"
 output: html_document
@@ -23,21 +23,21 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q61 (a choose all question), combine, and turn
+# Pull out all responses for Q26 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-Q61 <- "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply."
-Q61_final_response <- "X.279"
+Q26 <- 'Have.you.ever.taken.any.of.the.following.opioids...Please.select.all.that.apply.'
+Q26_final_response <- "X.148"
 
-Q61_general <- get_choose_all(raw_data_general, q.name = Q61, f.response = Q61_final_response)
-Q61_bask <- get_choose_all(raw_data_bask, q.name = Q61, f.response = Q61_final_response)
-Q61_botanist <- get_choose_all(raw_data_botanist, q.name = Q61, f.response = Q61_final_response)
+Q26_general <- get_choose_all(raw_data_general, q.name = Q26, f.response = Q26_final_response)
+Q26_bask <- get_choose_all(raw_data_bask, q.name = Q26, f.response = Q26_final_response)
+Q26_botanist <- get_choose_all(raw_data_botanist, q.name = Q26, f.response = Q26_final_response)
 
-Q61_all <- 
-  rbind(Q61_general, Q61_bask, Q61_botanist) %>%
+Q26_all <- 
+  rbind(Q26_general, Q26_bask, Q26_botanist) %>%
   tidy_choose_all()
 
-number_of_people <- length(unique(Q61_all$id))
+number_of_people <- length(unique(Q26_all$id))
   
 ```
 
@@ -45,7 +45,7 @@ number_of_people <- length(unique(Q61_all$id))
 # Plot with percents and response counts
 
 for_plot <-
-  Q61_all %>%
+  Q26_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -64,10 +64,10 @@ r
 ```{r}
 # Save data
 
-ggsave(filename = 'Q61_Barriers.png', plot = r, device = 'png')
+ggsave(filename = 'Q26_Opioids_Taken.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q61_Barriers_92.167.csv', row.names = FALSE)
+write.csv(for_plot, 'Q26_Opioids_Taken_4.167.csv', row.names = FALSE)
 
-write.csv(Q61_all, 'Q61_Responses_ID.csv', row.names = FALSE)
+write.csv(Q26_all, 'Q26_Responses_ID.csv', row.names = FALSE)
 
 ```

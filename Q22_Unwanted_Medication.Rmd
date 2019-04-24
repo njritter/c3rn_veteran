@@ -1,9 +1,10 @@
 ---
-title: "Q22 Unwanted Medications"
-runtime: shiny
+title: "Q22 Unwanted Medication"
+author: "DJ"
+date: "April 24, 2019"
 output: html_document
+runtime: shiny
 ---
-
 
 ```{r, message = FALSE}
 library(tidyverse)
@@ -11,7 +12,6 @@ library(ggplot2)
 library(stringr)
 source("helper.R")
 ```
-
 
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
@@ -21,7 +21,6 @@ raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
-
 
 ```{r}
 # Pull out all responses for Q22 (a single selection question) and combine
@@ -36,66 +35,37 @@ Q22_all <- rbind(Q22_general, Q22_bask, Q22_botanist)
 
 ## Determine Question N
 
-number_of_people_who_submitted_response_to_Q22 <- length(unique(Q22_all$id))
+number_of_people <- length(unique(Q22_all$id))
 
 ```
 
 ```{r}
+# Plot with percents and response counts
 
-Q22_plot <- 
+for_plot <- 
   Q22_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q22)
-
-p <- 
-  ggplot(Q22_plot, aes(x = reorder(response, count), y = count)) +
-  geom_bar(stat = 'identity') + 
-  coord_flip()
-
-p
-
-```
-
-```{r}
-# Add percents and response counts
-
-q <- 
-  ggplot(Q22_plot, aes(x = reorder(response, count), y = percent_all)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= round(percent_all,2)))
-
-q
-
+  mutate(percent_responded = count / number_of_people)
 
 r <- 
-  ggplot(Q22_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 
-
 r
 
-
-
-```
-
-
-```{r}
-
-ggsave(filename = 'Q22_Unwanted_Medications_PNG.png', plot = r, device = 'png')
-
 ```
 
 ```{r}
+# Save Data
 
-write.csv(Q22_plot, 'Q22_Unwanted_Medications.csv', row.names = FALSE)
+ggsave(filename = 'Q22_Unwanted_Medication.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q22_Diagnosed_OUD_119.167.csv', row.names = FALSE)
+
+write.csv(Q22_all, 'Q22_Responses_ID.csv', row.names = FALSE)
 
 ```
-
-
-
-

@@ -1,9 +1,10 @@
 ---
-title: "Q35_Cannabis_Medical_Use"
-runtime: shiny
+title: "Q35 Medical Cannabis Use"
+author: "DJ"
+date: "April 24, 2019"
 output: html_document
+runtime: shiny
 ---
-
 
 ```{r, message = FALSE}
 library(tidyverse)
@@ -11,7 +12,6 @@ library(ggplot2)
 library(stringr)
 source("helper.R")
 ```
-
 
 ```{r}
 # Read in raw data. These are the files downloaded from survey monkey saved as a .csv
@@ -21,7 +21,6 @@ raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 ```
-
 
 ```{r}
 # Pull out all responses for Q35 (a single selection question) and combine
@@ -34,62 +33,39 @@ Q35_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q35)
 
 Q35_all <- rbind(Q35_general, Q35_bask, Q35_botanist)
 
+## Determine Question N
 
-## Add section modified for Q 35...
-
-number_of_people_who_submitted_response_to_Q35 <- length(unique(Q35_all$id))
+number_of_people <- length(unique(Q35_all$id))
 
 ```
 
 ```{r}
+# Plot with percents and response counts
 
-Q35_plot <- 
+for_plot <- 
   Q35_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q35)
-
-
-p <- 
-  ggplot(Q35_plot, aes(x = reorder(response, count), y = count)) +
-  geom_bar(stat = 'identity') + 
-  coord_flip()
-
-p
-
-```
-```{r}
-
-
-q <- 
-  ggplot(Q35_plot, aes(x = reorder(response, count), y = percent_all)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= round(percent_all,2)))
-
-q
-
+  mutate(percent_responded = count / number_of_people)
 
 r <- 
-  ggplot(Q35_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
-
 
 r
 
 ```
 
-
 ```{r}
+# Save Data
 
-ggsave(filename = 'Q35_Cannabis_Medical_Use_PNG.png', plot = r, device = 'png')
+ggsave(filename = 'Q35_Medical_Cannabis_Use.png', plot = r, device = 'png')
 
-```
-```{r}
+write.csv(for_plot, 'Q35_Medical_Cannabis_Use_92.167.csv', row.names = FALSE)
 
-write.csv(Q35_plot, 'Q35_Cannabis_Medical_Use.csv', row.names = FALSE)
+write.csv(Q35_all, 'Q35_Responses_ID.csv', row.names = FALSE)
 
 ```

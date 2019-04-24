@@ -1,5 +1,5 @@
 ---
-title: "Q36 Recreational Cannabis Use"
+title: "Q25"
 author: "DJ"
 date: "April 24, 2019"
 output: html_document
@@ -23,27 +23,27 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q36 (a single selection question) and combine
+# Pull out all responses for Q25 (a single selection question) and combine
 
-Q36 <- "Do.you.use.cannabis.for.recreational.purposes."
+Q25 <- "Have.you.ever.been.tested.for.THC..marijuana..during.your.opioid.recovery.treatment."
 
-Q36_general <- get_single_selection(data = raw_data_general, q.name = Q36)
-Q36_bask <- get_single_selection(data = raw_data_bask, q.name = Q36)
-Q36_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q36)
+Q25_general <- get_single_selection(data = raw_data_general, q.name = Q25)
+Q25_bask <- get_single_selection(data = raw_data_bask, q.name = Q25)
+Q25_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q25)
 
-Q36_all <- rbind(Q36_general, Q36_bask, Q36_botanist)
+Q25_all <- rbind(Q25_general, Q25_bask, Q25_botanist)
 
 ## Determine Question N
 
-number_of_people <- length(unique(Q36_all$id))
+number_of_people <- length(unique(Q25_all$id))
 
 ```
 
 ```{r}
-# Plot with percents and response counts
+# Add percents and response counts
 
 for_plot <- 
-  Q36_all %>%
+  Q25_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -60,12 +60,13 @@ r
 ```
 
 ```{r}
-# Save Data
 
-ggsave(filename = 'Q36_Recreational_Cannabis_Use.png', plot = r, device = 'png')
+# Save data
 
-write.csv(for_plot, 'Q36_Recreational_Cannabis_Use_92.167.csv', row.names = FALSE)
+ggsave(filename = 'Q25_THC_Test_OUD_Treatment.png', plot = r, device = 'png')
 
-write.csv(Q36_all, 'Q36_Responses_ID.csv', row.names = FALSE)
+write.csv(for_plot, 'Q25_THC_Test_OUD_Treatment_4.167.csv', row.names = FALSE)
+
+write.csv(Q25_all, 'Q25_Responses_ID.csv', row.names = FALSE)
 
 ```
