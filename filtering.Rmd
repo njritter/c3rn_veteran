@@ -40,11 +40,18 @@ number_of_people <- length(unique(Q23_all$id))
 ```
 
 
+```{r}
+
+ids_we_want <- Q23_all %>% 
+  filter(response %in% c("Yes, currently", "Yes, in the past but not currently"))
+
+```
 
 
 ```{r}
-ids_we_want <- Q23_all %>% 
-  filter(response %in% c("Yes, currently", "Yes, in the past but not currently"))
+
+Q45_responses_we_want <- Q45_all %>%
+  right_join(ids_we_want)
 
 ```
 

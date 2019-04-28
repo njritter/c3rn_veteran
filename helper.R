@@ -53,18 +53,6 @@ tidy_choose_all <- function(data)
 
 
 
-############################################## Filter on ID ###########
-
-get_ids <- function(data, q.name, filter_by) {
-  
-  ids <- data %>%
-    filter(q.name %in% filter_by)
-  
-  return(ids)
-  
-}
-
-
 
 
 
