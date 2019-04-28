@@ -27,12 +27,14 @@ raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 
 Q6 <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
 
-Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6)
+Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6) %>%
+
 Q6_bask <- get_single_selection(data = raw_data_bask, q.name = Q6)
+
 Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
 
 Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist)
-
+  
 ## Determine Question N
 
 number_of_people <- length(unique(Q6_all$id))
