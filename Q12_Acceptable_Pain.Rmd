@@ -1,7 +1,7 @@
 ---
-title: "Q35 Medical Cannabis Use"
+title: "Q12 Acceptable Pain"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 23, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,32 +24,36 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 ```
 
 ```{r}
-# Pull out all responses for Q35 (a single selection question) and combine
+# Pull out all responses for Q12 (a single selection question) and combine
 
-Q35 <- "Do.you.use.cannabis.for.medical.purposes."
+Q12 <- "If.you.had.to.live.with.some.pain..what.level.of.pain.would.be.acceptable."
 
-Q35_general <- get_single_selection(data = raw_data_general, q.name = Q35)
-Q35_bask <- get_single_selection(data = raw_data_bask, q.name = Q35)
-Q35_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q35)
-Q35_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q96)
+Q12_general <- get_single_selection(data = raw_data_general, q.name = Q12)
+Q12_bask <- get_single_selection(data = raw_data_bask, q.name = Q12)
+Q12_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q12)
+Q12_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q12)
 
-Q35_all <- rbind(Q35_general, Q35_bask, Q35_botanist)
-
+Q12_all <- rbind(Q12_general, Q12_bask, Q12_botanist, Q12_healing_rose)
+  
 ## Determine Question N
 
-number_of_people <- length(unique(Q35_all$id))
+number_of_people <- length(unique(Q12_all$id))
+
+```
+
+```{r}
+
+for_plot <- 
+  Q12_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
 
 ```
 
 ```{r}
 # Plot with percents and response counts
-
-for_plot <- 
-  Q35_all %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
 
 r <- 
   ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
@@ -62,12 +66,11 @@ r
 ```
 
 ```{r}
-# Save Data
 
-ggsave(filename = 'Q35_Medical_Cannabis_Use.png', plot = r, device = 'png')
+ggsave(filename = 'Q12_Acceptable_Pain.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q35_Medical_Cannabis_Use_92.167.csv', row.names = FALSE)
+write.csv(for_plot, 'Q12_Acceptable_Pain_73.277.csv', row.names = FALSE)
 
-write.csv(Q35_all, 'Q35_Responses_ID.csv', row.names = FALSE)
+write.csv(Q12_all, 'Q12_Responses_ID.csv', row.names = FALSE)
 
 ```

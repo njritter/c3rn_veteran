@@ -1,6 +1,7 @@
 # Library to help analyze Veteran Survey
 
 library(tidyverse)
+library(stringr)
 
 ############################################## Single Selection Functions #####
 
@@ -13,7 +14,7 @@ get_single_selection <- function(data, q.name)
     select(id = Respondent.ID, question = q.name) %>%
     slice(2:nrow(.)) %>%
     rename(response = question) %>%
-    filter(response > 0)
+    filter(response >= 1)
   
   return(responses)
   }

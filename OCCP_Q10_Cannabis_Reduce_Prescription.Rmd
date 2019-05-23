@@ -1,0 +1,76 @@
+---
+title: "Q10 OCCP Cannabis Reduce Prescription"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
+
+```
+
+```{r}
+# Pull out all responses for Q10 (a choose all question) and combine
+
+Q10 <- 'Are.you.actively.trying.to.reduce.your.prescription.medication.intake.using.cannabis..Please.select.all.that.apply.'
+
+Q10_final_response <- "X.66"
+
+Q10_general <- get_choose_all(raw_data_general, q.name = Q10, f.response = Q10_final_response)
+  
+## Determine Question N
+
+number_of_people <- length(unique(Q10_general$id))
+
+```
+
+```{r}
+
+Q10_general_clean <- tidy_choose_all(Q10_general)
+
+```
+
+```{r}
+
+for_plot <-
+  Q10_general_clean %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+
+```
+
+
+```{r}
+
+r <- 
+  ggplot(for_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+
+```
+
+```{r}
+
+ggsave(filename = 'Q10_OCCP_MA_Cannabis_Reduce_Prescription.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q10_OCCP_MA_Cannabis_Reduce_Prescription_900.900.csv', row.names = FALSE)
+
+write.csv(Q10_general_clean, 'Q10_OCCP_MA_Responses_ID.csv', row.names = FALSE)
+
+```

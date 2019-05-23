@@ -1,7 +1,7 @@
 ---
-title: "Q35 Medical Cannabis Use"
+title: "Q8"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 22, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,32 +24,46 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 ```
 
 ```{r}
-# Pull out all responses for Q35 (a single selection question) and combine
+# Pull out all responses for Q8 (a single selection question) and combine
 
-Q35 <- "Do.you.use.cannabis.for.medical.purposes."
+Q8 <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
 
-Q35_general <- get_single_selection(data = raw_data_general, q.name = Q35)
-Q35_bask <- get_single_selection(data = raw_data_bask, q.name = Q35)
-Q35_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q35)
-Q35_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q96)
+Q8_general <- get_single_selection(data = raw_data_general, q.name = Q8)
+Q8_bask <- get_single_selection(data = raw_data_bask, q.name = Q8)
+Q8_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q8)
+Q8_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q8)
 
-Q35_all <- rbind(Q35_general, Q35_bask, Q35_botanist)
-
+Q8_all <- rbind(Q8_general, Q8_bask, Q8_botanist, Q8_healing_rose)
+  
 ## Determine Question N
 
-number_of_people <- length(unique(Q35_all$id))
+number_of_people <- length(unique(Q8_all$id))
+
+```
+
+
+```{r}
+
+test <- 
+  Q8_all %>%
+  inner_join(Q6_Chronic_Pain_ids_we_want, by = "id")
+
+```
+
+
+```{r}
+
+for_plot <- 
+  Q8_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
 
 ```
 
 ```{r}
 # Plot with percents and response counts
-
-for_plot <- 
-  Q35_all %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
 
 r <- 
   ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
@@ -62,12 +76,11 @@ r
 ```
 
 ```{r}
-# Save Data
 
-ggsave(filename = 'Q35_Medical_Cannabis_Use.png', plot = r, device = 'png')
+ggsave(filename = 'Q8_Current_Pain.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q35_Medical_Cannabis_Use_92.167.csv', row.names = FALSE)
+write.csv(for_plot, 'Q8_Current_Pain_76.277.csv', row.names = FALSE)
 
-write.csv(Q35_all, 'Q35_Responses_ID.csv', row.names = FALSE)
+write.csv(Q8_all, 'Q8_Responses_ID.csv', row.names = FALSE)
 
 ```

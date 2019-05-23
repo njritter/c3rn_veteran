@@ -1,5 +1,13 @@
 ---
-title: "Q61 Barriers"
+title: "Q13 Pain Locations"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+
+---
+title: "Q5_Common_Conditions_X"
 author: "DJ"
 date: "April 24, 2019"
 output: html_document
@@ -20,34 +28,33 @@ raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
-
 ```
 
 ```{r}
-# Pull out all responses for Q61 (a choose all question), combine, and turn
+# Pull out all responses for Q5 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-Q61 <- "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply."
-Q61_final_response <- "X.279"
+Q5 <- 'Where.are.the.locations.of.your.pain..please.check.all.that.apply.'
+Q5_final_response <- "X.66"
 
-Q61_general <- get_choose_all(raw_data_general, q.name = Q61, f.response = Q61_final_response)
-Q61_bask <- get_choose_all(raw_data_bask, q.name = Q61, f.response = Q61_final_response)
-Q61_botanist <- get_choose_all(raw_data_botanist, q.name = Q61, f.response = Q61_final_response)
-Q61_healing_rose <- get_choose_all(data = raw_data_healing_rose, q.name = Q61, f.response = Q61_final_response)
+Q5_general <- get_choose_all(raw_data_general, q.name = Q5, f.response = Q5_final_response)
+Q5_bask <- get_choose_all(raw_data_bask, q.name = Q5, f.response = Q5_final_response)
+Q5_botanist <- get_choose_all(raw_data_botanist, q.name = Q5, f.response = Q5_final_response)
+Q5_healing_rose <- get_choose_all(raw_data_healing_rose, q.name = Q5, f.response = Q5_final_response)
 
-Q61_all <- 
-  rbind(Q61_general, Q61_bask, Q61_botanist, Q61_healing_rose) %>%
+Q5_all <- 
+  rbind(Q5_general, Q5_bask, Q5_botanist) %>%
   tidy_choose_all()
 
-number_of_people <- length(unique(Q61_all$id))
-  
+
+number_of_people <- length(unique(Q5_all$id))
+
 ```
 
 ```{r}
-# Plot with percents and response counts
 
 for_plot <-
-  Q61_all %>%
+  Q5_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -64,12 +71,11 @@ r
 ```
 
 ```{r}
-# Save data
 
-ggsave(filename = 'Q61_Barriers.png', plot = r, device = 'png')
+ggsave(filename = 'Q13_Pain_Locations.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q61_Barriers_155.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q13_Pain_Locations_74.167.csv', row.names = FALSE)
 
-write.csv(Q61_all, 'Q61_Responses_ID.csv', row.names = FALSE)
+write.csv(Q5_all, 'Q13_Responses_ID.csv', row.names = FALSE)
 
 ```

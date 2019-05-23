@@ -1,4 +1,19 @@
 ---
+title: "Q14 Pain Effects"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+---
+title: "Q14 Pain Locations"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+
+---
 title: "Q5_Common_Conditions_X"
 author: "DJ"
 date: "April 24, 2019"
@@ -26,8 +41,8 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 # Pull out all responses for Q5 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-Q5 <- 'Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.'
-Q5_final_response <- "X.25"
+Q5 <- 'What.are.the.effects.of.your.pain...Please.select.all.that.apply.'
+Q5_final_response <- "X.85"
 
 Q5_general <- get_choose_all(raw_data_general, q.name = Q5, f.response = Q5_final_response)
 Q5_bask <- get_choose_all(raw_data_bask, q.name = Q5, f.response = Q5_final_response)
@@ -64,10 +79,10 @@ r
 
 ```{r}
 
-ggsave(filename = 'Q5_Common_Conditions.png', plot = r, device = 'png')
+ggsave(filename = 'Q14_Pain_Effects.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q5_Common_Conditions_228.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q14_Pain_Effects_74.167.csv', row.names = FALSE)
 
-write.csv(Q5_all, 'Q5_Responses_ID.csv', row.names = FALSE)
+write.csv(Q5_all, 'Q14_Responses_ID.csv', row.names = FALSE)
 
 ```

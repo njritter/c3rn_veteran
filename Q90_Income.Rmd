@@ -1,7 +1,7 @@
 ---
-title: "Q6 Primary Condition"
+title: "Q90 Income"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 22, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -20,35 +20,36 @@ raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+
 ```
 
 ```{r}
-# Pull out all responses for Q6 (a single selection question) and combine
+# Pull out all responses for Q90 (a single selection question) and combine
 
-Q6 <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+Q90 <- "What.is.your.annual.household.income..in.US.dollars."
 
-Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6)
-Q6_bask <- get_single_selection(data = raw_data_bask, q.name = Q6)
-Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
-Q6_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q6)
+Q90_general <- get_single_selection(data = raw_data_general, q.name = Q90)
 
-Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist, Q6_healing_rose)
+Q90_bask <- get_single_selection(data = raw_data_bask, q.name = Q90)
+
+Q90_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q90)
+
+Q90_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q90)
   
-## Determine Question N
+all_data <- rbind(Q90_general, Q90_bask, Q90_botanist, Q90_healing_rose)
 
-number_of_people <- length(unique(Q6_all$id))
-
+number_of_people_who_submitted_response_to_Q90 <- length(unique(all_data$id))
 ```
 
 
 ```{r}
 
 for_plot <- 
-  Q6_all %>%
+  all_data %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
+  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q90)
 
 ```
 
@@ -67,10 +68,10 @@ r
 
 ```{r}
 
-ggsave(filename = 'Q6_Primary_Condition.png', plot = r, device = 'png')
+ggsave(filename = 'Q90_Income.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q6_Primary_Condition_232.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q90_Income_10.277.csv', row.names = FALSE)
 
-write.csv(Q6_all, 'Q6_Responses_ID.csv', row.names = FALSE)
+write.csv(Q90_all, 'Q90_Responses_ID.csv', row.names = FALSE)
 
 ```

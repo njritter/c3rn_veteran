@@ -114,10 +114,6 @@ q
 
 ggsave(filename = 'Q88_Age_Responses.png', plot = q, device = 'png')
 
-```
-
-```{r}
-
-write.csv(Q68_plot, 'Q68_VA_Cannabis_Use_Support.csv', row.names = FALSE)
+write.csv(for_plot, 'Q88_Age_Responses.csv', row.names = FALSE)
 
 ```

@@ -1,7 +1,7 @@
 ---
-title: "Q61 Barriers"
+title: "Q47 Cannabis Use Preference"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 22, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,22 +24,24 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 ```
 
 ```{r}
-# Pull out all responses for Q61 (a choose all question), combine, and turn
+# Pull out all responses for Q47 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-Q61 <- "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply."
-Q61_final_response <- "X.279"
+Q47 <- "How.do.you.prefer.to.use.cannabis...Please.select.all.that.apply."
 
-Q61_general <- get_choose_all(raw_data_general, q.name = Q61, f.response = Q61_final_response)
-Q61_bask <- get_choose_all(raw_data_bask, q.name = Q61, f.response = Q61_final_response)
-Q61_botanist <- get_choose_all(raw_data_botanist, q.name = Q61, f.response = Q61_final_response)
-Q61_healing_rose <- get_choose_all(data = raw_data_healing_rose, q.name = Q61, f.response = Q61_final_response)
+Q47_final_response <- "X.259"
 
-Q61_all <- 
-  rbind(Q61_general, Q61_bask, Q61_botanist, Q61_healing_rose) %>%
+
+Q47_general <- get_choose_all(raw_data_general, q.name = Q47, f.response = Q47_final_response)
+Q47_bask <- get_choose_all(raw_data_bask, q.name = Q47, f.response = Q47_final_response)
+Q47_botanist <- get_choose_all(raw_data_botanist, q.name = Q47, f.response = Q47_final_response)
+Q47_healing_rose <- get_choose_all(data = raw_data_healing_rose, q.name = Q47, f.response = Q47_final_response)
+
+Q47_all <- 
+  rbind(Q47_general, Q47_bask, Q47_botanist, Q47_healing_rose) %>%
   tidy_choose_all()
 
-number_of_people <- length(unique(Q61_all$id))
+number_of_people <- length(unique(Q47_all$id))
   
 ```
 
@@ -47,7 +49,7 @@ number_of_people <- length(unique(Q61_all$id))
 # Plot with percents and response counts
 
 for_plot <-
-  Q61_all %>%
+  Q47_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -66,10 +68,10 @@ r
 ```{r}
 # Save data
 
-ggsave(filename = 'Q61_Barriers.png', plot = r, device = 'png')
+ggsave(filename = 'Q47_Cannbis_Use_Preference.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q61_Barriers_155.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q47_Cannbis_Use_Preference_155.247.csv', row.names = FALSE)
 
-write.csv(Q61_all, 'Q61_Responses_ID.csv', row.names = FALSE)
+write.csv(Q47_all, 'Q47_Responses_ID.csv', row.names = FALSE)
 
 ```

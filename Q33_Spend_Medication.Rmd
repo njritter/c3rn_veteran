@@ -20,7 +20,7 @@ source("helper.R")
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
-
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
@@ -31,18 +31,31 @@ Q33 <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.
 Q33_general <- get_single_selection(data = raw_data_general, q.name = Q33)
 Q33_bask <- get_single_selection(data = raw_data_bask, q.name = Q33)
 Q33_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q33)
+Q33_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q33)
 
-Q33_all <- rbind(Q33_general, Q33_bask, Q33_botanist)
+all_data <- rbind(Q33_general, Q33_bask, Q33_botanist, Q33_healing_rose)
+
+number_of_people_who_submitted_response_to_Q53 <- length(unique(all_data$id))
+
+```
+
+```{r}
+
+histogram_object <- hist(as.numeric(all_data$response))
+histogram_object$breaks = c(0, 200, 400, 600, 800, 1000, 1200, 1400)
+histogram_object$counts
+plot(histogram_object)
+
 
 
 
 ```
 
 ```{r}
+ggsave(filename = 'Q33_Spend_Medication.png', plot = hist, device = 'png')
 
-histogram_object <- hist(as.numeric(Q33_all$response))
-histogram_object$breaks = c(0, 200, 400, 600, 800, 1000, 1200, 1400)
-histogram_object$counts
-plot(histogram_object)
+write.csv(for_plot, 'Q33_Spend_Medication_117.277.csv', row.names = FALSE)
+
+write.csv(all_data, 'Q33_Responses_ID.csv', row.names = FALSE)
 
 ```

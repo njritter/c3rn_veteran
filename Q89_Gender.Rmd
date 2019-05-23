@@ -1,7 +1,7 @@
 ---
-title: "Q6 Primary Condition"
+title: "Q89 Gender"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 22, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -19,32 +19,32 @@ source("helper.R")
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+
 ```
 
 ```{r}
-# Pull out all responses for Q6 (a single selection question) and combine
+# Pull out all responses for Q89 (a single selection question) and combine
 
-Q6 <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+Q89 <- "To.which.gender.do.you.most.identify."
 
-Q6_general <- get_single_selection(data = raw_data_general, q.name = Q6)
-Q6_bask <- get_single_selection(data = raw_data_bask, q.name = Q6)
-Q6_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q6)
-Q6_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q6)
+Q89_general <- get_single_selection(data = raw_data_general, q.name = Q89)
+  
+Q89_bask <- get_single_selection(data = raw_data_bask, q.name = Q89)
 
-Q6_all <- rbind(Q6_general, Q6_bask, Q6_botanist, Q6_healing_rose)
+Q89_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q89)
+
+Q89_all <- rbind(Q89_general, Q89_bask, Q89_botanist)
   
 ## Determine Question N
 
-number_of_people <- length(unique(Q6_all$id))
+number_of_people <- length(unique(Q89_all$id))
 
 ```
-
 
 ```{r}
 
 for_plot <- 
-  Q6_all %>%
+  Q89_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -67,10 +67,10 @@ r
 
 ```{r}
 
-ggsave(filename = 'Q6_Primary_Condition.png', plot = r, device = 'png')
+ggsave(filename = 'Q89_Gender.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q6_Primary_Condition_232.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q89_Gender_141_277.csv', row.names = FALSE)
 
-write.csv(Q6_all, 'Q6_Responses_ID.csv', row.names = FALSE)
+write.csv(Q89_all, 'Q89_Responses_ID.csv', row.names = FALSE)
 
 ```

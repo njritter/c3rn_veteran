@@ -1,7 +1,7 @@
 ---
-title: "Q61 Barriers"
+title: "Q77 Wars Served"
 author: "DJ"
-date: "April 24, 2019"
+date: "May 22, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,22 +24,26 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 ```
 
 ```{r}
-# Pull out all responses for Q61 (a choose all question), combine, and turn
+# Pull out all responses for Q77 (a choose all question), combine, and turn
 # into a tidy data format for further processing
 
-Q61 <- "Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply."
-Q61_final_response <- "X.279"
+Q77 <- "What.war.s..did.you.serve.in...Please.select.all.that.apply."
 
-Q61_general <- get_choose_all(raw_data_general, q.name = Q61, f.response = Q61_final_response)
-Q61_bask <- get_choose_all(raw_data_bask, q.name = Q61, f.response = Q61_final_response)
-Q61_botanist <- get_choose_all(raw_data_botanist, q.name = Q61, f.response = Q61_final_response)
-Q61_healing_rose <- get_choose_all(data = raw_data_healing_rose, q.name = Q61, f.response = Q61_final_response)
+Q77_general_final_response <- "X.373"
+Q77_bask_final_response <- "X.1612"
+Q77_botanist_final_response <- "X.2772"
+Q77_healing_rose_final_response <- "X.945"
 
-Q61_all <- 
-  rbind(Q61_general, Q61_bask, Q61_botanist, Q61_healing_rose) %>%
+Q77_general <- get_choose_all(raw_data_general, q.name = Q77, f.response = Q77_general_final_response)
+Q77_bask <- get_choose_all(raw_data_bask, q.name = Q77, f.response = Q77_bask_final_response)
+Q77_botanist <- get_choose_all(raw_data_botanist, q.name = Q77, f.response = Q77_botanist_final_response)
+Q77_healing_rose <- get_choose_all(data = raw_data_healing_rose, q.name = Q77, f.response = Q77_healing_rose_final_response)
+
+Q77_all <- 
+  rbind(Q77_general, Q77_bask, Q77_botanist, Q77_healing_rose) %>%
   tidy_choose_all()
 
-number_of_people <- length(unique(Q61_all$id))
+number_of_people <- length(unique(Q77_all$id))
   
 ```
 
@@ -47,7 +51,7 @@ number_of_people <- length(unique(Q61_all$id))
 # Plot with percents and response counts
 
 for_plot <-
-  Q61_all %>%
+  Q77_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -66,10 +70,10 @@ r
 ```{r}
 # Save data
 
-ggsave(filename = 'Q61_Barriers.png', plot = r, device = 'png')
+ggsave(filename = 'Q77_Wars_Served.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q61_Barriers_155.277.csv', row.names = FALSE)
+write.csv(for_plot, 'Q77_Wars_Served_146.277.csv', row.names = FALSE)
 
-write.csv(Q61_all, 'Q61_Responses_ID.csv', row.names = FALSE)
+write.csv(Q77_all, 'Q77_Responses_ID.csv', row.names = FALSE)
 
 ```

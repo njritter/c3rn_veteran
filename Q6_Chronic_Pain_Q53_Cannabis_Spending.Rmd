@@ -1,0 +1,60 @@
+---
+title: "Chronic Pain (Top Condition) by Weekly Spending"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+
+```
+
+
+```{r}
+Q53 <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
+
+# Pull out all responses for Q53 (a single selection question) and combine
+
+Q53_general <- get_single_selection(data = raw_data_general, q.name = Q53)
+Q53_bask <- get_single_selection(data = raw_data_bask, q.name = Q53)
+Q53_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q53)
+Q53_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q53)
+  
+all_data <- rbind(Q53_general, Q53_bask, Q53_botanist, Q53_healing_rose)
+
+number_of_people_who_submitted_response_to_Q53 <- length(unique(all_data$id))
+
+``` 
+
+
+```{r}
+
+histogram_object <- hist(as.numeric(all_data$response))
+histogram_object$breaks = c(0, 100, 200, 300, 400, 500, 600)
+histogram_object$counts
+plot(histogram_object)
+
+```
+
+```{r}
+
+ggsave(filename = 'Q53_Filtered_Q6.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q53_Filtered_Q6_80.277.csv', row.names = FALSE)
+
+```

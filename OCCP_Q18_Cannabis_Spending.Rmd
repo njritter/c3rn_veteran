@@ -1,0 +1,72 @@
+---
+title: "OCCP Q18 Cannabis Spending"
+author: "DJ"
+date: "May 23, 2019"
+output: html_document
+runtime: shiny
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+
+raw_data_general <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
+
+```
+
+```{r}
+# Pull out all responses for Q18 (a single selection question) and combine
+
+Q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
+
+Q18_general <- get_single_selection(data = raw_data_general, q.name = Q18)
+
+  
+## Determine Question N
+
+number_of_people <- length(unique(Q18_general$id))
+
+```
+
+
+```{r}
+
+for_plot <- 
+  Q18_general %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+
+```
+
+```{r}
+# Plot with percents and response counts
+
+r <- 
+  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+
+```
+
+
+```{r}
+
+ggsave(filename = 'Q18_OCCP_MA_Cannabis_Spending.png', plot = r, device = 'png')
+
+write.csv(for_plot, 'Q18_OCCP_MA_Cannabis_Spending_852.900.csv', row.names = FALSE)
+
+write.csv(Q18_general, 'Q18_OCCP_MA_Responses_ID.csv', row.names = FALSE)
+
+```
