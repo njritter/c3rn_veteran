@@ -1,22 +1,20 @@
 ---
-title: "Q33_Spend_Medication"
-author: "Neil Ritter"
-date: "4/10/2019"
+title: "Q33 Spend Medication (Veterans)"
+author: "DJ"
+date: "June 13, 2019"
 output: html_document
 ---
 
-
 ```{r, message = FALSE}
+# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
 source("helper.R")
 ```
 
-
 ```{r}
-# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
-
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
@@ -24,9 +22,8 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 ```
 
 ```{r}
+# Pull out all responses for Q6 (a single selection question) combine, then determine 'question n'
 Q33 <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.a.monthly.basis.out.of.pocket."
-
-# Pull out all responses for Q33 (a single selection question) and combine
 
 Q33_general <- get_single_selection(data = raw_data_general, q.name = Q33)
 Q33_bask <- get_single_selection(data = raw_data_bask, q.name = Q33)
@@ -36,7 +33,6 @@ Q33_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = 
 all_data <- rbind(Q33_general, Q33_bask, Q33_botanist, Q33_healing_rose)
 
 number_of_people_who_submitted_response_to_Q53 <- length(unique(all_data$id))
-
 ```
 
 ```{r}

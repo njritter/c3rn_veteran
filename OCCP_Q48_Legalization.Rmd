@@ -1,5 +1,5 @@
 ---
-title: "OCCP Q57 State"
+title: "Q48 Legalization (OCCP)"
 author: "DJ"
 date: "June 13, 2019"
 output: html_document
@@ -20,18 +20,18 @@ raw_data_occp <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q57 (a DROP DOWN QUESTION) and combine
-Q57 <- "What.US.state.do.you.live.in."
+# Pull out all responses for Q48 (a single selection question) combine, then determine 'question n'
+Q48 <- "What.are.your.general.thoughts.regarding.the.legalization.of.cannabis."
 
-Q57_all <- get_single_selection(data = raw_data_occp, q.name = Q57)
+Q48_all <- get_single_selection(data = raw_data_occp, q.name = Q48)
 
-number_of_people <- length(unique(Q5_all$id))
+number_of_people <- length(unique(Q48_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q57_plot <- 
-  Q57_all %>%
+Q48_plot <- 
+  Q48_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -41,7 +41,7 @@ Q57_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q57_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(Q48_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -51,9 +51,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'Q57_State_OCCP.png', plot = r, device = 'png')
+ggsave(filename = 'OCCP_Q48_Legalization.png', plot = r, device = 'png')
 
-write.csv(Q57_plot, 'Q57_State_OCCP_1275.1816.csv', row.names = FALSE)
+write.csv(Q48_plot, 'OCCP_Q48_Legalization_893.900.csv', row.names = FALSE)
 
-write.csv(Q57_all, 'Q57_State_OCCP_Responses_ID.csv', row.names = FALSE)
+write.csv(Q48_all, 'OCCP_Q48_Responses_ID.csv', row.names = FALSE)
 ```

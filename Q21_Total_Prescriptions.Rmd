@@ -1,5 +1,5 @@
 ---
-title: "Q36 Recreational Cannabis Use (Veterans)"
+title: "Q21 Total Prescriptions (Veterans)"
 author: "DJ"
 date: "June 13, 2019"
 output: html_document
@@ -24,22 +24,22 @@ raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors
 
 ```{r}
 # Pull out all responses for Q6 (a single selection question) combine, then determine 'question n'
-Q36 <- "Do.you.use.cannabis.for.recreational.purposes."
+Q21 <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
 
-Q36_general <- get_single_selection(data = raw_data_general, q.name = Q36)
-Q36_bask <- get_single_selection(data = raw_data_bask, q.name = Q36)
-Q36_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q36)
-Q36_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q36)
+Q21_general <- get_single_selection(data = raw_data_general, q.name = Q21)
+Q21_bask <- get_single_selection(data = raw_data_bask, q.name = Q21)
+Q21_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q21)
+Q21_healing_rose <- get_single_selection(raw_data_healing_rose, q.name = Q21)
 
-Q36_all <- rbind(Q36_general, Q36_bask, Q36_botanist, Q36_healing_rose)
+Q21_all <- rbind(Q21_general, Q21_bask, Q21_botanist, Q21_healing_rose)
 
-number_of_people <- length(unique(Q36_all$id))
+number_of_people <- length(unique(Q21_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q36_plot <- 
-  Q36_all %>%
+Q21_plot <- 
+  Q21_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -49,7 +49,7 @@ Q36_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q36_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(Q21_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -59,9 +59,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'Q36_Recreational_Cannabis_Use.png', plot = r, device = 'png')
+ggsave(filename = 'Q21_Total_Prescriptions.png', plot = r, device = 'png')
 
-write.csv(Q36_plot, 'Q36_Recreational_Cannabis_Use_167.305.csv', row.names = FALSE)
+write.csv(Q21_plot, 'Q21_Total_Prescriptions_170.305.csv', row.names = FALSE)
 
-write.csv(Q36_all, 'Q36_Responses_ID.csv', row.names = FALSE)
+write.csv(Q21_all, 'Q21_Responses_ID.csv', row.names = FALSE)
 ```

@@ -1,7 +1,16 @@
+
 # Library to help analyze Veteran Survey
 
+```{r, message = FALSE}
+
+# Load libraries
 library(tidyverse)
+library(ggplot2)
 library(stringr)
+source("helper.R")
+
+```
+
 
 ############################################## Single Selection Functions #####
 

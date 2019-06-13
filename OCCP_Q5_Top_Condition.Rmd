@@ -1,12 +1,13 @@
 ---
-title: "OCCP Q5"
+title: "Q5 Top Condition (OCCP)"
 author: "DJ"
-date: "May 23, 2019"
+date: "June 13, 2019"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
+# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -14,56 +15,45 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
-
-raw_data_general <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
-
+# Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_occp <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q5 (a single selection question) and combine
-
+# Pull out all responses for Q5 (a single selection question) combine, then determine 'question n'
 Q5 <- "WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one."
 
-Q5_general <- get_single_selection(data = raw_data_general, q.name = Q5)
-
-  
-## Determine Question N
+Q5_data <- get_single_selection(data = raw_data_occp, q.name = Q5)
 
 number_of_people <- length(unique(Q5_general$id))
-
 ```
 
 ```{r}
-
-for_plot <- 
-  Q5_general %>%
+# Manipulate data into a graphable format
+Q5_plot <- 
+  Q5_data %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
   mutate(percent_responded = count / number_of_people)
-
 ```
 
 ```{r}
 # Plot with percents and response counts
-
 r <- 
-  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(Q5_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 
 r
-
 ```
 
 ```{r}
-
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'Q5_OCCP_MA_Primary_Condition.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q5_OCCP_MA_Primary_Condition_840.900.csv', row.names = FALSE)
+write.csv(Q5_plot, 'Q5_OCCP_MA_Primary_Condition_840.900.csv', row.names = FALSE)
 
-write.csv(Q5_general, 'Q5_OCCP_MA_Responses_ID.csv', row.names = FALSE)
-
+write.csv(Q5_data, 'Q5_OCCP_MA_Responses_ID.csv', row.names = FALSE)
 ```

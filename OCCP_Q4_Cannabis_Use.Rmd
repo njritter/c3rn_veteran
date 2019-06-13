@@ -1,0 +1,61 @@
+---
+title: "Q4 Cannabis Use (OCCP)"
+author: "DJ"
+date: "June 13, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_occp <- read.csv("data/occp_ma_text.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q4 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+Q4 <- "How.do.you.use.cannabis..Please.select.all.that.apply."
+Q4_final_response <- "X.3"
+
+Q4_all <- get_choose_all(raw_data_occp, q.name = Q4, f.response = Q4_final_response)
+Q4_clean <- tidy_choose_all(Q4_all)
+
+number_of_people <- length(unique(Q4_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q4_plot <-
+  Q4_clean %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q4_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'OCCP_Q4_Cannabis_Use.png', plot = r, device = 'png')
+
+write.csv(Q4_plot, 'OCCP_Q4_Cannabis_Use_900_900.csv', row.names = FALSE)
+
+write.csv(Q4_clean, 'OCCP_Q4_Cannabis_Use_Responses_ID.csv', row.names = FALSE)
+```

@@ -19,6 +19,7 @@ source("helper.R")
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
 
 ```
 
@@ -30,8 +31,9 @@ Q23 <- "Have.you.ever.been.diagnosed.with.Opioid.Use.Disorder..OUD.."
 Q23_general <- get_single_selection(data = raw_data_general, q.name = Q23)
 Q23_bask <- get_single_selection(data = raw_data_bask, q.name = Q23)
 Q23_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q23)
+Q23_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q23)
 
-Q23_all <- rbind(Q23_general, Q23_bask, Q23_botanist)
+Q23_all <- rbind(Q23_general, Q23_bask, Q23_botanist, Q23_healing_rose)
 
 ## Determine Question N
 

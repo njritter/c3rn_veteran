@@ -1,11 +1,12 @@
 ---
-title: "Q88_Age_Range"
+title: "Q88 Age Range (Veterans)"
 author: "David Ritter"
-date: "4/17/2019"
+date: "June 13, 2019"
 output: html_document
 ---
 
 ```{r, message = FALSE}
+# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -13,12 +14,11 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
-
-raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
-
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
@@ -27,74 +27,41 @@ raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 # - Drop first row (first row contained column names)
 # - Add survey source as a variable
 
-    ## General
+Q88 <- "What.is.your.age..in.years.."
 
-general <- 
-  raw_data_general %>%
-  select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.))
+general <- get_single_selection(data = raw_data_general, q.name = Q88)
+bask <- get_single_selection(data = raw_data_bask, q.name = Q88)
+botanist <- get_single_selection(data = raw_data_botanist, q.name = Q88)
+healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q88)
 
-  ## Bask
-bask <- 
-  raw_data_bask %>%
-  select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.))
-
-  ## Botanist
-botanist <- 
-  raw_data_botanist %>%
-  select(question = "What.is.your.age..in.years..") %>%
-  slice(2:nrow(.))
-
+Q88_data <- rbind(general, bask, botanist, healing_rose)
 ```
 
 ```{r}
-# Combine General, Botanist, and Bask data frames into 1 and remove blank responses
-
-all_data <- 
-  rbind(general, bask, botanist) %>%
-  filter(question > 0) %>%
-  mutate(question = as.numeric(question)) %>%
-  mutate(range = case_when(
-    question == 1 ~ "21 - 29",
-    question == 2 ~ "30 - 39",
-    question == 3 ~ "40 - 49",
-    question == 4 ~ "50 - 59",
-    question == 5 ~ "60 - 69",
-    question == 6 ~ "70+"))
-
-## Add # Responses
-
-number_of_people <- length(unique(all_data$id))
-
+# Manipulate data into a graphable format
+Q88_plot <-
+  Q88_data %>%
+  group_by(response, ) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  mutate(percent_all = count / sum(count))
 ```
 
 ```{r}
 # Plot with percents and response counts
-
-for_plot <-
-  all_data %>%
-  group_by(range, ) %>%
-  summarize(count = n()) %>%
-  ungroup() %>%
-  mutate(percent_all = count / sum(count))
-  
 r <- 
-  ggplot(for_plot, aes(x = range, y = count)) +
+  ggplot(Q88_plot, aes(x = response, y = count)) +
   geom_bar(stat = 'identity') +
   geom_text(aes(label= paste(round(percent_all,2), count, sep = "***")))
 
 r
-
 ```
 
 ```{r}
-# Save Data
-
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'Q88_Age.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q88_Age_83.167.csv', row.names = FALSE)
+write.csv(Q88_plot, 'Q88_Age_152.277.csv', row.names = FALSE)
 
-write.csv(Q23_all, 'Q88_Responses_ID.csv', row.names = FALSE)
-
+write.csv(Q88_data, 'Q88_Responses_ID.csv', row.names = FALSE)
 ```

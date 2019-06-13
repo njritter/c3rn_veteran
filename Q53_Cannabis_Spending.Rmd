@@ -1,34 +1,31 @@
 ---
 title: "Q53 Cannabis Spending"
 author: "DJ"
-date: "May 14, 2019"
+date: "June 13, 2019"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
+# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
 source("helper.R")
 ```
 
-
 ```{r}
-# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
-
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
 raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
 raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
-
 ```
 
 
 ```{r}
+# Pull out all responses for Q6 (a single selection question) combine, then determine 'question n'
 Q53 <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
-
-# Pull out all responses for Q53 (a single selection question) and combine
 
 Q53_general <- get_single_selection(data = raw_data_general, q.name = Q53)
 Q53_bask <- get_single_selection(data = raw_data_bask, q.name = Q53)
@@ -38,7 +35,6 @@ Q53_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = 
 all_data <- rbind(Q53_general, Q53_bask, Q53_botanist, Q53_healing_rose)
 
 number_of_people_who_submitted_response_to_Q53 <- length(unique(all_data$id))
-
 ```
 
 ```{r}

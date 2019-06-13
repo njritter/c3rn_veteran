@@ -1,13 +1,13 @@
 ---
-title: "OCCP Q18 Cannabis Spending"
+title: "Q18 Cannabis Spending (OCCP)"
 author: "DJ"
-date: "May 23, 2019"
+date: "June 13, 2019"
 output: html_document
 runtime: shiny
 ---
 
-
 ```{r, message = FALSE}
+# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -15,58 +15,45 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
-
-raw_data_general <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
-
+# Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_occp <- read.csv("data/occp_ma.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q18 (a single selection question) and combine
-
+# Pull out all responses for Q18 (a single selection question) combine, then determine 'question n'
 Q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
 
-Q18_general <- get_single_selection(data = raw_data_general, q.name = Q18)
-
-  
-## Determine Question N
+Q18_all <- get_single_selection(data = raw_data_occp, q.name = Q18)
 
 number_of_people <- length(unique(Q18_general$id))
-
 ```
 
-
 ```{r}
-
-for_plot <- 
-  Q18_general %>%
+# Manipulate data into a graphable format
+Q18_plot <- 
+  Q18_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
   mutate(percent_responded = count / number_of_people)
-
 ```
 
 ```{r}
 # Plot with percents and response counts
-
 r <- 
-  ggplot(for_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(Q18_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
 
 r
-
 ```
 
-
 ```{r}
-
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'Q18_OCCP_MA_Cannabis_Spending.png', plot = r, device = 'png')
 
-write.csv(for_plot, 'Q18_OCCP_MA_Cannabis_Spending_852.900.csv', row.names = FALSE)
+write.csv(Q18_plot, 'Q18_OCCP_MA_Cannabis_Spending_852.900.csv', row.names = FALSE)
 
-write.csv(Q18_general, 'Q18_OCCP_MA_Responses_ID.csv', row.names = FALSE)
-
+write.csv(Q18_all, 'Q18_OCCP_MA_Responses_ID.csv', row.names = FALSE)
 ```
