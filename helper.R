@@ -1,16 +1,6 @@
-
 # Library to help analyze Veteran Survey
 
-```{r, message = FALSE}
-
-# Load libraries
 library(tidyverse)
-library(ggplot2)
-library(stringr)
-source("helper.R")
-
-```
-
 
 ############################################## Single Selection Functions #####
 
@@ -23,7 +13,7 @@ get_single_selection <- function(data, q.name)
     select(id = Respondent.ID, question = q.name) %>%
     slice(2:nrow(.)) %>%
     rename(response = question) %>%
-    filter(response >= 1)
+    filter(response > 0)
   
   return(responses)
   }

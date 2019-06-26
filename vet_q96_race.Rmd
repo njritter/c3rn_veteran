@@ -1,0 +1,67 @@
+---
+title: "Q96 Race (Veterans)"
+author: "DJ"
+date: "June 26, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q96 (a single selection question) combine, then determine 'question n'
+Q96 <- "Which.of.the.following.best.represents.your.ethnic.heritage."
+
+Q96_general <- get_single_selection(data = raw_data_general, q.name = Q96)
+Q96_bask <- get_single_selection(data = raw_data_bask, q.name = Q96)
+Q96_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q96)
+Q96_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q96)
+
+Q96_all <- rbind(Q96_general, Q96_bask, Q96_botanist, Q96_healing_rose)
+
+number_of_people <- length(unique(Q96_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q96_plot <- 
+  Q96_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q96_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'vet_q96_race.png', plot = r, device = 'png')
+
+write.csv(Q96_plot, 'vet_q96_race_144.277.csv', row.names = FALSE)
+
+write.csv(Q96_all, 'vet_q96_race_ids.csv', row.names = FALSE)
+```

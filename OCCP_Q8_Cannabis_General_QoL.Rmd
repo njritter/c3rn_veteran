@@ -1,7 +1,7 @@
 ---
 title: "Q8 Cannabis General QoL (OCCP)"
 author: "DJ"
-date: "June 13, 2019"
+date: "June 26, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -53,9 +53,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'OCCP_Q8_Cannabis_General_QoL.png', plot = r, device = 'png')
+ggsave(filename = 'occp_q8_cannabis_general_qol.png', plot = r, device = 'png')
 
-write.csv(Q8_plot, 'OCCP_Q8_Cannabis_General_QoL_900.900.csv', row.names = FALSE)
+write.csv(Q8_plot, 'occp_q8_cannabis_general_qol_900.900.csv', row.names = FALSE)
 
-write.csv(Q8_clean, 'OCCP_Q8_Responses_ID.csv', row.names = FALSE)
+write.csv(Q8_clean, 'occp_q8_cannabis_general_qol_ids.csv', row.names = FALSE)
 ```

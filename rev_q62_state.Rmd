@@ -1,0 +1,68 @@
+---
+title: "Q62 State (Rev)"
+author: "DJ"
+date: "June 26, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Rev survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_rev <- read.csv("data/rev_text.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q62 (a single selection question) combine, then determine 'question n'
+
+Q62 <- "What.US.state.do.you.live.in."
+
+Q62_rev <- get_single_selection(data = raw_data_rev, q.name = Q62)
+
+Q62_all <- rbind(Q62_rev)
+
+number_of_people <- length(unique(Q62_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q62_plot <- 
+  Q62_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q62_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'rev_q62_state.png', plot = r, device = 'png')
+
+write.csv(Q62_plot, 'rev_q62_state_103.305.csv', row.names = FALSE)
+
+write.csv(Q62_all, 'rev_q62_state_ids.csv', row.names = FALSE)
+```
+
+
+
+
+
+

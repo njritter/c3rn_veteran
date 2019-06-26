@@ -1,7 +1,7 @@
 ---
 title: "Q49 Youth Use Legalization (OCCP)"
 author: "DJ"
-date: "June 13, 2019"
+date: "June 26, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -51,9 +51,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'OCCP_Q49_Legalization_Youth.png', plot = r, device = 'png')
+ggsave(filename = 'occp_q49_legalization_youth.png', plot = r, device = 'png')
 
-write.csv(Q49_plot, 'OCCP_Q49_Legalization_Youth_900.900.csv', row.names = FALSE)
+write.csv(Q49_plot, 'occp_q49_legalization_youth_900.900.csv', row.names = FALSE)
 
-write.csv(Q49_all, 'Responses_ID.csv', row.names = FALSE)
+write.csv(Q49_all, 'occp_q49_legalization_youth_ids.csv', row.names = FALSE)
 ```
