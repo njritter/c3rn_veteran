@@ -1,0 +1,72 @@
+---
+title: "Q77 Wars Served (Nat Veterans)"
+author: "DJ"
+date: "July 29, 19"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q77 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+Q77 <- "What.war.s..did.you.serve.in...Please.select.all.that.apply."
+Q77_general_f <- "X.373"
+Q77_botanist_f <- "X.2772"
+Q77_bask_f <- "X.1612"
+Q77_healing_rose_f <- "X.945"
+
+Q77_general <- get_choose_all(raw_data_general, q.name = Q77, f.response = Q77_general_f)
+Q77_bask <- get_choose_all(raw_data_bask, q.name = Q77, f.response = Q77_bask_f)
+Q77_botanist <- get_choose_all(raw_data_botanist, q.name = Q77, f.response = Q77_botanist_f)
+Q77_healing_rose <- get_choose_all(raw_data_healing_rose, q.name = Q77, f.response = Q77_healing_rose_f)
+
+Q77_all <- rbind(Q77_general, Q77_bask, Q77_botanist, Q77_healing_rose) %>%
+  tidy_choose_all()
+
+number_of_people <- length(unique(Q77_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q77_plot <-
+  Q77_all %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q77_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'vet_q_wars_served.png', plot = r, device = 'png')
+
+write.csv(Q77_plot, 'vet_q_wars_served_372.csv', row.names = FALSE)
+
+write.csv(Q77_all, 'vet_q_wars_served_ids.csv', row.names = FALSE)
+```

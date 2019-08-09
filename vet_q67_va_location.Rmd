@@ -1,5 +1,5 @@
 ---
-title: "Q67 Which VA Do You Go To (Veterans)"
+title: "Q67 Which VA Do You Go To (All Veterans)"
 runtime: shiny
 output: html_document
 ---

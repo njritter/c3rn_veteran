@@ -1,0 +1,48 @@
+---
+title: "Q29 Percentage Disability (Bask)"
+author: "DJ"
+date: "August 8, 2019"
+output: html_document
+---
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Bask surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q29 (a single selection question) combine, then determine 'question n'
+Q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
+
+Q29_bask <- get_single_selection(data = raw_data_bask, q.name = Q29)
+
+Q29_all <- rbind(Q29_bask)
+
+number_of_people <- length(unique(Q29_all$id))
+```
+
+
+```{r}
+histogram_object <- hist(as.numeric(Q29_all$response))
+histogram_object$breaks
+histogram_object$counts
+plot(histogram_object)
+```
+
+```{r}
+ggsave(plot(histogram_object), file = "bask_Q29_Percentage_Disability.png")
+```
+
+```{r}
+write.csv(Q29_all, 'bask_Q29_Percentage_Disability_10.csv', row.names = FALSE)
+```
+
+
+

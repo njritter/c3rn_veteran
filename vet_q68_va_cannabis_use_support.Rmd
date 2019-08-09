@@ -1,7 +1,7 @@
 ---
-title: "Q68 VA Cannabis Use Support (Veterans)"
+title: "Q68 VA Cannabis Use Support (All Veterans)"
 author: "DJ"
-date: "June 26, 2019"
+date: "July 29, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -59,9 +59,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q68_va_cannabis_use_support.png', plot = r, device = 'png')
+ggsave(filename = 'q68_va_cannabis_use_support.png', plot = r, device = 'png')
 
-write.csv(Q68_plot, 'vet_q68_va_cannabis_use_support_76.167.csv', row.names = FALSE)
+write.csv(Q68_plot, 'q68_va_cannabis_use_support_data.csv', row.names = FALSE)
 
-write.csv(Q68_all, 'vet_q68_va_cannabis_use_support_ids.csv', row.names = FALSE)
+write.csv(Q68_all, 'q68_va_cannabis_use_support_info.csv', row.names = FALSE)
 ```

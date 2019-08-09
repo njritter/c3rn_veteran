@@ -1,0 +1,65 @@
+---
+title: "Q10 Lowest Pain (Veterans)"
+author: "DJ"
+date: "June 26, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general_ma.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist_ma.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_ma.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q10 (a single selection question), combine, then determine 'question n'
+Q10 <- "What.is.your.least.level.of.pain..what.is.the.lowest.level.of.pain.you.feel.."
+
+Q10_general <- get_single_selection(data = raw_data_general, q.name = Q10)
+Q10_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q10)
+Q10_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q10)
+
+Q10_all <- rbind(Q10_general, Q10_botanist, Q10_healing_rose)
+
+number_of_people <- length(unique(Q10_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q10_plot <- 
+  Q10_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q10_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'vet_q10_least_pain.png', plot = r, device = 'png')
+
+write.csv(Q10_plot, 'vet_q10_least_pain_52.csv', row.names = FALSE)
+
+write.csv(Q10_all, 'vet_q10_least_pain_ids.csv', row.names = FALSE)
+```
