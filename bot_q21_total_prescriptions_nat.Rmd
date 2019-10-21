@@ -1,5 +1,5 @@
 ---
-title: "Q21 Total Prescriptions (Bask)"
+title: "Q21 Total Prescriptions (botanist)"
 author: "DJ"
 date: "August 8, 2019"
 output: html_document
@@ -15,17 +15,17 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data from the Bask survey. These are the files downloaded from survey monkey saved as a .csv
-raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
+# Read in raw data from the botanist survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
 ```
   
 ```{r}
 # Pull out all responses for Q21 (a single selection question) combine, then determine 'question n'
 Q21 <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
 
-Q21_bask <- get_single_selection(data = raw_data_bask, q.name = Q21)
+Q21_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q21)
 
-Q21_all <- rbind(Q21_bask)
+Q21_all <- rbind(Q21_botanist)
 
 number_of_people <- length(unique(Q21_all$id))
 ```
@@ -53,9 +53,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = ' bask_q21_total_prescriptions.png', plot = r, device = 'png')
+ggsave(filename = 'botanist_q21_total_prescriptions.png', plot = r, device = 'png')
 
-write.csv(Q21_plot, ' bask_q21_total_prescriptions_13.csv', row.names = FALSE)
+write.csv(Q21_plot, 'botanist_q21_total_prescriptions_13.csv', row.names = FALSE)
 
-write.csv(Q21_all, ' bask_q21_total_prescriptions_ids.csv', row.names = FALSE)
+write.csv(Q21_all, 'botanist_q21_total_prescriptions_ids.csv', row.names = FALSE)
 ```

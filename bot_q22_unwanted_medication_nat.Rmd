@@ -53,9 +53,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q22_unwanted_medication.png', plot = r, device = 'png')
+ggsave(filename = 'bot_q22_unwanted_medication.png', plot = r, device = 'png')
 
-write.csv(Q22_plot, 'vet_q22_unwanted_medication_16.csv', row.names = FALSE)
+write.csv(Q22_plot, 'bot_q22_unwanted_medication_16.csv', row.names = FALSE)
 
-write.csv(Q22_all, 'vet_q22_unwanted_medication_ids.csv', row.names = FALSE)
+write.csv(Q22_all, 'bot_q22_unwanted_medication_ids.csv', row.names = FALSE)
 ```

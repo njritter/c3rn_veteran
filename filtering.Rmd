@@ -39,15 +39,10 @@ Q23_all <- rbind(Q23_general, Q23_bask, Q23_botanist, Q23_healing_rose)
 
 number_of_people <- length(unique(Q23_all$id))
 
-```
-
-
-```{r}
-
-ids_we_want <- Q23_all %>% 
-  filter(response %in% c("Yes, currently", "Yes, in the past but not currently"))
 
 ```
+
+
 
 
 ```{r}
