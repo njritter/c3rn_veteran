@@ -1,7 +1,7 @@
 ---
-title: "Q7 Symptoms (Veterans)"
+title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)' (National Veterans)"
 author: "DJ"
-date: "June 26, 19"
+date: "October 21, 19"
 output: html_document
 runtime: shiny
 ---
@@ -16,54 +16,53 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
-raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q7 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
-Q7 <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
-Q7_final_response <- "X.43"
+# Pull out all responses for q7 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+q7 <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
+q7_final_response <- "X.43"
 
-Q7_general <- get_choose_all(raw_data_general, q.name = Q7, f.response = Q7_final_response)
-Q7_bask <- get_choose_all(raw_data_bask, q.name = Q7, f.response = Q7_final_response)
-Q7_botanist <- get_choose_all(raw_data_botanist, q.name = Q7, f.response = Q7_final_response)
-Q7_healing_rose <- get_choose_all(raw_data_healing_rose, q.name = Q7, f.response = Q7_final_response)
+q7_general <- get_choose_all(raw_data_general, q.name = q7, f.response = q7_final_response)
+q7_bask <- get_choose_all(raw_data_bask, q.name = q7, f.response = q7_final_response)
+q7_botanist <- get_choose_all(raw_data_botanist, q.name = q7, f.response = q7_final_response)
+q7_hr <- get_choose_all(raw_data_hr, q.name = q7, f.response = q7_final_response)
 
-Q7_all <- rbind(Q7_general, Q7_bask, Q7_botanist, Q7_healing_rose) %>%
+q7_all <- rbind(q7_general, q7_bask, q7_botanist, q7_hr) %>%
   tidy_choose_all()
 
-number_of_people <- length(unique(Q7_all$id))
+q7_n <- length(unique(q7_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q7_plot <-
-  Q7_all %>%
+q7_plot <-
+  q7_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
+  mutate(percent_responded = count / q7_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q7_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  ggplot(q7_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
-
 r
 ```
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q7_symptoms.png', plot = r, device = 'png')
+ggsave(filename = 'q7_condition_symptoms.png', plot = r, device = 'png')
 
-write.csv(Q7_plot, 'vet_q7_symptoms_372.csv', row.names = FALSE)
+write.csv(q7_plot, 'q7_condition_symptoms_431.csv', row.names = FALSE)
 
-write.csv(Q7_all, 'vet_q7_symptoms_ids.csv', row.names = FALSE)
+write.csv(q7_all, 'q7_condition_symptoms_ids.csv', row.names = FALSE)
 ```

@@ -1,7 +1,7 @@
 ---
-title: "Q98 State (Veterans)"
+title: "q98 'What state in the US do you currently live in?' (National Veterans)"
 author: "DJ"
-date: "June 26, 2019"
+date: "October 21, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,40 +16,41 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
-raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q98 (a single selection question) combine, then determine 'question n'
+# Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
 
-Q98 <- "What.state.in.the.US.do.you.currently.live.in."
-Q99 <- "What.US.State.do.you.currently.live.in."
-Q100 <- "Which.US.state.do.you.currently.live.in."
-Q101 <- "What.US.state.do.you.currently.live.in."
+q98 <- "What.state.in.the.US.do.you.currently.live.in."
+q99 <- "What.US.State.do.you.currently.live.in."
+q100 <- "Which.US.state.do.you.currently.live.in."
+q101 <- "What.US.state.do.you.currently.live.in."
 
-Q98_general <- get_single_selection(data = raw_data_general, q.name = Q98)
-Q98_bask <- get_single_selection(data = raw_data_bask, q.name = Q99)
-Q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q100)
-Q98_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q101)
-Q98_all <- rbind(Q98_general, Q98_bask, Q98_botanist, Q98_healing_rose)
+q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
+q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
+q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
 
-number_of_people <- length(unique(Q98_all$id))
+q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
+
+q98_n <- length(unique(q98_all$id))
 ```
 
-
 ```{r}
-ma_ids <- Q98_all %>% 
+ma_ids <- q98_all %>% 
   filter(response %in% c("Massachusetts"))
-ma_people <- length(unique(ma_ids$id))
+
+state_ma <- length(unique(ma_ids$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q98_plot <- 
-  Q98_all %>%
+q98_plot <- 
+  q98_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -59,7 +60,7 @@ Q98_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q98_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q98_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -69,11 +70,11 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q98_state.png', plot = r, device = 'png')
+ggsave(filename = 'q98_state.png', plot = r, device = 'png')
 
-write.csv(Q98_plot, 'vet_q98_state_103.305.csv', row.names = FALSE)
+write.csv(q98_plot, 'q98_state_.csv', row.names = FALSE)
 
-write.csv(Q98_all, 'vet_q98_state_ids.csv', row.names = FALSE)
+write.csv(q98_all, 'q98_state_ids.csv', row.names = FALSE)
 ```
 
 

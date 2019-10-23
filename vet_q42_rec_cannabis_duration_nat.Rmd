@@ -1,7 +1,7 @@
 ---
-title: "Q42 Rec Cannabis Duration (Nat Veterans)"
+title: "Q42 'How long have you been using cannabis for recreational purposes?' (National Veterans)"
 author: "DJ"
-date: "June 26, 2019"
+date: "October 21, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,10 +16,10 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
-raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
@@ -29,11 +29,11 @@ Q42 <- "How.long.have.you.been.using.cannabis.for.recreational.purposes."
 Q42_general <- get_single_selection(data = raw_data_general, q.name = Q42)
 Q42_bask <- get_single_selection(data = raw_data_bask, q.name = Q42)
 Q42_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q42)
-Q42_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q42)
+Q42_hr <- get_single_selection(data = raw_data_hr, q.name = Q42)
 
-Q42_all <- rbind(Q42_general, Q42_bask, Q42_botanist, Q42_healing_rose)
+Q42_all <- rbind(Q42_general, Q42_bask, Q42_botanist, Q42_hr)
 
-number_of_people <- length(unique(Q42_all$id))
+q42_n <- length(unique(Q42_all$id))
 ```
 
 ```{r}
@@ -43,7 +43,7 @@ Q42_plot <-
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
+  mutate(percent_responded = count / q42_n)
 ```
 
 ```{r}
@@ -59,9 +59,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q42_rec_cannabis_duration.png', plot = r, device = 'png')
+ggsave(filename = 'q42_rec_cannabis_duration.png', plot = r, device = 'png')
 
-write.csv(Q42_plot, 'vet_q42_rec_cannabis_duration_372.csv', row.names = FALSE)
+write.csv(Q42_plot, 'q42_rec_cannabis_duration_431.csv', row.names = FALSE)
 
-write.csv(Q42_all, 'vet_q42_rec_cannabis_duration_ids.csv', row.names = FALSE)
+write.csv(Q42_all, 'q42_rec_cannabis_duration_ids.csv', row.names = FALSE)
 ```
