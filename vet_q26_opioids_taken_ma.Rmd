@@ -1,7 +1,7 @@
 ---
-title: "Q30 'Do you currently have health insurance? (Please select one)' (MA Veterans)"
+title: "q26 'Have you ever taken any of the following opioids? (Please select all that apply)' (MA Veterans)"
 author: "DJ"
-date: "June 26, 2019"
+date: "October 21, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -44,46 +44,49 @@ state_ma <- length(unique(ma_ids$id))
 ```
 
 ```{r}
-# Pull out all responses for Q30 (a single selection question), combine, then determine 'question n'
-Q30 <- "Do.you.currently.have.health.insurance...Please.select.one."
+# Pull out all responses for q26 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+q26 <- 'Have.you.ever.taken.any.of.the.following.opioids...Please.select.all.that.apply.'
+q26_final_response <- "X.148"
 
-Q30_general <- get_single_selection(data = raw_data_general, q.name = Q30)
-Q30_bask <- get_single_selection(data = raw_data_bask, q.name = Q30)
-Q30_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q30)
-Q30_hr <- get_single_selection(data = raw_data_hr, q.name = Q30)
+q26_general <- get_choose_all(raw_data_general, q.name = q26, f.response = q26_final_response)
+q26_bask <- get_choose_all(raw_data_bask, q.name = q26, f.response = q26_final_response)
+q26_botanist <- get_choose_all(raw_data_botanist, q.name = q26, f.response = q26_final_response)
+q26_hr <- get_single_selection(data = raw_data_hr, q.name = q26)
 
-Q30_all <- rbind(Q30_general, Q30_bask, Q30_botanist, Q30_hr) %>%
+q26_all <- 
+  rbind(q26_general, q26_bask, q26_botanist, q26_hr) %>%
+  tidy_choose_all() %>%
   inner_join(ma_ids, by = "id")
 
-q30_m_n <- length(unique(Q30_all$id))
+q26_m_n <- length(unique(q26_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q30_plot <- 
-  Q30_all %>%
-  group_by(response.x) %>%
+q26_plot <-
+  q26_all %>%
+  group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q30_m_n)
+  mutate(percent_responded = count / q26_m_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q30_plot, aes(x = reorder(response.x, count), y = percent_responded)) +
+  ggplot(q26_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
 
 r
 ```
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q30_health_insurance.png', plot = r, device = 'png')
+ggsave(filename = 'q26_opioids_taken.png', plot = r, device = 'png')
 
-write.csv(Q30_plot, 'q30_health_insurance_161.csv', row.names = FALSE)
+write.csv(q26_plot, 'q26_opioids_taken_3.csv', row.names = FALSE)
 
-write.csv(Q30_all, 'q30_health_insurance_ids.csv', row.names = FALSE)
+write.csv(q26_all, 'q26_opioids_taken_ids.csv', row.names = FALSE)
 ```

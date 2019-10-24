@@ -24,12 +24,14 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 
 ```{r}
 # Pull out all responses for q43 (a single selection question) combine, then determine 'question n'
-q43 <- "How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÂ.TODAYÂ.compared.to.theÂ.BEGINNINGÂ.of.your.use.of.cannabis.to.treat.your.primary.medical.condition..."
+q43 <- "How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feel.TODAY.compared.to.the.BEGINNING.of.your.use.of.cannabis.to.treat.your.primary.medical.condition..."
+
+q44 <- "How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÂ.TODAYÂ.compared.to.theÂ.BEGINNINGÂ.of.your.use.of.cannabis.to.treat.your.primary.medical.condition..."
 
 q43_general <- get_single_selection(data = raw_data_general, q.name = q43)
 q43_bask <- get_single_selection(data = raw_data_bask, q.name = q43)
 q43_botanist <- get_single_selection(data = raw_data_botanist, q.name = q43)
-q43_hr <- get_single_selection(data = raw_data_hr, q.name = q43)
+q43_hr <- get_single_selection(data = raw_data_hr, q.name = q44)
 
 q43_all <- rbind(q43_general, q43_bask, q43_botanist, q43_hr)
 
@@ -61,7 +63,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q43_cannabis_daily_qol.png', plot = r, device = 'png')
 
-write.csv(q43_plot, 'q43_cannabis_daily_qol_413.csv', row.names = FALSE)
+write.csv(q43_plot, 'q43_cannabis_daily_qol_430.csv', row.names = FALSE)
 
 write.csv(q43_all, 'q43_cannabis_daily_qol_ids.csv', row.names = FALSE)
 ```

@@ -32,6 +32,10 @@ q20_bask <- get_choose_all(raw_data_bask, q.name = q20, f.response = q20_final_r
 q20_botanist <- get_choose_all(raw_data_botanist, q.name = q20, f.response = q20_final_response)
 q20_hr <- get_choose_all(raw_data_hr, q.name = q20, f.response = q20_final_response)
 
+names(q20_hr) <- names(q20_general)
+names(q20_bask) <- names(q20_general)
+names(q20_botanist) <- names(q20_general)
+
 q20_all <-
   rbind(q20_general, q20_bask, q20_botanist, q20_hr) %>%
   tidy_choose_all()
@@ -64,7 +68,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q20_prescriptions.png', plot = r, device = 'png')
 
-write.csv(q20_plot, 'q20_prescriptions_372.csv', row.names = FALSE)
+write.csv(q20_plot, 'q20_prescriptions_431.csv', row.names = FALSE)
 
 write.csv(q20_all, 'q20_prescriptions_ids.csv', row.names = FALSE)
 ```

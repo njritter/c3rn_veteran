@@ -1,7 +1,7 @@
 ---
-title: "Q29 Percentage Disability (Veterans)"
+title: "Q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?' (MA Veterans)"
 author: "DJ"
-date: "June 26, 2019"
+date: "October, 2019"
 output: html_document
 ---
 ```{r, message = FALSE}
@@ -14,9 +14,31 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
-raw_data_general <- read.csv("data/general_ma.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_ma.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_ma.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
+
+q98 <- "What.state.in.the.US.do.you.currently.live.in."
+q99 <- "What.US.State.do.you.currently.live.in."
+q100 <- "Which.US.state.do.you.currently.live.in."
+q101 <- "What.US.state.do.you.currently.live.in."
+
+q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
+q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
+q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
+
+q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
+
+ma_ids <- q98_all %>% 
+  filter(response %in% c("Massachusetts"))
+
+state_ma <- length(unique(ma_ids$id))
 ```
 
 ```{r}
@@ -24,12 +46,14 @@ raw_data_healing_rose <- read.csv("data/healing_rose_ma.csv", stringsAsFactors =
 Q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
 
 Q29_general <- get_single_selection(data = raw_data_general, q.name = Q29)
+Q29_bask <- get_single_selection(data = raw_data_bask, q.name = Q29)
 Q29_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q29)
-Q29_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q29)
+Q29_hr <- get_single_selection(data = raw_data_hr, q.name = Q29)
 
-Q29_all <- rbind(Q29_general, Q29_botanist, Q29_healing_rose)
+Q29_all <- rbind(Q29_general, Q29_bask, Q29_botanist, Q29_hr) %>%
+  inner_join(ma_ids, by = "id")
 
-number_of_people <- length(unique(Q29_all$id))
+q29_m_n <- length(unique(Q29_all$id))
 ```
 
 
@@ -45,7 +69,7 @@ ggsave(plot(histogram_object), file = "Q29_Percentage_Disability.png")
 ```
 
 ```{r}
-write.csv(Q29_all, 'Q29_Percentage_Disability_109.csv', row.names = FALSE)
+write.csv(Q29_all, 'Q29_Percentage_Disability_127.csv', row.names = FALSE)
 ```
 
 

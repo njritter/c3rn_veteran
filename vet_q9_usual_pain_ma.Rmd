@@ -37,7 +37,7 @@ q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
 
 q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
 
-ma_ids <- q98_all %>%
+ma_ids <- q98_all %>% 
   filter(response %in% c("Massachusetts"))
 
 state_ma <- length(unique(ma_ids$id))
@@ -52,25 +52,27 @@ q9_bask <- get_single_selection(data = raw_data_bask, q.name = q9)
 q9_botanist <- get_single_selection(data = raw_data_botanist, q.name = q9)
 q9_hr <- get_single_selection(data = raw_data_hr, q.name = q9)
 
-q9_all <- rbind(q9_general, q9_bask, q9_botanist, q9_hr)
+q9_all <- rbind(q9_general, q9_bask, q9_botanist, q9_hr) %>%
+ inner_join(ma_ids, by = "id")
 
-q9_n <- length(unique(q9_all$id))
+q9_m_n <- length(unique(q9_all$id))
+
 ```
 
 ```{r}
 # Manipulate data into a graphable format
 q9_plot <- 
   q9_all %>%
-  group_by(response) %>%
+  group_by(response.x) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q9_n)
+  mutate(percent_responded = count / q9_m_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q9_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q9_plot, aes(x = reorder(response.x, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -82,7 +84,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q9_usual_pain.png', plot = r, device = 'png')
 
-write.csv(q9_plot, 'q9_usual_pain_165.csv', row.names = FALSE)
+write.csv(q9_plot, 'q9_usual_pain_59.csv', row.names = FALSE)
 
 write.csv(q9_all, 'q9_usual_pain_ids.csv', row.names = FALSE)
 ```
