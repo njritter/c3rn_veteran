@@ -1,0 +1,69 @@
+---
+title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?' (MA Veterans)"
+author: "DJ"
+date: "October 21, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
+```
+```{r}
+# Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
+
+q98 <- "What.state.in.the.US.do.you.currently.live.in."
+q99 <- "What.US.State.do.you.currently.live.in."
+q100 <- "Which.US.state.do.you.currently.live.in."
+q101 <- "What.US.state.do.you.currently.live.in."
+
+q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
+q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
+q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
+
+q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
+
+ma_ids <- q98_all %>% 
+  filter(response %in% c("Massachusetts"))
+
+state_ma <- length(unique(ma_ids$id))
+```
+
+```{r}
+# Pull out all responses for q53 (a single selection question) combine, then determine 'question n'
+q53 <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
+
+q53_general <- get_single_selection(data = raw_data_general, q.name = q53)
+q53_bask <- get_single_selection(data = raw_data_bask, q.name = q53)
+q53_botanist <- get_single_selection(data = raw_data_botanist, q.name = q53)
+q53_hr <- get_single_selection(data = raw_data_hr, q.name = q53)
+  
+q53_all <- rbind(q53_general, q53_bask, q53_botanist, q53_hr) %>%
+  inner_join(ma_ids, by = "id")
+
+q53_m_n <- length(unique(q53_all$id))
+```
+
+```{r}
+histogram_object <- hist(as.numeric(all_data$response))
+histogram_object$breaks = c(0, 100, 200, 300, 400, 500, 600)
+histogram_object$counts
+plot(histogram_object)
+```
+
+```{r}
+write.csv(q53_all, 'q53_cannabis_cost_weekly_149.csv', row.names = FALSE)
+```

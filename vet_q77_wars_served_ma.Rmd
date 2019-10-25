@@ -1,5 +1,5 @@
 ---
-title: "q38 'Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)' (MA Veterans)"
+title: "q77 Wars Served (MA Veterans)"
 author: "DJ"
 date: "October 21, 2019"
 output: html_document
@@ -21,6 +21,7 @@ raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
+
 ```{r}
 # Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
 
@@ -43,37 +44,42 @@ state_ma <- length(unique(ma_ids$id))
 ```
 
 ```{r}
-# Pull out all responses for q38 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
-q38 <- "Which.health.conditions.do.you.find.cannabis.to.be.helpful.in.treating...Please.select.all.that.apply."
-q38_final_response <- "X.179"
+# Pull out all responses for q77 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
 
-q38_general <- get_choose_all(raw_data_general, q.name = q38, f.response = q38_final_response)
-q38_bask <- get_choose_all(raw_data_bask, q.name = q38, f.response = q38_final_response)
-q38_botanist <- get_choose_all(raw_data_botanist, q.name = q38, f.response = q38_final_response)
-q38_hr <- get_choose_all(raw_data_hr, q.name = q38, f.response = q38_final_response)
+q77 <- "What.war.s..did.you.serve.in...Please.select.all.that.apply."
 
-q38_all <- 
-  rbind(q38_general, q38_bask, q38_botanist, q38_hr) %>%
+q77_general_final_response <- "X.373"
+q77_bask_final_response <- "X.1612"
+q77_botanist_final_response <- "X.2772"
+q77_hr_final_response <- "X.945"
+
+q77_general <- get_choose_all(raw_data_general, q.name = q77, f.response = q77_general_final_response)
+q77_bask <- get_choose_all(raw_data_bask, q.name = q77, f.response = q77_bask_final_response)
+q77_botanist <- get_choose_all(raw_data_botanist, q.name = q77, f.response = q77_botanist_final_response)
+q77_hr <- get_choose_all(data = raw_data_hr, q.name = q77, f.response = q77_hr_final_response)
+
+q77_all <- 
+  rbind(q77_general, q77_bask, q77_botanist, q77_hr) %>%
   tidy_choose_all() %>%
   inner_join(ma_ids, by = "id")
 
-q38_m_n <- length(unique(q38_all$id))
+q77_m_n <- length(unique(q77_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-q38_plot <-
-  q38_all %>%
+q77_plot <-
+  q77_all %>%
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q38_m_n)
+  mutate(percent_responded = count / q77_m_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q38_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  ggplot(q77_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
@@ -83,9 +89,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q38_conditions_cannabis.png', plot = r, device = 'png')
+ggsave(filename = 'q77_wars_served.png', plot = r, device = 'png')
 
-write.csv(q38_plot, 'q38_conditions_cannabis_161.csv', row.names = FALSE)
+write.csv(q77_plot, 'q77_wars_served_161.csv', row.names = FALSE)
 
-write.csv(q38_all, 'q38_conditions_cannabis_ids.csv', row.names = FALSE)
+write.csv(q77_all, 'q77_wars_served_ids.csv', row.names = FALSE)
 ```
