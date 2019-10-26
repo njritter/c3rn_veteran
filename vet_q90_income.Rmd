@@ -1,5 +1,5 @@
 ---
-title: "Q90 Income (Veterans)"
+title: "Q90 Income (National Veterans)"
 author: "DJ"
 date: "June 26, 2019"
 output: html_document
@@ -33,7 +33,7 @@ Q90_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = 
   
 Q90_data <- rbind(Q90_general, Q90_bask, Q90_botanist, Q90_healing_rose)
 
-number_of_people_who_submitted_response_to_Q90 <- length(unique(all_data$id))
+q90_n <- length(unique(all_data$id))
 ```
 
 
@@ -44,7 +44,7 @@ Q90_plot <-
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people_who_submitted_response_to_Q90)
+  mutate(percent_responded = count / q90_n)
 ```
 
 ```{r}

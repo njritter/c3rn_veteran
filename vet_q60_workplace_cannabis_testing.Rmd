@@ -1,0 +1,68 @@
+---
+title: "q60 'Are you concerned that your workplace or other agency will test you for your cannabis use?' National Veterans"
+author: "DJ"
+date: "October 26, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q60 (a single selection question) and combine
+q60 <- "Are.you.concerned.that.your.workplace.or.other.agency.will.test.you.for.your.cannabis.use."
+
+q60_general <- get_single_selection(data = raw_data_general, q.name = q60)
+q60_bask <- get_single_selection(data = raw_data_bask, q.name = q60)
+q60_botanist <- get_single_selection(data = raw_data_botanist, q.name = q60)
+q60_hr <- get_single_selection(data = raw_data_hr, q.name = q60)
+  
+q60_all <- rbind(q60_general, q60_bask, q60_botanist, q60_hr)
+
+q60_n <- length(unique(q60_all$id))
+```
+
+
+```{r}
+# Manipulate data into a graphable format
+q60_plot <- 
+  q60_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / q60_n)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q60_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q60_workplace_cannabis_testing.png', plot = r, device = 'png')
+
+write.csv(q60_plot, 'q60_workplace_cannabis_testing_431.csv', row.names = FALSE)
+
+write.csv(q60_all, 'q60_workplace_cannabis_testing_ids.csv', row.names = FALSE)
+```
