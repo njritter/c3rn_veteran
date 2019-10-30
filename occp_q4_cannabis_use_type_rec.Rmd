@@ -35,21 +35,22 @@ q4_n <- length(unique(q4_all$id))
 rec_ids <- q4_all %>% 
   filter(chosen %in% c("Recreational user"))
 
-q4_rec <- q4_all %>%
-  inner_join(rec_ids, by = "id")
+#q4_rec <- q4_all %>%
+  #inner_join(rec_ids, by = "id")
 
-rec_user <- length(unique(rec_ids$id))
+#rec_user <- length(unique(rec_ids$id))
 
 ```
 
 ```{r}
 med_ids <- q4_all %>% 
-  #filter(chosen %in% c("Medically indicated, self-prescribed"))
+  filter(chosen %in% c("Medically indicated, recommended by a licensed clinical provider"))
   
-q4_all <- %>%
-  inner_join(med_ids, by = "id")
+#"Medically indicated, self-prescribed""
 
-med_user <- length(unique(med_ids$id))
+  #inner_join(med_ids, by = "id")
+
+# med_user <- length(unique(med_ids$id))
 ```
 
 ```{r}
@@ -77,7 +78,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q4_cannabis_use_type.png', plot = r, device = 'png')
 
-write.csv(q4_plot, 'q4_cannabis_use_type_1275.csv', row.names = FALSE)
+write.csv(q4_plot, 'q4_cannabis_use_type_1283.csv', row.names = FALSE)
 
-write.csv(q4_clean, 'q4_cannabis_use_type_ids.csv', row.names = FALSE)
+write.csv(q4_all, 'q4_cannabis_use_type_ids.csv', row.names = FALSE)
 ```

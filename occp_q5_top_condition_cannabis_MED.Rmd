@@ -24,7 +24,7 @@ raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 q5 <- "WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one."
 
 q5_all <- get_single_selection(data = raw_data_occp, q.name = q5) %>%
-  inner_join(rec_ids, by = "id")
+  inner_join(med_ids, by = "id")
 
 q5_n <- length(unique(q5_all$id))
 ```
@@ -54,7 +54,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q5_top_condition_cannabis.png', plot = r, device = 'png')
 
-write.csv(q5_plot, 'q5_top_condition_cannabis_529.csv', row.names = FALSE)
+write.csv(q5_plot, 'q5_top_condition_cannabis_819.csv', row.names = FALSE)
 
 write.csv(q5_all, 'q5_top_condition_cannabis_ids.csv', row.names = FALSE)
 ```
