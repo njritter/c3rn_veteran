@@ -1,7 +1,7 @@
 ---
-title: "q35 'Do you use cannabis for medical purposes?' (National Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q35 'Do you use cannabis for medical purposes?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

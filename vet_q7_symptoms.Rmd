@@ -1,5 +1,5 @@
 ---
-title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)' (National Veterans)"
+title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)' (Veterans)"
 author: "David Ritter"
 date: "November 19, 2019"
 output: html_document

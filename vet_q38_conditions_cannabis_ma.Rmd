@@ -1,7 +1,7 @@
 ---
 title: "q38 'Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)' (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -21,6 +21,7 @@ raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
 raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
 raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
+
 ```{r}
 # Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
 

@@ -1,7 +1,7 @@
 ---
-title: "q77 Wars Served (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q77 'What war(s) did you serve in? (Please select all that apply)' (MA Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

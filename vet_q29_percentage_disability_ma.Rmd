@@ -1,7 +1,7 @@
 ---
-title: "Q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?' (MA Veterans)"
-author: "DJ"
-date: "October, 2019"
+title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?' (MA Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 ---
 ```{r, message = FALSE}
@@ -42,34 +42,34 @@ state_ma <- length(unique(ma_ids$id))
 ```
 
 ```{r}
-# Pull out all responses for Q29 (a single selection question) combine, then determine 'question n'
-Q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
+# Pull out all responses for q29 (a single selection question) combine, then determine 'question n'
+q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
 
-Q29_general <- get_single_selection(data = raw_data_general, q.name = Q29)
-Q29_bask <- get_single_selection(data = raw_data_bask, q.name = Q29)
-Q29_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q29)
-Q29_hr <- get_single_selection(data = raw_data_hr, q.name = Q29)
+q29_general <- get_single_selection(data = raw_data_general, q.name = q29)
+q29_bask <- get_single_selection(data = raw_data_bask, q.name = q29)
+q29_botanist <- get_single_selection(data = raw_data_botanist, q.name = q29)
+q29_hr <- get_single_selection(data = raw_data_hr, q.name = q29)
 
-Q29_all <- rbind(Q29_general, Q29_bask, Q29_botanist, Q29_hr) %>%
+q29_all <- rbind(q29_general, q29_bask, q29_botanist, q29_hr) %>%
   inner_join(ma_ids, by = "id")
 
-q29_m_n <- length(unique(Q29_all$id))
+q29_m_n <- length(unique(q29_all$id))
 ```
 
 
 ```{r}
-histogram_object <- hist(as.numeric(Q29_all$response))
+histogram_object <- hist(as.numeric(q29_all$response))
 histogram_object$breaks
 histogram_object$counts
 plot(histogram_object)
 ```
 
 ```{r}
-ggsave(plot(histogram_object), file = "Q29_Percentage_Disability.png")
+ggsave(plot(histogram_object), file = "q29_Percentage_Disability.png")
 ```
 
 ```{r}
-write.csv(Q29_all, 'Q29_Percentage_Disability_127.csv', row.names = FALSE)
+write.csv(q29_all, 'q29_Percentage_Disability_127.csv', row.names = FALSE)
 ```
 
 

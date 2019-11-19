@@ -1,7 +1,7 @@
 ---
 title: "q32 'Where/how do you get your medications?' (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -81,9 +81,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q32_medication_sourcing.png', plot = r, device = 'png')
+ggsave(filename = 'q32_medication_sourcing.png', plot = r, device = 'png')
 
-write.csv(q32_plot, 'vet_q32_medication_sourcing_161.csv', row.names = FALSE)
+write.csv(q32_plot, 'q32_medication_sourcing_161.csv', row.names = FALSE)
 
-write.csv(q32_all, 'vet_q32_medication_sourcing_ids.csv', row.names = FALSE)
+write.csv(q32_all, 'q32_medication_sourcing_ids.csv', row.names = FALSE)
 ```

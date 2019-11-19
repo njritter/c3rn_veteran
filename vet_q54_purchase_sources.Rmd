@@ -1,7 +1,7 @@
 ---
-title: "q54 'What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?' (National Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q54 'What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

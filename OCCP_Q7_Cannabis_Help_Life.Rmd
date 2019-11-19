@@ -1,5 +1,5 @@
 ---
-title: "q7 Cannabis Help Daily Life (OCCP)"
+title: "q7 'How does cannabis help your daily life? (Please select all that apply)' (OCCP)"
 author: "David Ritter"
 date: "November 19, 2019"
 output: html_document

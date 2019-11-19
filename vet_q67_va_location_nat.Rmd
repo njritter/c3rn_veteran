@@ -1,5 +1,5 @@
 ---
-title: "Q67 Which VA Do You Go To (All Veterans)"
+title: "q67 Which VA Do You Go To (Veterans)"
 runtime: shiny
 output: html_document
 ---
@@ -21,29 +21,29 @@ raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors 
 ```
 
 ```{r}
-# Pull out all responses for Q6 (a single selection question) combine, then determine 'question n'
-Q67 <- "Which.VA.do.you.go.to."
+# Pull out all responses for q6 (a single selection question) combine, then determine 'question n'
+q67 <- "Which.VA.do.you.go.to."
 
-Q67_general <- get_single_selection(data = raw_data_general, q.name = Q67)
-Q67_bask <- get_single_selection(data = raw_data_bask, q.name = Q67)
-Q67_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q67)
-Q67_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q67)
+q67_general <- get_single_selection(data = raw_data_general, q.name = q67)
+q67_bask <- get_single_selection(data = raw_data_bask, q.name = q67)
+q67_botanist <- get_single_selection(data = raw_data_botanist, q.name = q67)
+q67_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = q67)
 
-Q67_all <- rbind(Q67_general, Q67_bask, Q67_botanist, Q67_healing_rose)
+q67_all <- rbind(q67_general, q67_bask, q67_botanist, q67_healing_rose)
 
-number_of_people <- length(unique(Q67_all$id))
+number_of_people <- length(unique(q67_all$id))
 ```
 
 
 ```{r}
-write.csv(Q67_all, 'Q67_VA_Location.csv', row.names = FALSE)
+write.csv(q67_all, 'q67_VA_Location.csv', row.names = FALSE)
 
 
 ```
 
 ```{r}
 
-write.csv(Q67_all, 'Q67_VA_Location.csv', row.names = FALSE)
+write.csv(q67_all, 'q67_VA_Location.csv', row.names = FALSE)
 
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "q43 'How do you feel cannabis has helped your daily life?' (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

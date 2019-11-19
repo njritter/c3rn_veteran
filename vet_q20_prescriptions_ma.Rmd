@@ -1,7 +1,7 @@
 ---
 title: "q20 'What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply)' (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

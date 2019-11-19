@@ -1,7 +1,7 @@
 ---
 title: "q12 'If you had to live with some pain, what level of pain would be acceptable?' (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
