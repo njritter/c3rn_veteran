@@ -50,7 +50,7 @@ med_ids <- q4_all %>%
 
   #inner_join(med_ids, by = "id")
 
-# med_user <- length(unique(med_ids$id))
+med_user <- length(unique(med_ids$id))
 ```
 
 ```{r}
@@ -78,7 +78,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q4_cannabis_use_type.png', plot = r, device = 'png')
 
-write.csv(q4_plot, 'q4_cannabis_use_type_1283.csv', row.names = FALSE)
+write.csv(q4_plot, 'q4_cannabis_use_type_906.csv', row.names = FALSE)
 
 write.csv(q4_all, 'q4_cannabis_use_type_ids.csv', row.names = FALSE)
 ```

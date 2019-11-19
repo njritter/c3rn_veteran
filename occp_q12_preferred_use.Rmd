@@ -26,7 +26,7 @@ raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 q12 <- "What.is.your.top.preferred.method..that.is..favorite..of.using.cannabis...Please.select.one."
 
 q12_all <- get_single_selection(raw_data_occp, q.name = q12) %>%
-  inner_join(med_ids, by = "id")
+  inner_join(rec_ids, by = "id")
   
 q12_n <- length(unique(q12_all$id))
 ```
@@ -56,7 +56,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q12_top_preferred_method.png', plot = r, device = 'png')
 
-write.csv(q12_plot, 'q12_top_preferred_method_819.csv', row.names = FALSE)
+write.csv(q12_plot, 'q12_top_preferred_method_386.csv', row.names = FALSE)
 
 write.csv(q12_all, 'q12_top_preferred_method_ids.csv', row.names = FALSE)
 ```

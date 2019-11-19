@@ -1,6 +1,5 @@
 ---
-title: q23 'What is your top preferred method (that is, favorite) of using cannabis?
-  (Please select one)' occp
+title: q23 'What is your top three selection criteria for cannabis products?' occp
 author: "DJ"
 date: "October 30, 2019"
 output: html_document
@@ -24,8 +23,6 @@ raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 ```{r}
 # Pull out all responses for q23 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
 q23 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
-
-
 
 q23_all <- get_single_selection(raw_data_occp, q.name = q23)
   
@@ -57,7 +54,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q23_top_3_cannabis_quality.png', plot = r, device = 'png')
 
-write.csv(q23_plot, 'q23_top_3_cannabis_quality_1283.csv', row.names = FALSE)
+write.csv(q23_plot, 'q23_top_3_cannabis_quality_906.csv', row.names = FALSE)
 
 write.csv(q23_all, 'q23_top_3_cannabis_quality_ids.csv', row.names = FALSE)
 ```
