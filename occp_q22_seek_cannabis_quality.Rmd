@@ -1,12 +1,10 @@
 ---
-title: q22 What are you looking for in cannabis products? Please select all that apply.
-  (Please select one)' occp
-author: "DJ"
-date: "October 30, 2019"
+title: "q22 'What are you looking for in cannabis products? Please select all that apply. (Please select one)' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
-
 
 ```{r, message = FALSE}
 # Load libraries

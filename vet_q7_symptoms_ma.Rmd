@@ -1,7 +1,7 @@
 ---
 title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)' (MA Veterans)"
-author: "DJ"
-date: "October 21, 19"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,7 +24,6 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 
 ```{r}
 # Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
-
 q98 <- "What.state.in.the.US.do.you.currently.live.in."
 q99 <- "What.US.State.do.you.currently.live.in."
 q100 <- "Which.US.state.do.you.currently.live.in."

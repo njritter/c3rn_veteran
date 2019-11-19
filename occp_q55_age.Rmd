@@ -1,7 +1,7 @@
 ---
-title: "q55 What is your age in years? OCCP"
-author: "DJ"
-date: "October 30, 2019"
+title: "q55 'What is your age in years?' OCCP"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -18,7 +18,6 @@ source("helper.R")
 # Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
 raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 ```
-
 
 ```{r}
 # Pull out all responses for q55 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'

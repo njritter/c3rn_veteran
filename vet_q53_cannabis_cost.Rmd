@@ -1,7 +1,7 @@
 ---
 title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?' (National Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

@@ -1,7 +1,7 @@
 ---
 title: "q5 'What is the primary health condition for which you find cannabis to be helpful or most impactful? Please select one.' (OCCP)"
-author: "DJ"
-date: "October 21, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -58,8 +58,6 @@ write.csv(q5_plot, 'q5_top_condition_cannabis_529.csv', row.names = FALSE)
 
 write.csv(q5_all, 'q5_top_condition_cannabis_ids.csv', row.names = FALSE)
 ```
-
-
 
 ```{r}
 #OPTIONAL Filter for specific responses and create a file to use for a different question

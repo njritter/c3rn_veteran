@@ -1,7 +1,7 @@
 ---
 title: q23 'What is your top three selection criteria for cannabis products?' occp
-author: "DJ"
-date: "October 30, 2019"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

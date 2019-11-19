@@ -1,7 +1,7 @@
 ---
-title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?' (National Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---

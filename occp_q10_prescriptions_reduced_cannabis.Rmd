@@ -1,7 +1,7 @@
 ---
-title: "Q10 Prescriptions Reduced Cannabis (OCCP)"
-author: "DJ"
-date: "June 26, 2019"
+title: "Q10 'Are you actively trying to reduce your prescription medication intake using cannabis? Please select all that apply.' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,7 +16,7 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
-raw_data_occp <- read.csv("data/occp_ma_text.csv", stringsAsFactors = FALSE)
+raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
@@ -60,9 +60,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'occp_q10_prescriptions_reduced_cannabis.png', plot = r, device = 'png')
+ggsave(filename = 'q10_prescriptions_reduced_cannabis.png', plot = r, device = 'png')
 
-write.csv(Q10_plot, 'occp_q10_prescriptions_reduced_cannabis_900.900.csv', row.names = FALSE)
+write.csv(Q10_plot, 'q10_prescriptions_reduced_cannabis_900.csv', row.names = FALSE)
 
-write.csv(Q10_clean, 'occp_q10_prescriptions_reduced_cannabis_ids.csv', row.names = FALSE)
+write.csv(Q10_clean, 'q10_prescriptions_reduced_cannabis_ids.csv', row.names = FALSE)
 ```

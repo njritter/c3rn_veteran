@@ -1,7 +1,7 @@
 ---
-title: "Q63 Employment Status (OCCP)"
-author: "DJ"
-date: "June 26, 2019"
+title: "q63 'What is your current employment status?' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,22 +16,22 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
-raw_data_occp <- read.csv("data/occp_ma_text.csv", stringsAsFactors = FALSE)
+raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q63 (a single selection question) combine, then determine 'question n'
-Q63 <- "What.is.your.current.employment.status."
+# Pull out all responses for q63 (a single selection question) combine, then determine 'question n'
+q63 <- "What.is.your.current.employment.status."
 
-Q63_all <- get_single_selection(data = raw_data_occp, q.name = Q63)
+q63_all <- get_single_selection(data = raw_data_occp, q.name = q63)
 
-number_of_people <- length(unique(Q63_all$id))
+number_of_people <- length(unique(q63_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q63_plot <- 
-  Q63_all %>%
+q63_plot <- 
+  q63_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -41,7 +41,7 @@ Q63_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q63_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q63_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -51,9 +51,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'occp_q63_employment.png', plot = r, device = 'png')
+ggsave(filename = 'q63_employment.png', plot = r, device = 'png')
 
-write.csv(Q63_plot, 'occp_q63_employment_900.900.csv', row.names = FALSE)
+write.csv(q63_plot, 'q63_employment_900.csv', row.names = FALSE)
 
-write.csv(Q63_all, 'occp_q63_employment_ids.csv', row.names = FALSE)
+write.csv(q63_all, 'q63_employment_ids.csv', row.names = FALSE)
 ```

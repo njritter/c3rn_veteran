@@ -1,7 +1,7 @@
 ---
-title: "Q18 Cannabis Cost (OCCP)"
-author: "DJ"
-date: "June 26, 2019"
+title: "q18 'On average, how much do you spend (in US dollar) on consumable cannabis products each week?' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,32 +16,32 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
-raw_data_occp <- read.csv("data/occp_ma_text.csv", stringsAsFactors = FALSE)
+raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q18 (a single selection question) combine, then determine 'question n'
-Q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
+# Pull out all responses for q18 (a single selection question) combine, then determine 'question n'
+q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
 
-Q18_all <- get_single_selection(data = raw_data_occp, q.name = Q18)
+q18_all <- get_single_selection(data = raw_data_occp, q.name = q18)
 
-Q18_respondents <- length(unique(Q18_all$id))
+q18_respondents <- length(unique(q18_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format (SKIP IF FILTERING)
-Q18_plot <- 
-  Q18_all %>%
+q18_plot <- 
+  q18_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / Q18_respondents)
+  mutate(percent_responded = count / q18_respondents)
 ```
 
 ```{r}
 # Plot with percents and response counts (SKIP IF FILTERING)
 r <- 
-  ggplot(Q18_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q18_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -51,27 +51,27 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x") (SKIP IF)
-ggsave(filename = 'occp_q18_cannabis_cost.png', plot = r, device = 'png')
+ggsave(filename = 'q18_cannabis_cost.png', plot = r, device = 'png')
 
-write.csv(Q18_plot, 'occp_q18_cannabis_cost_852.900.csv', row.names = FALSE)
+write.csv(q18_plot, 'q18_cannabis_cost_852.csv', row.names = FALSE)
 
-write.csv(Q18_all, 'occp_q18_cannabis_cost_ids.csv', row.names = FALSE)
+write.csv(q18_all, 'q18_cannabis_cost_ids.csv', row.names = FALSE)
 ```
 
 
 ```{r}
 # PATH P OPTIONAL FILTERING STEP. Determine Cannabis spending of those with "Chronic pain" and determine question 'n'
-Q18_Q5_P <- 
-  Q18_all %>%
-  inner_join(Q5_Chronic_Pain, by = "id")
+q18_q5_P <- 
+  q18_all %>%
+  inner_join(q5_Chronic_Pain, by = "id")
 
-Q18_Q5_P_R <- length(unique(Q18_Q5_P$id))
+q18_q5_P_R <- length(unique(q18_q5_P$id))
 ```
 
 ```{r}
 # PATH P OPTIONAL FILTERING STEP Manipulate data into a graphable format for "Chronic pain"
-Q18_Q5_P_G <- 
-  Q18_Q5_P %>%
+q18_q5_P_G <- 
+  q18_q5_P %>%
   group_by(response.y) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -81,7 +81,7 @@ Q18_Q5_P_G <-
 ```{r}
 # PATH P OPTIONAL FILTERING STEP Plot with percents and response counts for "Chronic pain"
 p <- 
-  ggplot(Q18_Q5_P, aes(x = reorder(response.y, count), y = percent_responded)) +
+  ggplot(q18_q5_P, aes(x = reorder(response.y, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -91,26 +91,26 @@ p
 
 ```{r}
 # PATH P OPTIONAL FILTERING PATH Savegraph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x") for "Chronic Pain"
-ggsave(filename = 'Q18_Q5_Chronic_Pain.png', plot = p, device = 'png')
+ggsave(filename = 'q18_q5_Chronic_Pain.png', plot = p, device = 'png')
 
-write.csv(Q18_Q5_P, 'Q18_Q5_Chronic_Pain_293.900.csv', row.names = FALSE)
+write.csv(q18_q5_P, 'q18_q5_Chronic_Pain_293.csv', row.names = FALSE)
 
-write.csv(Q18_Q5_P_G, 'Q18_Q5_Chronic_Pain_IDS.csv', row.names = FALSE)
+write.csv(q18_q5_P_G, 'q18_q5_Chronic_Pain_IDS.csv', row.names = FALSE)
 ```
 
 ```{r}
 # PATH A OPTIONAL FILTERING STEP. Determine Cannabis spending of those with "Anxiety" and determine question 'n'
-Q18_Q5_A <- 
-  Q18_all %>%
-  inner_join(Q5_Anxiety, by = "id")
+q18_q5_A <- 
+  q18_all %>%
+  inner_join(q5_Anxiety, by = "id")
 
-Q18_Q5_A_R <- length(unique(Q18_Q5_A$id))
+q18_q5_A_R <- length(unique(q18_q5_A$id))
 ```
 
 ```{r}
 # PATH A OPTIONAL FILTERING STEP Manipulate data into a graphable format for "Anxiety"
-Q18_Q5_A_G <- 
-  Q18_Q5_A %>%
+q18_q5_A_G <- 
+  q18_q5_A %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -120,7 +120,7 @@ Q18_Q5_A_G <-
 ```{r}
 # PATH A OPTIONAL FILTERING STEP Plot with percents and response counts for "Anxiety"
 a <- 
-  ggplot(Q18_Q5_A_G, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q18_q5_A_G, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -130,26 +130,26 @@ a
 
 ```{r}
 # PATH A OPTIONAL FILTERING PATH A Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x") for "Anxiety"
-ggsave(filename = 'Q18_Q5_Anxiety.png', plot = a, device = 'png')
+ggsave(filename = 'q18_q5_Anxiety.png', plot = a, device = 'png')
 
-write.csv(Q18_Q5_A, 'Q18_Q5_Anxiety_206.900.csv', row.names = FALSE)
+write.csv(q18_q5_A, 'q18_q5_Anxiety_206.csv', row.names = FALSE)
 
-write.csv(Q18_Q5_A_G, 'Q18_Q5_Anxiety_IDS.csv', row.names = FALSE)
+write.csv(q18_q5_A_G, 'q18_q5_Anxiety_IDS.csv', row.names = FALSE)
 ```
 
 ```{r}
 # PATH D OPTIONAL FILTERING STEP. Determine Cannabis spending of those with "Depression/mood" and determine question 'n'
-Q18_Q5_D <- 
-  Q18_all %>%
-  inner_join(Q5_Depression, by = "id")
+q18_q5_D <- 
+  q18_all %>%
+  inner_join(q5_Depression, by = "id")
 
-Q18_Q5_D_R <- length(unique(Q18_Q5_D$id))
+q18_q5_D_R <- length(unique(q18_q5_D$id))
 ```
 
 ```{r}
 # PATH D OPTIONAL FILTERING STEP Manipulate data into a graphable format for "Depression/mood
-Q18_Q5_D_G <- 
-  Q18_Q5_D %>%
+q18_q5_D_G <- 
+  q18_q5_D %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -159,7 +159,7 @@ Q18_Q5_D_G <-
 ```{r}
 # PATH D OPTIONAL FILTERING STEP Plot with percents and response counts for "Depression/mood"
 d <- 
-  ggplot(Q18_Q5_D_G, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q18_q5_D_G, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -169,11 +169,11 @@ d
 
 ```{r}
 # PATH D OPTIONAL FILTERING PATH D Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x") for "Anxiety"
-ggsave(filename = 'Q18_Q5_Depression.png', plot = d, device = 'png')
+ggsave(filename = 'q18_q5_Depression.png', plot = d, device = 'png')
 
-write.csv(Q18_Q5_D, 'Q18_Q5_Depression_111.900.csv', row.names = FALSE)
+write.csv(q18_q5_D, 'q18_q5_Depression_111.csv', row.names = FALSE)
 
-write.csv(Q18_Q5_D_G, 'Q18_Q5_Depression_IDS.csv', row.names = FALSE)
+write.csv(q18_q5_D_G, 'q18_q5_Depression_IDS.csv', row.names = FALSE)
 ```
 
 

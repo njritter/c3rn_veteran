@@ -1,12 +1,10 @@
 ---
-title: q12 'What is your top preferred method (that is, favorite) of using cannabis?
-  (Please select one)' occp
-author: "DJ"
-date: "October 30, 2019"
+title: "q12 'What is your top preferred method (that is, favorite) of using cannabis? (Please select one)' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
-
 
 ```{r, message = FALSE}
 # Load libraries
