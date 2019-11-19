@@ -1,7 +1,7 @@
 ---
-title: "q98 'What state in the US do you currently live in?' (National Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q98 'What state in the US do you currently live in?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -72,7 +72,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q98_state.png', plot = r, device = 'png')
 
-write.csv(q98_plot, 'q98_state_.csv', row.names = FALSE)
+write.csv(q98_plot, 'q98_state_xx.csv', row.names = FALSE)
 
 write.csv(q98_all, 'q98_state_ids.csv', row.names = FALSE)
 ```

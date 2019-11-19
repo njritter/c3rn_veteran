@@ -1,8 +1,7 @@
 ---
-title: q101 'Do you support conducting more research for medical cannabis in veteran
-  populations?'
-author: "DJ"
-date: "October 25, 2019"
+title: "q101 'Do you support conducting more research for medical cannabis in veteran populations?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -24,34 +23,33 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q105 (a single selection question) combine, then determine 'question n'
-q105 <- "Do.you.support.conducting.more.research.for.medical.cannabis.in.veteran.populations."
+# Pull out all responses for q101 (a single selection question) combine, then determine 'question n'
+q101 <- "Do.you.support.conducting.more.research.for.medical.cannabis.in.veteran.populations."
 
-q105_general <- get_single_selection(data = raw_data_general, q.name = q105)
-q105_bask <- get_single_selection(data = raw_data_bask, q.name = q105)
-q105_botanist <- get_single_selection(data = raw_data_botanist, q.name = q105)
-q105_hr <- get_single_selection(data = raw_data_hr, q.name = q105)
+q101_general <- get_single_selection(data = raw_data_general, q.name = q101)
+q101_bask <- get_single_selection(data = raw_data_bask, q.name = q101)
+q101_botanist <- get_single_selection(data = raw_data_botanist, q.name = q101)
+q101_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
 
-q105_all <- rbind(q105_general, q105_bask, q105_botanist, q105_hr)
+q101_all <- rbind(q101_general, q101_bask, q101_botanist, q101_hr)
 
-q105_n <- length(unique(q105_all$id))
+q101_n <- length(unique(q101_all$id))
 ```
-
 
 ```{r}
 # Manipulate data into a graphable format
-q105_plot <- 
-  q105_all %>%
+q101_plot <- 
+  q101_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q105_n)
+  mutate(percent_responded = count / q101_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q105_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q101_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -62,7 +60,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q101_support_med_cannabis_research.png', plot = r, device = 'png')
 
-write.csv(q105_plot, 'q101_support_med_cannabis_research_431.csv', row.names = FALSE)
+write.csv(q101_plot, 'q101_support_med_cannabis_research_431.csv', row.names = FALSE)
 
-write.csv(q105_all, 'q101_support_med_cannabis_research_ids.csv', row.names = FALSE)
+write.csv(q101_all, 'q101_support_med_cannabis_research_ids.csv', row.names = FALSE)
 ```

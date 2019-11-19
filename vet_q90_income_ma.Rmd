@@ -1,7 +1,7 @@
 ---
-title: "q90 Income (MA Veterans)"
-author: "DJ"
-date: "October 21, 2019"
+title: "q90 'What is your annual household income (in US dollars)' (MA Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -61,9 +61,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q90_income.png', plot = r, device = 'png')
+ggsave(filename = 'q90_income.png', plot = r, device = 'png')
 
-write.csv(q90_plot, 'vet_q90_income_10.277.csv', row.names = FALSE)
+write.csv(q90_plot, 'q90_income_10.csv', row.names = FALSE)
 
-write.csv(q90_all, 'vet_q90_income_ids.csv', row.names = FALSE)
+write.csv(q90_all, 'q90_income_ids.csv', row.names = FALSE)
 ```

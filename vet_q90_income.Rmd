@@ -1,7 +1,7 @@
 ---
-title: "Q90 Income (National Veterans)"
-author: "DJ"
-date: "June 26, 2019"
+title: "q90 'What is your annual household income (in US dollars)' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -16,31 +16,66 @@ source("helper.R")
 
 ```{r}
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
-raw_data_general <- read.csv("data/general_text.csv", stringsAsFactors = FALSE)
-raw_data_botanist <- read.csv("data/botanist_text.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_text.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q90 (a single selection question) and combine
-Q90 <- "What.is.your.annual.household.income..in.US.dollars."
+# Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
 
-Q90_general <- get_single_selection(data = raw_data_general, q.name = Q90)
-Q90_bask <- get_single_selection(data = raw_data_bask, q.name = Q90)
-Q90_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q90)
-Q90_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q90)
+q98 <- "What.state.in.the.US.do.you.currently.live.in."
+q99 <- "What.US.State.do.you.currently.live.in."
+q100 <- "Which.US.state.do.you.currently.live.in."
+q101 <- "What.US.state.do.you.currently.live.in."
+
+q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
+q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
+q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
+
+q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
+
+ma_ids <- q98_all %>% 
+  filter(response %in% c("Massachusetts"))
+
+state_ma <- length(unique(ma_ids$id))
+```
+
+```{r}
+ma_data_general <- raw_data_general %>%
+  inner_join(ma_ids, by = "id")
+
+ma_data_botanist <- raw_data_botanist %>%
+  inner_join(ma_ids, by = "id")
+
+ma_data_bask <- raw_data_bask %>%
+  inner_join(ma_ids, by = "id")
+
+ma_data_hr <- raw_data_hr %>%
+  inner_join(ma_ids, by = "id")
+```
+
+```{r}
+# Pull out all responses for q90 (a single selection question) and combine
+q90 <- "What.is.your.annual.household.income..in.US.dollars."
+
+q90_general <- get_single_selection(data = raw_data_general, q.name = q90)
+q90_bask <- get_single_selection(data = raw_data_bask, q.name = q90)
+q90_botanist <- get_single_selection(data = raw_data_botanist, q.name = q90)
+q90_hr <- get_single_selection(data = raw_data_hr, q.name = q90)
   
-Q90_data <- rbind(Q90_general, Q90_bask, Q90_botanist, Q90_healing_rose)
+q90_all <- rbind(q90_general, q90_bask, q90_botanist, q90_hr)
 
-q90_n <- length(unique(all_data$id))
+q90_n <- length(unique(q90_all$id))
 ```
 
 
 ```{r}
 # Manipulate data into a graphable format
-Q90_plot <- 
-  Q90_data %>%
+q90_plot <- 
+  q90_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
@@ -50,7 +85,7 @@ Q90_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q90_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q90_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -60,9 +95,16 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'vet_q90_income.png', plot = r, device = 'png')
+ggsave(filename = 'q90_income.png', plot = r, device = 'png')
 
-write.csv(Q90_plot, 'vet_q90_income_10.277.csv', row.names = FALSE)
+write.csv(q90_plot, 'q90_income_431.csv', row.names = FALSE)
 
-write.csv(Q90_all, 'vet_q90_income_ids.csv', row.names = FALSE)
+write.csv(q90_all, 'q90_income_ids.csv', row.names = FALSE)
+```
+
+```{r}
+write.csv(raw_data_general, 'raw_general.csv', row.names = FALSE)
+write.csv(raw_data_botanist, 'raw_botanist.csv', row.names = FALSE)
+write.csv(raw_data_bask, 'raw_bask.csv', row.names = FALSE)
+write.csv(raw_data_hr, 'raw_hr.csv', row.names = FALSE)
 ```

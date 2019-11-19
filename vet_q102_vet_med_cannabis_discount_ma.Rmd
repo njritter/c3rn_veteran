@@ -1,7 +1,6 @@
 ---
-title: q102 'Do you believe the VA should offer free (or discounted) medical cannabis
-  to veterans who qualify for its use?' MA Veterans
-author: "DJ"
+title: "q102 'Do you believe the VA should offer free (or discounted) medical cannabis to veterans who qualify for its use?' (MA Veterans)"
+author: "David Ritter"
 date: "October 25, 2019"
 output: html_document
 runtime: shiny

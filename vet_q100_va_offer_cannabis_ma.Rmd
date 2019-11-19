@@ -1,7 +1,7 @@
 ---
-title: "q100 'Do you think the VA should be trained in medical cannabis and allowed to recommend it for veterans?' MA Veterans"
-author: "DJ"
-date: "October 25, 2019"
+title: "q100 'Do you think the VA should be trained in medical cannabis and allowed to recommend it for veterans?' (MA Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -27,12 +27,12 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 
 q98 <- "What.state.in.the.US.do.you.currently.live.in."
 q99 <- "What.US.State.do.you.currently.live.in."
-q100 <- "Which.US.state.do.you.currently.live.in."
+qxx <- "Which.US.state.do.you.currently.live.in."
 q101 <- "What.US.state.do.you.currently.live.in."
 
 q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
 q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
-q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = qxx)
 q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
 
 q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
@@ -45,35 +45,35 @@ state_ma <- length(unique(ma_ids$id))
 
 
 ```{r}
-# Pull out all responses for q105 (a single selection question) combine, then determine 'question n'
-q105 <- "Do.you.think.the.VA.should.be.trained.in.medical.cannabis.and.allowed.to.recommend.it.for.veterans."
+# Pull out all responses for q100 (a single selection question) combine, then determine 'question n'
+q100 <- "Do.you.think.the.VA.should.be.trained.in.medical.cannabis.and.allowed.to.recommend.it.for.veterans."
 
-q105_general <- get_single_selection(data = raw_data_general, q.name = q105)
-q105_bask <- get_single_selection(data = raw_data_bask, q.name = q105)
-q105_botanist <- get_single_selection(data = raw_data_botanist, q.name = q105)
-q105_hr <- get_single_selection(data = raw_data_hr, q.name = q105)
+q100_general <- get_single_selection(data = raw_data_general, q.name = q100)
+q100_bask <- get_single_selection(data = raw_data_bask, q.name = q100)
+q100_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
+q100_hr <- get_single_selection(data = raw_data_hr, q.name = q100)
 
-q105_all <- rbind(q105_general, q105_bask, q105_botanist, q105_hr) %>%
+q100_all <- rbind(q100_general, q100_bask, q100_botanist, q100_hr) %>%
   inner_join(ma_ids, by = "id")
 
-q105_m_n <- length(unique(q105_all$id))
+q100_m_n <- length(unique(q100_all$id))
 ```
 
 
 ```{r}
 # Manipulate data into a graphable format
-q105_plot <- 
-  q105_all %>%
+q100_plot <- 
+  q100_all %>%
   group_by(response.x) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q105_m_n)
+  mutate(percent_responded = count / q100_m_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q105_plot, aes(x = reorder(response.x, count), y = percent_responded)) +
+  ggplot(q100_plot, aes(x = reorder(response.x, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -84,7 +84,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q100_va_offer_cannabis.png', plot = r, device = 'png')
 
-write.csv(q105_plot, 'q100_va_offer_cannabis_161.csv', row.names = FALSE)
+write.csv(q100_plot, 'q100_va_offer_cannabis_161.csv', row.names = FALSE)
 
-write.csv(q105_all, 'q100_va_offer_cannabis_ids.csv', row.names = FALSE)
+write.csv(q100_all, 'q100_va_offer_cannabis_ids.csv', row.names = FALSE)
 ```

@@ -1,7 +1,7 @@
 ---
-title: "q99  'I would choose medical cannabis if it was a federally-legal treatment option.' "
-author: "DJ"
-date: "June 26, 2019"
+title: "q99 'I would choose medical cannabis if it was a federally-legal treatment option.' "
+author: "David Ritter"
+date: "November 19, 2019"
 output: html_document
 runtime: shiny
 ---
@@ -62,10 +62,10 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q99_vet_med_cannabis_research.png', plot = r, device = 'png')
+ggsave(filename = 'q99_med_cannabis_research.png', plot = r, device = 'png')
 
-write.csv(q99_plot, 'q99_vet_med_cannabis_research_161.csv', row.names = FALSE)
+write.csv(q99_plot, 'q99_med_cannabis_research_161.csv', row.names = FALSE)
 
-write.csv(q99_all, 'q99_vet_med_cannabis_research_ids.csv', row.names = FALSE)
+write.csv(q99_all, 'q99_med_cannabis_research_ids.csv', row.names = FALSE)
 
 ```
