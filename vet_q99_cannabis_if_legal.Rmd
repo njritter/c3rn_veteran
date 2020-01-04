@@ -32,8 +32,7 @@ q99_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
 q99_botanist <- get_single_selection(data = raw_data_botanist, q.name = q99)
 q99_hr <- get_single_selection(data = raw_data_hr, q.name = q99)
 
-q99_all <- rbind(q99_general, q99_bask, q99_botanist, q99_hr) %>%
-  inner_join(ma_ids, by = "id")
+q99_all <- rbind(q99_general, q99_bask, q99_botanist, q99_hr)
 
 q99_m_n <- length(unique(q99_all$id))
 ```
@@ -43,7 +42,7 @@ q99_m_n <- length(unique(q99_all$id))
 # Manipulate data into a graphable format
 q99_plot <- 
   q99_all %>%
-  group_by(response.x) %>%
+  group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
   mutate(percent_responded = count / q99_m_n)
@@ -52,7 +51,7 @@ q99_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q99_plot, aes(x = reorder(response.x, count), y = percent_responded)) +
+  ggplot(q99_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -62,10 +61,10 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q99_med_cannabis_research.png', plot = r, device = 'png')
+ggsave(filename = 'q99_cannabis_if_legal.png', plot = r, device = 'png')
 
-write.csv(q99_plot, 'q99_med_cannabis_research_161.csv', row.names = FALSE)
+write.csv(q99_plot, 'q99_cannabis_if_legal_565.csv', row.names = FALSE)
 
-write.csv(q99_all, 'q99_med_cannabis_research_ids.csv', row.names = FALSE)
+write.csv(q99_all, 'q99_cannabis_if_legal_ids.csv', row.names = FALSE)
 
 ```

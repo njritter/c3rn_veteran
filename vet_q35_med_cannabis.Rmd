@@ -1,5 +1,5 @@
 ---
-title: "Q36 'Do you use cannabis for recreational purposes?' (Veterans)"
+title: "q35 'Do you use cannabis for medical purposes?' (Veterans)"
 author: "David Ritter"
 date: "November 19, 2019"
 output: html_document
@@ -23,33 +23,33 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for Q36 (a single selection question) combine, then determine 'question n'
-Q36 <- "Do.you.use.cannabis.for.recreational.purposes."
+# Pull out all responses for q35 (a single selection question) combine, then determine 'question n'
+q35 <- "Do.you.use.cannabis.for.medical.purposes."
 
-Q36_general <- get_single_selection(data = raw_data_general, q.name = Q36)
-Q36_bask <- get_single_selection(data = raw_data_bask, q.name = Q36)
-Q36_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q36)
-Q36_hr <- get_single_selection(data = raw_data_hr, q.name = Q36)
+q35_general <- get_single_selection(data = raw_data_general, q.name = q35)
+q35_bask <- get_single_selection(data = raw_data_bask, q.name = q35)
+q35_botanist <- get_single_selection(data = raw_data_botanist, q.name = q35)
+q35_hr <- get_single_selection(data = raw_data_hr, q.name = q35)
 
-Q36_all <- rbind(Q36_general, Q36_bask, Q36_botanist, Q36_hr)
+q35_all <- rbind(q35_general, q35_bask, q35_botanist, q35_hr)
 
-q36_n <- length(unique(Q36_all$id))
+q35_n <- length(unique(q35_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-Q36_plot <- 
-  Q36_all %>%
+q35_plot <- 
+  q35_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q36_n)
+  mutate(percent_responded = count / q35_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(Q36_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q35_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -59,9 +59,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q36_recreational_cannabis.png', plot = r, device = 'png')
+ggsave(filename = 'q35_medical_cannabis.png', plot = r, device = 'png')
 
-write.csv(Q36_plot, 'q36_recreational_cannabis_431.csv', row.names = FALSE)
+write.csv(q35_plot, 'q35_medical_cannabis_565.csv', row.names = FALSE)
 
-write.csv(Q36_all, 'q36_recreational_cannabis_ids.csv', row.names = FALSE)
+write.csv(q35_all, 'q35_medical_cannabis_ids.csv', row.names = FALSE)
 ```

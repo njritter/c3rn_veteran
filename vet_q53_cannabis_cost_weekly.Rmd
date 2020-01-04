@@ -37,12 +37,12 @@ q53_n <- length(unique(q53_all$id))
 ```
 
 ```{r}
-histogram_object <- hist(as.numeric(all_data$response))
+histogram_object <- hist(as.numeric(q53_all$response))
 histogram_object$breaks = c(0, 100, 200, 300, 400, 500, 600)
 histogram_object$counts
 plot(histogram_object)
 ```
 
 ```{r}
-write.csv(q53_all, 'q53_cannabis_cost_weekly_401.csv', row.names = FALSE)
+write.csv(q53_all, 'q53_cannabis_cost_weekly_529.csv', row.names = FALSE)
 ```

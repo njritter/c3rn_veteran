@@ -43,11 +43,11 @@ q45_n <- length(unique(q45_all$id))
 
 ```{r}
 # Filter by ma_ids generated in seperate code (vet_q98_state)
-q45_ma <-
-  q45_all %>%
-  inner_join(ma_ids, by = "id")
+#q45_ma <-
+  #q45_all %>%
+  #inner_join(ma_ids, by = "id")
 
-q45_ma_n <- length(unique(q45_ma$id))
+#q45_ma_n <- length(unique(q45_ma$id))
 ```
 
 ```{r}
@@ -74,7 +74,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q45_meds_reduced_cannabis.png', plot = r, device = 'png')
 
-write.csv(q45_plot, 'q45_meds_reduced_cannabis_161.csv', row.names = FALSE)
+write.csv(q45_plot, 'q45_meds_reduced_cannabis_565.csv', row.names = FALSE)
 
 write.csv(q45_all, 'q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```

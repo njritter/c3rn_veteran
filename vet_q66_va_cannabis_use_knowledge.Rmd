@@ -61,7 +61,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
 
-write.csv(Q66_plot, 'q66_va_cannabis_use_knowledge_342.csv', row.names = FALSE)
+write.csv(Q66_plot, 'q66_va_cannabis_use_knowledge_521.csv', row.names = FALSE)
 
 write.csv(Q66_all, 'q66_va_cannabis_use_knowledge_ids.csv', row.names = FALSE)
 ```

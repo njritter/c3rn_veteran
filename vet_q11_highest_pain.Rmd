@@ -27,9 +27,9 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 q11 <- "What.is.your.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
 q12 <- "What.is.yourÂ.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
 
-q11_general <- get_single_selection(data = raw_data_general, q.name = q11)
-q11_bask <- get_single_selection(data = raw_data_bask, q.name = q11)
-q11_botanist <- get_single_selection(data = raw_data_botanist, q.name = q11)
+q11_general <- get_single_selection(data = raw_data_general, q.name = q12)
+q11_bask <- get_single_selection(data = raw_data_bask, q.name = q12)
+q11_botanist <- get_single_selection(data = raw_data_botanist, q.name = q12)
 q11_hr <- get_single_selection(data = raw_data_hr, q.name = q12)
 
 q11_all <- rbind(q11_general, q11_bask, q11_botanist, q11_hr)
@@ -61,7 +61,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q11_highest_pain.png', plot = r, device = 'png')
 
-write.csv(q11_plot, 'q11_highest_pain_165.csv', row.names = FALSE)
+write.csv(q11_plot, 'q11_highest_pain_217.csv', row.names = FALSE)
 
 write.csv(q11_all, 'q11_highest_pain_ids.csv', row.names = FALSE)
 ```

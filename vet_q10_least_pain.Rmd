@@ -60,7 +60,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q10_least_pain.png', plot = r, device = 'png')
 
-write.csv(q10_plot, 'q10_least_pain_160.csv', row.names = FALSE)
+write.csv(q10_plot, 'q10_least_pain_203.csv', row.names = FALSE)
 
 write.csv(q10_all, 'q10_least_pain_ids.csv', row.names = FALSE)
 ```

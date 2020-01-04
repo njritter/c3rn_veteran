@@ -59,9 +59,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q69_highest_pain.png', plot = r, device = 'png')
+ggsave(filename = 'q69_va_satisfaction.png', plot = r, device = 'png')
 
-write.csv(q69_plot, 'q69_highest_pain_342.csv', row.names = FALSE)
+write.csv(q69_plot, 'q69_va_satisfaction_521.csv', row.names = FALSE)
 
-write.csv(q69_all, 'q69_highest_pain_ids.csv', row.names = FALSE)
+write.csv(q69_all, 'q69_va_satisfaction_ids.csv', row.names = FALSE)
 ```

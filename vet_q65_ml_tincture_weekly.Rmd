@@ -18,8 +18,8 @@ source("helper.R")
 # Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
 raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
 raw_data_botanist <- read.csv("data/botanist_nat.csv", stringsAsFactors = FALSE)
-raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
-raw_data_healing_rose <- read.csv("data/healing_rose_nat.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
@@ -29,9 +29,9 @@ Q65 <- "How.many.milliliters..mL..of.tincture.are.you.using.per.week..Note..30mL
 Q65_general <- get_single_selection(data = raw_data_general, q.name = Q65)
 Q65_bask <- get_single_selection(data = raw_data_bask, q.name = Q65)
 Q65_botanist <- get_single_selection(data = raw_data_botanist, q.name = Q65)
-Q65_healing_rose <- get_single_selection(data = raw_data_healing_rose, q.name = Q65)
+Q65_hr <- get_single_selection(data = raw_data_hr, q.name = Q65)
 
-Q65_all <- rbind(Q65_general, Q65_bask, Q65_botanist, Q65_healing_rose)
+Q65_all <- rbind(Q65_general, Q65_bask, Q65_botanist, Q65_hr)
 
 number_of_people <- length(unique(Q65_all$id))
 ```
