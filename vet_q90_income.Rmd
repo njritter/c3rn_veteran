@@ -23,41 +23,6 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q98 (a single selection question) combine, then determine 'question n' (subsequent q are labeled for convenience, do not respond to survey q#)
-
-q98 <- "What.state.in.the.US.do.you.currently.live.in."
-q99 <- "What.US.State.do.you.currently.live.in."
-q100 <- "Which.US.state.do.you.currently.live.in."
-q101 <- "What.US.state.do.you.currently.live.in."
-
-q98_general <- get_single_selection(data = raw_data_general, q.name = q98)
-q98_bask <- get_single_selection(data = raw_data_bask, q.name = q99)
-q98_botanist <- get_single_selection(data = raw_data_botanist, q.name = q100)
-q98_hr <- get_single_selection(data = raw_data_hr, q.name = q101)
-
-q98_all <- rbind(q98_general, q98_bask, q98_botanist, q98_hr)
-
-ma_ids <- q98_all %>% 
-  filter(response %in% c("Massachusetts"))
-
-state_ma <- length(unique(ma_ids$id))
-```
-
-```{r}
-ma_data_general <- raw_data_general %>%
-  inner_join(ma_ids, by = "id")
-
-ma_data_botanist <- raw_data_botanist %>%
-  inner_join(ma_ids, by = "id")
-
-ma_data_bask <- raw_data_bask %>%
-  inner_join(ma_ids, by = "id")
-
-ma_data_hr <- raw_data_hr %>%
-  inner_join(ma_ids, by = "id")
-```
-
-```{r}
 # Pull out all responses for q90 (a single selection question) and combine
 q90 <- "What.is.your.annual.household.income..in.US.dollars."
 
