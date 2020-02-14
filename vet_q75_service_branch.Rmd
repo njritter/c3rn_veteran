@@ -23,24 +23,27 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q75 (a single selection question) combine, then determine 'question n'
+# Pull out all responses for q775 (a single selection question) combine, then determine 'question n'
 q75 <- "Which.branch.of.the.armed.services.did.you.serve.in...Please.select.all.that.apply."
+q75_final_response <- "X.339"
 
-q75_general <- get_single_selection(data = raw_data_general, q.name = q75)
-q75_bask <- get_single_selection(data = raw_data_bask, q.name = q75)
-q75_botanist <- get_single_selection(data = raw_data_botanist, q.name = q75)
-q75_hr <- get_single_selection(data = raw_data_hr, q.name = q75)
+q75_general <- get_choose_all(raw_data_general, q.name = q75, f.response = q75_final_response)
+q75_bask <- get_choose_all(raw_data_bask, q.name = q75, f.response = q75_final_response)
+q75_botanist <- get_choose_all(raw_data_botanist, q.name = q75, f.response = q75_final_response)
+q75_hr <- get_choose_all(raw_data_hr, q.name = q75, f.response = q75_final_response)
 
-q75_all <- rbind(q75_general, q75_bask, q75_botanist, q75_hr)
+q75_all <- 
+  rbind(q75_general, q75_bask, q75_botanist, q75_hr) %>%
+  tidy_choose_all()
 
 q75_n <- length(unique(q75_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-q75_plot <- 
+q75_plot <-
   q75_all %>%
-  group_by(response) %>%
+  group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
   mutate(percent_responded = count / q75_n)
@@ -49,18 +52,19 @@ q75_plot <-
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q75_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q75_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
 r
 ```
+
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q75_service_branch.png', plot = r, device = 'png')
 
-write.csv(q75_plot, 'q75_service_branch_283.csv', row.names = FALSE)
+write.csv(q75_plot, 'q75_service_branch_565.csv', row.names = FALSE)
 
 write.csv(q75_all, 'q75_service_branch_ids.csv', row.names = FALSE)
 ```

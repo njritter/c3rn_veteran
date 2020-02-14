@@ -61,7 +61,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q25_thc_test_oud.png', plot = r, device = 'png')
 
-write.csv(q25_plot, 'q25_thc_test_oud_8.csv', row.names = FALSE)
+write.csv(q25_plot, 'q25_thc_test_oud_3.csv', row.names = FALSE)
 
 write.csv(q25_all, 'q25_thc_test_oud_ids.csv', row.names = FALSE)
 ```

@@ -24,7 +24,7 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 
 ```{r}
 # Pull out all responses for q91 (a single selection question) combine, then determine 'question n'
-q91 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÃ‚.received..Ã‚."
+q91 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÂ.received..Â."
 
 q91_general <- get_single_selection(data = raw_data_general, q.name = q91)
 q91_bask <- get_single_selection(data = raw_data_bask, q.name = q91)
@@ -60,7 +60,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q91_highest_degree.png', plot = r, device = 'png')
 
-write.csv(q91_plot, 'q91_highest_degree_565.csv', row.names = FALSE)
+write.csv(q91_plot, 'q91_highest_degree_201.csv', row.names = FALSE)
 
 write.csv(q91_all, 'q91_highest_degree_ids.csv', row.names = FALSE)
 ```

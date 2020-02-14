@@ -27,9 +27,9 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 q102 <- "Do.you.believe.the.VA.should.offer.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
 q103 <- "Do.you.believe.the.VA.should.offerÂ.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
 
-q102_general <- get_single_selection(data = raw_data_general, q.name = q102)
-q102_bask <- get_single_selection(data = raw_data_bask, q.name = q102)
-q102_botanist <- get_single_selection(data = raw_data_botanist, q.name = q102)
+q102_general <- get_single_selection(data = raw_data_general, q.name = q103)
+q102_bask <- get_single_selection(data = raw_data_bask, q.name = q103)
+q102_botanist <- get_single_selection(data = raw_data_botanist, q.name = q103)
 q102_hr <- get_single_selection(data = raw_data_hr, q.name = q103)
 
 q102_all <- rbind(q102_general, q102_bask, q102_botanist, q102_hr)
@@ -62,7 +62,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q102_vet_cannabis_discount.png', plot = r, device = 'png')
 
-write.csv(q102_plot, 'q102_vet_cannabis_discount_431.csv', row.names = FALSE)
+write.csv(q102_plot, 'q102_vet_cannabis_discount_201.csv', row.names = FALSE)
 
 write.csv(q102_all, 'q102_vet_cannabis_discount_ids.csv', row.names = FALSE)
 ```

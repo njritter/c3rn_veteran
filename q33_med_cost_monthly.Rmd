@@ -1,0 +1,34 @@
+---
+title: "q33 'On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?'"
+author: "David Ritter"
+date: "2/13/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper0.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data<- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q33 (a single selection question) combine, then determine 'question n'
+q <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.a.monthly.basis.out.of.pocket."
+
+q_data <- get_single_selection(data = raw_data_general, q.name = q33)
+
+q_n <- length(unique(q_data$id))
+```
+
+```{r}
+# Save all question data including response IDs as csv (save question n and N at end of file as "_x.x")
+write.csv(q_data, 'q33_med_cost_monthly_217.csv', row.names = FALSE)
+```

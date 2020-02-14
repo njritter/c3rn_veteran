@@ -26,9 +26,9 @@ raw_data_hr <- read.csv("data/hr_nat.csv", stringsAsFactors = FALSE)
 # Pull out all responses for q70 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
 q70 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products...Please.select.all.that.apply."
 q70_general_f <- "X.322"
-q70_botanist_f <- "X.2721"
-q70_bask_f <- "X.1561"
-q70_hr_f <- "X.894"
+q70_botanist_f <- "X.322"
+q70_bask_f <- "X.322"
+q70_hr_f <- "X.322"
 
 q70_general <- get_choose_all(raw_data_general, q.name = q70, f.response = q70_general_f)
 q70_bask <- get_choose_all(raw_data_bask, q.name = q70, f.response = q70_bask_f)
@@ -66,7 +66,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q70_cannabis_info.png', plot = r, device = 'png')
 
-write.csv(q70_plot, 'q70_cannabis_info_521.csv', row.names = FALSE)
+write.csv(q70_plot, 'q70_cannabis_info_183.csv', row.names = FALSE)
 
 write.csv(q70_all, 'q70_cannabis_info_ids.csv', row.names = FALSE)
 ```

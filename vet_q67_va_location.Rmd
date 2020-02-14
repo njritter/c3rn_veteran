@@ -39,7 +39,7 @@ ggsave(q67_all, file = "q67_VA_Location.png")
 ```
 
 ```{r}
-write.csv(q67_all, 'q67_VA_Location.csv', row.names = FALSE)
+write.csv(q67_all, 'q67_VA_Location_514.csv', row.names = FALSE)
 ```
 
 

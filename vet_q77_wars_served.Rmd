@@ -27,21 +27,19 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 
 q77 <- "What.war.s..did.you.serve.in...Please.select.all.that.apply."
 
-q77_general_final_response <- "X.373"
-q77_bask_final_response <- "X.1612"
-q77_botanist_final_response <- "X.2772"
-q77_hr_final_response <- "X.945"
+q77_final_response <- "X.373"
 
-q77_general <- get_choose_all(raw_data_general, q.name = q77, f.response = q77_general_final_response)
-q77_bask <- get_choose_all(raw_data_bask, q.name = q77, f.response = q77_bask_final_response)
-q77_botanist <- get_choose_all(raw_data_botanist, q.name = q77, f.response = q77_botanist_final_response)
-q77_hr <- get_choose_all(data = raw_data_hr, q.name = q77, f.response = q77_hr_final_response)
+
+q77_general <- get_choose_all(raw_data_general, q.name = q77, f.response = q77_final_response)
+q77_bask <- get_choose_all(raw_data_bask, q.name = q77, f.response = q77_final_response)
+q77_botanist <- get_choose_all(raw_data_botanist, q.name = q77, f.response = q77_final_response)
+q77_hr <- get_choose_all(data = raw_data_hr, q.name = q77, f.response = q77_final_response)
 
 q77_all <- 
   rbind(q77_general, q77_bask, q77_botanist, q77_hr) %>%
   tidy_choose_all()
 
-q77_n <- length(unique(q77_all$id))
+responses <- length(unique(q77_all$id))
 ```
 
 ```{r}
@@ -51,7 +49,7 @@ q77_plot <-
   group_by(chosen) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q77_n)
+  mutate(percent_responded = count / responses)
 ```
 
 ```{r}
@@ -69,7 +67,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q77_wars_served.png', plot = r, device = 'png')
 
-write.csv(q77_plot, 'q77_wars_served_562.csv', row.names = FALSE)
+write.csv(q77_plot, 'q77_wars_served_565.csv', row.names = FALSE)
 
 write.csv(q77_all, 'q77_wars_served_ids.csv', row.names = FALSE)
 ```

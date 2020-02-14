@@ -60,7 +60,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q84_soldiers_KIA_MIA.png', plot = r, device = 'png')
 
-write.csv(q84_plot, 'q84_soldiers_KIA_MIA_295.csv', row.names = FALSE)
+write.csv(q84_plot, 'q84_soldiers_KIA_MIA_111.csv', row.names = FALSE)
 
 write.csv(q84_all, 'q84_soldiers_KIA_MIA_ids.csv', row.names = FALSE)
 ```

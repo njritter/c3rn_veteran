@@ -1,0 +1,46 @@
+---
+title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?' Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
+output: html_document
+---
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper0.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q29 (a single selection question) combine, then determine 'question n'
+q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
+
+q29_all <- get_single_selection(data = raw_data_general, q.name = q29)
+
+q29_n <- length(unique(q29_all$id))
+```
+
+
+```{r}
+histogram_object <- hist(as.numeric(q29_all$response))
+histogram_object$breaks
+histogram_object$counts
+plot(histogram_object)
+```
+
+```{r}
+ggsave(plot(histogram_object), file = "q29_Percentage_Disability.png")
+```
+
+```{r}
+write.csv(q29_all, 'q29_Percentage_Disability_144.csv', row.names = FALSE)
+```
+
+
+

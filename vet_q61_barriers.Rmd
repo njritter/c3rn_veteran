@@ -65,7 +65,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q61_barriers.png', plot = r, device = 'png')
 
-write.csv(q61_plot, 'q61_barriers_565.csv', row.names = FALSE)
+write.csv(q61_plot, 'q61_barriers_201.csv', row.names = FALSE)
 
 write.csv(q61_all, 'q61_barrers_ids.csv', row.names = FALSE)
 ```

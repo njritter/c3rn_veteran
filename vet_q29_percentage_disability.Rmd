@@ -47,7 +47,7 @@ ggsave(plot(histogram_object), file = "q29_Percentage_Disability.png")
 ```
 
 ```{r}
-write.csv(q29_all, 'q29_Percentage_Disability_439.csv', row.names = FALSE)
+write.csv(q29_all, 'q29_Percentage_Disability_145.csv', row.names = FALSE)
 ```
 
 
