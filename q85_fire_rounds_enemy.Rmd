@@ -1,0 +1,58 @@
+---
+title: "q85 'How often did you fire rounds at the enemy?'"
+author: "David Ritter"
+date: "5/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "How.often.did.you.fire.rounds.at.the.enemy."
+
+q_data <- get_single_selection(data = raw_data, q.name = q)
+
+q_n <- length(unique(q_data$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q_plot <-
+  q_data %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
+  arrange(desc(count))
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+  xlab("Response") +
+  ylab("% Responded, Count") +
+  labs(title = "How often did you fire rounds at the enemy?", subtitle = q_n)
+r
+```
+
+```{r}
+ggsave(filename = 'q85_fire_rounds.png', plot = r, device = 'png')
+
+write.csv(q_plot, 'q85_fire_rounds_90.csv', row.names = FALSE)
+
+write.csv(q_data, 'q85_fire_rounds_ids.csv', row.names = FALSE)
+```

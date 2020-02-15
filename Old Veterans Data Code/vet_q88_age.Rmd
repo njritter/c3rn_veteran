@@ -1,5 +1,5 @@
 ---
-title: "q88 'What is your age (in years)?' (Veterans)"
+title: "q88 'What is your age (in years)?'"
 author: "David Ritter"
 date: "November 19, 2019"
 output: html_document

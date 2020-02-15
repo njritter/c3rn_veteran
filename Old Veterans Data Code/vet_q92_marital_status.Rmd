@@ -1,7 +1,7 @@
 ---
-title: "q89 'To which gender do you most identify?' (Veterans)"
+title: "q92 'What is your marital status?'"
 author: "DJ"
-date: "June 26, 2019"
+date: "1/6/2020"
 output: html_document
 runtime: shiny
 ---
@@ -23,46 +23,44 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q89 (a single selection question) combine, then determine 'question n'
-q89 <- "To.which.gender.do.you.most.identify."
+# Pull out all responses for q92 (a single selection question) combine, then determine 'question n'
+q92 <- "What.is.your.marital.status."
 
-q89_general <- get_single_selection(data = raw_data_general, q.name = q89)
-q89_bask <- get_single_selection(data = raw_data_bask, q.name = q89)
-q89_botanist <- get_single_selection(data = raw_data_botanist, q.name = q89)
-q89_hr <- get_single_selection(data = raw_data_hr, q.name = q89)
+q92_general <- get_single_selection(data = raw_data_general, q.name = q92)
+q92_bask <- get_single_selection(data = raw_data_bask, q.name = q92)
+q92_botanist <- get_single_selection(data = raw_data_botanist, q.name = q92)
+q92_hr <- get_single_selection(data = raw_data_hr, q.name = q92)
 
-q89_all <- rbind(q89_general, q89_bask, q89_botanist, q89_hr)
+q92_all <- rbind(q92_general, q92_bask, q92_botanist, q92_hr)
 
-number_of_people <- length(unique(q89_all$id))
+q92_n <- length(unique(q92_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-q89_plot <- 
-  q89_all %>%
+q92_plot <- 
+  q92_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / number_of_people)
-
+  mutate(percent_responded = count / q92_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q89_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q92_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
-
 r
 ```
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q89_gender.png', plot = r, device = 'png')
+ggsave(filename = 'q92_marital_status.png', plot = r, device = 'png')
 
-write.csv(q89_plot, 'q89_gender_201.csv', row.names = FALSE)
+write.csv(q92_plot, 'q92_marital_status_201.csv', row.names = FALSE)
 
-write.csv(q89_all, 'q89_gender_ids.csv', row.names = FALSE)
+write.csv(q92_all, 'q92_marital_status_ids.csv', row.names = FALSE)
 ```
