@@ -1,7 +1,7 @@
 ---
-title: "q55 'Do you grow your own cannabis at home?' National Veterans"
+title: "q50 'How many days do you use cannabis per week? (Please select one)' National"
 author: "DJ"
-date: "1/6/2020"
+date: "2/15/2020"
 output: html_document
 runtime: shiny
 ---
@@ -23,33 +23,33 @@ raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q55 (a single selection question) combine, then determine 'question n'
-q55 <- "Do.you.grow.your.own.cannabis.at.home."
+# Pull out all responses for q50 (a single selection question) combine, then determine 'question n'
+q50 <- "How.many.days.do.you.use.cannabis.per.week...Please.select.one."
 
-q55_general <- get_single_selection(data = raw_data_general, q.name = q55)
-q55_bask <- get_single_selection(data = raw_data_bask, q.name = q55)
-q55_botanist <- get_single_selection(data = raw_data_botanist, q.name = q55)
-q55_hr <- get_single_selection(data = raw_data_hr, q.name = q55)
+q50_general <- get_single_selection(data = raw_data_general, q.name = q50)
+q50_bask <- get_single_selection(data = raw_data_bask, q.name = q50)
+q50_botanist <- get_single_selection(data = raw_data_botanist, q.name = q50)
+q50_hr <- get_single_selection(data = raw_data_hr, q.name = q50)
 
-q55_all <- rbind(q55_general, q55_bask, q55_botanist, q55_hr)
+q50_all <- rbind(q50_general, q50_bask, q50_botanist, q50_hr)
 
-q55_n <- length(unique(q55_all$id))
+q50_n <- length(unique(q50_all$id))
 ```
 
 ```{r}
 # Manipulate data into a graphable format
-q55_plot <- 
-  q55_all %>%
+q50_plot <- 
+  q50_all %>%
   group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_all = count / sum(count)) %>%
-  mutate(percent_responded = count / q55_n)
+  mutate(percent_responded = count / q50_n)
 ```
 
 ```{r}
 # Plot with percents and response counts
 r <- 
-  ggplot(q55_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  ggplot(q50_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
@@ -58,9 +58,9 @@ r
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q55_home_grow.png', plot = r, device = 'png')
+ggsave(filename = 'q50_cannabis_days_per_week.png', plot = r, device = 'png')
 
-write.csv(q55_plot, 'q55_home_grow_201.csv', row.names = FALSE)
+write.csv(q50_plot, 'q50_cannabis_days_per_week_201.csv', row.names = FALSE)
 
-write.csv(q55_all, 'q55_home_grow_ids.csv', row.names = FALSE)
+write.csv(q50_all, 'q50_cannabis_days_per_week_ids.csv', row.names = FALSE)
 ```

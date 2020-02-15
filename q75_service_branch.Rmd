@@ -1,0 +1,63 @@
+---
+title: "q75 'Which branch of the armed services did you serve in? (Please select all that apply)'"
+author: "David Ritter"
+date: "2/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q5 (a choose all question), combine, turn into a tidy data format for further processing then d <- tidy_choose_all(q)etermine 'question n'
+q <- 'Which.branch.of.the.armed.services.did.you.serve.in...Please.select.all.that.apply.'
+q_final_response <- "X.339"
+
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+  tidy_choose_all()
+
+q_n <- length(unique(q_data$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q_plot <-
+  q_data %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
+  arrange(desc(count))
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+  xlab("Response") +
+  ylab("% Responded, Count") +
+  labs(title = "Which branch of the armed services did you serve in? (Please select all that apply)", subtitle = q_n)
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q75_service_branch.png', plot = r, device = 'png')
+
+write.csv(q_plot, 'q75_service_branch_217.csv', row.names = FALSE)
+
+write.csv(q_data, 'q75_service_branch_ids.csv', row.names = FALSE)
+```
