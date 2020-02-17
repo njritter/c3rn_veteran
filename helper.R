@@ -98,4 +98,29 @@ plot_single_select <- function(data)
   r
 }
 
+# Get all responses for single select question
+get_single_selection_2 <- function(data, q.name)
+{
+  responses <- 
+    data %>%
+    select(id = "id", question = q.name) %>%
+    slice(2:nrow(.)) %>%
+    rename(response = question) %>%
+    filter(response > 0)
+  
+  return(responses)
+}
+
+
+clean_single_select_2 <- function(data)
+{
+  q_plot <-
+    data %>%
+    group_by(response) %>%
+    summarize(count = n()) %>%
+    mutate(percent_responded = round(100*(count / sum(count)), 2)) %>%
+    arrange(desc(count))
+  
+}
+
 
