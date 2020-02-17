@@ -1,5 +1,5 @@
 ---
-title: "q4 How would you rate your quality of health today?"
+title: "Template code for single select questions"
 author: "David Ritter"
 date: "2/13/2020"
 output: html_document
@@ -27,32 +27,17 @@ q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
+#Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
+q_plot<- clean_single_select(q_data)
+
+plot_single_select(q_plot) +
+  labs(title = "Question Text", subtitle = q_n)
 ```
 
 ```{r}
-# Plot with percents and response counts
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "How would you rate your quality of health today?", subtitle = q_n)
-r
-```
+ggsave(filename = 'q#_qtext.png', plot = r, device = 'png')
 
-```{r}
-ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
+write.csv(q_plot, 'q#_qtext_##.csv', row.names = FALSE)
 
-write.csv(q_plot, 'q4_health_quality_217.csv', row.names = FALSE)
-
-write.csv(q_data, 'q4_health_quality_ids.csv', row.names = FALSE)
+write.csv(q_data, 'q#_qtext_ids.csv', row.names = FALSE)
 ```

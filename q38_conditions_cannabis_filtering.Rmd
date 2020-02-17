@@ -1,0 +1,76 @@
+---
+title: "q38 'Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)'"
+author: "David Ritter"
+date: "2/13/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q5 (a choose all question), combine, turn into a tidy data format for further processing then d <- tidy_choose_all(q)etermine 'question n'. If filtering skip down after this step.
+q <- 'Which.health.conditions.do.you.find.cannabis.to.be.helpful.in.treating...Please.select.all.that.apply.'
+q_final_response <- "X.179"
+
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+  tidy_choose_all()
+
+q_n <- length(unique(q_data$id))
+```
+
+```{r}
+#Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
+q_plot<- clean_choose_all(q_data)
+
+plot_choose_all(q_plot) +
+  labs(title = "Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)", subtitle = q_n)
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q38_conditions_cannabis.png', plot = r, device = 'png')
+
+write.csv(q_plot, 'q38_conditions_cannabis_217.csv', row.names = FALSE)
+
+write.csv(q_data, 'q38_conditions_cannabis_ids.csv', row.names = FALSE)
+```
+
+```{r}
+#OPTIONAL FILTERING!!!  Filter out responses from non-selected IDs. Run after step that generates q_data.
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+q_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+#OPTIONAL FILTERING!!!
+q_plot<- clean_choose_all(qf_all_data)
+
+r <- plot_choose_all(q_plot) +
+  labs(title = "Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)", subtitle = q_n)
+r
+```
+
+```{r}
+#OPTIONAL FILTERING!!! 
+ggsave(filename = 'q38_conditions_cannabis.png', plot = r, device = 'png')
+
+write.csv(q_plot, 'q38_conditions_cannabis_134.csv', row.names = FALSE)
+
+write.csv(qf_all_data, 'q38_conditions_cannabis_ids.csv', row.names = FALSE)
+```
+

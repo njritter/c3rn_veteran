@@ -1,0 +1,61 @@
+---
+title: "Q21 Total Prescriptions (rev)"
+author: "DJ"
+date: "August 8, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the rev survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_rev <- read.csv("data/rev_nat.csv", stringsAsFactors = FALSE)
+```
+  
+```{r}
+# Pull out all responses for Q21 (a single selection question) combine, then determine 'question n'
+Q21 <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
+
+Q21_rev <- get_single_selection(data = raw_data_rev, q.name = Q21)
+
+Q21_all <- rbind(Q21_rev)
+
+number_of_people <- length(unique(Q21_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q21_plot <- 
+  Q21_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q21_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'rev_q21_total_prescriptions.png', plot = r, device = 'png')
+
+write.csv(Q21_plot, 'rev_q21_total_prescriptions_11.csv', row.names = FALSE)
+
+write.csv(Q21_all, 'rev_q21_total_prescriptions_ids.csv', row.names = FALSE)
+```

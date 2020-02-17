@@ -1,0 +1,66 @@
+---
+title: "q73'In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?' Veterans"
+author: "DJ"
+date: "1/6/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_hr <- read.csv("data/hr.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q73 (a single selection question) combine, then determine 'question n'
+q73 <- "In.the.last.30.days..how.often.have.you.seen.or.heard.advertising.for.cannabis.products.or.stores.in.your.community..including.TV..radio..signs..billboards..newspapers..pamphlets..or.street.side.marketing.."
+
+q73_general <- get_single_selection(data = raw_data_general, q.name = q73)
+q73_bask <- get_single_selection(data = raw_data_bask, q.name = q73)
+q73_botanist <- get_single_selection(data = raw_data_botanist, q.name = q73)
+q73_hr <- get_single_selection(data = raw_data_hr, q.name = q73)
+
+q73_all <- rbind(q73_general, q73_bask, q73_botanist, q73_hr)
+
+q73_n <- length(unique(q73_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q73_plot <- 
+  q73_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / q73_n)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q73_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q73_advertising.png', plot = r, device = 'png')
+
+write.csv(q73_plot, 'q73_advertising_183.csv', row.names = FALSE)
+
+write.csv(q73_all, 'q73_advertising_ids.csv', row.names = FALSE)
+```

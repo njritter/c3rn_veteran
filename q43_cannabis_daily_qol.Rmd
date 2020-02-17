@@ -34,7 +34,7 @@ q_n <- length(unique(q_data$id))
 # Manipulate data into a graphable format
 q_plot <-
   q_data %>%
-  groupby(chosen) %>%
+  group_by(chosen) %>%
   summarize_all(count = n()) %>%
   mutate(percent_responded = round(100*(count / q_n), 2)) %>%
   arrange(desc(count))

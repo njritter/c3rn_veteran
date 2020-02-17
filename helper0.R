@@ -51,8 +51,3 @@ tidy_choose_all <- function(data)
   }
 
 
-
-
-
-
-

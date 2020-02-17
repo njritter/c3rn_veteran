@@ -1,0 +1,58 @@
+---
+title: "Q66 VA Cannabis Use Knowledge (Veterans)"
+author: "DJ"
+date: "July 29, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+Q66 <- "Does.yourÂ.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
+
+Q66_all <- get_single_selection(data = raw_data_general, q.name = Q66)
+
+Q66_n <- length(unique(Q66_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q66_plot <-
+  Q66_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_responded = 100*(count / Q66_n)) %>%
+  arrange(desc(response))
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q66_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+  xlab("Response") +
+  ylab("% Responded, Count") +
+  labs(title = "Does your VA doctor or clinical care provider know about your medical cannabis use?", subtitle = "N=202")
+r
+```
+
+```{r}
+ggsave(filename = 'q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
+
+write.csv(Q66_plot, 'q66_va_cannabis_use_knowledge_202.csv', row.names = FALSE)
+
+write.csv(Q66_all, 'q66_va_cannabis_use_knowledge_ids.csv', row.names = FALSE)
+```

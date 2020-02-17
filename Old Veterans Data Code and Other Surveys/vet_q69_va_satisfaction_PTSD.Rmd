@@ -1,0 +1,59 @@
+---
+title: "q69 'How satisfied are you with the VA in managing your health condition?' (Veterans)"
+author: "David Ritter"
+date: "Novemer 19, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q69 (a single selection question), combine, then determine 'question n'
+q69 <- "How.satisfied.are.you.with.the.VA.in.managing.your.health.condition."
+
+q69_all <- get_single_selection(data = raw_data_general, q.name = q69)
+
+q69_n <- length(unique(q69_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q69_plot <- 
+  q69_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / q69_n)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q69_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q69_va_satisfaction.png', plot = r, device = 'png')
+
+write.csv(q69_plot, 'q69_va_satisfaction_130.csv', row.names = FALSE)
+
+write.csv(q69_all, 'q69_va_satisfaction_ids.csv', row.names = FALSE)
+```

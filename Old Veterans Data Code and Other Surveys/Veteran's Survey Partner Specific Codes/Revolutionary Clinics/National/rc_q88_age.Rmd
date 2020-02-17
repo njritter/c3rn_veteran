@@ -1,0 +1,72 @@
+---
+title: "Q88 Age (rev)"
+author: "DJ"
+date: "August 8, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the rev survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_rev <- read.csv("data/rev_nat.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q88 (a single selection question), combine, then determine 'question n'
+Q88 <- "What.is.your.age..in.years.."
+
+Q88_rev <- get_single_selection(data = raw_data_rev, q.name = Q88)
+
+Q88_all <- rbind(Q88_rev)
+
+number_of_people <- length(unique(Q88_all$id))
+```
+
+```{r}
+#Optional Filtering Step
+sixty_plus <- Q88_data %>% 
+  filter(response %in% c("60-69", "70+"))
+
+thirty_sixty <- Q88_data %>% 
+  filter(response %in% c("30-39", "40-49", "50-59"))
+
+under_thirty <- Q88_data %>% 
+  filter(response %in% c("21-29"))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q88_plot <-
+  Q88_all %>%
+  group_by(response, ) %>%
+  summarize(count = n()) %>%
+  ungroup() %>%
+  mutate(percent_all = count / sum(count))
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q88_plot, aes(x = response, y = count)) +
+  geom_bar(stat = 'identity') +
+  geom_text(aes(label= paste(round(percent_all,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'rev_q88_age.png', plot = r, device = 'png')
+
+write.csv(Q88_plot, 'rev_q88_age_17.csv', row.names = FALSE)
+
+write.csv(Q88_all, 'rev_q88_age_ids.csv', row.names = FALSE)
+```

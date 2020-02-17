@@ -1,0 +1,59 @@
+---
+title: "q49 'What impact do you think legalization will have on your consumption of cannabis?' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q49 (a single selection question) combine, then determine 'question n'
+q49 <- "What.impact.do.you.think.legalization.will.have.on.youth.consumption.of.cannabis."
+
+q49_all <- get_single_selection(data = raw_data_occp, q.name = q49)
+
+number_of_people <- length(unique(q49_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q49_plot <- 
+  q49_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q49_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded, 2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q49_legalization_youth.png', plot = r, device = 'png')
+
+write.csv(q49_plot, 'q49_legalization_youth_900.csv', row.names = FALSE)
+
+write.csv(q49_all, 'q49_legalization_youth_ids.csv', row.names = FALSE)
+```

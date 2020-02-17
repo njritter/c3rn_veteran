@@ -1,0 +1,64 @@
+---
+title: "Q38 Conditions Cannabis (sens)"
+author: "DJ"
+date: "August 8, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the sens survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_sens <- read.csv("data/sens_nat.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q38 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+Q38 <- "Which.health.conditions.do.you.find.cannabis.to.be.helpful.in.treating...Please.select.all.that.apply."
+Q38_final_response <- "X.179"
+
+Q38_sens <- get_choose_all(raw_data_sens, q.name = Q38, f.response = Q38_final_response)
+
+Q38_all <- 
+  rbind(Q38_sens) %>%
+  tidy_choose_all()
+
+number_of_people <- length(unique(Q38_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q38_plot <-
+  Q38_all %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q38_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'sens_q38_conditions_cannabis.png', plot = r, device = 'png')
+
+write.csv(Q38_plot, 'sens_q38_conditions_cannabis_14.csv', row.names = FALSE)
+
+write.csv(Q38_all, 'sens_q38_conditions_cannabis_ids.csv', row.names = FALSE)
+```

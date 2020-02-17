@@ -1,0 +1,59 @@
+---
+title: "q55 'What is your age in years?' OCCP"
+author: "David Ritter"
+date: "November 19, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the OCCP survey. These are the files downloaded from survey monkey saved as a .csv
+raw_data_occp <- read.csv("data/occp.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q55 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+q55 <- "What.is.your.age..in.years..Â."
+
+q55_all <- get_single_selection(raw_data_occp, q.name = q55)
+
+q55_n <- length(unique(q55_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+q55_plot <-
+  q55_all %>%
+  group_by(response) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / q55_n)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(q55_plot, aes(x = reorder(response, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'q55_age.png', plot = r, device = 'png')
+
+write.csv(q55_plot, 'q55_age_898.csv', row.names = FALSE)
+
+write.csv(q55_all, 'q55_age_ids.csv', row.names = FALSE)
+```

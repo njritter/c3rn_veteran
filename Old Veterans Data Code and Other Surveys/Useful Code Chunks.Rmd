@@ -1,0 +1,122 @@
+---
+title: "Useful Code Chunks"
+author: "DJ"
+date: "June 13, 2019"
+output: html_document
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/general.csv", stringsAsFactors = FALSE)
+raw_data_botanist <- read.csv("data/botanist.csv", stringsAsFactors = FALSE)
+raw_data_bask <- read.csv("data/bask.csv", stringsAsFactors = FALSE)
+raw_data_healing_rose <- read.csv("data/healing_rose_text.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+single_selection <- function(data, q.name)
+  {
+  responses <- 
+    data %>%
+    select(id = Respondent.ID, question = q.name) %>%
+    slice(2:nrow(.)) %>%
+    filter(question > 0)
+  
+  return(responses)
+  }
+```
+
+```{r}
+test <- single_selection(
+  data = raw_data_general,
+  q.name = "What.is.your.age..in.years..")
+```
+
+
+```{r}
+choose_all <- function(data){
+  
+  responses <- 
+    data %>%
+    select(
+      id = "Respondent.ID",
+      question = "Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.",
+      "X":"X.24")
+    
+  colnames(responses) <- responses[1, ]
+  responses <- responses[-1, ]
+  responses <- 
+    responses %>% 
+    rename(id = 1) %>%
+    gather(key = condition, value = checked, "Chronic pain":Insomnia) %>%
+    filter(checked >= 1) %>%
+    select(-checked)
+  
+  return(responses)
+  
+}
+```
+
+
+```{r}
+test <- choose_all(raw_data_general)
+```
+
+
+```{r}
+# Pull information for only this question out of each survey
+# - Rename columns
+# - Drop first row (first row contained column names)
+# - Add survey source as a variable
+
+    ## General
+general <-
+  choose_all(raw_data_general) %>%
+  left_join(
+    single_selection(data = raw_data_general, q.name = "What.is.your.age..in.years..")
+  )
+
+  ## Bask
+bask <-
+  choose_all(raw_data_bask) %>%
+  left_join(
+    single_selection(data = raw_data_bask, q.name = "What.is.your.age..in.years..")
+  )
+
+  ## Botanist
+botanist <-
+  choose_all(raw_data_botanist) %>%
+  left_join(
+    single_selection(data = raw_data_botanist, q.name = "What.is.your.age..in.years..")
+  )
+```
+
+```{r}
+for_plot <- 
+  all %>%
+  group_by(range, condition) %>%
+  summarize(count = n())
+```
+
+
+```{r}
+p <- ggplot(data = for_plot, aes(x = condition, y = count)) +
+  geom_bar(stat = 'identity') + 
+  coord_flip() +
+  facet_wrap(~range)
+
+p
+```
+
+
+
+
+
+

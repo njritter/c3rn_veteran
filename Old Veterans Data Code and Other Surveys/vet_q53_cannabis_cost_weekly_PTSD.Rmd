@@ -1,0 +1,40 @@
+---
+title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?' (Veterans)"
+author: "David Ritter"
+date: "November 19, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper0.R")
+```
+
+```{r}
+# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for q53 (a single selection question) combine, then determine 'question n'
+q53 <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
+
+q53_all <- get_single_selection(data = raw_data_general, q.name = q53)
+
+q53_n <- length(unique(q53_all$id))
+```
+
+```{r}
+histogram_object <- hist(as.numeric(q53_all$response))
+histogram_object$breaks = c(0, 100, 200, 300, 400, 500, 600)
+histogram_object$counts
+plot(histogram_object)
+```
+
+```{r}
+write.csv(q53_all, 'q53_cannabis_cost_weekly_144.csv', row.names = FALSE)
+```

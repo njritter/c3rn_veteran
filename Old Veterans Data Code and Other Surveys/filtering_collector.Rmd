@@ -1,0 +1,55 @@
+---
+title: "Filtering by Collector"
+author: "DJ Ritter"
+date: "8/10/2019"
+output: html_document
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+library(plyr)
+```
+
+```{r}
+# Identify and create data set from Collector ID column
+raw_data_general <- read.csv("data/general_nat.csv", stringsAsFactors = FALSE)
+ids <- "Collector.ID"
+id_general <- get_single_selection(data = raw_data_general, q.name = ids)
+id_all <- rbind(id_general)
+id_grouped <- 
+  summarize(id_all, count = n(nrows), count = "id", collector = "response", 
+    na.rm = T)
+ 
+
+number_of_people <- length(unique(id_all$id))
+#write.csv(id_all, 'Collector_ID_General.csv', row.names = FALSE)
+```
+
+```{r}
+collector_id <- id_all %>% 
+  filter(response %in% c("", "Yes, in the past but not currently"))
+```
+
+```{r}
+#Create data set from Collector ID column
+raw_data_bask <- read.csv("data/bask_nat.csv", stringsAsFactors = FALSE)
+id <- "Collector.ID"
+id_bask <- get_single_selection(data = raw_data_bask, q.name = id)
+id_all <- rbind(id_bask) %>%
+
+number_of_people <- length(unique(id_all$id))
+```
+
+
+
+
+
+
+
+
+
+
+

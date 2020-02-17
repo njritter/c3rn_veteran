@@ -1,0 +1,65 @@
+---
+title: "Q5 Conditions (DAV MA)"
+author: "DJ"
+date: "August 8, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+# Load libraries
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+# Read in raw data from the DAV surveys. These are the files downloaded from survey monkey saved as a .csv
+raw_data_DAV <- read.csv("data/dav_nat.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Pull out all responses for Q5 (a choose all question), combine, turn into a tidy data format for further processing then determine 'question n'
+Q5 <- 'Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.'
+Q5_final_response <- "X.25"
+
+Q5_DAV <- get_choose_all(raw_data_DAV, q.name = Q5, f.response = Q5_final_response)
+
+Q5_all <- 
+  rbind(Q5_DAV) %>%
+  tidy_choose_all() %>%
+  inner_join(ma_ids, by = "id")
+
+number_of_people <- length(unique(Q5_all$id))
+```
+
+```{r}
+# Manipulate data into a graphable format
+Q5_plot <-
+  Q5_all %>%
+  group_by(chosen) %>%
+  summarize(count = n()) %>%
+  mutate(percent_all = count / sum(count)) %>%
+  mutate(percent_responded = count / number_of_people)
+```
+
+```{r}
+# Plot with percents and response counts
+r <- 
+  ggplot(Q5_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  geom_bar(stat = 'identity') +
+  coord_flip() +
+  geom_text(aes(label= paste(round(percent_responded,2), count, sep = "***")))
+
+r
+```
+
+```{r}
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+ggsave(filename = 'dav_q5_conditions.png', plot = r, device = 'png')
+
+write.csv(Q5_plot, 'dav_q5_conditions_45.csv', row.names = FALSE)
+
+write.csv(Q5_all, 'dav_q5_conditions_ids.csv', row.names = FALSE)
+```
