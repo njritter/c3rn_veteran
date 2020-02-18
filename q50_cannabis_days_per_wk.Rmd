@@ -1,5 +1,5 @@
 ---
-title: "q87 'How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?'"
+title: "q50 'How many days do you use cannabis per week? (Please select one)'"
 author: "David Ritter"
 date: "2/18/2020"
 output: html_document
@@ -18,8 +18,8 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.often.were.you.in.danger.of.being.injured.or.killed..i.e...being.pinned.down..overrun..ambushed..near.miss..etc..."
-t <- "How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?"
+q <- "How.many.days.do.you.use.cannabis.per.week...Please.select.one."
+t <- "How many days do you use cannabis per week? (Please select one)"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
 ```
@@ -31,13 +31,13 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q87_danger_frequency.png', plot = r, device = 'png')
-write.csv(q_plot, 'q87_danger_frequency_108.csv', row.names = FALSE)
+ggsave(filename = 'q50_cannabis_days_per_wk.png', plot = r, device = 'png')
+write.csv(q_plot, 'q50_cannabis_days_per_wk_144.csv', row.names = FALSE)
 ```
 
 ```{r}
 qf_data <- q_data %>%
-  filter(response == "Response text")
+  filter(response == "Multiple times every day")
 ```
 
 ```{r}
@@ -55,7 +55,7 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q87_danger_frequency.png', plot = r, device = 'png')
-write.csv(q_plot, 'q87_danger_frequency_n#.csv', row.names = FALSE)
+ggsave(filename = 'q50_cannabis_days_per_wk.png', plot = r, device = 'png')
+write.csv(q_plot, 'q50_cannabis_days_per_wk_n#.csv', row.names = FALSE)
 ```
 

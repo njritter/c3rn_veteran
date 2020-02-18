@@ -1,13 +1,12 @@
 ---
 title: "How many milligrams of cannabis do you use per week?"
 author: "David Ritter"
-date: "2/17/2020"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -21,7 +20,6 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- 'How.many.milligrams.of.cannabis.do.you.use.per.week.'
 q_final_response <- "X.297"
-
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
 ```
 
@@ -30,10 +28,10 @@ table_1 <- get_single_selection_2(q_data, "Edibles (e.g. gummies, chocolate, loz
   filter(response != "N/A") %>%
   clean_single_select_2()
 
-table_1_n <- tally(table_1, count)
+q_n <- tally(table_1, count)
 
 r1 <- plot_single_select(table_1) +
-  labs(title = "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)", subtitle = table_1_n)
+  labs(title = "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)", subtitle = q_n)
 r1
 ```
 
@@ -42,10 +40,10 @@ table_2 <- get_single_selection_2(q_data, "Transdermal patches") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
-table_2_n <- tally(table_2, count)
+q_n <- tally(table_2, count)
 
 r2 <- plot_single_select(table_2) +
-  labs(title = "Transdermal patches", subtitle = table_2_n)
+  labs(title = "Transdermal patches", subtitle = q_n)
 r2
 ```
 
@@ -54,10 +52,10 @@ table_3 <- get_single_selection_2(q_data, "Suppositories") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
-table_3_n <- tally(table_3, count)
+q_n <- tally(table_3, count)
 
 r3 <- plot_single_select(table_3) +
-  labs(title = "Suppositories", subtitle = table_3_n)
+  labs(title = "Suppositories", subtitle = q_n)
 r3
 ```
 
@@ -66,75 +64,23 @@ table_4 <- get_single_selection_2(q_data, "Capsules") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
-table_4_n <- tally(table_4, count)
+q_n <- tally(table_4, count)
 
 r4 <- plot_single_select(table_4) +
-  labs(title = "Capsules", subtitle = table_4_n)
+  labs(title = "Capsules", subtitle = q_n)
 r4
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q63_edibles_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q63_edibles_wkly_127.csv', row.names = FALSE)
+write.csv(table_1, 'q63_edibles_wkly_77.csv', row.names = FALSE)
 
 ggsave(filename = 'q63_patches_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'q63_patches_wkly_19.csv', row.names = FALSE)
+write.csv(table_2, 'q63_patches_wkly_8.csv', row.names = FALSE)
 
 ggsave(filename = 'q63_suppositories_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q63_suppositories_wkly_12.csv', row.names = FALSE)
+write.csv(table_3, 'q63_suppositories_wkly_6.csv', row.names = FALSE)
 
 ggsave(filename = 'q63_capsules_wkly.png', plot = r4, device = 'png')
-write.csv(table_4, 'q63_capsules_wkly_38.csv', row.names = FALSE)
-```
-
-
-
-
-
-
-
-
-
-
-```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q62_smoke_vape_wkly.png', plot = r, device = 'png')
-
-write.csv(q_plot, 'q62_smoke_vape_wkly_144.csv', row.names = FALSE)
-
-write.csv(q_data, 'q62_smoke_vape_wkly_ids.csv', row.names = FALSE)
-```
-
-
-```{r}
-#OPTIONAL Filter one response, then move to process qf_data in the code of the other question being analyzed
-qf_data <- filter(q_data, chosen == "Response")
-```
-
-```{r}
-#OPTIONAL FILTERING!!!  Filter out responses from non-selected IDs. Run after step that generates q_data.
-qf_all_data <- 
-  qf_data %>%
-  inner_join(q_data, by = "id")
-
-q_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
-#OPTIONAL FILTERING!!!
-q_plot<- clean_choose_all(qf_all_data)
-
-r <- plot_choose_all(q_plot) +
-  labs(title = "Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)", subtitle = q_n)
-r
-```
-
-```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q#_qtext.png', plot = r, device = 'png')
-
-write.csv(q_plot, 'q#_qtext_XX.csv', row.names = FALSE)
-
-write.csv(qf_all_data, 'q#_qtext_ids.csv', row.names = FALSE)
+write.csv(table_4, 'q63_capsules_wkly_16.csv', row.names = FALSE)
 ```

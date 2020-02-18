@@ -1,13 +1,12 @@
 ---
 title: "q94 'Have you ever been homeless?'"
 author: "David Ritter"
-date: "2/15/2020"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -20,40 +19,42 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- "Have.you.ever.been.homeless."
-
+t <- "Have you ever been homeless?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-# Plot with percents and response counts
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "Have you ever been homeless?", subtitle = q_n)
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q94_homeless.png', plot = r, device = 'png')
+write.csv(q_plot, 'q94_homeless_144.csv', row.names = FALSE)
+```
 
-write.csv(q_plot, 'q94_homeless_217.csv', row.names = FALSE)
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
 
-write.csv(q_data, 'q94_homeless_ids.csv', row.names = FALSE)
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_f(qf_all_data)
+r <- plot_single_select_f(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q94_homeless.png', plot = r, device = 'png')
+write.csv(q_plot, 'q94_homeless_n#.csv', row.names = FALSE)
 ```

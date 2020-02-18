@@ -1,5 +1,5 @@
 ---
-title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?' (Veterans)"
+title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?'"
 author: "David Ritter"
 date: "2/13/2020"
 output: html_document
@@ -7,7 +7,6 @@ runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -15,12 +14,10 @@ source("helper.R")
 ```
 
 ```{r}
-# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Define the text from the desired column as 'q'. Select the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
 
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
@@ -52,10 +49,7 @@ r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q8_current_pain.png', plot = r, device = 'png')
-
 write.csv(q_plot, 'q8_current_pain_217.csv', row.names = FALSE)
-
 write.csv(q_data, 'q8_current_pain_ids.csv', row.names = FALSE)
 ```

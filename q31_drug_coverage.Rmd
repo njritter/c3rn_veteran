@@ -1,13 +1,12 @@
 ---
 title: "q31 'Do you have prescription drug coverage?'"
 author: "David Ritter"
-date: "2/17/2020"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -15,47 +14,48 @@ source("helper.R")
 ```
 
 ```{r}
-# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Define the text from the desired column as 'q'. Define the column where responses end as 'q_final_response' Select and the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "Do.you.have.prescription.drug.coverage."
-
+t <- "Do you have prescription drug coverage?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Generate plottable data as 'q_plot'
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-# Plot the question data as 'r'
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "Do you have prescription drug coverage?", subtitle = q_n)
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q31_drug_coverage.png', plot = r, device = 'png')
-
 write.csv(q_plot, 'q31_drug_coverage_144.csv', row.names = FALSE)
+```
 
-write.csv(q_data, 'q31_drug_coverage_ids.csv', row.names = FALSE)
+
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
+
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_f(qf_all_data)
+r <- plot_single_select_f(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q31_drug_coverage.png', plot = r, device = 'png')
+write.csv(q_plot, 'q31_drug_coverage_n#.csv', row.names = FALSE)
 ```

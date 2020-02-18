@@ -70,7 +70,9 @@ plot_choose_all <- function(data)
     coord_flip() +
     geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
     xlab("Response") +
-    ylab("% Responded, Count")
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = q_n)
+  
 }
 
 # Clean signle select data for plotting
@@ -85,7 +87,19 @@ q_plot <-
 
 }
 
-# Plot single select data
+# Clean signle select data for filtered plotting
+clean_single_select_f <- function(data)
+{
+  q_plot <-
+    data %>%
+    group_by(response) %>%
+    summarize(count = n()) %>%
+    mutate(percent_responded = round(100*(count / qf_n), 2)) %>%
+    arrange(desc(count))
+  
+}
+
+# Plot single select data for unfiltered data
 plot_single_select <- function(data)
 {
   r <- 
@@ -94,7 +108,22 @@ plot_single_select <- function(data)
     coord_flip() +
     geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
     xlab("Response") +
-    ylab("% Responded, Count")
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = q_n)
+  r
+}
+
+# Plot single select data for filtered data
+plot_single_select_f <- function(data)
+{
+  r <- 
+    ggplot(data, aes(x = reorder(response, count), y = percent_responded)) +
+    geom_bar(stat = 'identity') +
+    coord_flip() +
+    geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+    xlab("Response") +
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = qf_n)
   r
 }
 
@@ -145,7 +174,8 @@ plot_single_select_y <- function(data)
     coord_flip() +
     geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
     xlab("Response") +
-    ylab("% Responded, Count")
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = qf_n)
   r
 }
 
@@ -180,7 +210,30 @@ plot_choose_all_y <- function(data)
     coord_flip() +
     geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
     xlab("Response") +
-    ylab("% Responded, Count")
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = qf_n)
 }
 
+# Clean question data for plotting filtered data
+clean_choose_all_f <- function(data)
+{
+  q_data %>%
+    group_by(chosen) %>%
+    summarize(count = n()) %>%
+    mutate(percent_responded = round(100*(count / qf_n), 2)) %>%
+    arrange(desc(count))
+}
 
+# Plot choose all for filtering data
+plot_choose_all_f <- function(data)
+{
+  r <- 
+    ggplot(data, aes(x = reorder(chosen, count), y = percent_responded)) +
+    geom_bar(stat = 'identity') +
+    coord_flip() +
+    geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+    xlab("Response") +
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = qf_n)
+  
+}

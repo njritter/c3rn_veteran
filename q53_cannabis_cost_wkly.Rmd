@@ -1,5 +1,5 @@
 ---
-title: "q21 'How many total prescription medications are you currently taking? (Please insert number)'"
+title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?'"
 author: "David Ritter"
 date: "2/18/2020"
 output: html_document
@@ -18,8 +18,8 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
-t <- "How many total prescription medications are you currently taking? (Please insert number)"
+q <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
+t <- "On average, how much do you spend (in US dollars) on consumable cannabis products per week?"
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
 ```
@@ -31,14 +31,14 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q21_total_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q21_total_prescriptions_144.csv', row.names = FALSE)
-write.csv(q_data, 'q21_total_prescriptions_ids.csv', row.names = FALSE)
+write.csv(q_data, 'q53_cannabis_cost_wkly_144.csv', row.names = FALSE)
+ggsave(filename = 'q53_cannabis_cost_wkly.png', plot = r, device = 'png')
 ```
+
 
 ```{r}
 qf_data <- q_data %>%
-  filter(response == "Response text")
+  filter(response == "Response")
 ```
 
 ```{r}
@@ -56,6 +56,6 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q21_total_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q21_total_prescriptions_n#.csv', row.names = FALSE)
+ggsave(filename = 'q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+write.csv(q_plot, 'q53_cannabis_cost_wkly_n#.csv', row.names = FALSE)
 ```

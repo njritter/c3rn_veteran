@@ -1,13 +1,12 @@
 ---
 title: "Q66 Does your VA doctor or clinical care provider know about your medical cannabis use?"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -19,40 +18,43 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Does.yourÃ‚.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
-
+q <- "Does.yourÂ.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
+t <- "Does your VA doctor or clinical care provider know about your medical cannabis use?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = 100*(count / q_n)) %>%
-  arrange(desc(response))
-```
-
-```{r}
-# Plot with percents and response counts
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "Does your VA doctor or clinical care provider know about your medical cannabis use?", subtitle = q_n)
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
+write.csv(q_plot, 'q66_va_cannabis_use_knowledge_130.csv', row.names = FALSE)
+```
 
-write.csv(q_plot, 'q66_va_cannabis_use_knowledge_202.csv', row.names = FALSE)
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
 
-write.csv(q_data, 'q66_va_cannabis_use_knowledge_ids.csv', row.names = FALSE)
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_f(qf_all_data)
+r <- plot_single_select_f(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
+write.csv(q_plot, 'q66_va_cannabis_use_knowledge_n#.csv', row.names = FALSE)
 ```

@@ -1,21 +1,12 @@
 ---
-title: "q101 'Do you support conducting more research for medical cannabis in veteran populations?' (Veterans)"
+title: "q101 'Do you support conducting more research for medical cannabis in veteran populations?'"
 author: "David Ritter"
-date: "November 19, 2019"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
-library(tidyverse)
-library(ggplot2)
-library(stringr)
-source("helper.R")
-```
-
-```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -28,40 +19,42 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- "Do.you.support.conducting.more.research.for.medical.cannabis.in.veteran.populations."
-
+t <- "Do you support conducting more research for medical cannabis in veteran populations?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-# Plot with percents and response counts
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "", subtitle = q_n)
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q101_support_research.png', plot = r, device = 'png')
+write.csv(q_plot, 'q101_support_research_144.csv', row.names = FALSE)
+```
 
-write.csv(q_plot, 'q101_support_research_217.csv', row.names = FALSE)
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
 
-write.csv(q_data, 'q101_support_research_ids.csv', row.names = FALSE)
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_f(qf_all_data)
+r <- plot_single_select_f(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q101_support_research.png', plot = r, device = 'png')
+write.csv(q_plot, 'q101_support_research_n#.csv', row.names = FALSE)
 ```

@@ -1,11 +1,11 @@
 ---
 title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?'"
 author: "David Ritter"
-date: "2/17/2020"
+date: "2/18/2020"
 output: html_document
 ---
+
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -13,34 +13,52 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
 raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q29 (a single selection question) combine, then determine 'question n'
-q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
-
-q29_all <- get_single_selection_0(data = raw_data_general, q.name = q29)
-
-q29_n <- length(unique(q29_all$id))
+q <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
+q_data <- get_single_selection_0(data = raw_data_general, q.name = q)
+q_n <- length(unique(q_data$id))
 ```
 
-
 ```{r}
-histogram_object <- hist(as.numeric(q29_all$response))
+histogram_object <- hist(as.numeric(q_data$response))
 histogram_object$breaks
 histogram_object$counts
 plot(histogram_object)
 ```
 
 ```{r}
-ggsave(plot(histogram_object), file = "q29_Percentage_Disability.png")
+ggsave(plot(histogram_object), file = "q29_disability.png")
 ```
 
 ```{r}
-# Save q_data as csv (change # at end of plot file to question n or q_n)
-write.csv(q29_all, 'q29_percentage_disability_144.csv', row.names = FALSE)
+write.csv(q_data, 'q29_disability_144.csv', row.names = FALSE)
+```
+
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
+
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_f(qf_all_data)
+r <- plot_single_select_f(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q29_disability.png', plot = r, device = 'png')
+write.csv(q_plot, 'q29_disability_n#.csv', row.names = FALSE)
 ```
 
 
