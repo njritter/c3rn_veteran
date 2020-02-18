@@ -1,7 +1,7 @@
 ---
-title: "q6 'Which is the primary health condition that causes you the most distress? (Please select one)' (Veterans)"
+title: "q6 'Which is the primary health condition that causes you the most distress? (Please select one)'"
 author: "David Ritter"
-date: "November 19, 2019"
+date: "2/17/2020"
 output: html_document
 runtime: shiny
 ---
@@ -15,10 +15,12 @@ source("helper.R")
 ```
 
 ```{r}
+# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
+# Define the text from the desired column as 'q'. Select the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
 
 q_data <- get_single_selection(data = raw_data, q.name = q)
@@ -27,7 +29,7 @@ q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
+# Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
   group_by(response) %>%
@@ -37,7 +39,7 @@ q_plot <-
 ```
 
 ```{r}
-# Plot with percents and response counts
+# Plot the question data as 'r'
 r <- 
   ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -51,10 +53,44 @@ r
 
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q6_top_condition.png', plot = r, device = 'png')
 
 write.csv(q_plot, 'q6_top_condition_217.csv', row.names = FALSE)
 
 write.csv(q_data, 'q6_top_condition_ids.csv', row.names = FALSE)
+```
+
+
+```{r}
+#Optional filtering step. Filter q_data from this question to pull respondents who selected a particular response
+qf_data <- q_data %>%
+  filter(response == "Anxiety")
+```
+
+```{r}
+# OPTIONAL FILTERING!!! Join the q_data from this question with qf_data generated from filtering another question
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+# Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
+q_plot <- clean_single_select_y(qf_all_data)
+
+r <- plot_single_select_y(q_plot) +
+  labs(title = "Which is the primary health condition that causes you the most distress? (Please select one)", subtitle = qf_n)
+r
+```
+
+```{r}
+# Optional Filtering: Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
+ggsave(filename = 'q6_top_condition.png', plot = r, device = 'png')
+
+write.csv(q_plot, 'q6_top_condition_42.csv', row.names = FALSE)
+
+write.csv(qf_data, 'q6_top_condition_ids.csv', row.names = FALSE)
 ```

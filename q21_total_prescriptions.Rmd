@@ -11,23 +11,25 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper0.R")
+source("helper.R")
 ```
 
 ```{r}
+# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
+# Define the text from the desired column as 'q'. Select the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
 
-q_data <- get_single_selection(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q)
 
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
+# Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
   group_by(response) %>%
@@ -37,7 +39,7 @@ q_plot <-
 ```
 
 ```{r}
-# Plot with percents and response counts
+# Plot the question data as 'r'
 r <- 
   ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -51,10 +53,10 @@ r
 
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q21_total_prescriptions.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q21_total_prescriptions_217.csv', row.names = FALSE)
+write.csv(q_plot, 'q21_total_prescriptions_144.csv', row.names = FALSE)
 
 write.csv(q_data, 'q21_total_prescriptions_ids.csv', row.names = FALSE)
 ```

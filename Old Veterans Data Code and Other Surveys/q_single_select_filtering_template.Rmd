@@ -1,5 +1,5 @@
 ---
-title: "q5 'Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)'"
+title: "q4 How would you rate your quality of health today?"
 author: "David Ritter"
 date: "2/17/2020"
 output: html_document
@@ -20,21 +20,21 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Define the text from the desired column as 'q'. Define the column where responses end as 'q_final_response' Select and the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
-q <- 'Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.'
-q_final_response <- "X.25"
+# Define the text from the desired column as 'q'. Select the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
+q <- "How.would.you.rate.your.quality.of.health.today."
 
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
-  tidy_choose_all()
+q_data <- get_single_selection(data = raw_data, q.name = q)
 
 q_n <- length(unique(q_data$id))
+
+# If filtering skip to after first save csv step
 ```
 
 ```{r}
 # Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
-  group_by(chosen) %>%
+  group_by(response) %>%
   summarize(count = n()) %>%
   mutate(percent_responded = round(100*(count / q_n), 2)) %>%
   arrange(desc(count))
@@ -43,29 +43,29 @@ q_plot <-
 ```{r}
 # Plot the question data as 'r'
 r <- 
-  ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
+  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
   coord_flip() +
   geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
   xlab("Response") +
   ylab("% Responded, Count") +
-  labs(title = "Which of the following health conditions do you face and or have been diagnosed with... Please select all that apply", subtitle = q_n)
+  labs(title = "How would you rate your quality of health today?", subtitle = q_n)
 r
 ```
 
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
-ggsave(filename = 'q5_conditions.png', plot = r, device = 'png')
+ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q5_conditions_144.csv', row.names = FALSE)
+write.csv(q_plot, 'q4_health_quality_144.csv', row.names = FALSE)
 
-write.csv(q_data, 'q5_conditions_ids.csv', row.names = FALSE)
+write.csv(q_data, 'q4_health_quality_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
 #Optional filtering step. Filter q_data from this question to pull respondents who selected a particular response
 qf_data <- q_data %>%
-  filter(chosen == "Chronic pain")
+  filter(response == "Fair")
 ```
 
 ```{r}
@@ -79,18 +79,18 @@ qf_n <- length(unique(qf_all_data$id))
 
 ```{r}
 # Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
-q_plot <- clean_choose_all(qf_all_data)
+q_plot <- clean_single_select_y(qf_all_data)
 
-r <- plot_choose_all(q_plot) +
-  labs(title = "Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)", subtitle = qf_n)
+r <- plot_single_select_y(q_plot) +
+  labs(title = "How would you rate your quality of health today?", subtitle = qf_n)
 r
 ```
 
 ```{r}
 # Optional Filtering: Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
-ggsave(filename = 'q5_condition.png', plot = r, device = 'png')
+ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q5_condition_42.csv', row.names = FALSE)
+write.csv(q_plot, 'q4_health_quality_144.csv', row.names = FALSE)
 
-write.csv(qf_data, 'q5_condition_ids.csv', row.names = FALSE)
+write.csv(qf_data, 'q4_health_quality_ids.csv', row.names = FALSE)
 ```

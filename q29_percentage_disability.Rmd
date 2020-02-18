@@ -1,7 +1,7 @@
 ---
-title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?' Veterans)"
+title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?'"
 author: "David Ritter"
-date: "November 19, 2019"
+date: "2/17/2020"
 output: html_document
 ---
 ```{r, message = FALSE}
@@ -9,7 +9,7 @@ output: html_document
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper0.R")
+source("helper.R")
 ```
 
 ```{r}
@@ -21,7 +21,7 @@ raw_data_general <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 # Pull out all responses for q29 (a single selection question) combine, then determine 'question n'
 q29 <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
 
-q29_all <- get_single_selection(data = raw_data_general, q.name = q29)
+q29_all <- get_single_selection_0(data = raw_data_general, q.name = q29)
 
 q29_n <- length(unique(q29_all$id))
 ```
@@ -39,7 +39,8 @@ ggsave(plot(histogram_object), file = "q29_Percentage_Disability.png")
 ```
 
 ```{r}
-write.csv(q29_all, 'q29_Percentage_Disability_144.csv', row.names = FALSE)
+# Save q_data as csv (change # at end of plot file to question n or q_n)
+write.csv(q29_all, 'q29_percentage_disability_144.csv', row.names = FALSE)
 ```
 
 

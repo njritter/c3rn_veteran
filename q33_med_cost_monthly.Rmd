@@ -11,7 +11,7 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper0.R")
+source("helper.R")
 ```
 
 ```{r}
@@ -20,15 +20,15 @@ raw_data<- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q33 (a single selection question) combine, then determine 'question n'
+# Define the text from the desired column as 'q'. Define the column where responses end as 'q_final_response' Select and the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.a.monthly.basis.out.of.pocket."
 
-q_data <- get_single_selection(data = raw_data_general, q.name = q33)
+q_data <- get_single_selection_0(data = raw_data, q.name = q)
 
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Save all question data including response IDs as csv (save question n and N at end of file as "_x.x")
-write.csv(q_data, 'q33_med_cost_monthly_217.csv', row.names = FALSE)
+# Save all question data as csv (save question n at end of file as "_x.x")
+write.csv(q_data, 'q33_med_cost_monthly_144.csv', row.names = FALSE)
 ```

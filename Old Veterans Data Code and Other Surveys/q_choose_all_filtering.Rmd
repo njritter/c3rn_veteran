@@ -37,8 +37,9 @@ qf_data <- filter(q_data, chosen == "Anxiety")
 #Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
 q_plot<- clean_choose_all(q_data)
 
-plot_choose_all(q_plot) +
+r <- plot_choose_all(q_plot) +
   labs(title = "Question text", subtitle = q_n)
+r
 ```
 
 ```{r}

@@ -30,8 +30,9 @@ q_n <- length(unique(q_data$id))
 #Pass q_data to clean_data to create q_plot. Then pass q_plot through clean_plot to produce plot.
 q_plot<- clean_single_select(q_data)
 
-plot_single_select(q_plot) +
+r <- plot_single_select(q_plot) +
   labs(title = "Question Text", subtitle = q_n)
+r
 ```
 
 ```{r}

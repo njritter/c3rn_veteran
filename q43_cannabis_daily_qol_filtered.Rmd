@@ -1,7 +1,7 @@
 ---
 title: "q43 'How do you feel cannabis has helped your daily life?'"
 author: "David Ritter"
-date: "2/17/2020"
+date: "2/16/2020"
 output: html_document
 runtime: shiny
 ---
@@ -34,7 +34,7 @@ qf_all_data <-
 ```
 
 ```{r}
-table_1 <- get_single_selection_2(q_data, "I experience a greater quality of life") %>%
+table_1 <- get_single_selection_2(qf_all_data, "I experience a greater quality of life") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -46,7 +46,7 @@ r1
 ```
 
 ```{r}
-table_2 <- get_single_selection_2(q_data, "I experience physical symptoms (body pains, function, sensation)") %>%
+table_2 <- get_single_selection_2(qf_all_data, "I experience physical symptoms (body pains, function, sensation)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -58,7 +58,7 @@ r2
 ```
 
 ```{r}
-table_3 <- get_single_selection_2(q_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
+table_3 <- get_single_selection_2(qf_all_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -70,7 +70,7 @@ r3
 ```
 
 ```{r}
-table_4 <- get_single_selection_2(q_data, "I use opioids") %>%
+table_4 <- get_single_selection_2(qf_all_data, "I use opioids") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -82,7 +82,7 @@ r4
 ```
 
 ```{r}
-table_5 <- get_single_selection_2(q_data, "I use my prior medications (non-opioid)") %>%
+table_5 <- get_single_selection_2(qf_all_data, "I use my prior medications (non-opioid)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -94,7 +94,7 @@ r5
 ```
 
 ```{r}
-table_6 <- get_single_selection_2(q_data, "I use alcohol") %>%
+table_6 <- get_single_selection_2(qf_all_data, "I use alcohol") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -106,7 +106,7 @@ r6
 ```
 
 ```{r}
-table_7 <- get_single_selection_2(q_data, "I use tobacco") %>%
+table_7 <- get_single_selection_2(qf_all_data, "I use tobacco") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -118,7 +118,7 @@ r7
 ```
 
 ```{r}
-table_8 <- get_single_selection_2(q_data, "I feel the quality of my daily life is") %>%
+table_8 <- get_single_selection_2(qf_all_data, "I feel the quality of my daily life is") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
 
@@ -132,26 +132,26 @@ r8
 ```{r}
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q43_greater_qol.png', plot = r1, device = 'png')
-write.csv(table_1, 'q43_greater_qol_xx.csv', row.names = FALSE)
+write.csv(table_1, 'q43_greater_qol_136.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_physical_symptoms.png', plot = r2, device = 'png')
-write.csv(table_2, 'q43_physical_symptoms_xx.csv', row.names = FALSE)
+write.csv(table_2, 'q43_physical_symptoms_136.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_psychological_symptoms.png', plot = r3, device = 'png')
-write.csv(table_3, 'q43_psychological_symptoms_xx.csv', row.names = FALSE)
+write.csv(table_3, 'q43_psychological_symptoms_129.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_opioid_use.png', plot = r4, device = 'png')
-write.csv(table_4, 'q43_opioid_use_xx.csv', row.names = FALSE)
+write.csv(table_4, 'q43_opioid_use_43.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_prior_med_use.png', plot = r5, device = 'png')
-write.csv(table_5, 'q43_prior_med_use_xx.csv', row.names = FALSE)
+write.csv(table_5, 'q43_prior_med_use_101.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_alcohol_use.png', plot = r6, device = 'png')
-write.csv(table_6, 'q43_alcohol_use_xx.csv', row.names = FALSE)
+write.csv(table_6, 'q43_alcohol_use_79.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_tobacco_use.png', plot = r7, device = 'png')
-write.csv(table_7, 'q43_tobacco_use_xx.csv', row.names = FALSE)
+write.csv(table_7, 'q43_tobacco_use_46.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_daily_qol.png', plot = r8, device = 'png')
-write.csv(table_8, 'q43_daily_qol_xx.csv', row.names = FALSE)
+write.csv(table_8, 'q43_daily_qol_137.csv', row.names = FALSE)
 ```

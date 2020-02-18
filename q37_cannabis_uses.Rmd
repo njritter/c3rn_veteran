@@ -1,7 +1,7 @@
 ---
 title: "q37 'Under what circumstances do you use cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/17/2020"
 output: html_document
 runtime: shiny
 ---
@@ -58,7 +58,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q37_cannabis_uses.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q37_cannabis_uses_217.csv', row.names = FALSE)
+write.csv(q_plot, 'q37_cannabis_uses_144.csv', row.names = FALSE)
 
 write.csv(q_data, 'q37_cannabis_uses_ids.csv', row.names = FALSE)
 ```

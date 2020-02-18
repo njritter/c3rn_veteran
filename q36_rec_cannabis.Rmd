@@ -1,18 +1,10 @@
 ---
-title: "Q36 'Do you use cannabis for recreational purposes?'"
+title: "q36 'Do you use cannabis for recreational purposes?'"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/17/2020"
 output: html_document
 runtime: shiny
 ---
-
-```{r, message = FALSE}
-# Load libraries
-library(tidyverse)
-library(ggplot2)
-library(stringr)
-source("helper.R")
-```
 
 ```{r, message = FALSE}
 # Load libraries
@@ -61,7 +53,7 @@ r
 # Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
 ggsave(filename = 'q36_rec_cannabis.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q36_rec_cannabis_217.csv', row.names = FALSE)
+write.csv(q_plot, 'q36_rec_cannabis_144.csv', row.names = FALSE)
 
 write.csv(q_data, 'q36_rec_cannabis_ids.csv', row.names = FALSE)
 ```

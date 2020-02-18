@@ -1,7 +1,7 @@
 ---
 title: "q40 'What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/15/2020"
+date: "2/17/2020"
 output: html_document
 runtime: shiny
 ---
@@ -15,12 +15,12 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
+# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q5 (a choose all question), combine, turn into a tidy data format for further processing then d <- tidy_choose_all(q)etermine 'question n'
+# Define the text from the desired column as 'q'. Define the column where responses end as 'q_final_response' Select and the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- 'What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating...Please.select.all.that.apply.'
 q_final_response <- "X.197"
 
@@ -31,7 +31,7 @@ q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
+# Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
   group_by(chosen) %>%
@@ -41,7 +41,7 @@ q_plot <-
 ```
 
 ```{r}
-# Plot with percents and response counts
+# Plot the question data as 'r'
 r <- 
   ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -54,10 +54,10 @@ r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q40_symptoms_treated_cannabis.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q40_symptoms_treated_cannabis_217.csv', row.names = FALSE)
+write.csv(q_plot, 'q40_symptoms_treated_cannabis_144.csv', row.names = FALSE)
 
 write.csv(q_data, 'q40_symptoms_treated_cannabis_ids.csv', row.names = FALSE)
 ```

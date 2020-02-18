@@ -1,7 +1,7 @@
 ---
 title: "q35 'Do you use cannabis for medical purposes?'"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/17/2020"
 output: html_document
 runtime: shiny
 ---
@@ -15,10 +15,12 @@ source("helper.R")
 ```
 
 ```{r}
+# Read master survey file generated for analysis
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
+# Define the text from the desired column as 'q'. Define the column where responses end as 'q_final_response' Select and the data as 'q_data'. Generate the question n, or # of unique respondents as 'q_n'
 q <- "Do.you.use.cannabis.for.medical.purposes."
 
 q_data <- get_single_selection(data = raw_data, q.name = q)
@@ -27,7 +29,7 @@ q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
+# Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
   group_by(response) %>%
@@ -37,7 +39,7 @@ q_plot <-
 ```
 
 ```{r}
-# Plot with percents and response counts
+# Plot the question data as 'r'
 r <- 
   ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -50,10 +52,10 @@ r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
+# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q35_medical_cannabis.png', plot = r, device = 'png')
 
-write.csv(q_plot, 'q35_medical_cannabis_217.csv', row.names = FALSE)
+write.csv(q_plot, 'q35_medical_cannabis_144.csv', row.names = FALSE)
 
 write.csv(q_data, 'q35_medical_cannabis_ids.csv', row.names = FALSE)
 ```

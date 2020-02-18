@@ -27,6 +27,20 @@ q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
+#OPTIONAL: Filter one response, then move to process qf_data in the code of the other question being analyzed
+qf_data <- filter(q_data, response != "Yes")
+
+# Paste this into doc you are analyzing
+#OPTIONAL FILTERING!!!
+#qf_all_data <- 
+  #qf_data %>%
+  #inner_join(q_data, by = "id")
+
+#q_n <- length(unique(qf_all_data$id))
+
+```
+
+```{r}
 # Manipulate data into a graphable format
 q_plot <-
   q_data %>%

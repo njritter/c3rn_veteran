@@ -25,13 +25,11 @@ q <- 'How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you
 q_final_response <- "X.204"
 
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+
+#If filtering, skip to after first saving csv step after running this step
 ```
 
-```{r}
-qf_all_data <- 
-  qf_data %>%
-  inner_join(q_data, by = "id")
-```
+
 
 ```{r}
 table_1 <- get_single_selection_2(q_data, "I experience a greater quality of life") %>%
@@ -154,4 +152,10 @@ write.csv(table_7, 'q43_tobacco_use_xx.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_daily_qol.png', plot = r8, device = 'png')
 write.csv(table_8, 'q43_daily_qol_xx.csv', row.names = FALSE)
+```
+
+```{r}
+# Begin here after q_data generation if filtering
+qf_data %>%
+  inner_join(q_data, by = "id")
 ```
