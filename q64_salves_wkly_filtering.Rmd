@@ -1,0 +1,52 @@
+---
+title: "In an average week, how often do you use salves/topicals (e.g. creams, lotions, sprays, etc.)"
+author: "David Ritter"
+date: "2/18/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- 'In.an.average.week..how.often.do.you.use.salves.topicals..e.g..creams..lotions..sprays..etc...'
+q_final_response <- "X.303"
+q64_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+qf_all_data <- qf_data %>%
+  inner_join(q64_data, by = "id") 
+
+q_data <- qf_all_data[,-2] %>%
+  filter(!duplicated(id))
+
+#q_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "Salves/topicals") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_1, count)
+
+r1 <- plot_single_select(table_1) +
+  labs(title = "Salves/topicals", subtitle = q_n)
+r1
+```
+
+```{r}
+ggsave(filename = 'q64_salves_topicals_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'q64_salves_topicals_wkly_41.csv', row.names = FALSE)
+```
+

@@ -1,0 +1,158 @@
+---
+title: "q43 'How do you feel cannabis has helped your daily life?'"
+author: "David Ritter"
+date: "2/18/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- 'How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÂ.TODAYÂ.compared.to.theÂ.BEGINNINGÂ.of.your.use.of.cannabis.to.treat.your.primary.medical.condition...'
+q_final_response <- "X.204"
+q43_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+qf_all_data <- qf_data %>%
+  inner_join(q43_data, by = "id") 
+
+q_data <- qf_all_data[,-2] %>%
+  filter(!duplicated(id))
+
+#q_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "I experience a greater quality of life") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_1, count)
+
+r1 <- plot_single_select(table_1) +
+  labs(title = "I experience a greater quality of life", subtitle = q_n)
+r1
+```
+
+```{r}
+table_2 <- get_single_selection_2(q_data, "I experience physical symptoms (body pains, function, sensation)") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_2, count)
+
+r2 <- plot_single_select(table_2) +
+  labs(title = "I experience physical symptoms (body pains, function, sensation)", subtitle = q_n)
+r2
+```
+
+```{r}
+table_3 <- get_single_selection_2(q_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_3, count)
+
+r3 <- plot_single_select(table_3) +
+  labs(title = "I experience psychological symptoms (anxiety, stress, sadness)", subtitle = q_n)
+r3
+```
+
+```{r}
+table_4 <- get_single_selection_2(q_data, "I use opioids") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_4, count)
+
+r4 <- plot_single_select(table_4) +
+  labs(title = "I use opioids", subtitle = q_n)
+r4
+```
+
+```{r}
+table_5 <- get_single_selection_2(q_data, "I use my prior medications (non-opioid)") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_5, count)
+
+r5 <- plot_single_select(table_5) +
+  labs(title = "I use my prior medications (non-opioid)", subtitle = q_n)
+r5
+```
+
+```{r}
+table_6 <- get_single_selection_2(q_data, "I use alcohol") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_6, count)
+
+r6 <- plot_single_select(table_6) +
+  labs(title = "I use alcohol", subtitle = q_n)
+r6
+```
+
+```{r}
+table_7 <- get_single_selection_2(q_data, "I use tobacco") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_7, count)
+
+r7 <- plot_single_select(table_7) +
+  labs(title = "I use tobacco", subtitle = q_n)
+r7
+```
+
+```{r}
+table_8 <- get_single_selection_2(q_data, "I feel the quality of my daily life is") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_8, count)
+
+r8 <- plot_single_select(table_8) +
+  labs(title = "I feel the quality of my daily life is", subtitle = q_n)
+r8
+```
+
+```{r}
+ggsave(filename = 'q43_greater_qol.png', plot = r1, device = 'png')
+write.csv(table_1, 'q43_greater_qol_171.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_physical_symptoms.png', plot = r2, device = 'png')
+write.csv(table_2, 'q43_physical_symptoms_159.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_psychological_symptoms.png', plot = r3, device = 'png')
+write.csv(table_3, 'q43_psychological_symptoms_158.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_opioid_use.png', plot = r4, device = 'png')
+write.csv(table_4, 'q43_opioid_use_28.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_prior_med_use.png', plot = r5, device = 'png')
+write.csv(table_5, 'q43_prior_med_use_87.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_alcohol_use.png', plot = r6, device = 'png')
+write.csv(table_6, 'q43_alcohol_use_106.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_tobacco_use.png', plot = r7, device = 'png')
+write.csv(table_7, 'q43_tobacco_use_65.csv', row.names = FALSE)
+
+ggsave(filename = 'q43_daily_qol.png', plot = r8, device = 'png')
+write.csv(table_8, 'q43_daily_qol_168.csv', row.names = FALSE)
+
+write.csv(q_data, 'q43_daily_qol_q_data.csv', row.names = FALSE)
+```

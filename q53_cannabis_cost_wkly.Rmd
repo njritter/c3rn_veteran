@@ -57,5 +57,5 @@ r
 
 ```{r}
 ggsave(filename = 'q53_cannabis_cost_wkly.png', plot = r, device = 'png')
-write.csv(q_plot, 'q53_cannabis_cost_wkly_n#.csv', row.names = FALSE)
+write.csv(q_plot, 'q53_cannabis_cost_wkly_174.csv', row.names = FALSE)
 ```

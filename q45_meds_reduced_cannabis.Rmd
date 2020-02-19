@@ -24,7 +24,7 @@ t <- "What prescription medications are you currently taking for the health cond
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 
-q_n <- length(unique(q_data$id))
+#q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
@@ -41,7 +41,12 @@ write.csv(q_data, 'q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 
 ```{r}
 qf_data <- q_data %>%
-  filter(chosen == "Response text")
+  filter(chosen == "I donâ€™t take any medications" | chosen == "I'm not trying to reduce any medication use")
+```
+
+```{r}
+qf_data <- q_data %>%
+  filter(chosen != "I donâ€™t take any medications" & chosen != "I'm not trying to reduce any medication use")
 ```
 
 ```{r}
@@ -60,7 +65,7 @@ r
 
 ```{r}
 ggsave(filename = 'q45_meds_reduced_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'q45_meds_reduced_cannabis_n#.csv', row.names = FALSE)
+write.csv(q_plot, 'q45_meds_reduced_cannabis_440.csv', row.names = FALSE)
 write.csv(qf_data, 'q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```
 

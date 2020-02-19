@@ -1,0 +1,82 @@
+---
+title: "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
+author: "David Ritter"
+date: "2/18/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- 'How.much.cannabis.flower.are.you.smoking.or.vaping.per.week...i.e..grams..ounces..etc..'
+q_final_response <- "X.283"
+q62_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+qf_all_data <- qf_data %>%
+  inner_join(q62_data, by = "id") 
+
+q_data <- qf_all_data[,-2] %>%
+  filter(!duplicated(id))
+
+#q_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "Smoke flower") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_1, count)
+
+r1 <- plot_single_select(table_1) +
+  labs(title = "Flower weekly", subtitle = q_n)
+r1
+```
+
+```{r}
+table_2 <- get_single_selection_2(q_data, "Vape flower") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_2, count)
+
+r2 <- plot_single_select(table_2) +
+  labs(title = "Vape weekly", subtitle = q_n)
+r2
+```
+
+```{r}
+table_3 <- get_single_selection_2(q_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_3, count)
+
+r3 <- plot_single_select(table_3) +
+  labs(title = "Concentrates weekly", subtitle = q_n)
+r3
+```
+
+```{r}
+ggsave(filename = 'q62_flower_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'q62_flower_wkly_117.csv', row.names = FALSE)
+
+ggsave(filename = 'q62_vape_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'q62_vape_wkly_28.csv', row.names = FALSE)
+
+ggsave(filename = 'q62_concentrates_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'q62_concentrates_wkly_49.csv', row.names = FALSE)
+```
+

@@ -1,0 +1,96 @@
+---
+title: "How many milligrams of cannabis do you use per week?"
+author: "David Ritter"
+date: "2/18/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- 'How.many.milligrams.of.cannabis.do.you.use.per.week.'
+q_final_response <- "X.297"
+q63_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+qf_all_data <- qf_data %>%
+  inner_join(q63_data, by = "id") 
+
+q_data <- qf_all_data[,-2] %>%
+  filter(!duplicated(id))
+
+#q_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_1, count)
+
+r1 <- plot_single_select(table_1) +
+  labs(title = "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)", subtitle = q_n)
+r1
+```
+
+```{r}
+table_2 <- get_single_selection_2(q_data, "Transdermal patches") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_2, count)
+
+r2 <- plot_single_select(table_2) +
+  labs(title = "Transdermal patches", subtitle = q_n)
+r2
+```
+
+```{r}
+table_3 <- get_single_selection_2(q_data, "Suppositories") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_3, count)
+
+r3 <- plot_single_select(table_3) +
+  labs(title = "Suppositories", subtitle = q_n)
+r3
+```
+
+```{r}
+table_4 <- get_single_selection_2(q_data, "Capsules") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_4, count)
+
+r4 <- plot_single_select(table_4) +
+  labs(title = "Capsules", subtitle = q_n)
+r4
+```
+
+```{r}
+ggsave(filename = 'q63_edibles_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'q63_edibles_wkly_91.csv', row.names = FALSE)
+
+ggsave(filename = 'q63_patches_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'q63_patches_wkly_11.csv', row.names = FALSE)
+
+ggsave(filename = 'q63_suppositories_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'q63_suppositories_wkly_8.csv', row.names = FALSE)
+
+ggsave(filename = 'q63_capsules_wkly.png', plot = r4, device = 'png')
+write.csv(table_4, 'q63_capsules_wkly_22.csv', row.names = FALSE)
+```
