@@ -50,13 +50,12 @@ qf_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-# Optional Filtering: Save graph as PNG, plot data as csv, and all question data including response IDs as csv (change # at end of plot file to question n or q_n)
 ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
-write.csv(q_plot, 'q4_health_quality_144.csv', row.names = FALSE)
+write.csv(q_plot, 'q4_health_quality_333.csv', row.names = FALSE)
 ```

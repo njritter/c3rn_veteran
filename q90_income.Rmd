@@ -38,7 +38,12 @@ write.csv(q_plot, 'q90_income_144.csv', row.names = FALSE)
 
 ```{r}
 qf_data <- q_data %>%
-  filter(response == "Response text")
+  filter(response == "Less than $10,000" | response == "$10,000-$19,999" | response == "$20,000-$29,999" | response == "$30,000-$39,999" | response == "$40,000-$49,999" | response == "$50,000-$59,999")
+```
+
+```{r}
+qf_data <- q_data %>%
+  filter(response != "Less than $10,000" & response != "$10,000-$19,999" & response != "$20,000-$29,999" & response != "$30,000-$39,999" & response != "$40,000-$49,999" & response != "$50,000-$59,999")
 ```
 
 ```{r}

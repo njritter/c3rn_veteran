@@ -49,18 +49,24 @@ qf_all_data <-
   inner_join(q_data, by = "id")
 
 qf_n <- length(unique(qf_all_data$id))
+
+qf_data <- qf_all_data[3] %>%
+  group_by(chosen) %>%
+  summarize(count=n()) %>%
+  mutate(percent_responded = round(100*(count / qf_n), 2)) %>%
+  arrange(desc(count))
 ```
 
 ```{r}
-q_plot <- clean_choose_all_f(qf_all_data)
-r <- plot_choose_all_f(q_plot)
+q_plot <- clean_choose_all_f2(qf_data)
+r <- plot_choose_all_f2(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q38_conditions_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'q38_conditions_cannabis_n#.csv', row.names = FALSE)
-write.csv(qf_data, 'q38_conditions_cannabis_ids.csv', row.names = FALSE)
+write.csv(q_plot, 'q38_conditions_cannabis_333.csv', row.names = FALSE)
+write.csv(qf_all_data, 'q38_conditions_cannabis_ids.csv', row.names = FALSE)
 ```
 
 

@@ -11,7 +11,7 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper0.R")
+source("helper.R")
 ```
 
 ```{r}
@@ -21,7 +21,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- "What.is.your.usual.level.of.pain..how.does.your.pain.feel.most.of.the.time.."
 
-q_data <- get_single_selection(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q)
 
 q_n <- length(unique(q_data$id))
 ```

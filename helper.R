@@ -75,7 +75,7 @@ plot_choose_all <- function(data)
   
 }
 
-# Clean signle select data for plotting
+# Clean single select data for plotting
 clean_single_select <- function(data)
 {
 q_plot <-
@@ -87,7 +87,7 @@ q_plot <-
 
 }
 
-# Clean signle select data for filtered plotting
+# Clean single select data for filtered plotting
 clean_single_select_f <- function(data)
 {
   q_plot <-
@@ -235,5 +235,42 @@ plot_choose_all_f <- function(data)
     xlab("Response") +
     ylab("% Responded, Count") +
     labs(title = t, subtitle = qf_n)
+  
+}
+
+# Tidy filtered choose all data for plotting
+tidy_choose_all_f <- function(data)
+{
+  tidy_data <- 
+    data %>%
+    gather(key = response, value = checked, 2:ncol(.)) %>%
+    filter(checked >= 1) %>%
+    select(-checked)
+  
+  return(tidy_data)
+}
+
+# Plot choose all data for filtered questions 2
+plot_choose_all_f2 <- function(data)
+{
+  r <- 
+    ggplot(data, aes(x = reorder(chosen, count), y = percent_responded)) +
+    geom_bar(stat = 'identity') +
+    coord_flip() +
+    geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
+    xlab("Response") +
+    ylab("% Responded, Count") +
+    labs(title = t, subtitle = qf_n)
+  r
+
+}
+
+# Clean choose all for filtered data 2
+clean_choose_all_f2 <- function(data)
+{
+  q_plot <-
+    data %>%
+    mutate(percent_responded = round(100*(count / qf_n), 2)) %>%
+    arrange(desc(count))
   
 }

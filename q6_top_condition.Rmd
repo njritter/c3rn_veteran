@@ -50,12 +50,12 @@ qf_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q6_top_condition.png', plot = r, device = 'png')
-write.csv(q_plot, 'q6_top_condition_174.csv', row.names = FALSE)
+write.csv(q_plot, 'q6_top_condition_333.csv', row.names = FALSE)
 ```

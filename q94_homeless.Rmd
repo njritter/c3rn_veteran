@@ -49,12 +49,12 @@ qf_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q94_homeless.png', plot = r, device = 'png')
-write.csv(q_plot, 'q94_homeless_n#.csv', row.names = FALSE)
+write.csv(q_plot, 'q94_homeless_333.csv', row.names = FALSE)
 ```

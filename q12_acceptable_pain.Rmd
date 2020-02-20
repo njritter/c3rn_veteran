@@ -1,7 +1,7 @@
 ---
 title: "q12 'If you had to live with some pain, what level of pain would be acceptable?'"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/18/2020"
 output: html_document
 runtime: shiny
 ---
@@ -11,7 +11,7 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper0.R")
+source("helper.R")
 ```
 
 ```{r}
@@ -21,7 +21,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- "If.you.had.to.live.with.some.pain..what.level.of.pain.would.be.acceptable."
 
-q_data <- get_single_selection(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q)
 
 q_n <- length(unique(q_data$id))
 ```

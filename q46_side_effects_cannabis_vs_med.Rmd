@@ -22,6 +22,11 @@ q <- "Please.rate.the.severity.of.the.side.effects.you.have.faced.with.prescript
 t <- "Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:"
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
+q_mean_data <- as.numeric(as.character(q_data$response))
+
+q_mean <- mean(q_mean_data) %>%
+  round(3) %>%
+  print()
 ```
 
 ```{r}
@@ -46,17 +51,24 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 
+qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
+
+qf_mean <- mean(qf_mean_data) %>%
+  round(3) %>%
+  print()
+
+
 qf_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
-write.csv(q_plot, 'q46_side_effects_cannabis_vs_med_n#.csv', row.names = FALSE)
+write.csv(q_plot, 'q46_side_effects_cannabis_vs_med_333.csv', row.names = FALSE)
 ```
 

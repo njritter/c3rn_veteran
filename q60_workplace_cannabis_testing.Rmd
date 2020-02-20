@@ -34,3 +34,27 @@ r
 ggsave(filename = 'q60_workplace_cannabis_testing.png', plot = r, device = 'png')
 write.csv(q_plot, 'q60_workplace_cannabis_testing_144.csv', row.names = FALSE)
 ```
+
+```{r}
+qf_data <- q_data %>%
+  filter(response == "No")
+```
+
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+
+qf_n <- length(unique(qf_all_data$id))
+```
+
+```{r}
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q60_workplace_cannabis_testing.png', plot = r, device = 'png')
+write.csv(q_plot, 'q60_workplace_cannabis_testing_333.csv', row.names = FALSE)
+```

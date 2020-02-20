@@ -22,6 +22,11 @@ q <- "How.many.total.prescription.medications.are.you.currently.taking...Please.
 t <- "How many total prescription medications are you currently taking? (Please insert number)"
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
+q_mean_data <- as.numeric(as.character(q_data$response))
+
+q_mean <- mean(q_mean_data) %>%
+  round(3) %>%
+  print()
 ```
 
 ```{r}
@@ -46,16 +51,22 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 
+qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
+
+qf_mean <- mean(qf_mean_data) %>%
+  round(3) %>%
+  print()
+
 qf_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
 ggsave(filename = 'q21_total_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q21_total_prescriptions_n#.csv', row.names = FALSE)
+write.csv(q_plot, 'q21_total_prescriptions_333.csv', row.names = FALSE)
 ```
