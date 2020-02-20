@@ -1,13 +1,12 @@
 ---
-title: "q14 'What are the effects of your pain? (Please select all that apply)' (Veterans)"
+title: "q14 'What are the effects of your pain? (Please select all that apply)'"
 author: "David Ritter"
-date: "November 19, 2019"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -15,23 +14,18 @@ source("helper.R")
 ```
 
 ```{r}
-# Read in raw data from the Veterans surveys. These are the files downloaded from survey monkey saved as a .csv
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-# Pull out all responses for q5 (a choose all question), combine, turn into a tidy data format for further processing then d <- tidy_choose_all(q)etermine 'question n'
 q <- 'What.are.the.effects.of.your.pain...Please.select.all.that.apply.'
 q_final_response <- "X.81"
-
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Manipulate data into a graphable format
 q_plot <-
   q_data %>%
   group_by(chosen) %>%
@@ -41,7 +35,6 @@ q_plot <-
 ```
 
 ```{r}
-# Plot with percents and response counts
 r <- 
   ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -54,10 +47,7 @@ r
 ```
 
 ```{r}
-# Save graph as PNG, plot data as csv, and all question data including response IDs as csv (save question n and N at end of plot file as "_x.x")
-ggsave(filename = 'q14_pain_effects.png', plot = r, device = 'png')
-
-write.csv(q_plot, 'q14_pain_effects_217.csv', row.names = FALSE)
-
-write.csv(q_data, 'q14_pain_effects_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q14_pain_effects.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q14_pain_effects_217.csv', row.names = FALSE)
+write.csv(q_data, 'output/q14_pain_effects_ids.csv', row.names = FALSE)
 ```

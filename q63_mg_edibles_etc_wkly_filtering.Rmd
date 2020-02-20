@@ -29,8 +29,6 @@ qf_all_data <- qf_data %>%
 
 q_data <- qf_all_data[,-2] %>%
   filter(!duplicated(id))
-
-#q_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
@@ -82,15 +80,15 @@ r4
 ```
 
 ```{r}
-ggsave(filename = 'q63_edibles_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q63_edibles_wkly_131.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_edibles_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q63_edibles_wkly_131.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_patches_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'q63_patches_wkly_12.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_patches_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q63_patches_wkly_12.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_suppositories_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q63_suppositories_wkly_9.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_suppositories_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q63_suppositories_wkly_9.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_capsules_wkly.png', plot = r4, device = 'png')
-write.csv(table_4, 'q63_capsules_wkly_30.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_capsules_wkly.png', plot = r4, device = 'png')
+write.csv(table_4, 'output/q63_capsules_wkly_30.csv', row.names = FALSE)
 ```

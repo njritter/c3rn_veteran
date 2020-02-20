@@ -46,7 +46,7 @@ r1
 ```
 
 ```{r}
-ggsave(filename = 'q64_salves_topicals_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q64_salves_topicals_wkly_48.csv', row.names = FALSE)
+ggsave(filename = 'output/q64_salves_topicals_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q64_salves_topicals_wkly_48.csv', row.names = FALSE)
 ```
 

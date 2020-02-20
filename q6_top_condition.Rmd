@@ -1,7 +1,7 @@
 ---
 title: "q6 'Which is the primary health condition that causes you the most distress? (Please select one)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -22,18 +22,14 @@ q <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...
 t <- "Which is the primary health condition that causes you the most distress? (Please select one)"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
-q_plot<- clean_single_select(q_data)
+q_plot <- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q6_top_condition.png', plot = r, device = 'png')
-write.csv(q_plot, 'q6_top_condition_217.csv', row.names = FALSE)
-write.csv(q_data, 'q6_top_condition_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q6_top_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q6_top_condition_217.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -45,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q6_top_condition.png', plot = r, device = 'png')
-write.csv(q_plot, 'q6_top_condition_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q6_top_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q6_top_condition_232.csv', row.names = FALSE)
 ```

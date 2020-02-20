@@ -29,8 +29,6 @@ qf_all_data <- qf_data %>%
 
 q_data <- qf_all_data[,-2] %>%
   filter(!duplicated(id))
-
-#q_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
@@ -70,13 +68,13 @@ r3
 ```
 
 ```{r}
-ggsave(filename = 'q62_flower_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q62_flower_wkly_119.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_flower_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q62_flower_wkly_119.csv', row.names = FALSE)
 
-ggsave(filename = 'q62_vape_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'q62_vape_wkly_50.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_vape_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q62_vape_wkly_50.csv', row.names = FALSE)
 
-ggsave(filename = 'q62_concentrates_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q62_concentrates_wkly_48.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_concentrates_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q62_concentrates_wkly_48.csv', row.names = FALSE)
 ```
 

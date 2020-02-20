@@ -72,15 +72,15 @@ r4
 ```
 
 ```{r}
-ggsave(filename = 'q63_edibles_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q63_edibles_wkly_77.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_edibles_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q63_edibles_wkly_77.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_patches_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'q63_patches_wkly_8.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_patches_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q63_patches_wkly_8.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_suppositories_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q63_suppositories_wkly_6.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_suppositories_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q63_suppositories_wkly_6.csv', row.names = FALSE)
 
-ggsave(filename = 'q63_capsules_wkly.png', plot = r4, device = 'png')
-write.csv(table_4, 'q63_capsules_wkly_16.csv', row.names = FALSE)
+ggsave(filename = 'output/q63_capsules_wkly.png', plot = r4, device = 'png')
+write.csv(table_4, 'output/q63_capsules_wkly_16.csv', row.names = FALSE)
 ```

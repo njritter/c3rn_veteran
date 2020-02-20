@@ -1,7 +1,7 @@
 ---
 title: "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -60,13 +60,13 @@ r3
 ```
 
 ```{r}
-ggsave(filename = 'q62_flower_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q62_flower_wkly_88.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_flower_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q62_flower_wkly_88.csv', row.names = FALSE)
 
-ggsave(filename = 'q62_vape_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'q62_vape_wkly_27.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_vape_wkly.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q62_vape_wkly_27.csv', row.names = FALSE)
 
-ggsave(filename = 'q62_concentrates_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q62_concentrates_wkly_40.csv', row.names = FALSE)
+ggsave(filename = 'output/q62_concentrates_wkly.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q62_concentrates_wkly_40.csv', row.names = FALSE)
 ```
 

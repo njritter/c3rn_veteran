@@ -22,17 +22,14 @@ q <- "Do.you.currently.have.health.insurance...Please.select.one."
 t <- "Do you currently have health insurance? (Please select one)"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q30_health_insurance.png', plot = r, device = 'png')
-write.csv(q_plot, 'q30_health_insurance_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q30_health_insurance.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q30_health_insurance_144.csv', row.names = FALSE)
 ```
 
 
@@ -45,17 +42,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q30_health_insurance.png', plot = r, device = 'png')
-write.csv(q_plot, 'q30_health_insurance_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q30_health_insurance.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q30_health_insurance_232.csv', row.names = FALSE)
 ```

@@ -19,14 +19,11 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
-
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
-
 q_n <- length(unique(q_data$id))
 ```
 
 ```{r}
-# Generate plottable data as 'q_plot'
 q_plot <-
   q_data %>%
   group_by(response) %>%
@@ -36,7 +33,6 @@ q_plot <-
 ```
 
 ```{r}
-# Plot the question data as 'r'
 r <- 
   ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
   geom_bar(stat = 'identity') +
@@ -49,7 +45,7 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q8_current_pain.png', plot = r, device = 'png')
-write.csv(q_plot, 'q8_current_pain_217.csv', row.names = FALSE)
-write.csv(q_data, 'q8_current_pain_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q8_current_pain.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q8_current_pain_217.csv', row.names = FALSE)
+write.csv(q_data, 'output/q8_current_pain_ids.csv', row.names = FALSE)
 ```

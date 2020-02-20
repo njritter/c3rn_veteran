@@ -24,18 +24,15 @@ t <- "What war(s) did you serve in? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot, 'q77_wars_served_143.csv', row.names = FALSE)
-write.csv(q_data, 'q77_wars_served_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q77_wars_served.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q77_wars_served_143.csv', row.names = FALSE)
+write.csv(q_data, 'output/q77_wars_served_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -64,9 +61,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot, 'q77_wars_served_231.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q77_wars_served_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q77_wars_served.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q77_wars_served_231.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q77_wars_served_ids.csv', row.names = FALSE)
 ```
 
 

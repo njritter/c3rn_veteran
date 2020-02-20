@@ -24,18 +24,15 @@ t <- "How do you prefer to use cannabis? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q47_cannabis_methods.png', plot = r, device = 'png')
-write.csv(q_plot, 'q47_cannabis_methods_144.csv', row.names = FALSE)
-write.csv(q_data, 'q47_cannabis_methods_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q47_cannabis_methods.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q47_cannabis_methods_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q47_cannabis_methods_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -47,9 +44,7 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-
 qf_data <- qf_all_data[3] %>%
   group_by(chosen) %>%
   summarize(count=n()) %>%
@@ -64,9 +59,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q47_cannabis_methods.png', plot = r, device = 'png')
-write.csv(q_plot, 'q47_cannabis_methods_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q47_cannabis_methods__ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q47_cannabis_methods.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q47_cannabis_methods_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q47_cannabis_methods_ids.csv', row.names = FALSE)
 ```
 
 

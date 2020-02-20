@@ -37,6 +37,6 @@ r1
 ```
 
 ```{r}
-ggsave(filename = 'q65_tinctures_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q65_tinctures_wkly_31.csv', row.names = FALSE)
+ggsave(filename = 'output/q65_tinctures_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q65_tinctures_wkly_31.csv', row.names = FALSE)
 ```

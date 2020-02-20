@@ -30,8 +30,6 @@ qf_all_data <- qf_data %>%
 
 q_data <- qf_all_data[,-2] %>%
   filter(!duplicated(id))
-
-#q_n <- length(unique(qf_all_data$id))
 ```
 
 ```{r}
@@ -47,6 +45,6 @@ r1
 ```
 
 ```{r}
-ggsave(filename = 'q65_tinctures_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q65_tinctures_wkly_57.csv', row.names = FALSE)
+ggsave(filename = 'output/q65_tinctures_wkly.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q65_tinctures_wkly_57.csv', row.names = FALSE)
 ```

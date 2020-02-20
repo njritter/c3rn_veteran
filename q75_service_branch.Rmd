@@ -24,18 +24,15 @@ t <- "Which branch of the armed services did you serve in? (Please select all th
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q75_service_branch.png', plot = r, device = 'png')
-write.csv(q_plot, 'q75_service_branch_144.csv', row.names = FALSE)
-write.csv(q_data, 'q75_service_branch_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q75_service_branch.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q75_service_branch_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q75_service_branch_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -64,8 +61,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q75_service_branch.png', plot = r, device = 'png')
-write.csv(q_plot, 'q75_service_branch_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q75_service_branch_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q75_service_branch.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q75_service_branch_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q75_service_branch_ids.csv', row.names = FALSE)
 ```
 

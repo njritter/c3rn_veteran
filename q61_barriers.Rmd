@@ -1,7 +1,7 @@
 ---
 title: "q61 'Do you face any of the following barriers for you to consume cannabis (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -24,18 +24,15 @@ t <- "Do you face any of the following barriers for you to consume cannabis (Ple
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q61_barriers.png', plot = r, device = 'png')
-write.csv(q_plot, 'q61_barriers_144.csv', row.names = FALSE)
-write.csv(q_data, 'q61_barrers_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q61_barriers.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q61_barriers_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q61_barrers_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -47,9 +44,7 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-
 qf_data <- qf_all_data[3] %>%
   group_by(chosen) %>%
   summarize(count=n()) %>%
@@ -65,7 +60,7 @@ r
 
 
 ```{r}
-ggsave(filename = 'q61_barrers.png', plot = r, device = 'png')
-write.csv(q_plot, 'q61_barrers_232.csv', row.names = FALSE)
-write.csv(qf_data, 'q61_barrers_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q61_barrers.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q61_barrers_232.csv', row.names = FALSE)
+write.csv(qf_data, 'output/q61_barrers_ids.csv', row.names = FALSE)
 ```

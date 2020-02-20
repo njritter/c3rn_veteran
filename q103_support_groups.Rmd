@@ -24,18 +24,15 @@ t <- "Do you belong to any of the following veterans support organizations? (Ple
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q103_support_groups.png', plot = r, device = 'png')
-write.csv(q_plot, 'q103_support_groups_144.csv', row.names = FALSE)
-write.csv(q_data, 'q103_support_groups_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q103_support_groups.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q103_support_groups_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q103_support_groups_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -58,7 +55,7 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q103_support_groups.png', plot = r, device = 'png')
-write.csv(q_plot, 'q103_support_groups_n#.csv', row.names = FALSE)
-write.csv(qf_data, 'q103_support_groups_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q103_support_groups.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q103_support_groups_n#.csv', row.names = FALSE)
+write.csv(qf_data, 'output/q103_support_groups_ids.csv', row.names = FALSE)
 ```

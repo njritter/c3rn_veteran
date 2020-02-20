@@ -24,18 +24,15 @@ t <- "Were you exposed to any of the following during your service? (Please sele
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q79_service_exposure.png', plot = r, device = 'png')
-write.csv(q_plot, 'q79_service_exposure_142.csv', row.names = FALSE)
-write.csv(q_data, 'q79_service_exposure_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q79_service_exposure.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q79_service_exposure_142.csv', row.names = FALSE)
+write.csv(q_data, 'output/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -65,8 +62,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q79_service_exposure.png', plot = r, device = 'png')
-write.csv(q_plot, 'q79_service_exposure_329.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q79_service_exposure_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q79_service_exposure.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q79_service_exposure_329.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
 

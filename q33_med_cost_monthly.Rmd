@@ -1,7 +1,7 @@
 ---
 title: "q33 'On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -22,14 +22,13 @@ q <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.a.
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 ```
 
 ```{r}
-write.csv(q_data, 'q33_med_cost_monthly_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q33_med_cost_monthly_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -41,13 +40,10 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-
 qf_mean <- mean(qf_mean_data) %>%
   round(4) %>%
   print()
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 
@@ -58,6 +54,6 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q33_med_cost_monthly.png', plot = r, device = 'png')
-write.csv(q_plot, 'q33_med_cost_monthly_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q33_med_cost_monthly.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q33_med_cost_monthly_232.csv', row.names = FALSE)
 ```

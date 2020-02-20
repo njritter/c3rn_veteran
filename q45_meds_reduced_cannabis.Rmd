@@ -23,20 +23,16 @@ q_final_response <- "X.249"
 t <- "What prescription medications are you currently taking for the health conditions and symptoms you face that you are actively trying to reduce the use of by using cannabis? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
-
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q45_meds_reduced_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'q45_meds_reduced_cannabis_144.csv', row.names = FALSE)
-write.csv(q_data, 'q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q45_meds_reduced_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q45_meds_reduced_cannabis_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -50,17 +46,23 @@ qf_all_data <-
   inner_join(q_data, by = "id")
 
 qf_n <- length(unique(qf_all_data$id))
+
+qf_data <- qf_all_data[3] %>%
+  group_by(chosen) %>%
+  summarize(count=n()) %>%
+  mutate(percent_responded = round(100*(count / qf_n), 2)) %>%
+  arrange(desc(count))
 ```
 
 ```{r}
-q_plot <- clean_choose_all_f(qf_all_data)
-r <- plot_choose_all_f(q_plot)
+q_plot <- clean_choose_all_f2(qf_data)
+r <- plot_choose_all_f2(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q45_meds_reduced_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'q45_meds_reduced_cannabis_n#.csv', row.names = FALSE)
-write.csv(qf_data, 'q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q45_meds_reduced_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q45_meds_reduced_cannabis_333.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```
 

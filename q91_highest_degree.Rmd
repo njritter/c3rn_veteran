@@ -22,17 +22,14 @@ q <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.
 t <- "What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q91_highest_degree.png', plot = r, device = 'png')
-write.csv(q_plot, 'q91_highest_degree_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q91_highest_degree.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q91_highest_degree_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -44,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q91_highest_degree.png', plot = r, device = 'png')
-write.csv(q_plot, 'q91_highest_degree_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q91_highest_degree.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q91_highest_degree_232.csv', row.names = FALSE)
 ```

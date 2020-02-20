@@ -23,22 +23,18 @@ t <- "Please rate the severity of the side effects you have faced with prescript
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
-write.csv(q_plot, 'q46_side_effects_cannabis_vs_med_144.csv', row.names = FALSE)
-write.csv(q_data, 'q46_side_effects_cannabis_vs_med.csv', row.names = FALSE)
+ggsave(filename = 'output/q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q46_side_effects_cannabis_vs_med_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q46_side_effects_cannabis_vs_med.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -68,7 +64,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
-write.csv(q_plot, 'q46_side_effects_cannabis_vs_med_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q46_side_effects_cannabis_vs_med_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q46_side_effects_cannabis_vs_med.csv', row.names = FALSE)
 ```
 

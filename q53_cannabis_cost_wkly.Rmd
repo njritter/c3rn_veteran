@@ -22,9 +22,7 @@ q <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.p
 t <- "On average, how much do you spend (in US dollars) on consumable cannabis products per week?"
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-
 q_mean_data <- as.numeric(as.character(q_data$response))
-
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
@@ -37,8 +35,8 @@ r
 ```
 
 ```{r}
-write.csv(q_data, 'q53_cannabis_cost_wkly_144.csv', row.names = FALSE)
-ggsave(filename = 'q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+write.csv(q_data, 'output/q53_cannabis_cost_wkly_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
 ```
 
 
@@ -51,13 +49,10 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-
 qf_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 
@@ -68,6 +63,6 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q53_cannabis_cost_wkly.png', plot = r, device = 'png')
-write.csv(q_plot, 'q53_cannabis_cost_wkly_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q53_cannabis_cost_wkly_232.csv', row.names = FALSE)
 ```

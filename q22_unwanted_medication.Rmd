@@ -1,7 +1,7 @@
 ---
 title: "q22 'Do you have prescription medications in your house that you don't want to use and currently need to get rid of?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -22,18 +22,14 @@ q <- "Do.you.have.prescription.medications.in.your.house.that.you.don.t.want.to.
 t <- "Do you have prescription medications in your house that you don't want to use and currently need to get rid of?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q22_unwanted_medication.png', plot = r, device = 'png')
-write.csv(q_plot, 'q22_unwanted_medication_144.csv', row.names = FALSE)
-write.csv(q_data, 'q22_unwanted_medication_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q22_unwanted_medication.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q22_unwanted_medication_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -45,7 +41,6 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 
@@ -56,6 +51,6 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q22_unwanted_medication.png', plot = r, device = 'png')
-write.csv(q_plot, 'q22_unwanted_medication_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q22_unwanted_medication.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q22_unwanted_medication_232.csv', row.names = FALSE)
 ```

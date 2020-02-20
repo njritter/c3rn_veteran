@@ -22,17 +22,14 @@ q <- "Do.you.support.conducting.more.research.for.medical.cannabis.in.veteran.po
 t <- "Do you support conducting more research for medical cannabis in veteran populations?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q101_support_research.png', plot = r, device = 'png')
-write.csv(q_plot, 'q101_support_research_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q101_support_research.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q101_support_research_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -44,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
-q_plot <- clean_single_select_f(qf_all_data)
-r <- plot_single_select_f(q_plot)
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q101_support_research.png', plot = r, device = 'png')
-write.csv(q_plot, 'q101_support_research_n#.csv', row.names = FALSE)
+ggsave(filename = 'output/q101_support_research.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q101_support_research_n#.csv', row.names = FALSE)
 ```

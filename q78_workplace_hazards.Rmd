@@ -22,19 +22,15 @@ q <- "Were.you.exposed.to.workplace.hazards.including.loud.noises.from.firearms.
 t <- "Were you exposed to workplace hazards including loud noises from firearms/factories/etc, chemicals, exposed to burn pits during war, or working hazardous environments that could impair any of your five senses and clinical health?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q78_workplace_hazards.png', plot = r, device = 'png')
-write.csv(q_plot, 'q78_workplace_hazards_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q78_workplace_hazards.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q78_workplace_hazards_144.csv', row.names = FALSE)
 ```
-
 
 ```{r}
 qf_data <- q_data %>%
@@ -45,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q78_workplace_hazards.png', plot = r, device = 'png')
-write.csv(q_plot, 'q78_workplace_hazards_231.csv', row.names = FALSE)
+ggsave(filename = 'output/q78_workplace_hazards.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q78_workplace_hazards_231.csv', row.names = FALSE)
 ```

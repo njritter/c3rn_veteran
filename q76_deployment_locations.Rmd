@@ -24,18 +24,15 @@ t <- "Where were you deployed/stationed? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q76_deployment_locations.png', plot = r, device = 'png')
-write.csv(q_plot, 'q76_deployment_locations_144.csv', row.names = FALSE)
-write.csv(q_data, 'q76_deployment_locations_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q76_deployment_locations.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q76_deployment_locations_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q76_deployment_locations_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -64,8 +61,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q76_deployment_locations.png', plot = r, device = 'png')
-write.csv(q_plot, 'q76_deployment_locations_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q76_deployment_locations_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q76_deployment_locations.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q76_deployment_locations_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q76_deployment_locations_ids.csv', row.names = FALSE)
 ```
 

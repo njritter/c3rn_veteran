@@ -1,7 +1,7 @@
 ---
 title: "q5 'Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -21,23 +21,18 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 q <- 'Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.'
 q_final_response <- "X.25"
 t <- "Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)"
-
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
-
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
-q_plot <- tidy_choose_all(q_data)
+q_plot <- clean_choose_all(q_data)
 r <- plot_choose_all(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q5_conditions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q5_conditions_144.csv', row.names = FALSE)
-write.csv(q_data, 'q5_conditions_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q5_conditions.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q5_conditions_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q5_conditions_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -50,7 +45,6 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_n <- length(unique(qf_all_data$id))
-
 qf_data <- qf_all_data[3] %>%
   group_by(chosen) %>%
   summarize(count=n()) %>%
@@ -65,7 +59,7 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q5_condition.png', plot = r, device = 'png')
-write.csv(q_plot, 'q5_condition_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q5_condition_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q5_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q5_condition_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q5_condition_ids.csv', row.names = FALSE)
 ```

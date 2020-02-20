@@ -22,9 +22,7 @@ q <- "What.percent.of.your.monthly.purchases.are.through.regulated.sources..disp
 t <- "What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?"
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-
 q_mean_data <- as.numeric(as.character(q_data$response))
-
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
@@ -50,13 +48,10 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-
 qf_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 
@@ -67,6 +62,6 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q54_purchase_sources.png', plot = r, device = 'png')
-write.csv(q_plot, 'q54_purchase_sources_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q54_purchase_sources.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q54_purchase_sources_232.csv', row.names = FALSE)
 ```

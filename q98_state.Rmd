@@ -22,17 +22,14 @@ q <- "What.state.in.the.US.do.you.currently.live.in."
 t <- "What state in the US do you currently live in?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q98_state.png', plot = r, device = 'png')
-write.csv(q_plot, 'q98_state_136.csv', row.names = FALSE)
+ggsave(filename = 'output/q98_state.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q98_state_136.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -44,19 +41,15 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q98_state.png', plot = r, device = 'png')
-write.csv(q_plot, 'q98_state_220.csv', row.names = FALSE)
+ggsave(filename = 'output/q98_state.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q98_state_220.csv', row.names = FALSE)
 ```
 
 

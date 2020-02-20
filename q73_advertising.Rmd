@@ -1,5 +1,5 @@
 ---
-title: "q73'In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?'"
+title: "q73 'In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?'"
 author: "David Ritter"
 date: "2/18/2020"
 output: html_document
@@ -22,19 +22,15 @@ q <- "In.the.last.30.days..how.often.have.you.seen.or.heard.advertising.for.cann
 t <- "In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q73_advertising.png', plot = r, device = 'png')
-write.csv(q_plot, 'q73_advertising_130.csv', row.names = FALSE)
+ggsave(filename = 'output/q73_advertising.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q73_advertising_130.csv', row.names = FALSE)
 ```
-
 
 ```{r}
 qf_data <- q_data %>%
@@ -45,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q73_advertising.png', plot = r, device = 'png')
-write.csv(q_plot, 'q73_advertising_216.csv', row.names = FALSE)
+ggsave(filename = 'output/q73_advertising.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q73_advertising_216.csv', row.names = FALSE)
 ```

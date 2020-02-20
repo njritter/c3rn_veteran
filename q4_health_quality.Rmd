@@ -1,13 +1,12 @@
 ---
 title: "q4 'How would you rate your quality of health today?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
 
 ```{r, message = FALSE}
-# Load libraries
 library(tidyverse)
 library(ggplot2)
 library(stringr)
@@ -23,17 +22,14 @@ q <- "How.would.you.rate.your.quality.of.health.today."
 t <- "How would you rate your quality of health today?"
 q_data <- get_single_selection(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
-write.csv(q_plot, 'q4_health_quality_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q4_health_quality.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q4_health_quality_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -45,17 +41,13 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q4_health_quality.png', plot = r, device = 'png')
-write.csv(q_plot, 'q4_health_quality_232.csv', row.names = FALSE)
+ggsave(filename = 'output/q4_health_quality.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q4_health_quality_232.csv', row.names = FALSE)
 ```
