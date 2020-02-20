@@ -56,5 +56,5 @@ r
 
 ```{r}
 ggsave(filename = 'q95_firearms.png', plot = r, device = 'png')
-write.csv(q_plot, 'q95_firearms_333.csv', row.names = FALSE)
+write.csv(q_plot, 'q95_firearms_232.csv', row.names = FALSE)
 ```

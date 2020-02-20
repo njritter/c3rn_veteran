@@ -65,7 +65,7 @@ r
 
 ```{r}
 ggsave(filename = 'q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot, 'q77_wars_served_331.csv', row.names = FALSE)
+write.csv(q_plot, 'q77_wars_served_231.csv', row.names = FALSE)
 write.csv(qf_all_data, 'q77_wars_served_ids.csv', row.names = FALSE)
 ```
 

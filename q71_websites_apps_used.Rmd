@@ -65,6 +65,6 @@ r
 
 ```{r}
 ggsave(filename = 'q71_websites_apps_used.png', plot = r, device = 'png')
-write.csv(q_plot, 'q71_websites_apps_used_305.csv', row.names = FALSE)
+write.csv(q_plot, 'q71_websites_apps_used_216.csv', row.names = FALSE)
 write.csv(qf_all_data, 'q71_websites_apps_used_ids.csv', row.names = FALSE)
 ```

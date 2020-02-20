@@ -65,7 +65,7 @@ r
 
 ```{r}
 ggsave(filename = 'q76_deployment_locations.png', plot = r, device = 'png')
-write.csv(q_plot, 'q76_deployment_locations_333.csv', row.names = FALSE)
+write.csv(q_plot, 'q76_deployment_locations_232.csv', row.names = FALSE)
 write.csv(qf_all_data, 'q76_deployment_locations_ids.csv', row.names = FALSE)
 ```
 

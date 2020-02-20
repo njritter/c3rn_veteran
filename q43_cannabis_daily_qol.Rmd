@@ -121,26 +121,26 @@ r8
 
 ```{r}
 ggsave(filename = 'q43_greater_qol.png', plot = r1, device = 'png')
-write.csv(table_1, 'q43_greater_qol_xx.csv', row.names = FALSE)
+write.csv(table_1, 'q43_greater_qol_553.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_physical_symptoms.png', plot = r2, device = 'png')
-write.csv(table_2, 'q43_physical_symptoms_xx.csv', row.names = FALSE)
+write.csv(table_2, 'q43_physical_symptoms_531.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_psychological_symptoms.png', plot = r3, device = 'png')
-write.csv(table_3, 'q43_psychological_symptoms_xx.csv', row.names = FALSE)
+write.csv(table_3, 'q43_psychological_symptoms_523.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_opioid_use.png', plot = r4, device = 'png')
-write.csv(table_4, 'q43_opioid_use_xx.csv', row.names = FALSE)
+write.csv(table_4, 'q43_opioid_use_168.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_prior_med_use.png', plot = r5, device = 'png')
-write.csv(table_5, 'q43_prior_med_use_xx.csv', row.names = FALSE)
+write.csv(table_5, 'q43_prior_med_use_408.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_alcohol_use.png', plot = r6, device = 'png')
-write.csv(table_6, 'q43_alcohol_use_xx.csv', row.names = FALSE)
+write.csv(table_6, 'q43_alcohol_use_336.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_tobacco_use.png', plot = r7, device = 'png')
-write.csv(table_7, 'q43_tobacco_use_xx.csv', row.names = FALSE)
+write.csv(table_7, 'q43_tobacco_use_216.csv', row.names = FALSE)
 
 ggsave(filename = 'q43_daily_qol.png', plot = r8, device = 'png')
-write.csv(table_8, 'q43_daily_qol_xx.csv', row.names = FALSE)
+write.csv(table_8, 'q43_daily_qol_549.csv', row.names = FALSE)
 ```

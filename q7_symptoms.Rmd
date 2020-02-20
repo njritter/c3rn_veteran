@@ -66,7 +66,7 @@ r
 
 ```{r}
 ggsave(filename = 'q7_symptoms.png', plot = r, device = 'png')
-write.csv(q_plot, 'q7_symptoms_333.csv', row.names = FALSE)
+write.csv(q_plot, 'q7_symptoms_232.csv', row.names = FALSE)
 write.csv(qf_all_data, 'q7_symptoms_ids.csv', row.names = FALSE)
 ```
 

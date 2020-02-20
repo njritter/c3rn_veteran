@@ -66,6 +66,6 @@ r
 
 ```{r}
 ggsave(filename = 'q61_barrers.png', plot = r, device = 'png')
-write.csv(q_plot, 'q61_barrers_333.csv', row.names = FALSE)
+write.csv(q_plot, 'q61_barrers_232.csv', row.names = FALSE)
 write.csv(qf_data, 'q61_barrers_ids.csv', row.names = FALSE)
 ```

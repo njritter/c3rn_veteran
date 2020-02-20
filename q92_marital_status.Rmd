@@ -56,5 +56,5 @@ r
 
 ```{r}
 ggsave(filename = 'q92_marital_status.png', plot = r, device = 'png')
-write.csv(q_plot, 'q92_marital_status_333.csv', row.names = FALSE)
+write.csv(q_plot, 'q92_marital_status_232.csv', row.names = FALSE)
 ```

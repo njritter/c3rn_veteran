@@ -71,12 +71,12 @@ r3
 
 ```{r}
 ggsave(filename = 'q62_flower_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'q62_flower_wkly_216.csv', row.names = FALSE)
+write.csv(table_1, 'q62_flower_wkly_119.csv', row.names = FALSE)
 
 ggsave(filename = 'q62_vape_wkly.png', plot = r2, device = 'png')
 write.csv(table_2, 'q62_vape_wkly_50.csv', row.names = FALSE)
 
 ggsave(filename = 'q62_concentrates_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'q62_concentrates_wkly_112.csv', row.names = FALSE)
+write.csv(table_3, 'q62_concentrates_wkly_48.csv', row.names = FALSE)
 ```
 

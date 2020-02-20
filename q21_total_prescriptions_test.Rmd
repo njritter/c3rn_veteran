@@ -31,7 +31,14 @@ q_mean <- mean(q_mean_data) %>%
 
 ```{r}
 q_plot <- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
+r <- geom_histogram(q_data(aes(x = q_mean_data, y = value(response))))
+r
+```
+
+```{r}
+r <- ggplot(q_data, aes(x=response)) + 
+  geom_histogram(stat="count") +
+  labs(title="Total prescriptions", x="# of meds", y="Respondent count")
 r
 ```
 
@@ -68,5 +75,5 @@ r
 
 ```{r}
 ggsave(filename = 'q21_total_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q21_total_prescriptions_232.csv', row.names = FALSE)
+write.csv(q_plot, 'q21_total_prescriptions_333.csv', row.names = FALSE)
 ```
