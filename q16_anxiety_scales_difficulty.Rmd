@@ -1,0 +1,38 @@
+---
+title: "q16 Difficulty of living with anxiety as top condition"
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+ 
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
+t <- "Difficulty of living with anxiety as top condition"
+q_data <- get_single_selection(data = raw_data, q.name = q)
+q_n <- length(unique(q_data$id))
+q_plot <- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'q16_anxiety_difficulty.png', plot = r, device = 'png')
+write.csv(q_plot, 'q16_anxiety_difficulty_51.csv', row.names = FALSE)
+```
+
+```{r}
+qf_data <- filter(q_data, response == "Very difficult")
+```
+

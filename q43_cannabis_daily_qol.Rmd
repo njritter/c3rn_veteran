@@ -143,4 +143,6 @@ write.csv(table_7, 'output/q43_tobacco_use_216.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q43_daily_qol.png', plot = r8, device = 'png')
 write.csv(table_8, 'output/q43_daily_qol_549.csv', row.names = FALSE)
+
+write.csv(q_data, 'output/q43_daily_qol_q_data.csv', row.names = FALSE)
 ```

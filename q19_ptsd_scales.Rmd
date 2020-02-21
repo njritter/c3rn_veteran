@@ -1,0 +1,251 @@
+---
+title: "q19 Over the last 2 weeks, how often have you been bothered by any of the following problems? (PTSD scale)" 
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+ 
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in.response.to.stressful.military.experiences..Please.read.each.one.carefully.and.indicate.how.much.you.have.beenÂ.ï..bothered.by.that.problem.in.the.last.month.ï.."
+q_final_response <- "X.115"
+t <- "PTSD Scales"
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "Repeated, disturbing memories, thoughts, or images of a stressful military experience?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_1, count)
+r1 <- plot_single_select(table_1) +
+  labs(title = "Repeated, disturbing memories, thoughts, or images of a stressful military experience?", subtitle = q_n)
+r1
+```
+
+
+```{r}
+table_2 <- get_single_selection_2(q_data, "Repeated, disturbing dreams of a stressful military experience?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_2, count)
+r2 <- plot_single_select(table_2) +
+  labs(title = "Repeated, disturbing dreams of a stressful military experience?", subtitle = q_n)
+r2
+```
+
+```{r}
+table_3 <- get_single_selection_2(q_data, "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_3, count)
+r3 <- plot_single_select(table_3) +
+  labs(title = "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?", subtitle = q_n)
+r3
+```
+
+```{r}
+table_4 <- get_single_selection_2(q_data, "Feeling very upset when something reminded you of a stressful military experience") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_4, count)
+r4 <- plot_single_select(table_4) +
+  labs(title = "Feeling very upset when something reminded you of a stressful military experience", subtitle = q_n)
+r4
+```
+
+```{r}
+table_5 <- get_single_selection_2(q_data, "Having physical reactions (e.g., heart pounding, trouble breathing, or sweating) when something reminded you of a stressful military experience?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_5, count)
+r5 <- plot_single_select(table_5) +
+  labs(title = "Having physical reactions (e.g., heart pounding, trouble breathing, or sweating) when something reminded you of a stressful military experience?", subtitle = q_n)
+r5
+```
+
+```{r}
+table_6 <- get_single_selection_2(q_data, "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_6, count)
+r6 <- plot_single_select(table_6) +
+  labs(title = "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?", subtitle = q_n)
+r6
+```
+
+```{r}
+table_7 <- get_single_selection_2(q_data, "Avoid activities or talking about a stressful military experience or avoid having feelings related to it?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_7, count)
+r7 <- plot_single_select(table_7) +
+  labs(title = "Avoid activities or talking about a stressful military experience or avoid having feelings related to it?", subtitle = q_n)
+r7
+```
+
+```{r}
+table_8 <- get_single_selection_2(q_data, "Trouble remembering important parts of a stressful military experience?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_8, count)
+r8 <- plot_single_select(table_8) +
+  labs(title = "Trouble remembering important parts of a stressful military experience?", subtitle = q_n)
+r8
+```
+
+```{r}
+table_9 <- get_single_selection_2(q_data, "Loss on interest in things that you used to enjoy?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_9, count)
+r9 <- plot_single_select(table_9) +
+  labs(title = "Loss on interest in things that you used to enjoy?", subtitle = q_n)
+r9
+```
+
+```{r}
+table_10 <- get_single_selection_2(q_data, "Feeling distant or cut off from other people") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_10, count)
+r10 <- plot_single_select(table_10) +
+  labs(title = "Feeling distant or cut off from other people", subtitle = q_n)
+r10
+```
+
+```{r}
+table_11 <- get_single_selection_2(q_data, "Feeling emotionally numb or being unable to have loving feelings for those close to you?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_11, count)
+r11 <- plot_single_select(table_11) +
+  labs(title = "Feeling emotionally numb or being unable to have loving feelings for those close to you?", subtitle = q_n)
+r11
+```
+
+```{r}
+table_12 <- get_single_selection_2(q_data, "Feeling as if your future will somehow be cut short?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_12, count)
+r12 <- plot_single_select(table_12) +
+  labs(title = "Feeling as if your future will somehow be cut short?", subtitle = q_n)
+r12
+```
+
+```{r}
+table_13 <- get_single_selection_2(q_data, "Trouble falling or staying asleep?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_13, count)
+r13 <- plot_single_select(table_13) +
+  labs(title = "Trouble falling or staying asleep?", subtitle = q_n)
+r13
+```
+
+```{r}
+table_14 <- get_single_selection_2(q_data, "Feeling irritable or having angry outbursts?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_14, count)
+r14 <- plot_single_select(table_14) +
+  labs(title = "Feeling irritable or having angry outbursts?", subtitle = q_n)
+r14
+```
+
+```{r}
+table_15 <- get_single_selection_2(q_data, "Having difficulty concentrating?") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_15, count)
+r15 <- plot_single_select(table_15) +
+  labs(title = "Having difficulty concentrating?", subtitle = q_n)
+r15
+```
+
+```{r}
+table_16 <- get_single_selection_2(q_data, 'Being "super alert" or watchful on guard?') %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_16, count)
+r16 <- plot_single_select(table_16) +
+  labs(title = 'Being "super alert" or watchful on guard?', subtitle = q_n)
+r16
+```
+
+```{r}
+table_17 <- get_single_selection_2(q_data, 'Feeling jumpy or easily startled?') %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+q_n <- tally(table_17, count)
+r17 <- plot_single_select(table_17) +
+  labs(title = 'Feeling jumpy or easily startled?', subtitle = q_n)
+r17
+```
+
+```{r}
+ggsave(filename = 'output/q19_flashback.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q19_flashback.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_dreams.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q19_dreams.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_reliving.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q19_reliving.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_trigger.png', plot = r4, device = 'png')
+write.csv(table_4, 'output/q19_trigger.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_physical.png', plot = r5, device = 'png')
+write.csv(table_5, 'output/q19_physical.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_thinking.png', plot = r6, device = 'png')
+write.csv(table_6, 'output/q19_thinking.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_activities.png', plot = r7, device = 'png')
+write.csv(table_7, 'output/q19_activities.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_memory.png', plot = r8, device = 'png')
+write.csv(table_8, 'output/q19_memory.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_interest.png', plot = r9, device = 'png')
+write.csv(table_9, 'output/q19_interest.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_distant.png', plot = r10, device = 'png')
+write.csv(table_10, 'output/q19_distant.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_numb.png', plot = r11, device = 'png')
+write.csv(table_11, 'output/q19_numb.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_short_future.png', plot = r12, device = 'png')
+write.csv(table_12, 'output/q19_short_future.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_sleep.png', plot = r13, device = 'png')
+write.csv(table_13, 'output/q19_sleep.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_irritable.png', plot = r14, device = 'png')
+write.csv(table_14, 'output/q19_irritable.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_concentration.png', plot = r15, device = 'png')
+write.csv(table_15, 'output/q19_concentration.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_alert.png', plot = r16, device = 'png')
+write.csv(table_16, 'output/q19_alert.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q19_jumpy.png', plot = r17, device = 'png')
+write.csv(table_17, 'output/q19_jumpy.csv', row.names = FALSE)
+
+write.csv(q_data, 'output/q19_ptsd_scales_data.csv', row.names = FALSE)
+```

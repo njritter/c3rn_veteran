@@ -1,0 +1,165 @@
+---
+title: "q17 Over the last 2 weeks, how often have you been bothered by any of the following problems? (depression scale)" 
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+ 
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "Over.the.last.2.weeks..how.often.have.you.been.bothered.by.any.of.the.following.problems..1"
+q_final_response <- "X.99"
+t <- "Over the last 2 weeks, how often have you been bothered by any of the following problems?"
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+```
+
+```{r}
+table_1 <- get_single_selection_2(q_data, "Little interest or pleasure in doing things") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_1, count)
+
+r1 <- plot_single_select(table_1) +
+  labs(title = "Little interest or pleasure in doing things", subtitle = q_n)
+r1
+```
+
+
+```{r}
+table_2 <- get_single_selection_2(q_data, "Feeling down, depressed, or hopeless") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_2, count)
+
+r2 <- plot_single_select(table_2) +
+  labs(title = "Feeling down, depressed, or hopeless", subtitle = q_n)
+r2
+```
+
+```{r}
+table_3 <- get_single_selection_2(q_data, "Trouble falling or staying asleep, or sleeping too much") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_3, count)
+
+r3 <- plot_single_select(table_3) +
+  labs(title = "Trouble falling or staying asleep, or sleeping too much", subtitle = q_n)
+r3
+```
+
+```{r}
+table_4 <- get_single_selection_2(q_data, "Feeling tired or having little energy") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_4, count)
+
+r4 <- plot_single_select(table_4) +
+  labs(title = "Feeling tired or having little energy", subtitle = q_n)
+r4
+```
+
+```{r}
+table_5 <- get_single_selection_2(q_data, "Poor appetite or overeating") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_5, count)
+
+r5 <- plot_single_select(table_5) +
+  labs(title = "Poor appetite or overeating", subtitle = q_n)
+r5
+```
+
+```{r}
+table_6 <- get_single_selection_2(q_data, "Feeling bad about yourself or that you are a failure or have let yourself or your family down") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_6, count)
+
+r6 <- plot_single_select(table_6) +
+  labs(title = "Feeling bad about yourself or that you are a failure or have let yourself or your family down", subtitle = q_n)
+r6
+```
+
+```{r}
+table_7 <- get_single_selection_2(q_data, "Trouble concentrating on things such as reading the newspaper or watching television") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_7, count)
+
+r7 <- plot_single_select(table_7) +
+  labs(title = "Trouble concentrating on things such as reading the newspaper or watching television", subtitle = q_n)
+r7
+```
+
+```{r}
+table_8 <- get_single_selection_2(q_data, "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_8, count)
+
+r8 <- plot_single_select(table_8) +
+  labs(title = "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual", subtitle = q_n)
+r8
+```
+
+```{r}
+table_9 <- get_single_selection_2(q_data, "Thoughts that you would be better off dead or of hurting yourself in some way") %>%
+  filter(response != "N/A") %>%
+  clean_single_select_2()
+
+q_n <- tally(table_9, count)
+
+r9 <- plot_single_select(table_9) +
+  labs(title = "Thoughts that you would be better off dead or of hurting yourself in some way", subtitle = q_n)
+r9
+```
+
+```{r}
+ggsave(filename = 'output/q18_interest.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q18_interest_553.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_depressed.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q18_depressed_531.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_sleep.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q18_sleep_523.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_fatigue.png', plot = r4, device = 'png')
+write.csv(table_4, 'output/q18_fatigue_168.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_appetite.png', plot = r5, device = 'png')
+write.csv(table_5, 'output/q18_appetite_408.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_failure.png', plot = r6, device = 'png')
+write.csv(table_6, 'output/q18_failure_336.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_concentration.png', plot = r7, device = 'png')
+write.csv(table_7, 'output/q18_concentration_216.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_movement.png', plot = r8, device = 'png')
+write.csv(table_8, 'output/q18_movement_336.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q18_self_harm.png', plot = r9, device = 'png')
+write.csv(table_9, 'output/q18_self_harm_216.csv', row.names = FALSE)
+
+write.csv(q_data, 'output/q18_depression_scales_data.csv', row.names = FALSE)
+```
