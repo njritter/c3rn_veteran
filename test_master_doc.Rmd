@@ -1,0 +1,84 @@
+---
+title: "q 'Master'"
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "How.would.you.rate.your.quality.of.health.today."
+t <- "How would you rate your quality of health today?"
+q_data <- get_single_selection(data = raw_data, q.name = q)
+q_n <- length(unique(q_data$id))
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q4_health_quality.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q4_health_quality.csv', row.names = FALSE)
+```
+
+```{r}
+q <- 'Which.of.the.following.health.conditions.do.you.face.and.or.have.been.diagnosed.with...Please.select.all.that.apply.'
+q_final_response <- "X.25"
+t <- "Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)"
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+  tidy_choose_all()
+q_n <- length(unique(q_data$id))
+q_plot <- clean_choose_all(q_data)
+r <- plot_choose_all(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q5_conditions.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q5_conditions.csv', row.names = FALSE)
+write.csv(q_data, 'output/q5_conditions_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+t <- "Which is the primary health condition that causes you the most distress? (Please select one)"
+q_data <- get_single_selection(data = raw_data, q.name = q)
+q_n <- length(unique(q_data$id))
+q_plot <- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q6_top_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q6_top_condition.csv', row.names = FALSE)
+```
+
+```{r}
+q <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
+q_final_response <- "X.43"
+t <- "Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)"
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+  tidy_choose_all()
+q_n <- length(unique(q_data$id))
+q_plot <- clean_choose_all(q_data)
+r <- plot_choose_all(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q7_symptoms.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q7_symptoms.csv', row.names = FALSE)
+write.csv(q_data, 'output/q7_symptoms_ids.csv', row.names = FALSE)
+```

@@ -1,7 +1,7 @@
 ---
 title: "q13 'Where are the locations of your pain (please check all that apply)'"
 author: "David Ritter"
-date: "2/13/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -19,33 +19,15 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- 'Where.are.the.locations.of.your.pain..please.check.all.that.apply.'
+t <- "Where are the locations of your pain (please check all that apply)"
 q_final_response <- "X.66"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
-q_plot <-
-  q_data %>%
-  group_by(chosen) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-r <- 
-  ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "Where are the locations of your pain (please check all that apply)", subtitle = q_n)
+q_plot <- clean_choose_all(q_data)
+r <- plot_choose_all(q_plot)
 r
 ```
-
 
 ```{r}
 ggsave(filename = 'output/q13_pain_locations.png', plot = r, device = 'png')

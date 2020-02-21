@@ -1,7 +1,7 @@
 ---
 title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -19,28 +19,16 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
+t <- "What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?"
+q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+  filter(response != "")
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
-q_plot <-
-  q_data %>%
-  group_by(response) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-r <- 
-  ggplot(q_plot, aes(x = reorder(response, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?", subtitle = q_n)
+q_mean_data <- as.numeric(as.character(q_data$response))
+q_mean <- mean(q_mean_data) %>%
+  round(3) %>%
+  print()
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
 r
 ```
 

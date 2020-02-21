@@ -20,7 +20,8 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
 t <- "How many total prescription medications are you currently taking? (Please insert number)"
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+  filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
 q_mean <- mean(q_mean_data) %>%

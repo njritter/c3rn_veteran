@@ -42,9 +42,6 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_n <- length(unique(qf_all_data$id))
-```
-
-```{r}
 q_plot <- clean_single_select_y(qf_all_data)
 r <- plot_single_select_y(q_plot)
 r

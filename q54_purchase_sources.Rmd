@@ -20,23 +20,21 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- "What.percent.of.your.monthly.purchases.are.through.regulated.sources..dispensary..retail.establishment..caregiver.authorized.private.cultivator.."
 t <- "What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+  filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r
 ```
 
 ```{r}
-ggsave(filename = 'q54_purchase_sources.png', plot = r, device = 'png')
-write.csv(q_plot, 'q54_purchase_sources_144.csv', row.names = FALSE)
+ggsave(filename = 'output/q54_purchase_sources.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q54_purchase_sources_144.csv', row.names = FALSE)
 ```
 
 ```{r}

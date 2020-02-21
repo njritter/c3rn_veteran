@@ -18,10 +18,10 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q5 <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
-q5_final_response <- "X.43"
+q <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
+q_final_response <- "X.43"
 t <- "Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q5, f.response = q5_final_response) %>%
+q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
 q_plot <- clean_choose_all(q_data)

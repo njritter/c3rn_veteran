@@ -20,7 +20,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- 'What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.'
 q_final_response <- "X.136"
-t <- "Which of the following health conditions do you face and or have been diagnosed with... Please select all that apply"
+t <- "What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
@@ -30,9 +30,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q20_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q20_prescriptions_144.csv', row.names = FALSE)
-write.csv(q_data, 'q20_prescriptions_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q20_prescriptions.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q20_prescriptions_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q20_prescriptions_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -59,9 +59,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q20_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot, 'q20_prescriptions_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q20_prescriptions_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q20_prescriptions.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q20_prescriptions_232.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q20_prescriptions_ids.csv', row.names = FALSE)
 ```
 
 

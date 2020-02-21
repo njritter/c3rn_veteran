@@ -20,29 +20,12 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- 'What.are.the.effects.of.your.pain...Please.select.all.that.apply.'
 q_final_response <- "X.81"
+t <- "What are the effects of your pain? (Please select all that apply)"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
   tidy_choose_all()
 q_n <- length(unique(q_data$id))
-```
-
-```{r}
-q_plot <-
-  q_data %>%
-  group_by(chosen) %>%
-  summarize(count = n()) %>%
-  mutate(percent_responded = round(100*(count / q_n), 2)) %>%
-  arrange(desc(count))
-```
-
-```{r}
-r <- 
-  ggplot(q_plot, aes(x = reorder(chosen, count), y = percent_responded)) +
-  geom_bar(stat = 'identity') +
-  coord_flip() +
-  geom_text(aes(label= paste(round(percent_responded, 0), count, sep = "%:"))) +
-  xlab("Response") +
-  ylab("% Responded, Count") +
-  labs(title = "What are the effects of your pain? (Please select all that apply)", subtitle = q_n)
+q_plot <- clean_choose_all(q_data)
+r <- plot_choose_all(q_plot)
 r
 ```
 

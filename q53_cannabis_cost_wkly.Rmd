@@ -1,7 +1,7 @@
 ---
 title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -20,15 +20,13 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```{r}
 q <- "On.average..how.much.do.you.spend..in.US.dollars..on.consumable.cannabis.products.per.week."
 t <- "On average, how much do you spend (in US dollars) on consumable cannabis products per week?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
+q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+  filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
-```
-
-```{r}
 q_plot<- clean_single_select(q_data)
 r <- plot_single_select(q_plot)
 r

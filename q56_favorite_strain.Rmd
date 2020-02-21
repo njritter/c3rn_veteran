@@ -1,0 +1,31 @@
+---
+title: "q56 'What is your favorite cannabis strain?'"
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q <- "What.is.your.favorite.cannabis.strain."
+t <- "What is your favorite cannabis strain?"
+q_data <- get_single_selection(data = raw_data, q.name = q)
+q_n <- length(unique(q_data$id))
+q_plot<- clean_single_select(q_data)
+```
+
+```{r}
+write.csv(q_plot, 'output/q56_favorite_strain_166.csv', row.names = FALSE)
+write.csv(q_data, 'output/q56_favorite_strain_ids.csv', row.names = FALSE)
+```

@@ -1,7 +1,7 @@
 ---
 title: "q46 'Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/20/2020"
 output: html_document
 runtime: shiny
 ---
@@ -46,14 +46,10 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-
 qf_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
-
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 

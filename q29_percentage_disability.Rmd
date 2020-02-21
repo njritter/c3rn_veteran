@@ -18,12 +18,22 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q <- "What.percentage.of.disability.are.you.rated..as.is.indicated.by.the.Veteran.s.Affairs..VA.."
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
+t <- "What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?"
+q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+  filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
 q_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
+q_plot<- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
+r
+```
+
+```{r}
+ggsave(plot(histogram_object), file = "output/q29_disability.png")
+write.csv(q_data, 'output/q29_disability_144.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -31,11 +41,6 @@ histogram_object <- hist(as.numeric(q_data$response))
 histogram_object$breaks
 histogram_object$counts
 plot(histogram_object)
-```
-
-```{r}
-ggsave(plot(histogram_object), file = "output/q29_disability.png")
-write.csv(q_data, 'output/q29_disability_144.csv', row.names = FALSE)
 ```
 
 ```{r}
