@@ -28,8 +28,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q18_depression_difficulty.png', plot = r, device = 'png')
-write.csv(q_plot, 'q18_depression_difficulty_34.csv', row.names = FALSE)
+ggsave(filename = 'output/q18_depression_difficulty.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q18_depression_difficulty_34.csv', row.names = FALSE)
 ```
 
 ```{r}

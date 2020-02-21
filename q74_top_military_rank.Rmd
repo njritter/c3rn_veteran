@@ -31,9 +31,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q74_top_military_rank.png', plot = r, device = 'png')
-write.csv(q_plot, 'q74_top_military_rank_144.csv', row.names = FALSE)
-write.csv(q_data, 'q74_top_military_rank_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q74_top_military_rank.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q74_top_military_rank_144.csv', row.names = FALSE)
+write.csv(q_data, 'output/q74_top_military_rank_ids.csv', row.names = FALSE)
 ```
 
 

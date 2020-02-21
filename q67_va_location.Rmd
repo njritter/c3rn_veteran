@@ -27,8 +27,8 @@ q_plot<- clean_single_select(q_data)
 ```
 
 ```{r}
-write.csv(q_plot, 'q67_va_location_181.csv', row.names = FALSE)
-write.csv(q_data, 'q67_va_location_ids.csv', row.names = FALSE)
+write.csv(q_plot, 'output/q67_va_location_181.csv', row.names = FALSE)
+write.csv(q_data, 'output/q67_va_location_ids.csv', row.names = FALSE)
 ```
 
 
