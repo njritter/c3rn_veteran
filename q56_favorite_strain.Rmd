@@ -26,6 +26,6 @@ q_plot<- clean_single_select(q_data)
 ```
 
 ```{r}
-write.csv(q_plot, 'output/q56_favorite_strain_166.csv', row.names = FALSE)
+write.csv(q_plot, 'output/q56_favorite_strain_120.csv', row.names = FALSE)
 write.csv(q_data, 'output/q56_favorite_strain_ids.csv', row.names = FALSE)
 ```

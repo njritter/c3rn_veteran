@@ -1,0 +1,65 @@
+---
+title: "q6 'Which is the primary health condition that causes you the most distress? (Please select one)'"
+author: "David Ritter"
+date: "2/20/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+headers <- raw_data[c(1), ]
+```
+
+```{r}
+filtered_data <- filter(raw_data, raw_data$X.247 != "I'm not trying to reduce any medication use")
+```
+
+```{r}
+total <- rbind(headers, filtered_data) 
+```
+
+```{r}
+q <- "Which.is.the.primary.health.condition.that.causes.you.the.most.distress...Please.select.one."
+t <- "Which is the primary health condition that causes you the most distress? (Please select one)"
+q_data <- get_single_selection(data = raw_data, q.name = q)
+q_n <- length(unique(q_data$id))
+q_plot <- clean_single_select(q_data)
+r <- plot_single_select(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q6_top_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q6_top_condition_217.csv', row.names = FALSE)
+```
+
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Anxiety")
+```
+
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+qf_n <- length(unique(qf_all_data$id))
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
+r
+```
+
+```{r}
+ggsave(filename = 'output/q6_top_condition.png', plot = r, device = 'png')
+write.csv(q_plot, 'output/q6_top_condition_232.csv', row.names = FALSE)
+```

@@ -11,7 +11,7 @@ get_single_selection <- function(data, q.name)
   responses <- 
     data %>%
     select(id = Respondent.ID, question = q.name) %>%
-    slice(2:nrow(.)) %>%
+    slice(1:nrow(.)) %>%
     rename(response = question) %>%
     filter(response > 0)
   

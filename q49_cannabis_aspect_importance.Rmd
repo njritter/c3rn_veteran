@@ -123,28 +123,28 @@ r8
 
 ```{r}
 ggsave(filename = 'output/q49_thc.png', plot = r1, device = 'png')
-write.csv(table_1, 'output/q49_thc_553.csv', row.names = FALSE)
+write.csv(table_1, 'output/q49_thc_143.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_cbd.png', plot = r2, device = 'png')
-write.csv(table_2, 'output/q49_cbd_531.csv', row.names = FALSE)
+write.csv(table_2, 'output/q49_cbd_136.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_other_cbd.png', plot = r3, device = 'png')
-write.csv(table_3, 'output/q49_other_cbd_523.csv', row.names = FALSE)
+write.csv(table_3, 'output/q49_other_cbd_125.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_price.png', plot = r4, device = 'png')
-write.csv(table_4, 'output/q49_price_168.csv', row.names = FALSE)
+write.csv(table_4, 'output/q49_price_136.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_quality.png', plot = r5, device = 'png')
-write.csv(table_5, 'output/q49_quality_408.csv', row.names = FALSE)
+write.csv(table_5, 'output/q49_quality_136.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_product_type.png', plot = r6, device = 'png')
-write.csv(table_6, 'output/q49_product_type_336.csv', row.names = FALSE)
+write.csv(table_6, 'output/q49_product_type_134.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_favorite_strain.png', plot = r7, device = 'png')
-write.csv(table_7, 'output/q49_favorite_strain_216.csv', row.names = FALSE)
+write.csv(table_7, 'output/q49_favorite_strain_133.csv', row.names = FALSE)
 
 ggsave(filename = 'output/q49_other.png', plot = r8, device = 'png')
-write.csv(table_8, 'output/q49_other_336.csv', row.names = FALSE)
+write.csv(table_8, 'output/q49_other_26.csv', row.names = FALSE)
 
 write.csv(q_data, 'output/q49_cannabis_aspect_importance_data.csv', row.names = FALSE)
 ```

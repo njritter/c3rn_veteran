@@ -10,32 +10,17 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper.R")
+source("master_helper_2.R")
 ```
 
 ```{r}
-#Use if not filtering
-#raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+pre_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+  
+raw_data <- filter(pre_data, pre_data$X.247 == "I'm not trying to reduce any medication use" | pre_data$X.246 == "I donâ???Tt take any medications")
 ```
 
 ```{r}
-master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
-headers <- master[c(1), ]
-
-#Use only this line if not filtering
-#raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
-```
-
-```{r}
-#Filtering for choose all questions
-raw_data <- filter(master, master$What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating...Please.select.all.that.apply. == "Sleep/insomnia")
-#if filtering single select change assignment above from raw_data to filtered_data and run raw_data <- rbind(headers, filtered_data) after
-```
-
-```{r}
-#Filtering for single select questions
-filtered_data <- filter(master, master$How.would.you.rate.your.quality.of.health.today. == "Fair")
-raw_data <- rbind(headers, filtered_data)
+write.csv(raw_data, 'output/master_never_reduced.csv', row.names = FALSE)
 ```
 
 ```{r}

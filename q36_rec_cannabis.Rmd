@@ -34,7 +34,7 @@ write.csv(q_plot, 'output/q36_rec_cannabis_144.csv', row.names = FALSE)
 
 ```{r}
 qf_data <- q_data %>%
-  filter(response == "Response text")
+  filter(response == "Yes")
 ```
 
 ```{r}
