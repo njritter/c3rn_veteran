@@ -1,7 +1,7 @@
 ---
 title: "q83 'Were you ever surrounded by the enemy?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q83_surrounded_by_enemy.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q83_surrounded_by_enemy_108.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q83_surrounded_by_enemy")
+ggsave(filename = 'output/q83_surrounded_by_enemy/q83_surrounded_by_enemy.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q83_surrounded_by_enemy/q83_surrounded_by_enemy_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q83_surrounded_by_enemy.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q83_surrounded_by_enemy_n#.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q83_surrounded_by_enemy")
+ggsave(filename = 'output/q83_surrounded_by_enemy/q83_surrounded_by_enemy.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q83_surrounded_by_enemy/q83_surrounded_by_enemy_", qf_n,".csv"), row.names=F)
 ```

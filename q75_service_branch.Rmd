@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q75_service_branch.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q75_service_branch_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q75_service_branch_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q75_service_branch")
+ggsave(filename = 'output/q75_service_branch/q75_service_branch.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q75_service_branch/q75_service_branch_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q75_service_branch/q75_service_branch_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -61,8 +63,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q75_service_branch.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q75_service_branch_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q75_service_branch_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q75_service_branch")
+ggsave(filename = 'output/q75_service_branch/q75_service_branch.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q75_service_branch/q75_service_branch_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q75_service_branch/q75_service_branch_ids.csv', row.names = FALSE)
 ```
 

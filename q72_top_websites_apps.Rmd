@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q72_top_website_app.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q72_top_website_app_130.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q72_top_website_app")
+ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,7 +50,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q72_top_website_app.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q72_top_website_app_216.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q72_top_website_app")
+ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", qf_n,".csv"), row.names=F)
 ```
 

@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q55_home_grow.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q55_home_grow_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q55_home_grow")
+ggsave(filename = 'output/q55_home_grow/q55_home_grow.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q55_home_grow/q55_home_grow_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q55_home_grow.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q55_home_grow_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q55_home_grow")
+ggsave(filename = 'output/q55_home_grow/q55_home_grow.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q55_home_grow/q55_home_grow_", qf_n,".csv"), row.names=F)
 ```

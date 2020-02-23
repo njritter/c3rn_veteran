@@ -1,7 +1,7 @@
 ---
 title: "q91 'What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q91_highest_degree.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q91_highest_degree_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q91_highest_degree")
+ggsave(filename = 'output/q91_highest_degree/q91_highest_degree.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q91_highest_degree/q91_highest_degree_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q91_highest_degree.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q91_highest_degree_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q91_highest_degree")
+ggsave(filename = 'output/q91_highest_degree/q91_highest_degree.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q91_highest_degree/q91_highest_degree_", qf_n,".csv"), row.names=F)
 ```

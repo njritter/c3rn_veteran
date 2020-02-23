@@ -21,6 +21,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 q <- 'In.an.average.week..how.often.do.you.use.salves.topicals..e.g..creams..lotions..sprays..etc...'
 q_final_response <- "X.303"
 q64_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+dir.create("output/q43_qol")
 ```
 
 ```{r}

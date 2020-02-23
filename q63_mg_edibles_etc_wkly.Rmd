@@ -1,7 +1,7 @@
 ---
 title: "How many milligrams of cannabis do you use per week?"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -21,66 +21,69 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 q <- 'How.many.milligrams.of.cannabis.do.you.use.per.week.'
 q_final_response <- "X.297"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+dir.create("output/q63_mg_edibles_etc")
+```
+
+```{r}
+write.csv(q_data, 'output/q63_mg_edibles_etc/q63_mg_edibles_etc_data.csv', row.names = FALSE)
 ```
 
 ```{r}
 table_1 <- get_single_selection_2(q_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_1, count)
-
 r1 <- plot_single_select(table_1) +
   labs(title = "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)", subtitle = q_n)
 r1
 ```
 
 ```{r}
+ggsave(filename = "output/q63_mg_edibles_etc/q63_edibles.png", plot = r1, device = 'png')
+write.csv(table_1, paste0("output/q63_mg_edibles_etc/q63_edibles_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_2 <- get_single_selection_2(q_data, "Transdermal patches") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_2, count)
-
 r2 <- plot_single_select(table_2) +
   labs(title = "Transdermal patches", subtitle = q_n)
 r2
 ```
 
 ```{r}
+ggsave(filename = "output/q63_mg_edibles_etc/q63_patches.png", plot = r2, device = 'png')
+write.csv(table_2, paste0("output/q63_mg_edibles_etc/q63_patches_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_3 <- get_single_selection_2(q_data, "Suppositories") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_3, count)
-
 r3 <- plot_single_select(table_3) +
   labs(title = "Suppositories", subtitle = q_n)
 r3
 ```
 
 ```{r}
+ggsave(filename = "output/q63_mg_edibles_etc/q63_suppositories.png", plot = r3, device = 'png')
+write.csv(table_3, paste0("output/q63_mg_edibles_etc/q63_suppositories_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_4 <- get_single_selection_2(q_data, "Capsules") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_4, count)
-
 r4 <- plot_single_select(table_4) +
   labs(title = "Capsules", subtitle = q_n)
 r4
 ```
 
 ```{r}
-ggsave(filename = 'output/q63_edibles_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'output/q63_edibles_wkly_77.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q63_patches_wkly.png', plot = r2, device = 'png')
-write.csv(table_2, 'output/q63_patches_wkly_8.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q63_suppositories_wkly.png', plot = r3, device = 'png')
-write.csv(table_3, 'output/q63_suppositories_wkly_6.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q63_capsules_wkly.png', plot = r4, device = 'png')
-write.csv(table_4, 'output/q63_capsules_wkly_16.csv', row.names = FALSE)
+ggsave(filename = "output/q63_mg_edibles_etc/q63_capsules.png", plot = r4, device = 'png')
+write.csv(table_4, paste0("output/q63_mg_edibles_etc/q63_capsules_", q_n, ".csv"), row.names = FALSE)
 ```

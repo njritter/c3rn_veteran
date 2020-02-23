@@ -1,7 +1,7 @@
 ---
 title: "q56 'What is your favorite cannabis strain?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -26,6 +26,8 @@ q_plot<- clean_single_select(q_data)
 ```
 
 ```{r}
-write.csv(q_plot, 'output/q56_favorite_strain_120.csv', row.names = FALSE)
-write.csv(q_data, 'output/q56_favorite_strain_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q56_favorite_strain")
+ggsave(filename = 'output/q56_favorite_strain/q56_favorite_strain.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q56_favorite_strain/q56_favorite_strain_", q_n,".csv"), row.names=F)
 ```

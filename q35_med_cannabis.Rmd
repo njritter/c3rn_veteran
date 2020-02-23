@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q35_medical_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q35_medical_cannabis_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q35_medical_cannabis")
+ggsave(filename = 'output/q35_medical_cannabis/q35_medical_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q35_medical_cannabis/q35_medical_cannabis_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q35_medical_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q35_medical_cannabis_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q35_medical_cannabis")
+ggsave(filename = 'output/q35_medical_cannabis/q35_medical_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q35_medical_cannabis/q35_medical_cannabis_", qf_n,".csv"), row.names=F)
 ```

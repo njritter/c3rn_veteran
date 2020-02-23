@@ -27,9 +27,12 @@ q_plot<- clean_single_select(q_data)
 ```
 
 ```{r}
-write.csv(q_plot, 'output/q67_va_location_181.csv', row.names = FALSE)
-write.csv(q_data, 'output/q67_va_location_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q67_va_location")
+ggsave(filename = 'output/q67_va_location/q67_va_location.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q67_va_location/q67_va_location_", q_n,".csv"), row.names=F)
 ```
+
 
 
 

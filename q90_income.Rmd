@@ -1,7 +1,7 @@
 ---
 title: "q90 'What is your annual household income (in US dollars)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -29,8 +29,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q90_income.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q90_income_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q90_income")
+ggsave(filename = 'output/q90_income/q90_income.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q90_income/q90_income_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -57,6 +59,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q90_income.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q90_income_174.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q90_income")
+ggsave(filename = 'output/q90_income/q90_income.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q90_income/q90_income_", qf_n,".csv"), row.names=F)
 ```

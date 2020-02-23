@@ -1,7 +1,7 @@
 ---
 title: "q84 'What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q84_soldiers_kia_mia.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q84_soldiers_kia_mia_108.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q84_soldiers_kia_mia")
+ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q84_soldiers_kia_mia.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q84_soldiers_kia_mia_n#.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q84_soldiers_kia_mia")
+ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", qf_n,".csv"), row.names=F)
 ```

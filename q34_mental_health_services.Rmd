@@ -1,7 +1,7 @@
 ---
 title: "q34 'Do you seek supportive mental health services, counseling, or other therapy within or outside of the VA?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q34_mental_health_services.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q34_mental_health_services_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q34_mental_health_services")
+ggsave(filename = 'output/q34_mental_health_services/q34_mental_health_services.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q34_mental_health_services/q34_mental_health_services_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q34_mental_health_services.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q34_mental_health_services_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q34_mental_health_services")
+ggsave(filename = 'output/q34_mental_health_services/q34_mental_health_services.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q34_mental_health_services/q34_mental_health_services_", qf_n,".csv"), row.names=F)
 ```

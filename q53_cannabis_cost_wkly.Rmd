@@ -1,7 +1,7 @@
 ---
 title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,10 +33,12 @@ r
 ```
 
 ```{r}
-write.csv(q_data, 'output/q53_cannabis_cost_wkly_144.csv', row.names = FALSE)
-ggsave(filename = 'output/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q53_cannabis_cost_wkly")
+ggsave(filename = 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_ids.csv', row.names = FALSE)
 ```
-
 
 ```{r}
 qf_data <- q_data %>%
@@ -61,6 +63,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q53_cannabis_cost_wkly_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q53_cannabis_cost_wkly")
+ggsave(filename = 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_ids.csv', row.names = FALSE)
 ```

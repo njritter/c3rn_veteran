@@ -1,7 +1,7 @@
 ---
 title: "Q66 Does your VA doctor or clinical care provider know about your medical cannabis use?"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q66_va_cannabis_use_knowledge_130.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q66_va_use_knowledge")
+ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q66_va_cannabis_use_knowledge.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q66_va_cannabis_use_knowledge_216.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q66_va_use_knowledge")
+ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", qf_n,".csv"), row.names=F)
 ```

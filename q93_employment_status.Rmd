@@ -1,7 +1,7 @@
 ---
 title: "q93 'What is your current employment status?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -27,9 +27,12 @@ r <- plot_single_select(q_plot)
 r
 ```
 
+
 ```{r}
-ggsave(filename = 'output/q93_employment_status.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q93_employment_status_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q93_employment_status")
+ggsave(filename = 'output/q93_employment_status/q93_employment_status.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q93_employment_status/q93_employment_status_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +51,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q93_employment_status.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q93_employment_status_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q93_employment_status")
+ggsave(filename = 'output/q93_employment_status/q93_employment_status.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q93_employment_status/q93_employment_status_", qf_n,".csv"), row.names=F)
 ```

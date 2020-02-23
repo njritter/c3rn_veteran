@@ -1,7 +1,7 @@
 ---
 title: "q38 'Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q38_conditions_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q38_conditions_cannabis_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q38_conditions_cannabis_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q38_conditions_cannabis")
+ggsave(filename = 'output/q38_conditions_cannabis/q38_conditions_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q38_conditions_cannabis/q38_conditions_cannabis_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q38_conditions_cannabis/q38_conditions_cannabis_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -59,9 +61,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q38_conditions_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q38_conditions_cannabis_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q38_conditions_cannabis_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q38_conditions_cannabis")
+ggsave(filename = 'output/q38_conditions_cannabis/q38_conditions_cannabis.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q38_conditions_cannabis/q38_conditions_cannabis_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q38_conditions_cannabis/q38_conditions_cannabis_ids.csv', row.names = FALSE)
 ```
 
 

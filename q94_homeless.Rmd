@@ -1,7 +1,7 @@
 ---
 title: "q94 'Have you ever been homeless?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q94_homeless.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q94_homeless_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q94_homeless")
+ggsave(filename = 'output/q94_homeless/q94_homeless.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q94_homeless/q94_homeless_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q94_homeless.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q94_homeless_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q94_homeless")
+ggsave(filename = 'output/q94_homeless/q94_homeless.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q94_homeless/q94_homeless_", qf_n,".csv"), row.names=F)
 ```

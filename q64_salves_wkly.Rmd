@@ -1,7 +1,7 @@
 ---
 title: "In an average week, how often do you use salves/topicals (e.g. creams, lotions, sprays, etc.)"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -21,22 +21,22 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 q <- 'In.an.average.week..how.often.do.you.use.salves.topicals..e.g..creams..lotions..sprays..etc...'
 q_final_response <- "X.303"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+dir.create("output/q64_salves_topicals_wkly")
 ```
 
 ```{r}
 table_1 <- get_single_selection_2(q_data, "Salves/topicals") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_1, count)
-
 r1 <- plot_single_select(table_1) +
   labs(title = "Salves/topicals", subtitle = q_n)
 r1
 ```
 
 ```{r}
-ggsave(filename = 'output/q64_salves_topicals_wkly.png', plot = r1, device = 'png')
-write.csv(table_1, 'output/q64_salves_topicals_wkly_29.csv', row.names = FALSE)
+ggsave(filename = "output/q64_salves_topicals_wkly/q64_salves_topicals_wkly.png", plot = r1, device = 'png')
+write.csv(table_1, paste0("output/q64_salves_topicals_wkly/q64_salves_topicals_wkly_", q_n, ".csv"), row.names = FALSE)
 ```
+
 

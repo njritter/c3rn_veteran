@@ -63,7 +63,7 @@ r
 ```{r}
 q_plot2 <- rbind(q_plot, t)
 dir.create("output/q5_conditions")
-ggsave(filename = 'output/q5_conditions/5_conditions.png', plot = r, device = 'png')
+ggsave(filename = 'output/q5_conditions/q5_conditions.png', plot = r, device = 'png')
 write.csv(q_plot2, paste0("output/q5_conditions/q5_conditions_", qf_n,".csv"), row.names=F)
-write.csv(qf_all_data, 'output/q5_conditions/q5_condition_ids.csv', row.names = FALSE)
+write.csv(qf_all_data, 'output/q5_conditions/q5_conditions_ids.csv', row.names = FALSE)
 ```

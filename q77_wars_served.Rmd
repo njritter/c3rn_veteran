@@ -1,7 +1,7 @@
 ---
 title: "q77 'What war(s) did you serve in? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,10 +30,13 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q77_wars_served_143.csv', row.names = FALSE)
-write.csv(q_data, 'output/q77_wars_served_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q77_wars_served")
+ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q77_wars_served/q77_wars_served_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q77_wars_served/q77_wars_served_ids.csv', row.names = FALSE)
 ```
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -61,10 +64,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q77_wars_served_231.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q77_wars_served_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q77_wars_served")
+ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q77_wars_served/q77_wars_served_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q77_wars_served/q77_wars_served_ids.csv', row.names = FALSE)
 ```
-
-
 

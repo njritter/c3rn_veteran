@@ -1,7 +1,7 @@
 ---
 title: "q48 'What is your top preferred method (that is, favorite method) of using cannabis? (Please select one)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q48_top_cannabis_method.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q48_top_cannabis_method_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q48_top_cannabis_method")
+ggsave(filename = 'output/q48_top_cannabis_method/q48_top_cannabis_method.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q48_top_cannabis_method/q48_top_cannabis_method_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q48_top_cannabis_method.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q48_top_cannabis_method_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q48_top_cannabis_method")
+ggsave(filename = 'output/q48_top_cannabis_method/q48_top_cannabis_method.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q48_top_cannabis_method/q48_top_cannabis_method_", qf_n,".csv"), row.names=F)
 ```

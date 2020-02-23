@@ -28,8 +28,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q73_advertising.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q73_advertising_130.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q73_advertising")
+ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q73_advertising/q73_advertising_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q73_advertising/q73_advertising_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -48,6 +51,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q73_advertising.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q73_advertising_216.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q73_advertising")
+ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q73_advertising/q73_advertising_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q73_advertising/q73_advertising_ids.csv', row.names = FALSE)
 ```

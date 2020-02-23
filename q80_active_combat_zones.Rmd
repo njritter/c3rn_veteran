@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q80_active_combat_zones.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q80_active_combat_zones_143.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q80_active_combat_zones")
+ggsave(filename = 'output/q80_active_combat_zones/q80_active_combat_zones.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q80_active_combat_zones/q80_active_combat_zones_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q80_active_combat_zones.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q80_active_combat_zones_332.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q80_active_combat_zones")
+ggsave(filename = 'output/q80_active_combat_zones/q80_active_combat_zones.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q80_active_combat_zones/q80_active_combat_zones_", qf_n,".csv"), row.names=F)
 ```

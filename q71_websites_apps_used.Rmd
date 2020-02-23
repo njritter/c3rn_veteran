@@ -1,7 +1,7 @@
 ---
 title: "q71 'Which apps/websites do you use? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q71_websites_apps_used.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q71_websites_apps_used_130.csv', row.names = FALSE)
-write.csv(q_data, 'output/q71_websites_apps_used_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q70_websites_apps_used")
+ggsave(filename = 'output/q70_websites_apps_used/q70_websites_apps_used.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q70_websites_apps_used/q70_websites_apps_used_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q70_websites_apps_used/q70_websites_apps_used_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -61,7 +63,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q71_websites_apps_used.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q71_websites_apps_used_216.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q71_websites_apps_used_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q70_websites_apps_used")
+ggsave(filename = 'output/q70_websites_apps_used/q70_websites_apps_used.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q70_websites_apps_used/q70_websites_apps_used_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q70_websites_apps_used/q70_websites_apps_used_ids.csv', row.names = FALSE)
 ```

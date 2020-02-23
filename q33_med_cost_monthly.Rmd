@@ -1,7 +1,7 @@
 ---
 title: "q33 'On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,9 +33,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q33_med_cost_monthly.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q33_med_cost_monthly_232.csv', row.names = FALSE)
-write.csv(q_data, 'output/q33_med_cost_monthly_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q33_med_cost_monthly")
+ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q33_med_cost_monthly/q33_med_cost_monthly_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -58,7 +60,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q33_med_cost_monthly.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q33_med_cost_monthly_232.csv', row.names = FALSE)
-write.csv(q_data, 'output/q33_med_cost_monthly_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q33_med_cost_monthly")
+ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q33_med_cost_monthly/q33_med_cost_monthly_ids.csv', row.names = FALSE)
 ```

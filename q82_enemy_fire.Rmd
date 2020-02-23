@@ -1,7 +1,7 @@
 ---
 title: "q82 'Were you ever under enemy fire?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q82_enemy_fire.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q82_enemy_fire_93.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q82_enemy_fire")
+ggsave(filename = 'output/q82_enemy_fire/q82_enemy_fire.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q82_enemy_fire/q82_enemy_fire_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q82_enemy_fire.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q82_enemy_fire_118.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q82_enemy_fire")
+ggsave(filename = 'output/q82_enemy_fire/q82_enemy_fire.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q82_enemy_fire/q82_enemy_fire_", qf_n,".csv"), row.names=F)
 ```

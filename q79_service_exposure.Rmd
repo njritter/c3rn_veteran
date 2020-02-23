@@ -1,7 +1,7 @@
 ---
 title: "q79 'Were you exposed to any of the following during your service? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q79_service_exposure.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q79_service_exposure_142.csv', row.names = FALSE)
-write.csv(q_data, 'output/q79_service_exposure_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q79_service_exposure")
+ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q79_service_exposure/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -44,10 +46,7 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_n <- length(unique(qf_all_data$id))
-
-
 qf_data <- qf_all_data[3] %>%
   group_by(chosen) %>%
   summarize(count=n()) %>%
@@ -62,8 +61,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q79_service_exposure.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q79_service_exposure_329.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q79_service_exposure_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q79_service_exposure")
+ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q79_service_exposure/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
-

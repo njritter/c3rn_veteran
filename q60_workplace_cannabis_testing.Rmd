@@ -1,7 +1,7 @@
 ---
 title: "q60 'Are you concerned that your workplace or other agency will test you for your cannabis use?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q60_workplace_cannabis_testing.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q60_workplace_cannabis_testing_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q60_workplace_cannabis_testing")
+ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q60_workplace_cannabis_testing.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q60_workplace_cannabis_testing_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q60_workplace_cannabis_testing")
+ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", qf_n,".csv"), row.names=F)
 ```

@@ -1,7 +1,7 @@
 ---
 title: "q87 'How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q87_danger_frequency.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q87_danger_frequency_108.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q87_danger_frequency")
+ggsave(filename = 'output/q87_danger_frequency/q87_danger_frequency.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q87_danger_frequency/q87_danger_frequency_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,7 +50,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q87_danger_frequency.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q87_danger_frequency_n#.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q87_danger_frequency")
+ggsave(filename = 'output/q87_danger_frequency/q87_danger_frequency.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q87_danger_frequency/q87_danger_frequency_", qf_n,".csv"), row.names=F)
 ```
+
 

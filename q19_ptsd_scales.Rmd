@@ -1,7 +1,7 @@
 ---
 title: "q19 Over the last 2 weeks, how often have you been bothered by any of the following problems? (PTSD scale)" 
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -22,6 +22,11 @@ q <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in
 q_final_response <- "X.115"
 t <- "PTSD Scales"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+dir.create("output/q19_ptsd")
+```
+
+```{r}
+write.csv(q_data, 'output/q19_ptsd/q19_ptsd_scales_data.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -34,6 +39,10 @@ r1 <- plot_single_select(table_1) +
 r1
 ```
 
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_flashback.png", plot = r1, device = 'png')
+write.csv(table_1, paste0("output/q19_ptsd/q19_flashback_", q_n, ".csv"), row.names = FALSE)
+```
 
 ```{r}
 table_2 <- get_single_selection_2(q_data, "Repeated, disturbing dreams of a stressful military experience?") %>%
@@ -43,6 +52,11 @@ q_n <- tally(table_2, count)
 r2 <- plot_single_select(table_2) +
   labs(title = "Repeated, disturbing dreams of a stressful military experience?", subtitle = q_n)
 r2
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_dreams.png", plot = r2, device = 'png')
+write.csv(table_2, paste0("output/q19_ptsd/q19_dreams_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -56,6 +70,11 @@ r3
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_reliving.png", plot = r3, device = 'png')
+write.csv(table_3, paste0("output/q19_ptsd/q19_reliving_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_4 <- get_single_selection_2(q_data, "Feeling very upset when something reminded you of a stressful military experience") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -63,6 +82,11 @@ q_n <- tally(table_4, count)
 r4 <- plot_single_select(table_4) +
   labs(title = "Feeling very upset when something reminded you of a stressful military experience", subtitle = q_n)
 r4
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_trigger.png", plot = r4, device = 'png')
+write.csv(table_4, paste0("output/q19_ptsd/q19_trigger_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -76,6 +100,11 @@ r5
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_physical.png", plot = r5, device = 'png')
+write.csv(table_5, paste0("output/q19_ptsd/q19_physical_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_6 <- get_single_selection_2(q_data, "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -83,6 +112,11 @@ q_n <- tally(table_6, count)
 r6 <- plot_single_select(table_6) +
   labs(title = "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?", subtitle = q_n)
 r6
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_thinking.png", plot = r6, device = 'png')
+write.csv(table_6, paste0("output/q19_ptsd/q19_thinking_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -96,6 +130,11 @@ r7
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_activities.png", plot = r7, device = 'png')
+write.csv(table_7, paste0("output/q19_ptsd/q19_activities_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_8 <- get_single_selection_2(q_data, "Trouble remembering important parts of a stressful military experience?") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -103,6 +142,11 @@ q_n <- tally(table_8, count)
 r8 <- plot_single_select(table_8) +
   labs(title = "Trouble remembering important parts of a stressful military experience?", subtitle = q_n)
 r8
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_memory.png", plot = r8, device = 'png')
+write.csv(table_8, paste0("output/q19_ptsd/q19_memory_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -116,6 +160,11 @@ r9
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_interest.png", plot = r9, device = 'png')
+write.csv(table_9, paste0("output/q19_ptsd/q19_interest_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_10 <- get_single_selection_2(q_data, "Feeling distant or cut off from other people") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -126,6 +175,12 @@ r10
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_distant.png", plot = r10, device = 'png')
+write.csv(table_10, paste0("output/q19_ptsd/q19_distant_", q_n, ".csv"), row.names = FALSE)
+```
+
+
+```{r}
 table_11 <- get_single_selection_2(q_data, "Feeling emotionally numb or being unable to have loving feelings for those close to you?") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -133,6 +188,11 @@ q_n <- tally(table_11, count)
 r11 <- plot_single_select(table_11) +
   labs(title = "Feeling emotionally numb or being unable to have loving feelings for those close to you?", subtitle = q_n)
 r11
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_numb.png", plot = r11, device = 'png')
+write.csv(table_11, paste0("output/q19_ptsd/q19_numb_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -146,6 +206,11 @@ r12
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_short_future.png", plot = r12, device = 'png')
+write.csv(table_12, paste0("output/q19_ptsd/q19_short_future_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_13 <- get_single_selection_2(q_data, "Trouble falling or staying asleep?") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -153,6 +218,11 @@ q_n <- tally(table_13, count)
 r13 <- plot_single_select(table_13) +
   labs(title = "Trouble falling or staying asleep?", subtitle = q_n)
 r13
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_sleep.png", plot = r13, device = 'png')
+write.csv(table_13, paste0("output/q19_ptsd/q19_sleep_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -166,6 +236,11 @@ r14
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_irritable.png", plot = r14, device = 'png')
+write.csv(table_14, paste0("output/q19_ptsd/q19_irritable_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_15 <- get_single_selection_2(q_data, "Having difficulty concentrating?") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -173,6 +248,11 @@ q_n <- tally(table_15, count)
 r15 <- plot_single_select(table_15) +
   labs(title = "Having difficulty concentrating?", subtitle = q_n)
 r15
+```
+
+```{r}
+ggsave(filename = "output/q19_ptsd/q19_concentration.png", plot = r15, device = 'png')
+write.csv(table_15, paste0("output/q19_ptsd/q19_concentration_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -186,6 +266,11 @@ r16
 ```
 
 ```{r}
+ggsave(filename = "output/q19_ptsd/q19_alert.png", plot = r16, device = 'png')
+write.csv(table_16, paste0("output/q19_ptsd/q19_alert_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_17 <- get_single_selection_2(q_data, 'Feeling jumpy or easily startled?') %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
@@ -196,56 +281,7 @@ r17
 ```
 
 ```{r}
-ggsave(filename = 'output/q19_flashback.png', plot = r1, device = 'png')
-write.csv(table_1, 'output/q19_flashback.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_dreams.png', plot = r2, device = 'png')
-write.csv(table_2, 'output/q19_dreams.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_reliving.png', plot = r3, device = 'png')
-write.csv(table_3, 'output/q19_reliving.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_trigger.png', plot = r4, device = 'png')
-write.csv(table_4, 'output/q19_trigger.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_physical.png', plot = r5, device = 'png')
-write.csv(table_5, 'output/q19_physical.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_thinking.png', plot = r6, device = 'png')
-write.csv(table_6, 'output/q19_thinking.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_activities.png', plot = r7, device = 'png')
-write.csv(table_7, 'output/q19_activities.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_memory.png', plot = r8, device = 'png')
-write.csv(table_8, 'output/q19_memory.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_interest.png', plot = r9, device = 'png')
-write.csv(table_9, 'output/q19_interest.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_distant.png', plot = r10, device = 'png')
-write.csv(table_10, 'output/q19_distant.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_numb.png', plot = r11, device = 'png')
-write.csv(table_11, 'output/q19_numb.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_short_future.png', plot = r12, device = 'png')
-write.csv(table_12, 'output/q19_short_future.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_sleep.png', plot = r13, device = 'png')
-write.csv(table_13, 'output/q19_sleep.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_irritable.png', plot = r14, device = 'png')
-write.csv(table_14, 'output/q19_irritable.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_concentration.png', plot = r15, device = 'png')
-write.csv(table_15, 'output/q19_concentration.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_alert.png', plot = r16, device = 'png')
-write.csv(table_16, 'output/q19_alert.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q19_jumpy.png', plot = r17, device = 'png')
-write.csv(table_17, 'output/q19_jumpy.csv', row.names = FALSE)
-
-write.csv(q_data, 'output/q19_ptsd_scales_data.csv', row.names = FALSE)
+ggsave(filename = "output/q19_ptsd/q19_jumpy.png", plot = r17, device = 'png')
+write.csv(table_17, paste0("output/q19_ptsd/q19_jumpy_", q_n, ".csv"), row.names = FALSE)
 ```
+

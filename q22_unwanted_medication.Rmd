@@ -1,7 +1,7 @@
 ---
 title: "q22 'Do you have prescription medications in your house that you don't want to use and currently need to get rid of?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q22_unwanted_medication.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q22_unwanted_medication_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q22_unwanted_medication")
+ggsave(filename = 'output/q22_unwanted_medication/q22_unwanted_medication.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q22_unwanted_medication/q22_unwanted_medication_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q22_unwanted_medication.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q22_unwanted_medication_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q22_unwanted_medication")
+ggsave(filename = 'output/q22_unwanted_medication/q22_unwanted_medication.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q22_unwanted_medication/q22_unwanted_medication_", qf_n,".csv"), row.names=F)
 ```

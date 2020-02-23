@@ -1,7 +1,7 @@
 ---
 title: "q40 'What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,10 +30,13 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q40_symptoms_treated_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q40_symptoms_treated_cannabis_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q40_symptoms_treated_cannabis_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q40_symptoms_treated")
+ggsave(filename = 'output/q40_symptoms_treated/q40_symptoms_treated.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q40_symptoms_treated/q40_symptoms_treated_ids.csv', row.names = FALSE)
 ```
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -59,9 +62,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q40_symptoms_treated_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q40_symptoms_treated_cannabis_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q40_symptoms_treated_cannabis_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q40_symptoms_treated")
+ggsave(filename = 'output/q40_symptoms_treated/5_conditions.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q40_symptoms_treated/q5_condition_ids.csv', row.names = FALSE)
 ```
-
 

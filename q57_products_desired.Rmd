@@ -1,7 +1,7 @@
 ---
 title: "q57 'What product(s) and/or strain(s) do you want that are not currently available in your local dispensaries?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -26,6 +26,8 @@ q_plot<- clean_single_select(q_data)
 ```
 
 ```{r}
-write.csv(q_plot, 'output/q57_products_desired_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q57_products_desired_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q57_products_desired")
+ggsave(filename = 'output/q57_products_desired/q57_products_desired.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q57_products_desired/q57_products_desired_", q_n,".csv"), row.names=F)
 ```

@@ -1,7 +1,7 @@
 ---
 title: "q96 'Which of the following best represents your ethnic heritage?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q96_race.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q96_race_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q96_race")
+ggsave(filename = 'output/q96_race/q96_race.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q96_race/q96_race_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q96_race.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q96_race_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q96_race")
+ggsave(filename = 'output/q96_race/q96_race.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q96_race/q96_race_", qf_n,".csv"), row.names=F)
 ```

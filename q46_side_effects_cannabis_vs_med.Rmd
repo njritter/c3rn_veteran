@@ -32,9 +32,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q46_side_effects_cannabis_vs_med_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q46_side_effects_cannabis_vs_med.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q46_side_effects_cannabis_v_med")
+ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -60,8 +62,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q46_side_effects_cannabis_vs_med.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q46_side_effects_cannabis_vs_med_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q46_side_effects_cannabis_vs_med.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q46_side_effects_cannabis_v_med")
+ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_ids.csv', row.names = FALSE)
 ```
+
 

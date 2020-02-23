@@ -1,7 +1,7 @@
 ---
 title: "q54 'What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,8 +33,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q54_purchase_sources.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q54_purchase_sources_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q54_purchase_sources")
+ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q54_purchase_sources/q54_purchase_sources_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -60,6 +63,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q54_purchase_sources.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q54_purchase_sources_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q54_purchase_sources")
+ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q54_purchase_sources/q54_purchase_sources_ids.csv', row.names = FALSE)
 ```

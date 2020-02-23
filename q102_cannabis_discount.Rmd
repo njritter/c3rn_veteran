@@ -1,7 +1,7 @@
 ---
 title: "q102 'Do you believe the VA should offer free (or discounted) medical cannabis to veterans who qualify for its use?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q102_vet_cannabis_discount.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q102_vet_cannabis_discount_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q102_cannabis_discount")
+ggsave(filename = 'output/q102_cannabis_discount/q102_cannabis_discount.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q102_cannabis_discount/q102_cannabis_discount_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}
@@ -48,7 +50,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q102_vet_cannabis_discount.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q102_vet_cannabis_discount_n#.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q102_cannabis_discount")
+ggsave(filename = 'output/q102_cannabis_discount/q102_cannabis_discount.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q102_cannabis_discount/q102_cannabis_discount_", qf_n,".csv"), row.names=F)
 ```
 

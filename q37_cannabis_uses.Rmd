@@ -1,7 +1,7 @@
 ---
 title: "q37 'Under what circumstances do you use cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q37_cannabis_uses.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q37_cannabis_uses_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q37_cannabis_uses_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q37_cannabis_uses")
+ggsave(filename = 'output/q37_cannabis_uses/q37_cannabis_uses.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q37_cannabis_uses/q37_cannabis_uses_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q37_cannabis_uses/q37_cannabis_uses_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -58,10 +60,12 @@ r <- plot_choose_all_f2(q_plot)
 r
 ```
 
-
 ```{r}
-ggsave(filename = 'output/q37_cannabis_uses.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q37_cannabis_uses_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q37_cannabis_uses_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q37_cannabis_uses")
+ggsave(filename = 'output/q37_cannabis_uses/q37_cannabis_uses.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q37_cannabis_uses/q37_cannabis_uses_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q37_cannabis_uses/q37_cannabis_uses_ids.csv', row.names = FALSE)
 ```
+
 

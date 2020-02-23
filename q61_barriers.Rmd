@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q61_barriers.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q61_barriers_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q61_barrers_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q61_barriers")
+ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q61_barriers/q61_barriers_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -58,9 +60,10 @@ r <- plot_choose_all_f2(q_plot)
 r
 ```
 
-
 ```{r}
-ggsave(filename = 'output/q61_barrers.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q61_barrers_232.csv', row.names = FALSE)
-write.csv(qf_data, 'output/q61_barrers_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q61_barriers")
+ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q61_barriers/q61_barriers_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
 ```

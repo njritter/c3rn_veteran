@@ -1,7 +1,7 @@
 ---
 title: "q81 'Did you ever go on combat patrols or have other dangerous duty?'"
 author: "David Ritter"
-date: "2/18/20"
+date: "2/22/20"
 output: html_document
 runtime: shiny
 ---
@@ -28,9 +28,12 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q81_dangerous_duty.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q81_dangerous_duty_108.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q81_dangerous_duties")
+ggsave(filename = 'output/q81_dangerous_duties/q81_dangerous_duties.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q81_dangerous_duties/q81_dangerous_duties_", q_n,".csv"), row.names=F)
 ```
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -48,6 +51,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q81_dangerous_duty.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q81_dangerous_duty_157.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q81_dangerous_duties")
+ggsave(filename = 'output/q81_dangerous_duties/q81_dangerous_duties.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q81_dangerous_duties/q81_dangerous_duties_", qf_n,".csv"), row.names=F)
 ```
+

@@ -1,7 +1,7 @@
 ---
 title: "q18 Difficulty of living with depression as top condition"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,8 +28,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q18_depression_difficulty.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q18_depression_difficulty_34.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q18_depression_difficulty")
+ggsave(filename = 'output/q18_depression_difficulty/q18_depression_difficulty.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q18_depression_difficulty/q18_depression_difficulty_", q_n,".csv"), row.names=F)
 ```
 
 ```{r}

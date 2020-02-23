@@ -1,7 +1,7 @@
 ---
 title: "q103 'Do you belong to any of the following veterans support organizations? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,10 +30,13 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q103_support_groups.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q103_support_groups_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q103_support_groups_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q103_support_groups")
+ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q103_support_groups/q103_support_groups_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q103_support_groups/q103_support_groups_ids.csv', row.names = FALSE)
 ```
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -55,7 +58,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q103_support_groups.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q103_support_groups_n#.csv', row.names = FALSE)
-write.csv(qf_data, 'output/q103_support_groups_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q103_support_groups")
+ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q103_support_groups/q103_support_groups_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q103_support_groups/q103_support_groups_ids.csv', row.names = FALSE)
 ```

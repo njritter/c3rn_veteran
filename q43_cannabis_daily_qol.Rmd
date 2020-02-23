@@ -1,7 +1,7 @@
 ---
 title: "q43 'How do you feel cannabis has helped your daily life?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -21,18 +21,26 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 q <- 'How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÂ.TODAYÂ.compared.to.theÂ.BEGINNINGÂ.of.your.use.of.cannabis.to.treat.your.primary.medical.condition...'
 q_final_response <- "X.204"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+dir.create("output/q43_qol")
+```
+
+```{r}
+write.csv(q_data, 'output/q43_qol/q43_daily_qol_data.csv', row.names = FALSE)
 ```
 
 ```{r}
 table_1 <- get_single_selection_2(q_data, "I experience a greater quality of life") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_1, count)
-
 r1 <- plot_single_select(table_1) +
   labs(title = "I experience a greater quality of life", subtitle = q_n)
 r1
+```
+
+```{r}
+ggsave(filename = "output/q43_qol/q43_greater_qol.png", plot = r1, device = 'png')
+write.csv(table_1, paste0("output/q43_qol/q43_greater_qol_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -48,101 +56,96 @@ r2
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_physical.png", plot = r2, device = 'png')
+write.csv(table_2, paste0("output/q43_qol/q43_physical_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_3 <- get_single_selection_2(q_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_3, count)
-
 r3 <- plot_single_select(table_3) +
   labs(title = "I experience psychological symptoms (anxiety, stress, sadness)", subtitle = q_n)
 r3
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_psychological.png", plot = r3, device = 'png')
+write.csv(table_3, paste0("output/q43_qol/q43_psychological_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_4 <- get_single_selection_2(q_data, "I use opioids") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_4, count)
-
 r4 <- plot_single_select(table_4) +
   labs(title = "I use opioids", subtitle = q_n)
 r4
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_opioid_use.png", plot = r4, device = 'png')
+write.csv(table_4, paste0("output/q43_qol/q43_opioid_use_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_5 <- get_single_selection_2(q_data, "I use my prior medications (non-opioid)") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_5, count)
-
 r5 <- plot_single_select(table_5) +
   labs(title = "I use my prior medications (non-opioid)", subtitle = q_n)
 r5
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_prior_med_use.png", plot = r5, device = 'png')
+write.csv(table_5, paste0("output/q43_qol/q43_prior_med_use_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_6 <- get_single_selection_2(q_data, "I use alcohol") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_6, count)
-
 r6 <- plot_single_select(table_6) +
   labs(title = "I use alcohol", subtitle = q_n)
 r6
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_alcohol.png", plot = r6, device = 'png')
+write.csv(table_6, paste0("output/q43_qol/q43_alcohol_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_7 <- get_single_selection_2(q_data, "I use tobacco") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_7, count)
-
 r7 <- plot_single_select(table_7) +
   labs(title = "I use tobacco", subtitle = q_n)
 r7
 ```
 
 ```{r}
+ggsave(filename = "output/q43_qol/q43_tobacco.png", plot = r7, device = 'png')
+write.csv(table_7, paste0("output/q43_qol/q43_tobacco_", q_n, ".csv"), row.names = FALSE)
+```
+
+```{r}
 table_8 <- get_single_selection_2(q_data, "I feel the quality of my daily life is") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
-
 q_n <- tally(table_8, count)
-
 r8 <- plot_single_select(table_8) +
   labs(title = "I feel the quality of my daily life is", subtitle = q_n)
 r8
 ```
 
 ```{r}
-ggsave(filename = 'output/q43_greater_qol.png', plot = r1, device = 'png')
-write.csv(table_1, 'output/q43_greater_qol_553.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_physical_symptoms.png', plot = r2, device = 'png')
-write.csv(table_2, 'output/q43_physical_symptoms_531.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_psychological_symptoms.png', plot = r3, device = 'png')
-write.csv(table_3, 'output/q43_psychological_symptoms_523.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_opioid_use.png', plot = r4, device = 'png')
-write.csv(table_4, 'output/q43_opioid_use_168.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_prior_med_use.png', plot = r5, device = 'png')
-write.csv(table_5, 'output/q43_prior_med_use_408.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_alcohol_use.png', plot = r6, device = 'png')
-write.csv(table_6, 'output/q43_alcohol_use_336.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_tobacco_use.png', plot = r7, device = 'png')
-write.csv(table_7, 'output/q43_tobacco_use_216.csv', row.names = FALSE)
-
-ggsave(filename = 'output/q43_daily_qol.png', plot = r8, device = 'png')
-write.csv(table_8, 'output/q43_daily_qol_549.csv', row.names = FALSE)
-
-write.csv(q_data, 'output/q43_daily_qol_q_data.csv', row.names = FALSE)
+ggsave(filename = "output/q43_qol/q43_daily_qol.png", plot = r8, device = 'png')
+write.csv(table_8, paste0("output/q43_qol/q43_daily_qol_", q_n, ".csv"), row.names = FALSE)
 ```

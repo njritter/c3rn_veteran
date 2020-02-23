@@ -1,7 +1,7 @@
 ---
 title: "q74 'What was the highest pay grade/rank achieved at the time of formal discharge?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -31,11 +31,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q74_top_military_rank.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q74_top_military_rank_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q74_top_military_rank_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q74_top_military_rank")
+ggsave(filename = 'output/q74_top_military_rank/q74_top_military_rank.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q74_top_military_rank/q74_top_military_rank_", q_n,".csv"), row.names=F)
 ```
-
 
 ```{r}
 qf_data <- q_data %>%
@@ -57,7 +57,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'q74_top_military_rank.png', plot = r, device = 'png')
-write.csv(q_plot, 'q74_top_military_rank_xx.csv', row.names = FALSE)
-write.csv(qf_all_data, 'q74_top_military_rank_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q74_top_military_rank")
+ggsave(filename = 'output/q74_top_military_rank/q74_top_military_rank.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q74_top_military_rank/q74_top_military_rank_", qf_n,".csv"), row.names=F)
 ```

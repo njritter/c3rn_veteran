@@ -1,7 +1,7 @@
 ---
 title: "q30 'Do you currently have health insurance? (Please select one)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,10 +28,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q30_health_insurance.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q30_health_insurance_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q30_health_insurance")
+ggsave(filename = 'output/q30_health_insurance/q30_health_insurance.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q30_health_insurance/q30_health_insurance_", q_n,".csv"), row.names=F)
 ```
-
 
 ```{r}
 qf_data <- q_data %>%
@@ -49,6 +50,8 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q30_health_insurance.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q30_health_insurance_232.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q30_health_insurance")
+ggsave(filename = 'output/q30_health_insurance/q30_health_insurance.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q30_health_insurance/q30_health_insurance_", qf_n,".csv"), row.names=F)
 ```

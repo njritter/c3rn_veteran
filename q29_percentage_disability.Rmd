@@ -1,7 +1,7 @@
 ---
 title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 ---
 
@@ -32,8 +32,11 @@ r
 ```
 
 ```{r}
-ggsave(plot(histogram_object), file = "output/q29_disability.png")
-write.csv(q_data, 'output/q29_disability_144.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q29_disability")
+ggsave(filename = 'output/q29_disability/q29_disability.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q29_disability/q29_disability_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q29_disability/q29_disability_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -52,13 +55,10 @@ qf_data <- q_data %>%
 qf_all_data <- 
   qf_data %>%
   inner_join(q_data, by = "id")
-
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-
 qf_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
-
 qf_n <- length(unique(qf_all_data$id))
 ```
 
@@ -74,4 +74,11 @@ write.csv(q_plot, 'output/q29_disability_232.csv', row.names = FALSE)
 ```
 
 
+```{r}
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q29_disability/q29_disability")
+ggsave(filename = 'output/q29_disability/q29_disability.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q29_disability/q29_disability_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q29_disability/q29_disability_ids.csv', row.names = FALSE)
+```
 
