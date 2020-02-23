@@ -33,7 +33,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q10_least_pain.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q10_least_pain_217.csv', row.names = FALSE)
-write.csv(q_data, 'output/q10_least_pain_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q10_least_pain")
+ggsave(filename = 'output/q10_least_pain/q10_least_pain.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q10_least_pain/q10_least_pain_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q10_least_pain/q10_least_pain_ids.csv', row.names = FALSE)
 ```

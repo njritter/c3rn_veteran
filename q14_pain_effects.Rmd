@@ -1,7 +1,7 @@
 ---
 title: "q14 'What are the effects of your pain? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,7 +30,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q14_pain_effects.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q14_pain_effects_217.csv', row.names = FALSE)
-write.csv(q_data, 'output/q14_pain_effects_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q14_pain_effects")
+ggsave(filename = 'output/q14_pain_effects/q14_pain_effects.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q14_pain_effects/q14_pain_effects_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q14_pain_effects/q14_pain_effects_ids.csv', row.names = FALSE)
 ```

@@ -28,14 +28,14 @@ headers <- master[c(1), ]
 
 ```{r}
 #Filtering for choose all questions
-raw_data <- filter(master, master$What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating...Please.select.all.that.apply. == "Sleep/insomnia")
+raw_data <- filter(master, master$X.183 == "Depression/mood")
 #if filtering single select change assignment above from raw_data to filtered_data and run raw_data <- rbind(headers, filtered_data) after
 ```
 
 ```{r}
 #Filtering for single select questions
-filtered_data <- filter(master, master$How.would.you.rate.your.quality.of.health.today. == "Fair")
-raw_data <- rbind(headers, filtered_data)
+#filtered_data <- filter(master, master$How.would.you.rate.your.quality.of.health.today. == "Fair")
+#raw_data <- rbind(headers, filtered_data)
 ```
 
 ```{r}
@@ -111,7 +111,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q8_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -132,7 +132,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q9_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -153,7 +153,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q10_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -174,7 +174,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q11_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -195,7 +195,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q12_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -801,7 +801,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q21_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot <- clean_single_select(q_data)
@@ -930,7 +930,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q29_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -995,7 +995,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q33_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -1325,7 +1325,7 @@ t <- "Please rate the severity of the side effects you have faced with prescript
 q_data <- get_single_selection_0(data = raw_data, q.name = q)
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q46_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -1556,7 +1556,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q53_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -1576,7 +1576,7 @@ q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
   filter(response != "")
 q_n <- length(unique(q_data$id))
 q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q54_mean <- mean(q_mean_data) %>%
   round(3) %>%
   print()
 q_plot<- clean_single_select(q_data)
@@ -2470,4 +2470,17 @@ r
 ```{r}
 ggsave(filename = 'output/q104_share_results.png', plot = r, device = 'png')
 write.csv(q_plot, 'output/q104_share_results.csv', row.names = FALSE)
+```
+
+```{r}
+print(q8_mean)
+print(q9_mean)
+print(q10_mean)
+print(q11_mean)
+print(q12_mean)
+print(q21_mean)
+print(q33_mean)
+print(q46_mean)
+print(q53_mean)
+print(q54_mean)
 ```

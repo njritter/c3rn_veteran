@@ -22,56 +22,43 @@ q <- "Over.the.last.2.weeks..how.often.have.you.been.bothered.by.any.of.the.foll
 q_final_response <- "X.91"
 t <- "Over the last 2 weeks, how often have you been bothered by any of the following problems?"
 q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
-dir.create("output/q15_anxiety")
-```
-
-```{r}
-write.csv(q_data, 'output/q15_anxiety/q15_anxiety_scales_data.csv', row.names = FALSE)
 ```
 
 ```{r}
 table_1 <- get_single_selection_2(q_data, "Feeling nervous, anxious, or on edge") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_1, count)
+
 r1 <- plot_single_select(table_1) +
   labs(title = "Feeling nervous, anxious, or on edge", subtitle = q_n)
 r1
 ```
 
-```{r}
-ggsave(filename = "output/q15_anxiety/q15_anxiety.png", plot = r1, device = 'png')
-write.csv(table_1, paste0("output/q15_anxiety/q15_anxiety_", q_n, ".csv"), row.names = FALSE)
-```
 
 ```{r}
 table_2 <- get_single_selection_2(q_data, "Not being able to stop or control worrying") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_2, count)
+
 r2 <- plot_single_select(table_2) +
   labs(title = "Not being able to stop or control worrying", subtitle = q_n)
 r2
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_control.png", plot = r2, device = 'png')
-write.csv(table_2, paste0("output/q15_anxiety/q15_control_", q_n, ".csv"), row.names = FALSE)
-```
-
-```{r}
 table_3 <- get_single_selection_2(q_data, "Worrying too much about different things") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_3, count)
+
 r3 <- plot_single_select(table_3) +
   labs(title = "Worrying too much about different things", subtitle = q_n)
 r3
-```
-
-```{r}
-ggsave(filename = "output/q15_anxiety/q15_worry.png", plot = r3, device = 'png')
-write.csv(table_3, paste0("output/q15_anxiety/q15_worry_", q_n, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -87,51 +74,63 @@ r4
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_relax.png", plot = r4, device = 'png')
-write.csv(table_4, paste0("output/q15_anxiety/q15_relax_", q_n, ".csv"), row.names = FALSE)
-```
-
-```{r}
 table_5 <- get_single_selection_2(q_data, "Being so restless that it is hard to sit still") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_5, count)
+
 r5 <- plot_single_select(table_5) +
   labs(title = "Being so restless that it is hard to sit still", subtitle = q_n)
 r5
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_restless.png", plot = r5, device = 'png')
-write.csv(table_5, paste0("output/q15_anxiety/q15_restless_", q_n, ".csv"), row.names = FALSE)
-```
-
-```{r}
 table_6 <- get_single_selection_2(q_data, "Becoming easily annoyed or irritable") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_6, count)
+
 r6 <- plot_single_select(table_6) +
   labs(title = "Becoming easily annoyed or irritable", subtitle = q_n)
 r6
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_annoyed.png", plot = r6, device = 'png')
-write.csv(table_6, paste0("output/q15_anxiety/q15_annoyed_", q_n, ".csv"), row.names = FALSE)
-```
-
-```{r}
 table_7 <- get_single_selection_2(q_data, "Feeling afraid as if something awful might happen") %>%
   filter(response != "N/A") %>%
   clean_single_select_2()
+
 q_n <- tally(table_7, count)
+
 r7 <- plot_single_select(table_7) +
   labs(title = "Feeling afraid as if something awful might happen", subtitle = q_n)
 r7
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_afraid.png", plot = r7, device = 'png')
-write.csv(table_7, paste0("output/q15_anxiety/q15_afraid_", q_n, ".csv"), row.names = FALSE)
+dir.create("output/q15_anxiety")
+ggsave(filename = 'output/q15_anxiety/q15_anxiety.png', plot = r1, device = 'png')
+write.csv(table_1, 'output/q15_anxiety/q15_anxiety_553.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_control.png', plot = r2, device = 'png')
+write.csv(table_2, 'output/q15_control_531.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_worry.png', plot = r3, device = 'png')
+write.csv(table_3, 'output/q15_worry_523.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_relax.png', plot = r4, device = 'png')
+write.csv(table_4, 'output/q15_relax_168.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_restless.png', plot = r5, device = 'png')
+write.csv(table_5, 'output/q15_restless_408.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_annoyed.png', plot = r6, device = 'png')
+write.csv(table_6, 'output/q15_annoyed_336.csv', row.names = FALSE)
+
+ggsave(filename = 'output/q15_afraid.png', plot = r7, device = 'png')
+write.csv(table_7, 'output/q15_afraid_216.csv', row.names = FALSE)
+
+write.csv(q_data, 'output/q15_anxiety_scales_data.csv', row.names = FALSE)
 ```

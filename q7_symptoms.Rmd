@@ -30,9 +30,11 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q7_symptoms.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q7_symptoms_144.csv', row.names = FALSE)
-write.csv(q_data, 'output/q7_symptoms_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q7_symptoms")
+ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q7_symptoms/q7_symptoms_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
 ```
 
 ```{r}
@@ -56,10 +58,10 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q7_symptoms.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q7_symptoms_232.csv', row.names = FALSE)
-write.csv(qf_all_data, 'output/q7_symptoms_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q7_symptoms")
+ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q7_symptoms/q7_symptoms_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
 ```
-
-
 

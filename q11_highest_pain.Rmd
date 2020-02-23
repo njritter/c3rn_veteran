@@ -1,7 +1,7 @@
 ---
 title: "q11 'What is your highest level of pain (what is the highest level of pain you feel?)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/22/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,7 +33,9 @@ r
 ```
 
 ```{r}
-ggsave(filename = 'output/q11_highest_pain.png', plot = r, device = 'png')
-write.csv(q_plot, 'output/q11_highest_pain_217.csv', row.names = FALSE)
-write.csv(q_data, 'output/q11_highest_pain_ids.csv', row.names = FALSE)
+q_plot2 <- rbind(q_plot, t)
+dir.create("output/q11_highest_pain")
+ggsave(filename = 'output/q11_highest_pain/q11_highest_pain.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q11_highest_pain/q11_highest_pain_", q_n,".csv"), row.names=F)
+write.csv(q_data, 'output/q11_highest_pain/q11_highest_pain_ids.csv', row.names = FALSE)
 ```
