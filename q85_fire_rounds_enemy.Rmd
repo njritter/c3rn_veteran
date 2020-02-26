@@ -1,7 +1,7 @@
 ---
 title: "q85 'How often did you fire rounds at the enemy?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.often.did.you.fire.rounds.at.the.enemy."
-t <- "How often did you fire rounds at the enemy?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q85 <- "How.often.did.you.fire.rounds.at.the.enemy."
+q85_t <- "How often did you fire rounds at the enemy?"
+q85_data <- get_single_selection(data = raw_data, q.name = q85)
+q85_n <- length(unique(q85_data$id))
+q85_plot<- clean_single_select(q85_data)
+r85 <- plot_single_select(q85_plot, q85_t, q85_n)
+r85
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q85_plot2 <- rbind(q85_plot, q85_t)
 dir.create("output/q85_fire_rounds_enemy")
-ggsave(filename = 'output/q85_fire_rounds_enemy/q85_fire_rounds_enemy.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q85_fire_rounds_enemy/q85_fire_rounds_enemy_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q85_fire_rounds_enemy/q85_fire_rounds_enemy.png', plot = r85, device = 'png')
+write.csv(q85_plot2, paste0("output/q85_fire_rounds_enemy/q85_fire_rounds_enemy_", q85_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

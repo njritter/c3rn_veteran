@@ -1,7 +1,7 @@
 ---
 title: "q93 'What is your current employment status?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,22 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.your.current.employment.status."
-t <- "What is your current employment status?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q93 <- "What.is.your.current.employment.status."
+q93_t <- "What is your current employment status?"
+q93_data <- get_single_selection(data = raw_data, q.name = q93)
+q93_n <- length(unique(q93_data$id))
+q93_plot<- clean_single_select(q93_data)
+r93 <- plot_single_select(q93_plot, q93_t, q93_n)
+r93
 ```
-
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q93_plot2 <- rbind(q93_plot, q93_t)
 dir.create("output/q93_employment_status")
-ggsave(filename = 'output/q93_employment_status/q93_employment_status.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q93_employment_status/q93_employment_status_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q93_employment_status/q93_employment_status.png', plot = r93, device = 'png')
+write.csv(q93_plot2, paste0("output/q93_employment_status/q93_employment_status_", q93_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

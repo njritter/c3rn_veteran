@@ -1,7 +1,7 @@
 ---
 title: "q78 'Were you exposed to workplace hazards including loud noises from firearms/factories/etc, chemicals, exposed to burn pits during war, or working hazardous environments that could impair any of your five senses and clinical health?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Were.you.exposed.to.workplace.hazards.including.loud.noises.from.firearms.factories.etc..chemicals..exposed.to.burn.pits.during.war..or.working.hazardous.environments.that.could.impair.any.of.your.five.senses.and.clinical.health."
-t <- "Were you exposed to workplace hazards including loud noises from firearms/factories/etc, chemicals, exposed to burn pits during war, or working hazardous environments that could impair any of your five senses and clinical health?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q78 <- "Were.you.exposed.to.workplace.hazards.including.loud.noises.from.firearms.factories.etc..chemicals..exposed.to.burn.pits.during.war..or.working.hazardous.environments.that.could.impair.any.of.your.five.senses.and.clinical.health."
+q78_t <- "Were you exposed to workplace hazards including loud noises from firearms/factories/etc, chemicals, exposed to burn pits during war, or working hazardous environments that could impair any of your five senses and clinical health?"
+q78_data <- get_single_selection(data = raw_data, q.name = q78)
+q78_n <- length(unique(q78_data$id))
+q78_plot<- clean_single_select(q78_data)
+r78 <- plot_single_select(q78_plot, q78_t, q78_n)
+r78
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q78_plot2 <- rbind(q78_plot, q78_t)
 dir.create("output/q78_workplace_hazards")
-ggsave(filename = 'output/q78_workplace_hazards/q78_workplace_hazards.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q78_workplace_hazards/q78_workplace_hazards_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q78_workplace_hazards/q78_workplace_hazards.png', plot = r78, device = 'png')
+write.csv(q78_plot2, paste0("output/q78_workplace_hazards/q78_workplace_hazards_", q78_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q82 'Were you ever under enemy fire?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Were.you.ever.under.enemy.fire."
-t <- "Were you ever under enemy fire?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q82 <- "Were.you.ever.under.enemy.fire."
+q82_t <- "Were you ever under enemy fire?"
+q82_data <- get_single_selection(data = raw_data, q.name = q82)
+q82_n <- length(unique(q82_data$id))
+q82_plot<- clean_single_select(q82_data)
+r82 <- plot_single_select(q82_plot, q82_t, q82_n)
+r82
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q82_plot2 <- rbind(q82_plot, q82_t)
 dir.create("output/q82_enemy_fire")
-ggsave(filename = 'output/q82_enemy_fire/q82_enemy_fire.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q82_enemy_fire/q82_enemy_fire_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q82_enemy_fire/q82_enemy_fire.png', plot = r82, device = 'png')
+write.csv(q82_plot2, paste0("output/q82_enemy_fire/q82_enemy_fire_", q82_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

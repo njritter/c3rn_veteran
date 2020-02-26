@@ -1,7 +1,7 @@
 ---
 title: "q73 'In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,22 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "In.the.last.30.days..how.often.have.you.seen.or.heard.advertising.for.cannabis.products.or.stores.in.your.community..including.TV..radio..signs..billboards..newspapers..pamphlets..or.street.side.marketing.."
-t <- "In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q73 <- "In.the.last.30.days..how.often.have.you.seen.or.heard.advertising.for.cannabis.products.or.stores.in.your.community..including.TV..radio..signs..billboards..newspapers..pamphlets..or.street.side.marketing.."
+q73_t <- "In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?"
+q73_data <- get_single_selection(data = raw_data, q.name = q73)
+q73_n <- length(unique(q73_data$id))
+q73_plot<- clean_single_select(q73_data)
+r73 <- plot_single_select(q73_plot, q73_t, q73_n)
+r73
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q73_plot2 <- rbind(q73_plot, q73_t)
 dir.create("output/q73_advertising")
-ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q73_advertising/q73_advertising_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q73_advertising/q73_advertising_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r73, device = 'png')
+write.csv(q73_plot2, paste0("output/q73_advertising/q73_advertising_", q73_n,".csv"), row.names=F)
+write.csv(q73_data, 'output/q73_advertising/q73_advertising_ids.csv', row.names = FALSE)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q46 'Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,26 +18,29 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Please.rate.the.severity.of.the.side.effects.you.have.faced.with.prescription.medications.compared.to.cannabis.treatments."
-t <- "Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:"
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q46 <- "Please.rate.the.severity.of.the.side.effects.you.have.faced.with.prescription.medications.compared.to.cannabis.treatments."
+q46_t <- "Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:"
+q46_data <- get_single_selection_0(data = raw_data, q.name = q46)
+q46_n <- length(unique(q46_data$id))
+q46_mean_data <- as.numeric(as.character(q46_data$response))
+q46_mean <- mean(q46_mean_data) %>%
   round(3) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q46_plot<- clean_single_select(q46_data)
+r46 <- plot_single_select_0(q46_plot, q46_t, q46_n, q46_mean)
+r46
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q46_plot2 <- rbind(q46_plot, q46_t, paste("average", q46_mean, sep = " = "))
 dir.create("output/q46_side_effects_cannabis_v_med")
-ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r46, device = 'png')
+write.csv(q46_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", q46_n,".csv"), row.names=F)
+write.csv(q46_data, 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -49,7 +52,7 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-qf_mean <- mean(qf_mean_data) %>%
+q46f_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
 qf_n <- length(unique(qf_all_data$id))
@@ -62,7 +65,7 @@ r
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q_plot2 <- rbind(q_plot, t, paste("average", q46f_mean, sep = " = "))
 dir.create("output/q46_side_effects_cannabis_v_med")
 ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r, device = 'png')
 write.csv(q_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", qf_n,".csv"), row.names=F)

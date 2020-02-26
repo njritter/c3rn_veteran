@@ -1,7 +1,7 @@
 ---
 title: "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,58 +18,59 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'How.much.cannabis.flower.are.you.smoking.or.vaping.per.week...i.e..grams..ounces..etc..'
-q_final_response <- "X.283"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+q62 <- 'How.much.cannabis.flower.are.you.smoking.or.vaping.per.week...i.e..grams..ounces..etc..'
+q62_final_response <- "X.283"
+q62_t <- "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
+q62_data <- get_choose_all(raw_data, q.name = q62, f.response = q62_final_response)
 dir.create("output/q62_smoke_vape_wkly")
 ```
 
 ```{r}
-write.csv(q_data, 'output/q62_smoke_vape_wkly/q62_smoke_vape_wkly_data.csv', row.names = FALSE)
+write.csv(q62_data, 'output/q62_smoke_vape_wkly/q62_smoke_vape_wkly_data.csv', row.names = FALSE)
 ```
 
 ```{r}
-table_1 <- get_single_selection_2(q_data, "Smoke flower") %>%
+q62_data1 <- get_single_selection_2(q62_data, "Smoke flower") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_1, count)
-r1 <- plot_single_select(table_1) +
-  labs(title = "Flower weekly", subtitle = q_n)
-r1
+  clean_single_select()
+q62_n1 <- tally(q62_data1, count)
+q62_t1 <- "Flower weekly"
+q62_r1 <- plot_single_select(q62_data1, q62_t1, q62_n1)
+q62_r1
 ```
 
 ```{r}
-ggsave(filename = "output/q62_smoke_vape_wkly/smoke_flower.png", plot = r1, device = 'png')
-write.csv(table_1, paste0("output/q62_smoke_vape_wkly/smoke_flower_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q62_smoke_vape_wkly/smoke_flower.png", plot = q62_r1, device = 'png')
+write.csv(q62_data1, paste0("output/q62_smoke_vape_wkly/smoke_flower_", q62_n1, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_2 <- get_single_selection_2(q_data, "Vape flower") %>%
+q62_data2 <- get_single_selection_2(q62_data, "Vape flower") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_2, count)
-r2 <- plot_single_select(table_2) +
-  labs(title = "Vape weekly", subtitle = q_n)
-r2
+  clean_single_select()
+q62_n2 <- tally(q62_data2, count)
+q62_t2 <- "Vape weekly"
+q62_r2 <- plot_single_select(q62_data2, q62_t2, q62_n2)
+q62_r2
 ```
 
 ```{r}
-ggsave(filename = "output/q62_smoke_vape_wkly/vape_flower.png", plot = r2, device = 'png')
-write.csv(table_2, paste0("output/q62_smoke_vape_wkly/vape_flower_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q62_smoke_vape_wkly/vape_flower.png", plot = q62_r2, device = 'png')
+write.csv(q62_data2, paste0("output/q62_smoke_vape_wkly/vape_flower_", q62_n2, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_3 <- get_single_selection_2(q_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
+q62_data3 <- get_single_selection_2(q62_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_3, count)
-r3 <- plot_single_select(table_3) +
-  labs(title = "Concentrates weekly", subtitle = q_n)
-r3
+  clean_single_select()
+q62_n3 <- tally(q62_data3, count)
+q62_t3 <- "Concentrates weekly"
+q62_r3 <- plot_single_select(q62_data3, q62_t3, q62_n3)
+q62_r3
 ```
 
 ```{r}
-ggsave(filename = "output/q62_smoke_vape_wkly/concentrates.png", plot = r3, device = 'png')
-write.csv(table_3, paste0("output/q62_smoke_vape_wkly/concentrates_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q62_smoke_vape_wkly/concentrates.png", plot = q62_r3, device = 'png')
+write.csv(q62_data3, paste0("output/q62_smoke_vape_wkly/concentrates_", q62_n3, ".csv"), row.names = FALSE)
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "q31 'Do you have prescription drug coverage?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Do.you.have.prescription.drug.coverage."
-t <- "Do you have prescription drug coverage?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q31 <- "Do.you.have.prescription.drug.coverage."
+q31_t <- "Do you have prescription drug coverage?"
+q31_data <- get_single_selection(data = raw_data, q.name = q31)
+q31_n <- length(unique(q31_data$id))
+q31_plot<- clean_single_select(q31_data)
+r31 <- plot_single_select(q31_plot, q31_t, q31_n)
+r31
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q31_plot2 <- rbind(q31_plot, q31_t)
 dir.create("output/q31_drug_coverage")
-ggsave(filename = 'output/q31_drug_coverage/q31_drug_coverage.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q31_drug_coverage/q31_drug_coverage_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q31_drug_coverage/q31_drug_coverage.png', plot = r31, device = 'png')
+write.csv(q31_plot2, paste0("output/q31_drug_coverage/q31_drug_coverage_", q31_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

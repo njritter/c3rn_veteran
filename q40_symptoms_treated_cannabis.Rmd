@@ -1,7 +1,7 @@
 ---
 title: "q40 'What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,26 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating...Please.select.all.that.apply.'
-q_final_response <- "X.197"
-t <- "What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q40 <- 'What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating...Please.select.all.that.apply.'
+q40_final_response <- "X.197"
+q40_t <- "What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)"
+q40_data <- get_choose_all(raw_data, q.name = q40, f.response = q40_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q40_n <- length(unique(q40_data$id))
+q40_plot <- clean_choose_all(q40_data, q40_n)
+r40 <- plot_choose_all(q40_plot, q40_t, q40_n)
+r40
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q40_plot2 <- rbind(q40_plot, q40_t)
 dir.create("output/q40_symptoms_treated")
-ggsave(filename = 'output/q40_symptoms_treated/q40_symptoms_treated.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q40_symptoms_treated/q40_symptoms_treated_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q40_symptoms_treated/q40_symptoms_treated.png', plot = r40, device = 'png')
+write.csv(q40_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", q40_n,".csv"), row.names=F)
+write.csv(q40_data, 'output/q40_symptoms_treated/q40_symptoms_treated_ids.csv', row.names = FALSE)
 ```
+
+
 
 
 ```{r}

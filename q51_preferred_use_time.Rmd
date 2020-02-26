@@ -1,7 +1,7 @@
 ---
 title: "q51 'What is your preferred time of day to use cannabis? (Please select one)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.isÂ.ï..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
-t <- "What is your preferred time of day to use cannabis? (Please select one)"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q51 <- "What.isÂ.ï..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
+q51_t <- "What is your preferred time of day to use cannabis? (Please select one)"
+q51_data <- get_single_selection(data = raw_data, q.name = q51)
+q51_n <- length(unique(q51_data$id))
+q51_plot<- clean_single_select(q51_data)
+r51 <- plot_single_select(q51_plot, q51_t, q51_n)
+r51
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q51_plot2 <- rbind(q51_plot, q51_t)
 dir.create("output/q51_preferred_use_time")
-ggsave(filename = 'output/q51_preferred_use_time/q51_preferred_use_time.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q51_preferred_use_time/q51_preferred_use_time_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q51_preferred_use_time/q51_preferred_use_time.png', plot = r51, device = 'png')
+write.csv(q51_plot2, paste0("output/q51_preferred_use_time/q51_preferred_use_time_", q51_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

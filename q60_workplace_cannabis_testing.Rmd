@@ -1,7 +1,7 @@
 ---
 title: "q60 'Are you concerned that your workplace or other agency will test you for your cannabis use?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Are.you.concerned.that.your.workplace.or.other.agency.will.test.you.for.your.cannabis.use."
-t <- "Are you concerned that your workplace or other agency will test you for your cannabis use?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q60 <- "Are.you.concerned.that.your.workplace.or.other.agency.will.test.you.for.your.cannabis.use."
+q60_t <- "Are you concerned that your workplace or other agency will test you for your cannabis use?"
+q60_data <- get_single_selection(data = raw_data, q.name = q60)
+q60_n <- length(unique(q60_data$id))
+q60_plot<- clean_single_select(q60_data)
+r60 <- plot_single_select(q60_plot, q60_t, q60_n)
+r60
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q60_plot2 <- rbind(q60_plot, q60_t)
 dir.create("output/q60_workplace_cannabis_testing")
-ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r60, device = 'png')
+write.csv(q60_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", q60_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

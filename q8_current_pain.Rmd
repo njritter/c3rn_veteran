@@ -1,7 +1,7 @@
 ---
 title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
-t <- "What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q8 <- "What.is.your.current.level.of.pain..where.0.is.no.pain.and.10.is.the.worst.pain.imaginable..what.is.your.current.level.of.pain."
+q8_t <- "What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?"
+q8_data <- get_single_selection_0(data = raw_data, q.name = q8) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
-  round(3) %>%
+q8_n <- length(unique(q8_data$id))
+q8_mean_data <- as.numeric(as.character(q8_data$response))
+q8_mean <- mean(q8_mean_data) %>%
+  round(2) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q8_plot<- clean_single_select(q8_data)
+r8 <- plot_single_select_0(q8_plot, q8_t, q8_n, q8_mean)
+r8
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q8_plot2 <- rbind(q8_plot, q8_t, paste("average", q8_mean, sep = " = "))
 dir.create("output/q8_current_pain")
-ggsave(filename = 'output/q8_current_pain/q8_current_pain.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q8_current_pain/q8_current_pain_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q8_current_pain/q8_current_pain_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q8_current_pain/q8_current_pain.png', plot = r8, device = 'png')
+write.csv(q8_plot2, paste0("output/q8_current_pain/q8_current_pain_", q8_n,".csv"), row.names=F)
+write.csv(q8_data, 'output/q8_current_pain/q8_current_pain_ids.csv', row.names = FALSE)
 ```

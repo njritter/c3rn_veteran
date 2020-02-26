@@ -1,7 +1,7 @@
 ---
 title: "q9 'What is your usual level of pain (how does your pain feel most of the time?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,25 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.your.usual.level.of.pain..how.does.your.pain.feel.most.of.the.time.."
-t <- "What is your usual level of pain (how does your pain feel most of the time?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q9 <- "What.is.your.usual.level.of.pain..how.does.your.pain.feel.most.of.the.time.."
+q9_t <- "What is your usual level of pain (how does your pain feel most of the time?"
+q9_data <- get_single_selection_0(data = raw_data, q.name = q9) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
-  round(3) %>%
+q9_n <- length(unique(q9_data$id))
+q9_mean_data <- as.numeric(as.character(q9_data$response))
+q9_mean <- mean(q9_mean_data) %>%
+  round(2) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q9_plot<- clean_single_select(q9_data)
+r9 <- plot_single_select_0(q9_plot, q9_t, q9_n, q9_mean)
+r9
 ```
 
-
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q9_plot2 <- rbind(q9_plot, q9_t, paste("average", q9_mean, sep = " = "))
 dir.create("output/q9_usual_pain")
-ggsave(filename = 'output/q9_usual_pain/q9_usual_pain.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q9_usual_pain/q9_usual_pain_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q9_usual_pain/q9_usual_pain_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q9_usual_pain/q9_usual_pain.png', plot = r9, device = 'png')
+write.csv(q9_plot2, paste0("output/q9_usual_pain/q9_usual_pain_", q9_n,".csv"), row.names=F)
+write.csv(q9_data, 'output/q9_usual_pain/q9_usual_pain_ids.csv', row.names = FALSE)
 ```

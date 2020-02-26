@@ -1,7 +1,7 @@
 ---
 title: "q103 'Do you belong to any of the following veterans support organizations? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,26 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Do.you.belong.to.any.of.the.following.veterans.support.organizations...Please.select.all.that.apply.'
-q_final_response <- "X.395"
-t <- "Do you belong to any of the following veterans support organizations? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q103 <- 'Do.you.belong.to.any.of.the.following.veterans.support.organizations...Please.select.all.that.apply.'
+q103_final_response <- "X.395"
+q103_t <- "Do you belong to any of the following veterans support organizations? (Please select all that apply)"
+q103_data <- get_choose_all(raw_data, q.name = q103, f.response = q103_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q103_n <- length(unique(q103_data$id))
+q103_plot <- clean_choose_all(q103_data, q103_n)
+r103 <- plot_choose_all(q103_plot, q103_t, q103_n)
+r103
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q103_plot2 <- rbind(q103_plot, q103_t)
 dir.create("output/q103_support_groups")
-ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q103_support_groups/q103_support_groups_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q103_support_groups/q103_support_groups_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r103, device = 'png')
+write.csv(q103_plot2, paste0("output/q103_support_groups/q103_support_groups_", q103_n,".csv"), row.names=F)
+write.csv(q103_data, 'output/q103_support_groups/q103_support_groups_ids.csv', row.names = FALSE)
 ```
+
+
 
 
 ```{r}

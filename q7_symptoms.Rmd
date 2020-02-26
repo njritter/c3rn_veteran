@@ -1,7 +1,7 @@
 ---
 title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,22 +18,22 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
-q_final_response <- "X.43"
-t <- "Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q7 <- 'Which.of.the.following.symptoms.are.most.commonly.associated.with.your.primary.health.condition.or.underlying.health.conditions...Please.select.all.that.apply.'
+q7_final_response <- "X.43"
+q7_t <- "Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)"
+q7_data <- get_choose_all(raw_data, q.name = q7, f.response = q7_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q7_n <- length(unique(q7_data$id))
+q7_plot <- clean_choose_all(q7_data, q7_n)
+r7 <- plot_choose_all(q7_plot, q7_t, q7_n)
+r7
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q7_plot2 <- rbind(q7_plot, q7_t)
 dir.create("output/q7_symptoms")
-ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q7_symptoms/q7_symptoms_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r7, device = 'png')
+write.csv(q7_plot2, paste0("output/q7_symptoms/q7_symptoms_", q7_n,".csv"), row.names=F)
 write.csv(q_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
 ```
 

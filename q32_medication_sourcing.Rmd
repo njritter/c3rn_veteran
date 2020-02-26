@@ -1,7 +1,7 @@
 ---
 title: "q32 'Where/how do you get your medications?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Where.how.do.you.get.your.medications."
-t <- "Where/how do you get your medications?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q32 <- "Where.how.do.you.get.your.medications."
+q32_t <- "Where/how do you get your medications?"
+q32_data <- get_single_selection(data = raw_data, q.name = q32)
+q32_n <- length(unique(q32_data$id))
+q32_plot<- clean_single_select(q32_data)
+r32 <- plot_single_select(q32_plot, q32_t, q32_n)
+r32
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q32_plot2 <- rbind(q32_plot, q32_t)
 dir.create("output/q32_medication_sourcing")
-ggsave(filename = 'output/q32_medication_sourcing/q32_medication_sourcing.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q32_medication_sourcing/q32_medication_sourcing_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q32_medication_sourcing/q32_medication_sourcing.png', plot = r32, device = 'png')
+write.csv(q32_plot2, paste0("output/q32_medication_sourcing/q32_medication_sourcing_", q32_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q21 'How many total prescription medications are you currently taking? (Please insert number)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,27 +18,30 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
-t <- "How many total prescription medications are you currently taking? (Please insert number)"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q21 <- "How.many.total.prescription.medications.are.you.currently.taking...Please.insert.number."
+q21_t <- "How many total prescription medications are you currently taking? (Please insert number)"
+q21_data <- get_single_selection_0(data = raw_data, q.name = q21) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
-  round(3) %>%
+q21_n <- length(unique(q21_data$id))
+q21_mean_data <- as.numeric(as.character(q21_data$response))
+q21_mean <- mean(q21_mean_data) %>%
+  round(2) %>%
   print()
-q_plot <- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q21_plot <- clean_single_select(q21_data)
+r21 <- plot_single_select_0(q21_plot, q21_t, q21_n, q21_mean)
+r21
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q21_plot2 <- rbind(q21_plot, q21_t, paste("average", q21_mean, sep = " = "))
 dir.create("output/q21_total_prescriptions")
-ggsave(filename = 'output/q21_total_prescriptions/q21_total_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q21_total_prescriptions/q21_total_prescriptions_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q21_total_prescriptions/q21_total_prescriptions_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q21_total_prescriptions/q21_total_prescriptions.png', plot = r21, device = 'png')
+write.csv(q21_plot2, paste0("output/q21_total_prescriptions/q21_total_prescriptions_", q21_n,".csv"), row.names=F)
+write.csv(q21_data, 'output/q21_total_prescriptions/q21_total_prescriptions_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -50,7 +53,7 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-qf_mean <- mean(qf_mean_data) %>%
+q12f_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
 qf_n <- length(unique(qf_all_data$id))
@@ -63,7 +66,7 @@ r
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q_plot2 <- rbind(q_plot, t, paste("average", q12f_mean, sep = " = "))
 dir.create("output/q21_total_prescriptions")
 ggsave(filename = 'output/q21_total_prescriptions/q21_total_prescriptions.png', plot = r, device = 'png')
 write.csv(q_plot2, paste0("output/q21_total_prescriptions/q21_total_prescriptions_", qf_n,".csv"), row.names=F)

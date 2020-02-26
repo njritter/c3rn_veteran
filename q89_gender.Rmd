@@ -1,7 +1,7 @@
 ---
 title: "q89 'To which gender do you most identify?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "To.which.gender.do.you.most.identify."
-t <- "To which gender do you most identify?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q89 <- "To.which.gender.do.you.most.identify."
+q89_t <- "To which gender do you most identify?"
+q89_data <- get_single_selection(data = raw_data, q.name = q89)
+q89_n <- length(unique(q89_data$id))
+q89_plot<- clean_single_select(q89_data)
+r89 <- plot_single_select(q89_plot, q89_t, q89_n)
+r89
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q89_plot2 <- rbind(q89_plot, q89_t)
 dir.create("output/q89_gender")
-ggsave(filename = 'output/q89_gender/q89_gender.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q89_gender/q89_gender_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q89_gender/q89_gender.png', plot = r89, device = 'png')
+write.csv(q89_plot2, paste0("output/q89_gender/q89_gender_", q89_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -44,14 +46,14 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_n <- length(unique(qf_all_data$id))
-q_plot <- clean_single_select_y(qf_all_data)
-r <- plot_single_select_y(q_plot)
+q89_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q89_plot)
 r
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q89_plot2 <- rbind(q89_plot, t)
 dir.create("output/q89_gender")
 ggsave(filename = 'output/q89_gender/q89_gender.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q89_gender/q89_gender_", qf_n,".csv"), row.names=F)
+write.csv(q89_plot2, paste0("output/q89_gender/q89_gender_", qf_n,".csv"), row.names=F)
 ```

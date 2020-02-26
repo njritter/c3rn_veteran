@@ -1,7 +1,7 @@
 ---
 title: "q4 'How would you rate your quality of health today?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.would.you.rate.your.quality.of.health.today."
-t <- "How would you rate your quality of health today?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q4 <- "How.would.you.rate.your.quality.of.health.today."
+q4_t <- "How would you rate your quality of health today?"
+q4_data <- get_single_selection(data = raw_data, q.name = q4)
+q4_n <- length(unique(q4_data$id))
+q4_plot<- clean_single_select(q4_data)
+r4 <- plot_single_select(q4_plot, q4_t, q4_n)
+r4
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q4_plot2 <- rbind(q4_plot, q4_t)
 dir.create("output/q4_health_quality")
-ggsave(filename = 'output/q4_health_quality/q4_health_quality.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q4_health_quality/q4_health_quality_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q4_health_quality/q4_health_quality.png', plot = r4, device = 'png')
+write.csv(q4_plot2, paste0("output/q4_health_quality/q4_health_quality_", q4_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

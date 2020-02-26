@@ -1,7 +1,7 @@
 ---
 title: "q70 'Where do you get your information to make informed decisions about cannabis products? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,26 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products...Please.select.all.that.apply.'
-q_final_response <- "X.322"
-t <- "Where do you get your information to make informed decisions about cannabis products? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q70 <- 'Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products...Please.select.all.that.apply.'
+q70_final_response <- "X.322"
+q70_t <- "Where do you get your information to make informed decisions about cannabis products? (Please select all that apply)"
+q70_data <- get_choose_all(raw_data, q.name = q70, f.response = q70_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q70_n <- length(unique(q70_data$id))
+q70_plot <- clean_choose_all(q70_data, q70_n)
+r70 <- plot_choose_all(q70_plot, q70_t, q70_n)
+r70
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q70_plot2 <- rbind(q70_plot, q70_t)
 dir.create("output/q70_cannabis_info")
-ggsave(filename = 'output/q70_cannabis_info/q70_cannabis_info.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q70_cannabis_info/q70_cannabis_info_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q70_cannabis_info/q70_cannabis_info_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q70_cannabis_info/q70_cannabis_info.png', plot = r70, device = 'png')
+write.csv(q70_plot2, paste0("output/q70_cannabis_info/q70_cannabis_info_", q70_n,".csv"), row.names=F)
+write.csv(q70_data, 'output/q70_cannabis_info/q70_cannabis_info_ids.csv', row.names = FALSE)
 ```
+
+
 
 
 ```{r}

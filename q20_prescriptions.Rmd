@@ -1,7 +1,7 @@
 ---
 title: "q20 'What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -10,7 +10,7 @@ runtime: shiny
 library(tidyverse)
 library(ggplot2)
 library(stringr)
-source("helper.R")
+source("helper_test.R")
 ```
 
 ```{r}
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.'
-q_final_response <- "X.136"
-t <- "What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q20 <- 'What.types.of.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face...Please.select.all.that.apply.'
+q20_final_response <- "X.136"
+q20_t <- "What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply)"
+q20_data <- get_choose_all(raw_data, q.name = q20, f.response = q20_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q20_n <- length(unique(q20_data$id))
+q20_plot <- clean_choose_all(q20_data, q20_n)
+r20 <- plot_choose_all(q20_plot, q20_t, q20_n)
+r20
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q20_plot2 <- rbind(q20_plot, q20_t)
 dir.create("output/q20_prescriptions")
-ggsave(filename = 'output/q20_prescriptions/q20_prescriptions.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q20_prescriptions/q20_prescriptions_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q20_prescriptions/q20_prescriptions_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q20_prescriptions/q20_prescriptions.png', plot = r20, device = 'png')
+write.csv(q20_plot2, paste0("output/q20_prescriptions/q20_prescriptions_", q20_n,".csv"), row.names=F)
+write.csv(q20_data, 'output/q20_prescriptions/q20_prescriptions_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

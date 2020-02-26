@@ -1,7 +1,7 @@
 ---
 title: "q76 'Where were you deployed/stationed? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,26 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Where.were.you.deployed.stationed...Please.select.all.that.apply.'
-q_final_response <- "X.365"
-t <- "Where were you deployed/stationed? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q76 <- 'Where.were.you.deployed.stationed...Please.select.all.that.apply.'
+q76_final_response <- "X.365"
+q76_t <- "Where were you deployed/stationed? (Please select all that apply)"
+q76_data <- get_choose_all(raw_data, q.name = q76, f.response = q76_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q76_n <- length(unique(q76_data$id))
+q76_plot <- clean_choose_all(q76_data, q76_n)
+r76 <- plot_choose_all(q76_plot, q76_t, q76_n)
+r76
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q76_plot2 <- rbind(q76_plot, q76_t)
 dir.create("output/q76_deployment_locations")
-ggsave(filename = 'output/q76_deployment_locations/q76_deployment_locations.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q76_deployment_locations/q76_deployment_locations_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q76_deployment_locations/q76_deployment_locations_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q76_deployment_locations/q76_deployment_locations.png', plot = r76, device = 'png')
+write.csv(q76_plot2, paste0("output/q76_deployment_locations/q76_deployment_locations_", q76_n,".csv"), row.names=F)
+write.csv(q76_data, 'output/q76_deployment_locations/q76_deployment_locations_ids.csv', row.names = FALSE)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "Q66 Does your VA doctor or clinical care provider know about your medical cannabis use?"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Does.yourÂ.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
-t <- "Does your VA doctor or clinical care provider know about your medical cannabis use?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q66 <- "Does.yourÂ.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
+q66_t <- "Does your VA doctor or clinical care provider know about your medical cannabis use?"
+q66_data <- get_single_selection(data = raw_data, q.name = q66)
+q66_n <- length(unique(q66_data$id))
+q66_plot<- clean_single_select(q66_data)
+r66 <- plot_single_select(q66_plot, q66_t, q66_n)
+r66
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q66_plot2 <- rbind(q66_plot, q66_t)
 dir.create("output/q66_va_use_knowledge")
-ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r66, device = 'png')
+write.csv(q66_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", q66_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

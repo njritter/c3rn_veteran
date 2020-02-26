@@ -1,7 +1,7 @@
 ---
 title: "q84 'What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.percentage.of.the.soldiers.in.your.unit.were.killed..KIA...wounded.or.missing.in.action..MIA.."
-t <- "What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q84 <- "What.percentage.of.the.soldiers.in.your.unit.were.killed..KIA...wounded.or.missing.in.action..MIA.."
+q84_t <- "What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?"
+q84_data <- get_single_selection(data = raw_data, q.name = q84)
+q84_n <- length(unique(q84_data$id))
+q84_plot<- clean_single_select(q84_data)
+r84 <- plot_single_select(q84_plot, q84_t, q84_n)
+r84
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q84_plot2 <- rbind(q84_plot, q84_t)
 dir.create("output/q84_soldiers_kia_mia")
-ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r84, device = 'png')
+write.csv(q84_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", q84_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

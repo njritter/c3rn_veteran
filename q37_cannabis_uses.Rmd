@@ -1,7 +1,7 @@
 ---
 title: "q37 'Under what circumstances do you use cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Under.what.circumstances.do.you.use.cannabis...Please.select.all.that.apply.'
-q_final_response <- "X.153"
-t <- "Under what circumstances do you use cannabis? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q37 <- 'Under.what.circumstances.do.you.use.cannabis...Please.select.all.that.apply.'
+q37_final_response <- "X.153"
+q37_t <- "Under what circumstances do you use cannabis? (Please select all that apply)"
+q37_data <- get_choose_all(raw_data, q.name = q37, f.response = q37_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q37_n <- length(unique(q37_data$id))
+q37_plot <- clean_choose_all(q37_data, q37_n)
+r37 <- plot_choose_all(q37_plot, q37_t, q37_n)
+r37
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q37_plot2 <- rbind(q37_plot, q37_t)
 dir.create("output/q37_cannabis_uses")
-ggsave(filename = 'output/q37_cannabis_uses/q37_cannabis_uses.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q37_cannabis_uses/q37_cannabis_uses_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q37_cannabis_uses/q37_cannabis_uses_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q37_cannabis_uses/q37_cannabis_uses.png', plot = r37, device = 'png')
+write.csv(q37_plot2, paste0("output/q37_cannabis_uses/q37_cannabis_uses_", q37_n,".csv"), row.names=F)
+write.csv(q37_data, 'output/q37_cannabis_uses/q37_cannabis_uses_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

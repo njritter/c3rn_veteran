@@ -1,7 +1,7 @@
 ---
 title: "q34 'Do you seek supportive mental health services, counseling, or other therapy within or outside of the VA?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Do.you.seek.supportive.mental.health.services..counseling..or.other.therapy.within.or.outside.of.the.VA."
-t <- "Do you seek supportive mental health services, counseling, or other therapy within or outside of the VA?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q34 <- "Do.you.seek.supportive.mental.health.services..counseling..or.other.therapy.within.or.outside.of.the.VA."
+q34_t <- "Do you seek supportive mental health services, counseling, or other therapy within or outside of the VA?"
+q34_data <- get_single_selection(data = raw_data, q.name = q34)
+q34_n <- length(unique(q34_data$id))
+q34_plot<- clean_single_select(q34_data)
+r34 <- plot_single_select(q34_plot, q34_t, q34_n)
+r34
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q34_plot2 <- rbind(q34_plot, q34_t)
 dir.create("output/q34_mental_health_services")
-ggsave(filename = 'output/q34_mental_health_services/q34_mental_health_services.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q34_mental_health_services/q34_mental_health_services_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q34_mental_health_services/q34_mental_health_services.png', plot = r34, device = 'png')
+write.csv(q34_plot2, paste0("output/q34_mental_health_services/q34_mental_health_services_", q34_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

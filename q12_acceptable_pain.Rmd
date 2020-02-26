@@ -1,7 +1,7 @@
 ---
 title: "q12 'If you had to live with some pain, what level of pain would be acceptable?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "If.you.had.to.live.with.some.pain..what.level.of.pain.would.be.acceptable."
-t <- "If you had to live with some pain, what level of pain would be acceptable?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q12 <- "If.you.had.to.live.with.some.pain..what.level.of.pain.would.be.acceptable."
+q12_t <- "If you had to live with some pain, what level of pain would be acceptable?"
+q12_data <- get_single_selection_0(data = raw_data, q.name = q12) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q12_n <- length(unique(q12_data$id))
+q12_mean_data <- as.numeric(as.character(q12_data$response))
+q12_mean <- mean(q12_mean_data) %>%
   round(3) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q12_plot<- clean_single_select(q12_data)
+r12 <- plot_single_select_0(q12_plot, q12_t, q12_n, q12_mean)
+r12
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q12_plot2 <- rbind(q12_plot, q12_t, paste("average", q12_mean, sep = " = "))
 dir.create("output/q12_acceptable_pain")
-ggsave(filename = 'output/q12_acceptable_pain/q12_acceptable_pain.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q12_acceptable_pain/q12_acceptable_pain_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q12_acceptable_pain/q12_acceptable_pain_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q12_acceptable_pain/q12_acceptable_pain.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_acceptable_pain/q12_acceptable_pain_", q12_n,".csv"), row.names=F)
+write.csv(q12_data, 'output/q12_acceptable_pain/q12_acceptable_pain_ids.csv', row.names = FALSE)
 ```

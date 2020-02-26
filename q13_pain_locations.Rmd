@@ -1,7 +1,7 @@
 ---
 title: "q13 'Where are the locations of your pain (please check all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,21 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Where.are.the.locations.of.your.pain..please.check.all.that.apply.'
-t <- "Where are the locations of your pain (please check all that apply)"
-q_final_response <- "X.66"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q13 <- 'Where.are.the.locations.of.your.pain..please.check.all.that.apply.'
+q13_t <- "Where are the locations of your pain (please check all that apply)"
+q13_final_response <- "X.66"
+q13_data <- get_choose_all(raw_data, q.name = q13, f.response = q13_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q13_n <- length(unique(q13_data$id))
+q13_plot <- clean_choose_all(q13_data, q13_n)
+r13 <- plot_choose_all(q13_plot, q13_t, q13_n)
+r13
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q13_plot2 <- rbind(q13_plot, q13_t)
 dir.create("output/q13_pain_locations")
-ggsave(filename = 'output/q13_pain_locations/q13_pain_locations.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q13_pain_locations/q13_pain_locations_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q13_pain_locations/q13_pain_locations_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q13_pain_locations/q13_pain_locations.png', plot = r13, device = 'png')
+write.csv(q13_plot2, paste0("output/q13_pain_locations/q13_pain_locations_", q13_n,".csv"), row.names=F)
+write.csv(q13_data, 'output/q13_pain_locations/q13_pain_locations_ids.csv', row.names = FALSE)
 ```

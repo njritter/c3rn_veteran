@@ -1,7 +1,7 @@
 ---
 title: "q11 'What is your highest level of pain (what is the highest level of pain you feel?)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.yourÂ.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
-t <- "What is your highest level of pain (what is the highest level of pain you feel?)"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q11 <- "What.is.yourÂ.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
+q11_t <- "What is your highest level of pain (what is the highest level of pain you feel?)"
+q11_data <- get_single_selection_0(data = raw_data, q.name = q11) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q11_n <- length(unique(q11_data$id))
+q11_mean_data <- as.numeric(as.character(q11_data$response))
+q11_mean <- mean(q11_mean_data) %>%
   round(3) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q11_plot<- clean_single_select(q11_data)
+r11 <- plot_single_select_0(q11_plot, q11_t, q11_n, q11_mean)
+r11
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q11_plot2 <- rbind(q11_plot, q11_t, paste("average", q11_mean, sep = " = "))
 dir.create("output/q11_highest_pain")
-ggsave(filename = 'output/q11_highest_pain/q11_highest_pain.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q11_highest_pain/q11_highest_pain_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q11_highest_pain/q11_highest_pain_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q11_highest_pain/q11_highest_pain.png', plot = r11, device = 'png')
+write.csv(q11_plot2, paste0("output/q11_highest_pain/q11_highest_pain_", q11_n,".csv"), row.names=F)
+write.csv(q11_data, 'output/q11_highest_pain/q11_highest_pain_ids.csv', row.names = FALSE)
 ```

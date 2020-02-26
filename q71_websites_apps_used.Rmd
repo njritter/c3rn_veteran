@@ -1,7 +1,7 @@
 ---
 title: "q71 'Which apps/websites do you use? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Which.apps.websites.do.you.use...Please.select.all.that.apply.'
-q_final_response <- "X.332"
-t <- "Which apps/websites do you use? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q71 <- 'Which.apps.websites.do.you.use...Please.select.all.that.apply.'
+q71_final_response <- "X.332"
+q71_t <- "Which apps/websites do you use? (Please select all that apply)"
+q71_data <- get_choose_all(raw_data, q.name = q71, f.response = q71_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q71_n <- length(unique(q71_data$id))
+q71_plot <- clean_choose_all(q71_data, q71_n)
+r71 <- plot_choose_all(q71_plot, q71_t, q71_n)
+r71
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
-dir.create("output/q70_websites_apps_used")
-ggsave(filename = 'output/q70_websites_apps_used/q70_websites_apps_used.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q70_websites_apps_used/q70_websites_apps_used_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q70_websites_apps_used/q70_websites_apps_used_ids.csv', row.names = FALSE)
+q71_plot2 <- rbind(q71_plot, q71_t)
+dir.create("output/q71_websites_apps_used")
+ggsave(filename = 'output/q71_websites_apps_used/q71_websites_apps_used.png', plot = r71, device = 'png')
+write.csv(q71_plot2, paste0("output/q71_websites_apps_used/q71_websites_apps_used_", q71_n,".csv"), row.names=F)
+write.csv(q71_data, 'output/q71_websites_apps_used/q71_websites_apps_used_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -64,8 +67,8 @@ r
 
 ```{r}
 q_plot2 <- rbind(q_plot, t)
-dir.create("output/q70_websites_apps_used")
-ggsave(filename = 'output/q70_websites_apps_used/q70_websites_apps_used.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q70_websites_apps_used/q70_websites_apps_used_", qf_n,".csv"), row.names=F)
-write.csv(qf_all_data, 'output/q70_websites_apps_used/q70_websites_apps_used_ids.csv', row.names = FALSE)
+dir.create("output/q71_websites_apps_used")
+ggsave(filename = 'output/q71_websites_apps_used/q71_websites_apps_used.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q71_websites_apps_used/q71_websites_apps_used_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q71_websites_apps_used/q71_websites_apps_used_ids.csv', row.names = FALSE)
 ```

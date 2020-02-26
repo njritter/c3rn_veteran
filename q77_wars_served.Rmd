@@ -1,7 +1,7 @@
 ---
 title: "q77 'What war(s) did you serve in? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,25 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'What.war.s..did.you.serve.in...Please.select.all.that.apply.'
-q_final_response <- "X.373"
-t <- "What war(s) did you serve in? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q77 <- 'What.war.s..did.you.serve.in...Please.select.all.that.apply.'
+q77_final_response <- "X.373"
+q77_t <- "What war(s) did you serve in? (Please select all that apply)"
+q77_data <- get_choose_all(raw_data, q.name = q77, f.response = q77_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q77_n <- length(unique(q77_data$id))
+q77_plot <- clean_choose_all(q77_data, q77_n)
+r77 <- plot_choose_all(q77_plot, q77_t, q77_n)
+r77
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q77_plot2 <- rbind(q77_plot, q77_t)
 dir.create("output/q77_wars_served")
-ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q77_wars_served/q77_wars_served_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q77_wars_served/q77_wars_served_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r77, device = 'png')
+write.csv(q77_plot2, paste0("output/q77_wars_served/q77_wars_served_", q77_n,".csv"), row.names=F)
+write.csv(q77_data, 'output/q77_wars_served/q77_wars_served_ids.csv', row.names = FALSE)
 ```
+
 
 
 ```{r}

@@ -1,7 +1,7 @@
 ---
 title: "q67 'Which VA do you go to?'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,19 +18,18 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Which.VA.do.you.go.to."
-t <- "Which VA do you go to?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q67 <- "Which.VA.do.you.go.to."
+q67_t <- "Which VA do you go to?"
+q67_data <- get_single_selection_0(data = raw_data, q.name = q67) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
+q67_n <- length(unique(q67_data$id))
+q67_plot<- clean_single_select(q67_data)
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q67_plot2 <- rbind(q67_plot, q67_t)
 dir.create("output/q67_va_location")
-ggsave(filename = 'output/q67_va_location/q67_va_location.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q67_va_location/q67_va_location_", q_n,".csv"), row.names=F)
+write.csv(q67_plot2, paste0("output/q67_va_location/q67_va_location_", q67_n,".csv"), row.names=F)
 ```
 
 

@@ -1,7 +1,7 @@
 ---
 title: "q39 'What is the primary health condition for which you find cannabis to be helpful? (Please select one)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful...Please.select.one."
-t <- "What is the primary health condition for which you find cannabis to be helpful? (Please select one)"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q39 <- "What.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful...Please.select.one."
+q39_t <- "What is the primary health condition for which you find cannabis to be helpful? (Please select one)"
+q39_data <- get_single_selection(data = raw_data, q.name = q39)
+q39_n <- length(unique(q39_data$id))
+q39_plot<- clean_single_select(q39_data)
+r39 <- plot_single_select(q39_plot, q39_t, q39_n)
+r39
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q39_plot2 <- rbind(q39_plot, q39_t)
 dir.create("output/q39_top_condition_cannabis")
-ggsave(filename = 'output/q39_top_condition_cannabis/q39_top_condition_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q39_top_condition_cannabis/q39_top_condition_cannabis_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q39_top_condition_cannabis/q39_top_condition_cannabis.png', plot = r39, device = 'png')
+write.csv(q39_plot2, paste0("output/q39_top_condition_cannabis/q39_top_condition_cannabis_", q39_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

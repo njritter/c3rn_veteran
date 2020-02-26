@@ -1,7 +1,7 @@
 ---
 title: "q99 'I would choose medical cannabis if it was a federally-legal treatment option.'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,20 +18,20 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "I.would.choose.medical.cannabis.if.it.was.a.federally.legal.treatment.option."
-t <- "I would choose medical cannabis if it was a federally-legal treatment option."
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q99 <- "I.would.choose.medical.cannabis.if.it.was.a.federally.legal.treatment.option."
+q99_t <- "I would choose medical cannabis if it was a federally-legal treatment option."
+q99_data <- get_single_selection(data = raw_data, q.name = q99)
+q99_n <- length(unique(q99_data$id))
+q99_plot<- clean_single_select(q99_data)
+r99 <- plot_single_select(q99_plot, q99_t, q99_n)
+r99
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q99_plot2 <- rbind(q99_plot, q99_t)
 dir.create("output/q99_cannabis_if_legal")
-ggsave(filename = 'output/q99_cannabis_if_legal/q99_cannabis_if_legal.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q99_cannabis_if_legal/q99_cannabis_if_legal_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q99_cannabis_if_legal/q99_cannabis_if_legal.png', plot = r99, device = 'png')
+write.csv(q99_plot2, paste0("output/q99_cannabis_if_legal/q99_cannabis_if_legal_", q99_n,".csv"), row.names=F)
 ```
 
 

@@ -1,7 +1,7 @@
 ---
 title: "q57 'What product(s) and/or strain(s) do you want that are not currently available in your local dispensaries?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,16 +18,15 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.product.s..and.or.strain.s..do.you.want.that.are.not.currently.available.in.your.local.dispensaries."
-t <- "What product(s) and/or strain(s) do you want that are not currently available in your local dispensaries?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
+q57 <- "What.product.s..and.or.strain.s..do.you.want.that.are.not.currently.available.in.your.local.dispensaries."
+q57_t <- "What product(s) and/or strain(s) do you want that are not currently available in your local dispensaries?"
+q57_data <- get_single_selection_0(data = raw_data, q.name = q57)
+q57_n <- length(unique(q57_data$id))
+q57_plot<- clean_single_select(q57_data)
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q57_plot2 <- rbind(q57_plot, q57_t)
 dir.create("output/q57_products_desired")
-ggsave(filename = 'output/q57_products_desired/q57_products_desired.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q57_products_desired/q57_products_desired_", q_n,".csv"), row.names=F)
+write.csv(q57_plot2, paste0("output/q57_products_desired/q57_products_desired_", q57_n,".csv"), row.names=F)
 ```

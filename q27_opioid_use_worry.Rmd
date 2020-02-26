@@ -1,7 +1,7 @@
 ---
 title: "q27 'Do you worry about your use of opioids?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,19 +18,19 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Do.you.worry.about.your.use.of.opioids."
-t <- "Do you worry about your use of opioids?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q27 <- "Do.you.worry.about.your.use.of.opioids."
+q27_t <- "Do you worry about your use of opioids?"
+q27_data <- get_single_selection(data = raw_data, q.name = q27)
+q27_n <- length(unique(q27_data$id))
+q27_plot<- clean_single_select(q27_data)
+r27 <- plot_single_select(q27_plot, q27_t, q27_n)
+r27
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q27_plot2 <- rbind(q27_plot, q27_t)
 dir.create("output/q27_opioid_use_worry")
-ggsave(filename = 'output/q27_opioid_use_worry/q27_opioid_use_worry.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q27_opioid_use_worry/q27_opioid_use_worry_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q27_opioid_use_worry/q27_opioid_use_worry.png', plot = r27, device = 'png')
+write.csv(q27_plot2, paste0("output/q27_opioid_use_worry/q27_opioid_use_worry_", q27_n,".csv"), row.names=F)
 ```
 

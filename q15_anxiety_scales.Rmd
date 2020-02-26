@@ -1,7 +1,7 @@
 ---
 title: "q15 Over the last 2 weeks, how often have you been bothered by any of the following problems? (anxiety scales)"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,120 +18,118 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Over.the.last.2.weeks..how.often.have.you.been.bothered.by.any.of.the.following.problems."
-q_final_response <- "X.91"
-t <- "Over the last 2 weeks, how often have you been bothered by any of the following problems?"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+q15 <- "Over.the.last.2.weeks..how.often.have.you.been.bothered.by.any.of.the.following.problems."
+q15_final_response <- "X.91"
+q15_t <- "Over the last 2 weeks, how often have you been bothered by any of the following problems?"
+q15_data <- get_choose_all(raw_data, q.name = q15, f.response = q15_final_response)
 dir.create("output/q15_anxiety")
 ```
 
 ```{r}
-write.csv(q_data, 'output/q15_anxiety/q15_anxiety_scales_data.csv', row.names = FALSE)
+write.csv(q15_data, 'output/q15_anxiety/q15_anxiety_scales_data.csv', row.names = FALSE)
 ```
 
 ```{r}
-table_1 <- get_single_selection_2(q_data, "Feeling nervous, anxious, or on edge") %>%
+q15_data1 <- get_single_selection_2(q15_data, "Feeling nervous, anxious, or on edge") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_1, count)
-r1 <- plot_single_select(table_1) +
-  labs(title = "Feeling nervous, anxious, or on edge", subtitle = q_n)
-r1
+  clean_single_select()
+q15_n1 <- tally(q15_data_1, count)
+q15_t1 <- "Feeling nervous, anxious, or on edge"
+q15_r1 <- plot_single_select(q15_data_1, q15_t1, q15_n1)
+q15_r1
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_anxiety.png", plot = r1, device = 'png')
-write.csv(table_1, paste0("output/q15_anxiety/q15_anxiety_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_anxiety.png", plot = q15_r1, device = 'png')
+write.csv(q15_data1, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_2 <- get_single_selection_2(q_data, "Not being able to stop or control worrying") %>%
+q15_data2 <- get_single_selection_2(q15_data, "Not being able to stop or control worrying") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_2, count)
-r2 <- plot_single_select(table_2) +
-  labs(title = "Not being able to stop or control worrying", subtitle = q_n)
-r2
+  clean_single_select()
+q15_t2 <- "Not being able to stop or control worrying"
+q15_n2 <- tally(q15_data2, count)
+q15_r2 <- plot_single_select(q15_data2, q15_t2, q15_n2)
+q15_r2
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_control.png", plot = r2, device = 'png')
-write.csv(table_2, paste0("output/q15_anxiety/q15_control_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_control.png", plot = q15_r2, device = 'png')
+write.csv(q15_data2, paste0("output/q15_anxiety/q15_control_", q15_n2, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_3 <- get_single_selection_2(q_data, "Worrying too much about different things") %>%
+q15_data3 <- get_single_selection_2(q15_data, "Worrying too much about different things") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_3, count)
-r3 <- plot_single_select(table_3) +
-  labs(title = "Worrying too much about different things", subtitle = q_n)
-r3
+  clean_single_select()
+q15_n3 <- tally(q15_data3, count)
+q15_t3 <- "Worrying too much about different things"
+q15_r3 <- plot_single_select(q15_data3, q15_t3, q15_n3)
+q15_r3
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_worry.png", plot = r3, device = 'png')
-write.csv(table_3, paste0("output/q15_anxiety/q15_worry_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_worry.png", plot = q15_r3, device = 'png')
+write.csv(q15_data3, paste0("output/q15_anxiety/q15_worry_", q15_n3, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_4 <- get_single_selection_2(q_data, "Trouble relaxing") %>%
+q15_data4 <- get_single_selection_2(q15_data, "Trouble relaxing") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-
-q_n <- tally(table_4, count)
-
-r4 <- plot_single_select(table_4) +
-  labs(title = "Trouble relaxing", subtitle = q_n)
-r4
+  clean_single_select()
+q15_n4 <- tally(q15_data4, count)
+q15_t4 <- "Trouble relaxing"
+q15_r4 <- plot_single_select(q15_data4, q15_t4, q15_n4)
+q15_r4
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_relax.png", plot = r4, device = 'png')
-write.csv(table_4, paste0("output/q15_anxiety/q15_relax_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_relax.png", plot = q15_r4, device = 'png')
+write.csv(q15_data4, paste0("output/q15_anxiety/q15_relax_", q15_n4, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_5 <- get_single_selection_2(q_data, "Being so restless that it is hard to sit still") %>%
+q15_data5 <- get_single_selection_2(q15_data, "Being so restless that it is hard to sit still") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_5, count)
-r5 <- plot_single_select(table_5) +
-  labs(title = "Being so restless that it is hard to sit still", subtitle = q_n)
-r5
+  clean_single_select()
+q15_n5 <- tally(q15_data5, count)
+q15_t5 <- "Being so restless that it is hard to sit still"
+q15_r5 <- plot_single_select(q15_data5, q15_t5, q15_n5)
+q15_r5
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_restless.png", plot = r5, device = 'png')
-write.csv(table_5, paste0("output/q15_anxiety/q15_restless_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_restless.png", plot = q15_r5, device = 'png')
+write.csv(q15_data5, paste0("output/q15_anxiety/q15_restless_", q15_n5, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_6 <- get_single_selection_2(q_data, "Becoming easily annoyed or irritable") %>%
+q15_data6 <- get_single_selection_2(q15_data, "Becoming easily annoyed or irritable") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_6, count)
-r6 <- plot_single_select(table_6) +
-  labs(title = "Becoming easily annoyed or irritable", subtitle = q_n)
-r6
+  clean_single_select()
+q15_n6 <- tally(q15_data6, count)
+q15_t6 <- "Becoming easily annoyed or irritable"
+q15_r6 <- plot_single_select(q15_data6, q15_t6, q15_n6)
+q15_r6
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_annoyed.png", plot = r6, device = 'png')
-write.csv(table_6, paste0("output/q15_anxiety/q15_annoyed_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_annoyed.png", plot = q15_r6, device = 'png')
+write.csv(q15_data6, paste0("output/q15_anxiety/q15_annoyed_", q15_n6, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_7 <- get_single_selection_2(q_data, "Feeling afraid as if something awful might happen") %>%
+q15_data7 <- get_single_selection_2(q15_data, "Feeling afraid as if something awful might happen") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_7, count)
-r7 <- plot_single_select(table_7) +
-  labs(title = "Feeling afraid as if something awful might happen", subtitle = q_n)
-r7
+  clean_single_select()
+q15_n7 <- tally(q15_data7, count)
+q15_t7 <- "Feeling afraid as if something awful might happen"
+q15_r7 <- plot_single_select(q15_data7, q15_t7, q15_n7)
+q15_r7
 ```
 
 ```{r}
-ggsave(filename = "output/q15_anxiety/q15_afraid.png", plot = r7, device = 'png')
-write.csv(table_7, paste0("output/q15_anxiety/q15_afraid_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q15_anxiety/q15_afraid.png", plot = q15_r7, device = 'png')
+write.csv(q15_data7, paste0("output/q15_anxiety/q15_afraid_", q15_n7, ".csv"), row.names = FALSE)
 ```

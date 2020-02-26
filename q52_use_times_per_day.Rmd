@@ -1,7 +1,7 @@
 ---
 title: "q52 'On days you regularly use cannabis, how many times per day do you use cannabis?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "On.days.you.regularly.use.cannabis..how.many.times.per.day.do.you.use.cannabis."
-t <- "On days you regularly use cannabis, how many times per day do you use cannabis?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q52 <- "On.days.you.regularly.use.cannabis..how.many.times.per.day.do.you.use.cannabis."
+q52_t <- "On days you regularly use cannabis, how many times per day do you use cannabis?"
+q52_data <- get_single_selection(data = raw_data, q.name = q52)
+q52_n <- length(unique(q52_data$id))
+q52_plot<- clean_single_select(q52_data)
+r52 <- plot_single_select(q52_plot, q52_t, q52_n)
+r52
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q52_plot2 <- rbind(q52_plot, q52_t)
 dir.create("output/q52_use_times_per_day")
-ggsave(filename = 'output/q52_use_times_per_day/q52_use_times_per_day.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q52_use_times_per_day/q52_use_times_per_day_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q52_use_times_per_day/q52_use_times_per_day.png', plot = r52, device = 'png')
+write.csv(q52_plot2, paste0("output/q52_use_times_per_day/q52_use_times_per_day_", q52_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

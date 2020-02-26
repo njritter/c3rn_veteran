@@ -1,7 +1,7 @@
 ---
 title: "q45 'What prescription medications are you currently taking for the health conditions and symptoms you face that you are actively trying to reduce the use of by using cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.'
-q_final_response <- "X.249"
-t <- "What prescription medications are you currently taking for the health conditions and symptoms you face that you are actively trying to reduce the use of by using cannabis? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q45 <- 'What.prescription.medications.are.you.currently.taking.for.the.health.conditions.and.symptoms.you.face.that.you.are.actively.trying.to.reduce.the.use.of.by.using.cannabis...Please.select.all.that.apply.'
+q45_final_response <- "X.249"
+q45_t <- "What prescription medications are you currently taking for the health conditions and symptoms you face that you are actively trying to reduce the use of by using cannabis? (Please select all that apply)"
+q45_data <- get_choose_all(raw_data, q.name = q45, f.response = q45_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q45_n <- length(unique(q45_data$id))
+q45_plot <- clean_choose_all(q45_data, q45_n)
+r45 <- plot_choose_all(q45_plot, q45_t, q45_n)
+r45
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q45_plot2 <- rbind(q45_plot, q45_t)
 dir.create("output/q45_meds_reduced_cannabis")
-ggsave(filename = 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis.png', plot = r45, device = 'png')
+write.csv(q45_plot2, paste0("output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_", q45_n,".csv"), row.names=F)
+write.csv(q45_data, 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

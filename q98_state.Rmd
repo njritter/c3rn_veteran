@@ -1,7 +1,7 @@
 ---
 title: "q98 'What state in the US do you currently live in?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.state.in.the.US.do.you.currently.live.in."
-t <- "What state in the US do you currently live in?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q98 <- "What.state.in.the.US.do.you.currently.live.in."
+q98_t <- "What state in the US do you currently live in?"
+q98_data <- get_single_selection(data = raw_data, q.name = q98)
+q98_n <- length(unique(q98_data$id))
+q98_plot<- clean_single_select(q98_data)
+r98 <- plot_single_select(q98_plot, q98_t, q98_n)
+r98
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q98_plot2 <- rbind(q98_plot, q98_t)
 dir.create("output/q98_state")
-ggsave(filename = 'output/q98_state/q98_state.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q98_state/q98_state_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q98_state/q98_state.png', plot = r98, device = 'png')
+write.csv(q98_plot2, paste0("output/q98_state/q98_state_", q98_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

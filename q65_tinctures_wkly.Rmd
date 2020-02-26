@@ -1,7 +1,7 @@
 ---
 title: "q65 'How many milliliters (mL) of tincture are you using per week? Note (30mL) = 1oz"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,25 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'How.many.milliliters..mL..of.tincture.are.you.using.per.week..Note..30mL...1oz'
-q_final_response <- "X.311"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+q65 <- 'How.many.milliliters..mL..of.tincture.are.you.using.per.week..Note..30mL...1oz'
+q65_final_response <- "X.311"
+q65_t <- "q65 'How many milliliters (mL) of tincture are you using per week? Note (30mL) = 1oz"
+q65_data <- get_choose_all(raw_data, q.name = q65, f.response = q65_final_response)
 dir.create("output/q65_tinctures_wkly")
 ```
 
 ```{r}
-table_1 <- get_single_selection_2(q_data, "Tinctures") %>%
+q65_data1 <- get_single_selection_2(q65_data, "Tinctures") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_1, count)
-r1 <- plot_single_select(table_1) +
-  labs(title = "Tinctures", subtitle = q_n)
+  clean_single_select()
+q65_n1 <- tally(q65_data1, count)
+q65_t1 <- "Tinctures"
+r1 <- plot_single_select(q65_data1, q65_t1, q65_n1)
 r1
 ```
 
 ```{r}
 ggsave(filename = "output/q65_tinctures_wkly/q65_tinctures_wkly.png", plot = r1, device = 'png')
-write.csv(table_1, paste0("output/q65_tinctures_wkly/q65_tinctures_wkly_", q_n, ".csv"), row.names = FALSE)
+write.csv(q65_data1, paste0("output/q65_tinctures_wkly/q65_tinctures_wkly_", q65_n1, ".csv"), row.names = FALSE)
 ```
 

@@ -1,7 +1,7 @@
 ---
 title: "q92 'What is your marital status?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.your.marital.status."
-t <- "What is your marital status?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q92 <- "What.is.your.marital.status."
+q92_t <- "What is your marital status?"
+q92_data <- get_single_selection(data = raw_data, q.name = q92)
+q92_n <- length(unique(q92_data$id))
+q92_plot<- clean_single_select(q92_data)
+r92 <- plot_single_select(q92_plot, q92_t, q92_n)
+r92
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q92_plot2 <- rbind(q92_plot, q92_t)
 dir.create("output/q92_marital_status")
-ggsave(filename = 'output/q92_marital_status/q92_marital_status.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q92_marital_status/q92_marital_status_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q92_marital_status/q92_marital_status.png', plot = r92, device = 'png')
+write.csv(q92_plot2, paste0("output/q92_marital_status/q92_marital_status_", q92_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

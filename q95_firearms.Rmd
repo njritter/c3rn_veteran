@@ -1,7 +1,7 @@
 ---
 title: "q95 'Do you own a firearm?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Do.you.own.a.firearm."
-t <- "Do you own a firearm?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q95 <- "Do.you.own.a.firearm."
+q95_t <- "Do you own a firearm?"
+q95_data <- get_single_selection(data = raw_data, q.name = q95)
+q95_n <- length(unique(q95_data$id))
+q95_plot<- clean_single_select(q95_data)
+r95 <- plot_single_select(q95_plot, q95_t, q95_n)
+r95
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q95_plot2 <- rbind(q95_plot, q95_t)
 dir.create("output/q95_firearms")
-ggsave(filename = 'output/q95_firearms/q95_firearms.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q95_firearms/q95_firearms_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q95_firearms/q95_firearms.png', plot = r95, device = 'png')
+write.csv(q95_plot2, paste0("output/q95_firearms/q95_firearms_", q95_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q44 'Have you experienced any side effects from using cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Have.you.experienced.any.side.effects.from.using.cannabis...Please.select.all.that.apply.'
-q_final_response <- "X.226"
-t <- "Have you experienced any side effects from using cannabis? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q44 <- 'Have.you.experienced.any.side.effects.from.using.cannabis...Please.select.all.that.apply.'
+q44_final_response <- "X.226"
+q44_t <- "Have you experienced any side effects from using cannabis? (Please select all that apply)"
+q44_data <- get_choose_all(raw_data, q.name = q44, f.response = q44_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q44_n <- length(unique(q44_data$id))
+q44_plot <- clean_choose_all(q44_data, q44_n)
+r44 <- plot_choose_all(q44_plot, q44_t, q44_n)
+r44
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q44_plot2 <- rbind(q44_plot, q44_t)
 dir.create("output/q44_cannabis_side_effects")
-ggsave(filename = 'output/q44_cannabis_side_effects/q44_cannabis_side_effects.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q44_cannabis_side_effects/q44_cannabis_side_effects_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q44_cannabis_side_effects/q44_cannabis_side_effects_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q44_cannabis_side_effects/q44_cannabis_side_effects.png', plot = r44, device = 'png')
+write.csv(q44_plot2, paste0("output/q44_cannabis_side_effects/q44_cannabis_side_effects_", q44_n,".csv"), row.names=F)
+write.csv(q44_data, 'output/q44_cannabis_side_effects/q44_cannabis_side_effects_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q16 Difficulty of living with anxiety as top condition"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,20 +18,20 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
-t <- "Difficulty of living with anxiety as top condition"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot <- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q16 <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
+q16_t <- "Difficulty of living with anxiety as top condition"
+q16_data <- get_single_selection(data = raw_data, q.name = q16)
+q16_n <- length(unique(q16_data$id))
+q16_plot <- clean_single_select(q16_data)
+r16 <- plot_single_select(q16_plot, q16_t, q16_n)
+r16
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q16_plot2 <- rbind(q16_plot, q16_t)
 dir.create("output/q16_anxiety_difficulty")
-ggsave(filename = 'output/q16_anxiety_difficulty/q16_anxiety_difficulty.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q16_anxiety_difficulty/q16_anxiety_difficulty_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q16_anxiety_difficulty/q16_anxiety_difficulty.png', plot = r16, device = 'png')
+write.csv(q16_plot2, paste0("output/q16_anxiety_difficulty/q16_anxiety_difficulty_", q16_n,".csv"), row.names=F)
 ```
 
 ```{r}

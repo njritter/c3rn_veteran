@@ -1,7 +1,7 @@
 ---
 title: "q88 'What is your age (in years)?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,22 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.your.age..in.years.."
-t <- "What is your age (in years)?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q88 <- "What.is.your.age..in.years.."
+q88_t <- "What is your age (in years)?"
+q88_data <- get_single_selection(data = raw_data, q.name = q88)
+q88_n <- length(unique(q88_data$id))
+q88_plot<- clean_single_select(q88_data)
+r88 <- plot_single_select(q88_plot, q88_t, q88_n)
+r88
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q88_plot2 <- rbind(q88_plot, q88_t)
 dir.create("output/q88_age")
-ggsave(filename = 'output/q88_age/q88_age.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q88_age/q88_age_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q88_age/q88_age.png', plot = r88, device = 'png')
+write.csv(q88_plot2, paste0("output/q88_age/q88_age_", q88_n,".csv"), row.names=F)
 ```
+
 
 
 ```{r}

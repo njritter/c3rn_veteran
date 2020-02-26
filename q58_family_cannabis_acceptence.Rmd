@@ -1,7 +1,7 @@
 ---
 title: "q58 'Are you concerned about your family members or loved ones knowing about your cannabis use?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Are.you.concerned.about.your.family.members.or.loved.ones.knowing.about.your.cannabis.use."
-t <- "Are you concerned about your family members or loved ones knowing about your cannabis use?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q58 <- "Are.you.concerned.about.your.family.members.or.loved.ones.knowing.about.your.cannabis.use."
+q58_t <- "Are you concerned about your family members or loved ones knowing about your cannabis use?"
+q58_data <- get_single_selection(data = raw_data, q.name = q58)
+q58_n <- length(unique(q58_data$id))
+q58_plot<- clean_single_select(q58_data)
+r58 <- plot_single_select(q58_plot, q58_t, q58_n)
+r58
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q58_plot2 <- rbind(q58_plot, q58_t)
 dir.create("output/q58_family_cannabis_acceptence")
-ggsave(filename = 'output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence.png', plot = r58, device = 'png')
+write.csv(q58_plot2, paste0("output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence_", q58_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

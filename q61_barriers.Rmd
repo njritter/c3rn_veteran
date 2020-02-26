@@ -1,7 +1,7 @@
 ---
 title: "q61 'Do you face any of the following barriers for you to consume cannabis (Please select all that apply)'"
 author: "David Ritter"
-date: "2/20/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.'
-q_final_response <- "X.279"
-t <- "Do you face any of the following barriers for you to consume cannabis (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q61 <- 'Do.you.face.any.of.the.following.barriers.for.you.to.consume.cannabis...Please.select.all.that.apply.'
+q61_final_response <- "X.279"
+q61_t <- "Do you face any of the following barriers for you to consume cannabis (Please select all that apply)"
+q61_data <- get_choose_all(raw_data, q.name = q61, f.response = q61_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q61_n <- length(unique(q61_data$id))
+q61_plot <- clean_choose_all(q61_data, q61_n)
+r61 <- plot_choose_all(q61_plot, q61_t, q61_n)
+r61
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q61_plot2 <- rbind(q61_plot, q61_t)
 dir.create("output/q61_barriers")
-ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q61_barriers/q61_barriers_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r61, device = 'png')
+write.csv(q61_plot2, paste0("output/q61_barriers/q61_barriers_", q61_n,".csv"), row.names=F)
+write.csv(q61_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -55,15 +58,15 @@ qf_data <- qf_all_data[3] %>%
 ```
 
 ```{r}
-q_plot <- clean_choose_all_f2(qf_data)
-r <- plot_choose_all_f2(q_plot)
+q61_plot <- clean_choose_all_f2(qf_data)
+r <- plot_choose_all_f2(q61_plot)
 r
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q61_plot2 <- rbind(q61_plot, t)
 dir.create("output/q61_barriers")
 ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q61_barriers/q61_barriers_", qf_n,".csv"), row.names=F)
+write.csv(q61_plot2, paste0("output/q61_barriers/q61_barriers_", qf_n,".csv"), row.names=F)
 write.csv(qf_all_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
 ```

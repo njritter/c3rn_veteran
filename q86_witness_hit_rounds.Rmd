@@ -1,7 +1,7 @@
 ---
 title: "q86 'How often did you see someone hit by incoming or outgoing rounds?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.often.did.you.see.someone.hit.by.incoming.or.outgoing.rounds."
-t <- "How often did you see someone hit by incoming or outgoing rounds?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q86 <- "How.often.did.you.see.someone.hit.by.incoming.or.outgoing.rounds."
+q86_t <- "How often did you see someone hit by incoming or outgoing rounds?"
+q86_data <- get_single_selection(data = raw_data, q.name = q86)
+q86_n <- length(unique(q86_data$id))
+q86_plot<- clean_single_select(q86_data)
+r86 <- plot_single_select(q86_plot, q86_t, q86_n)
+r86
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q86_plot2 <- rbind(q86_plot, q86_t)
 dir.create("output/q86_witness_hit_rounds")
-ggsave(filename = 'output/q86_witness_hit_rounds/q86_witness_hit_rounds.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q86_witness_hit_rounds/q86_witness_hit_rounds_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q86_witness_hit_rounds/q86_witness_hit_rounds.png', plot = r86, device = 'png')
+write.csv(q86_plot2, paste0("output/q86_witness_hit_rounds/q86_witness_hit_rounds_", q86_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

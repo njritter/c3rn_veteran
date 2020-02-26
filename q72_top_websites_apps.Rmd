@@ -1,7 +1,7 @@
 ---
 title: "q72 'Which of the websites/apps is your primary source of information? (Please select one)'"
 author: "David Ritter"
-date: "2/18/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Which.of.the.websites.apps.is.your.primary.source.of.information...Please.select.one."
-t <- "Which of the websites/apps is your primary source of information? (Please select one)"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q72 <- "Which.of.the.websites.apps.is.your.primary.source.of.information...Please.select.one."
+q72_t <- "Which of the websites/apps is your primary source of information? (Please select one)"
+q72_data <- get_single_selection(data = raw_data, q.name = q72)
+q72_n <- length(unique(q72_data$id))
+q72_plot<- clean_single_select(q72_data)
+r72 <- plot_single_select(q72_plot, q72_t, q72_n)
+r72
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q72_plot2 <- rbind(q72_plot, q72_t)
 dir.create("output/q72_top_website_app")
-ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r72, device = 'png')
+write.csv(q72_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", q72_n,".csv"), row.names=F)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

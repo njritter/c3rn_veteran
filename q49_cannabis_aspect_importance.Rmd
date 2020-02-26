@@ -1,7 +1,7 @@
 ---
 title: "q49 Please rate the importance of the following aspects of cannabis products to you" 
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,137 +18,133 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "Please.rate.the.importance.of.the.following.aspects.ofÂ.cannabis.products.to.you."
-q_final_response <- "X.267"
-t <- "Please rate the importance of the following aspects of cannabis products to you"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response)
+q49 <- "Please.rate.the.importance.of.the.following.aspects.ofÂ.cannabis.products.to.you."
+q49_final_response <- "X.267"
+q49_t <- "Please rate the importance of the following aspects of cannabis products to you"
+q49_data <- get_choose_all(raw_data, q.name = q49, f.response = q49_final_response)
 dir.create("output/q49_cannabis_aspect_importance")
 ```
 
 ```{r}
-write.csv(q_data, 'output/q49_cannabis_aspect_importance/q49_cannabis_aspect_importance_data.csv', row.names = FALSE)
+write.csv(q49_data, 'output/q49_cannabis_aspect_importance/q49_cannabis_aspect_importance_data.csv', row.names = FALSE)
 ```
 
 ```{r}
-table_1 <- get_single_selection_2(q_data, "THC content - Importance") %>%
+q49_data1 <- get_single_selection_2(q49_data, "THC content - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_1, count)
-r1 <- plot_single_select(table_1) +
-  labs(title = "THC content", subtitle = q_n)
-r1
+  clean_single_select()
+q49_n1 <- tally(q49_data1, count)
+q49_t1 <- "THC content"
+q49_r1 <- plot_single_select(q49_data1, q49_t1, q49_n1)
+q49_r1
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_thc.png", plot = r1, device = 'png')
-write.csv(table_1, paste0("output/q49_cannabis_aspect_importance/q49_thc_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_thc.png", plot = q49_r1, device = 'png')
+write.csv(q49_data1, paste0("output/q49_cannabis_aspect_importance/q49_thc_", q49_n1, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_2 <- get_single_selection_2(q_data, "CBD content - Importance") %>%
+q49_data2 <- get_single_selection_2(q49_data, "CBD content - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_2, count)
-r2 <- plot_single_select(table_2) +
-  labs(title = "CBD content", subtitle = q_n)
-r2
+  clean_single_select()
+q49_n2 <- tally(q49_data2, count)
+q49_t2 <- "CBD content - Importance"
+q49_r2 <- plot_single_select(q49_data2, q49_t2, q49_n2)
+q49_r2
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_cbd.png", plot = r2, device = 'png')
-write.csv(table_2, paste0("output/q49_cannabis_aspect_importance/q49_cbd_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_cbd.png", plot = q49_r2, device = 'png')
+write.csv(q49_data2, paste0("output/q49_cannabis_aspect_importance/q49_cbd_", q49_n2, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_3 <- get_single_selection_2(q_data, "Other cannabinoids and terpenes - Importance") %>%
+q49_data3 <- get_single_selection_2(q49_data, "Other cannabinoids and terpenes - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_3, count)
-r3 <- plot_single_select(table_3) +
-  labs(title = "Other cannabinoids and terpenes", subtitle = q_n)
-r3
+  clean_single_select()
+q49_n3 <- tally(q49_data3, count)
+q49_t3 <- "Other cannabinoids and terpenes"
+q49_r3 <- plot_single_select(q49_data3, q49_t3, q49_n3)
+q49_r3
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_other_cbd.png", plot = r3, device = 'png')
-write.csv(table_3, paste0("output/q49_cannabis_aspect_importance/q49_other_cbd_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_other_cbd.png", plot = q49_r3, device = 'png')
+write.csv(q49_data3, paste0("output/q49_cannabis_aspect_importance/q49_other_cbd_", q49_n3, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_4 <- get_single_selection_2(q_data, "Cost/price - Importance") %>%
+q49_data4 <- get_single_selection_2(q49_data, "Cost/price - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_4, count)
-r4 <- plot_single_select(table_4) +
-  labs(title = "Cost/price - Importance", subtitle = q_n)
-r4
+  clean_single_select()
+q49_n4 <- tally(q49_data4, count)
+q49_t4 <- "Cost/price - Importance"
+q49_r4 <- plot_single_select(q49_data4, q49_t4, q49_n4)
+q49_r4
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_cost.png", plot = r4, device = 'png')
-write.csv(table_4, paste0("output/q49_cannabis_aspect_importance/q49_cost_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_cost.png", plot = q49_r4, device = 'png')
+write.csv(q49_data4, paste0("output/q49_cannabis_aspect_importance/q49_cost_", q49_n4, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_5 <- get_single_selection_2(q_data, "Quality - Importance") %>%
+q49_data5 <- get_single_selection_2(q49_data, "Quality - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_5, count)
-r5 <- plot_single_select(table_5) +
-  labs(title = "Quality - Importance", subtitle = q_n)
-r5
+  clean_single_select()
+q49_n5 <- tally(q49_data5, count)
+q49_t5 <- "Quality - Importance"
+q49_r5 <- plot_single_select(q49_data5, q49_t5, q49_n5)
+q49_r5
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_quality.png", plot = r5, device = 'png')
-write.csv(table_5, paste0("output/q49_cannabis_aspect_importance/q49_quality_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_quality.png", plot = q49_r5, device = 'png')
+write.csv(q49_data5, paste0("output/q49_cannabis_aspect_importance/q49_quality_", q49_n5, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_6 <- get_single_selection_2(q_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
+q49_data6 <- get_single_selection_2(q49_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-q_n <- tally(table_6, count)
-r6 <- plot_single_select(table_6) +
-  labs(title = "Product type (flower, vape cartridge, edibles, etc.)", subtitle = q_n)
-r6
+  clean_single_select()
+q49_n6 <- tally(q49_data6, count)
+q49_t6 <- "Product type (flower, vape cartridge, edibles, etc.) - Importance"
+q49_r6 <- plot_single_select(q49_data6, q49_t6, q49_n6)
+q49_r6
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_product_type.png", plot = r6, device = 'png')
-write.csv(table_6, paste0("output/q49_cannabis_aspect_importance/q49_product_type_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_product_type.png", plot = q49_r6, device = 'png')
+write.csv(q49_data6, paste0("output/q49_cannabis_aspect_importance/q49_product_type_", q49_n6, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_7 <- get_single_selection_2(q_data, "Favorite strain - Importance") %>%
+q49_data7 <- get_single_selection_2(q49_data, "Favorite strain - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-
-q_n <- tally(table_7, count)
-
-r7 <- plot_single_select(table_7) +
-  labs(title = "Favorite strain - Importance", subtitle = q_n)
-r7
+  clean_single_select()
+q49_n7 <- tally(q49_data7, count)
+q49_t7 <- "Favorite strain - Importance"
+q49_r7 <- plot_single_select(q49_data7, q49_t7, q49_n7)
+q49_r7
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_favorite_strain.png", plot = r7, device = 'png')
-write.csv(table_7, paste0("output/q49_cannabis_aspect_importance/q49_favorite_strain_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_favorite_strain.png", plot = q49_r7, device = 'png')
+write.csv(q49_data7, paste0("output/q49_cannabis_aspect_importance/q49_favorite_strain_", q49_n7, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
-table_8 <- get_single_selection_2(q_data, "Other - Importance") %>%
+q49_data8 <- get_single_selection_2(q49_data, "Other - Importance") %>%
   filter(response != "N/A") %>%
-  clean_single_select_2()
-
-q_n <- tally(table_8, count)
-
-r8 <- plot_single_select(table_8) +
-  labs(title = "Other - Importance", subtitle = q_n)
-r8
+  clean_single_select()
+q49_n8 <- tally(q49_data8, count)
+q49_t8 <- "Other - Importance"
+q49_r8 <- plot_single_select(q49_data8, q49_t8, q49_n8)
+q49_r8
 ```
 
 ```{r}
-ggsave(filename = "output/q49_cannabis_aspect_importance/q49_other.png", plot = r8, device = 'png')
-write.csv(table_8, paste0("output/q49_cannabis_aspect_importance/q49_other_", q_n, ".csv"), row.names = FALSE)
+ggsave(filename = "output/q49_cannabis_aspect_importance/q49_other.png", plot = q49_r8, device = 'png')
+write.csv(q49_data8, paste0("output/q49_cannabis_aspect_importance/q49_other_", q49_n8, ".csv"), row.names = FALSE)
 ```

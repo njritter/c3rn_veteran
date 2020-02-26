@@ -1,7 +1,7 @@
 ---
 title: "q87 'How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "How.often.were.you.in.danger.of.being.injured.or.killed..i.e...being.pinned.down..overrun..ambushed..near.miss..etc..."
-t <- "How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q87 <- "How.often.were.you.in.danger.of.being.injured.or.killed..i.e...being.pinned.down..overrun..ambushed..near.miss..etc..."
+q87_t <- "How often were you in danger of being injured or killed (i.e. being pinned down, overrun, ambushed, near miss, etc.)?"
+q87_data <- get_single_selection(data = raw_data, q.name = q87)
+q87_n <- length(unique(q87_data$id))
+q87_plot<- clean_single_select(q87_data)
+r87 <- plot_single_select(q87_plot, q87_t, q87_n)
+r87
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q87_plot2 <- rbind(q87_plot, q87_t)
 dir.create("output/q87_danger_frequency")
-ggsave(filename = 'output/q87_danger_frequency/q87_danger_frequency.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q87_danger_frequency/q87_danger_frequency_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q87_danger_frequency/q87_danger_frequency.png', plot = r87, device = 'png')
+write.csv(q87_plot2, paste0("output/q87_danger_frequency/q87_danger_frequency_", q87_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

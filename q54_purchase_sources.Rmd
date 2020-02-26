@@ -1,7 +1,7 @@
 ---
 title: "q54 'What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,27 +18,30 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.percent.of.your.monthly.purchases.are.through.regulated.sources..dispensary..retail.establishment..caregiver.authorized.private.cultivator.."
-t <- "What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?"
-q_data <- get_single_selection_0(data = raw_data, q.name = q) %>%
+q54 <- "What.percent.of.your.monthly.purchases.are.through.regulated.sources..dispensary..retail.establishment..caregiver.authorized.private.cultivator.."
+q54_t <- "What percent of your monthly purchases are through regulated sources (dispensary, retail establishment, caregiver/authorized private cultivator)?"
+q_data <- get_single_selection_0(data = raw_data, q.name = q54) %>%
   filter(response != "")
-q_n <- length(unique(q_data$id))
-q_mean_data <- as.numeric(as.character(q_data$response))
-q_mean <- mean(q_mean_data) %>%
+q54_n <- length(unique(q_data$id))
+q54_mean_data <- as.numeric(as.character(q_data$response))
+q54_mean <- mean(q54_mean_data) %>%
   round(3) %>%
   print()
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q54_plot<- clean_single_select(q_data)
+r54 <- plot_single_select_0(q54_plot, q54_t, q54_n, q54_mean)
+r54
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q54_plot2 <- rbind(q54_plot, q54_t, paste("average", q54_mean, sep = " = "))
 dir.create("output/q54_purchase_sources")
-ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r54, device = 'png')
+write.csv(q54_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", q54_n,".csv"), row.names=F)
 write.csv(q_data, 'output/q54_purchase_sources/q54_purchase_sources_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
@@ -50,7 +53,7 @@ qf_all_data <-
   qf_data %>%
   inner_join(q_data, by = "id")
 qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
-qf_mean <- mean(qf_mean_data) %>%
+q54f_mean <- mean(qf_mean_data) %>%
   round(3) %>%
   print()
 qf_n <- length(unique(qf_all_data$id))
@@ -63,7 +66,7 @@ r
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q_plot2 <- rbind(q_plot, t, paste("average", q54f_mean, sep = " = "))
 dir.create("output/q54_purchase_sources")
 ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r, device = 'png')
 write.csv(q_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", qf_n,".csv"), row.names=F)

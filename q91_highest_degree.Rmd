@@ -1,7 +1,7 @@
 ---
 title: "q91 'What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,21 +18,23 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÂ.received..Â."
-t <- "What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)"
-q_data <- get_single_selection(data = raw_data, q.name = q)
-q_n <- length(unique(q_data$id))
-q_plot<- clean_single_select(q_data)
-r <- plot_single_select(q_plot)
-r
+q91 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÂ.received..Â."
+q91_t <- "What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)"
+q91_data <- get_single_selection(data = raw_data, q.name = q91)
+q91_n <- length(unique(q91_data$id))
+q91_plot<- clean_single_select(q91_data)
+r91 <- plot_single_select(q91_plot, q91_t, q91_n)
+r91
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q91_plot2 <- rbind(q91_plot, q91_t)
 dir.create("output/q91_highest_degree")
-ggsave(filename = 'output/q91_highest_degree/q91_highest_degree.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q91_highest_degree/q91_highest_degree_", q_n,".csv"), row.names=F)
+ggsave(filename = 'output/q91_highest_degree/q91_highest_degree.png', plot = r91, device = 'png')
+write.csv(q91_plot2, paste0("output/q91_highest_degree/q91_highest_degree_", q91_n,".csv"), row.names=F)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

@@ -1,7 +1,7 @@
 ---
 title: "q79 'Were you exposed to any of the following during your service? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/22/2020"
+date: "2/25/2020"
 output: html_document
 runtime: shiny
 ---
@@ -18,24 +18,27 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q <- 'Were.you.exposed.to.any.of.the.following.during.your.service...Please.select.all.that.apply.'
-q_final_response <- "X.385"
-t <- "Were you exposed to any of the following during your service? (Please select all that apply)"
-q_data <- get_choose_all(raw_data, q.name = q, f.response = q_final_response) %>%
+q79 <- 'Were.you.exposed.to.any.of.the.following.during.your.service...Please.select.all.that.apply.'
+q79_final_response <- "X.385"
+q79_t <- "Were you exposed to any of the following during your service? (Please select all that apply)"
+q79_data <- get_choose_all(raw_data, q.name = q79, f.response = q79_final_response) %>%
   tidy_choose_all()
-q_n <- length(unique(q_data$id))
-q_plot <- clean_choose_all(q_data)
-r <- plot_choose_all(q_plot)
-r
+q79_n <- length(unique(q79_data$id))
+q79_plot <- clean_choose_all(q79_data, q79_n)
+r79 <- plot_choose_all(q79_plot, q79_t, q79_n)
+r79
 ```
 
 ```{r}
-q_plot2 <- rbind(q_plot, t)
+q79_plot2 <- rbind(q79_plot, q79_t)
 dir.create("output/q79_service_exposure")
-ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r, device = 'png')
-write.csv(q_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", q_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q79_service_exposure/q79_service_exposure_ids.csv', row.names = FALSE)
+ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r79, device = 'png')
+write.csv(q79_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", q79_n,".csv"), row.names=F)
+write.csv(q79_data, 'output/q79_service_exposure/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 ```{r}
 qf_data <- q_data %>%
