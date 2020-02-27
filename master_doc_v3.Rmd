@@ -277,8 +277,8 @@ write.csv(q15_data, 'output/q15_anxiety/q15_anxiety_scales_data.csv', row.names 
 ```
 
 ```{r}
-q15_data1 <- get_single_selection_2(q15_data, "Feeling nervous, anxious, or on edge") %>%
-  filter(response != "N/A") %>%
+q15_data1 <- get_single_selection_3(q15_data, "Feeling nervous, anxious, or on edge") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n1 <- tally(q15_data1, count)
 q15_t1 <- "Feeling nervous, anxious, or on edge"
@@ -292,8 +292,8 @@ write.csv(q15_data1, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), 
 ```
 
 ```{r}
-q15_data2 <- get_single_selection_2(q15_data, "Not being able to stop or control worrying") %>%
-  filter(response != "N/A") %>%
+q15_data2 <- get_single_selection_3(q15_data, "Not being able to stop or control worrying") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_t2 <- "Not being able to stop or control worrying"
 q15_n2 <- tally(q15_data2, count)
@@ -307,8 +307,8 @@ write.csv(q15_data2, paste0("output/q15_anxiety/q15_control_", q15_n2, ".csv"), 
 ```
 
 ```{r}
-q15_data3 <- get_single_selection_2(q15_data, "Worrying too much about different things") %>%
-  filter(response != "N/A") %>%
+q15_data3 <- get_single_selection_3(q15_data, "Worrying too much about different things") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n3 <- tally(q15_data3, count)
 q15_t3 <- "Worrying too much about different things"
@@ -322,8 +322,8 @@ write.csv(q15_data3, paste0("output/q15_anxiety/q15_worry_", q15_n3, ".csv"), ro
 ```
 
 ```{r}
-q15_data4 <- get_single_selection_2(q15_data, "Trouble relaxing") %>%
-  filter(response != "N/A") %>%
+q15_data4 <- get_single_selection_3(q15_data, "Trouble relaxing") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n4 <- tally(q15_data4, count)
 q15_t4 <- "Trouble relaxing"
@@ -337,8 +337,8 @@ write.csv(q15_data4, paste0("output/q15_anxiety/q15_relax_", q15_n4, ".csv"), ro
 ```
 
 ```{r}
-q15_data5 <- get_single_selection_2(q15_data, "Being so restless that it is hard to sit still") %>%
-  filter(response != "N/A") %>%
+q15_data5 <- get_single_selection_3(q15_data, "Being so restless that it is hard to sit still") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n5 <- tally(q15_data5, count)
 q15_t5 <- "Being so restless that it is hard to sit still"
@@ -352,8 +352,8 @@ write.csv(q15_data5, paste0("output/q15_anxiety/q15_restless_", q15_n5, ".csv"),
 ```
 
 ```{r}
-q15_data6 <- get_single_selection_2(q15_data, "Becoming easily annoyed or irritable") %>%
-  filter(response != "N/A") %>%
+q15_data6 <- get_single_selection_3(q15_data, "Becoming easily annoyed or irritable") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n6 <- tally(q15_data6, count)
 q15_t6 <- "Becoming easily annoyed or irritable"
@@ -367,8 +367,8 @@ write.csv(q15_data6, paste0("output/q15_anxiety/q15_annoyed_", q15_n6, ".csv"), 
 ```
 
 ```{r}
-q15_data7 <- get_single_selection_2(q15_data, "Feeling afraid as if something awful might happen") %>%
-  filter(response != "N/A") %>%
+q15_data7 <- get_single_selection_3(q15_data, "Feeling afraid as if something awful might happen") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n7 <- tally(q15_data7, count)
 q15_t7 <- "Feeling afraid as if something awful might happen"
@@ -411,8 +411,8 @@ write.csv(q17_data, 'output/q17_depression/q17_depression_scales_data.csv', row.
 ```
 
 ```{r}
-q17_data1 <- get_single_selection_2(q17_data, "Little interest or pleasure in doing things") %>%
-  filter(response != "N/A") %>%
+q17_data1 <- get_single_selection_3(q17_data, "Little interest or pleasure in doing things") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n1 <- tally(q17_data1, count)
 q17_t1 <- "Little interest or pleasure in doing things"
@@ -426,8 +426,8 @@ write.csv(q17_data1, paste0("output/q17_depression/q17_interest_", q17_n1, ".csv
 ```
 
 ```{r}
-q17_data2 <- get_single_selection_2(q17_data, "Feeling down, depressed, or hopeless") %>%
-  filter(response != "N/A") %>%
+q17_data2 <- get_single_selection_3(q17_data, "Feeling down, depressed, or hopeless") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n2 <- tally(q17_data2, count)
 q17_t2 <- "Feeling down, depressed, or hopeless"
@@ -441,8 +441,8 @@ write.csv(q17_data2, paste0("output/q17_depression/q17_depressed_", q17_n2, ".cs
 ```
 
 ```{r}
-q17_data3 <- get_single_selection_2(q17_data, "Trouble falling or staying asleep, or sleeping too much") %>%
-  filter(response != "N/A") %>%
+q17_data3 <- get_single_selection_3(q17_data, "Trouble falling or staying asleep, or sleeping too much") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n3 <- tally(q17_data3, count)
 q17_t3 <- "Trouble falling or staying asleep, or sleeping too much"
@@ -456,8 +456,8 @@ write.csv(q17_data3, paste0("output/q17_depression/q17_sleep_", q17_n3, ".csv"),
 ```
 
 ```{r}
-q17_data4 <- get_single_selection_2(q17_data, "Feeling tired or having little energy") %>%
-  filter(response != "N/A") %>%
+q17_data4 <- get_single_selection_3(q17_data, "Feeling tired or having little energy") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n4 <- tally(q17_data4, count)
 q17_t4 <- "Feeling tired or having little energy"
@@ -471,8 +471,8 @@ write.csv(q17_data4, paste0("output/q17_depression/q17_fatigue_", q17_n4, ".csv"
 ```
 
 ```{r}
-q17_data5 <- get_single_selection_2(q17_data, "Poor appetite or overeating") %>%
-  filter(response != "N/A") %>%
+q17_data5 <- get_single_selection_3(q17_data, "Poor appetite or overeating") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n5 <- tally(q17_data5, count)
 q17_t5 <- "Poor appetite or overeating"
@@ -486,8 +486,8 @@ write.csv(q17_data5, paste0("output/q17_depression/q17_appetite_", q17_n5, ".csv
 ```
 
 ```{r}
-q17_data6 <- get_single_selection_2(q17_data, "Feeling bad about yourself or that you are a failure or have let yourself or your family down") %>%
-  filter(response != "N/A") %>%
+q17_data6 <- get_single_selection_3(q17_data, "Feeling bad about yourself or that you are a failure or have let yourself or your family down") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n6 <- tally(q17_data6, count)
 q17_t6 <- "Feeling bad about yourself or that you are a failure or have let yourself or your family down"
@@ -501,8 +501,8 @@ write.csv(q17_data6, paste0("output/q17_depression/q17_failure_", q17_n6, ".csv"
 ```
 
 ```{r}
-q17_data7 <- get_single_selection_2(q17_data, "Trouble concentrating on things such as reading the newspaper or watching television") %>%
-  filter(response != "N/A") %>%
+q17_data7 <- get_single_selection_3(q17_data, "Trouble concentrating on things such as reading the newspaper or watching television") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n7 <- tally(q17_data7, count)
 q17_t7 <- "Trouble concentrating on things such as reading the newspaper or watching television"
@@ -516,8 +516,8 @@ write.csv(q17_data7, paste0("output/q17_depression/q17_concentration_", q17_n7, 
 ```
 
 ```{r}
-q17_data8 <- get_single_selection_2(q17_data, "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual") %>%
-  filter(response != "N/A") %>%
+q17_data8 <- get_single_selection_3(q17_data, "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n8 <- tally(q17_data8, count)
 q17_t8 <- "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual"
@@ -531,8 +531,8 @@ write.csv(q17_data8, paste0("output/q17_depression/q17_movement_", q17_n8, ".csv
 ```
 
 ```{r}
-q17_data9 <- get_single_selection_2(q17_data, "Thoughts that you would be better off dead or of hurting yourself in some way") %>%
-  filter(response != "N/A") %>%
+q17_data9 <- get_single_selection_3(q17_data, "Thoughts that you would be better off dead or of hurting yourself in some way") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n9 <- tally(q17_data9, count)
 q17_t9 <- "Thoughts that you would be better off dead or of hurting yourself in some way"
@@ -575,8 +575,8 @@ write.csv(q19_data, 'output/q19_ptsd/q19_ptsd_scales_data.csv', row.names = FALS
 ```
 
 ```{r}
-q19_data1 <- get_single_selection_2(q19_data, "Repeated, disturbing memories, thoughts, or images of a stressful military experience?") %>%
-  filter(response != "N/A") %>%
+q19_data1 <- get_single_selection_3(q19_data, "Repeated, disturbing memories, thoughts, or images of a stressful military experience?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n1 <- tally(q19_data1, count)
 q19_t1 <- "Repeated, disturbing memories, thoughts, or images of a stressful military experience?"
@@ -590,8 +590,8 @@ write.csv(q19_data1, paste0("output/q19_ptsd/q19_flashback_", q19_n1, ".csv"), r
 ```
 
 ```{r}
-q19_data2 <- get_single_selection_2(q19_data, "Repeated, disturbing dreams of a stressful military experience?") %>%
-  filter(response != "N/A") %>%
+q19_data2 <- get_single_selection_3(q19_data, "Repeated, disturbing dreams of a stressful military experience?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n2 <- tally(q19_data2, count)
 q19_t2 <- "Repeated, disturbing dreams of a stressful military experience?"
@@ -605,8 +605,8 @@ write.csv(q19_data2, paste0("output/q19_ptsd/q19_dreams_", q19_n2, ".csv"), row.
 ```
 
 ```{r}
-q19_data3 <- get_single_selection_2(q19_data, "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?") %>%
-  filter(response != "N/A") %>%
+q19_data3 <- get_single_selection_3(q19_data, "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n3 <- tally(q19_data3, count)
 q19_t3 <- "Suddenly acting or feeling as if a stressful military experience were happening again (as if you were reliving it)?"
@@ -620,8 +620,8 @@ write.csv(q19_data3, paste0("output/q19_ptsd/q19_reliving_", q19_n3, ".csv"), ro
 ```
 
 ```{r}
-q19_data4 <- get_single_selection_2(q19_data, "Feeling very upset when something reminded you of a stressful military experience") %>%
-  filter(response != "N/A") %>%
+q19_data4 <- get_single_selection_3(q19_data, "Feeling very upset when something reminded you of a stressful military experience") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n4 <- tally(q19_data4, count)
 q19_t4 <- "Feeling very upset when something reminded you of a stressful military experience"
@@ -635,8 +635,8 @@ write.csv(q19_data4, paste0("output/q19_ptsd/q19_trigger_", q19_n4, ".csv"), row
 ```
 
 ```{r}
-q19_data5 <- get_single_selection_2(q19_data, "Having physical reactions (e.g., heart pounding, trouble breathing, or sweating) when something reminded you of a stressful military experience?") %>%
-  filter(response != "N/A") %>%
+q19_data5 <- get_single_selection_3(q19_data, "Having physical reactions (e.g., heart pounding, trouble breathing, or sweating) when something reminded you of a stressful military experience?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n5 <- tally(q19_data5, count)
 q19_t5 <- "Having physical reactions (e.g., heart pounding, trouble breathing, or sweating) when something reminded you of a stressful military experience?" 
@@ -650,8 +650,8 @@ write.csv(q19_data5, paste0("output/q19_ptsd/q19_physical_", q19_n5, ".csv"), ro
 ```
 
 ```{r}
-q19_data6 <- get_single_selection_2(q19_data, "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?") %>%
-  filter(response != "N/A") %>%
+q19_data6 <- get_single_selection_3(q19_data, "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n6 <- tally(q19_data6, count)
 q19_t6 <- "Avoid thinking about or talking about a stressful military experience or avoid having feelings related to it?"
@@ -665,8 +665,8 @@ write.csv(q19_data6, paste0("output/q19_ptsd/q19_thinking_", q19_n6, ".csv"), ro
 ```
 
 ```{r}
-q19_data7 <- get_single_selection_2(q19_data, "Avoid activities or talking about a stressful military experience or avoid having feelings related to it?") %>%
-  filter(response != "N/A") %>%
+q19_data7 <- get_single_selection_3(q19_data, "Avoid activities or talking about a stressful military experience or avoid having feelings related to it?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n7 <- tally(q19_data7, count)
 q19_t7 <- "Avoid activities or talking about a stressful military experience or avoid having feelings related to it?"
@@ -680,8 +680,8 @@ write.csv(q19_data7, paste0("output/q19_ptsd/q19_activities_", q19_n7, ".csv"), 
 ```
 
 ```{r}
-q19_data8 <- get_single_selection_2(q19_data, "Trouble remembering important parts of a stressful military experience?") %>%
-  filter(response != "N/A") %>%
+q19_data8 <- get_single_selection_3(q19_data, "Trouble remembering important parts of a stressful military experience?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n8 <- tally(q19_data8, count)
 q19_t8 <- "Trouble remembering important parts of a stressful military experience?"
@@ -695,8 +695,8 @@ write.csv(q19_data8, paste0("output/q19_ptsd/q19_memory_", q19_n8, ".csv"), row.
 ```
 
 ```{r}
-q19_data9 <- get_single_selection_2(q19_data, "Loss on interest in things that you used to enjoy?") %>%
-  filter(response != "N/A") %>%
+q19_data9 <- get_single_selection_3(q19_data, "Loss on interest in things that you used to enjoy?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n9 <- tally(q19_data9, count)
 q19_t9 <- "Loss on interest in things that you used to enjoy?"
@@ -710,8 +710,8 @@ write.csv(q19_data9, paste0("output/q19_ptsd/q19_interest_", q19_n9, ".csv"), ro
 ```
 
 ```{r}
-q19_data10 <- get_single_selection_2(q19_data, "Feeling distant or cut off from other people") %>%
-  filter(response != "N/A") %>%
+q19_data10 <- get_single_selection_3(q19_data, "Feeling distant or cut off from other people") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n10 <- tally(q19_data10, count)
 q19_t10 <- "Feeling distant or cut off from other people"
@@ -725,8 +725,8 @@ write.csv(q19_data10, paste0("output/q19_ptsd/q19_distant_", q19_n10, ".csv"), r
 ```
 
 ```{r}
-q19_data11 <- get_single_selection_2(q19_data, "Feeling emotionally numb or being unable to have loving feelings for those close to you?") %>%
-  filter(response != "N/A") %>%
+q19_data11 <- get_single_selection_3(q19_data, "Feeling emotionally numb or being unable to have loving feelings for those close to you?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n11 <- tally(q19_data11, count)
 q19_t11 <- "Feeling emotionally numb or being unable to have loving feelings for those close to you?"
@@ -740,8 +740,8 @@ write.csv(q19_data11, paste0("output/q19_ptsd/q19_numb_", q19_n11, ".csv"), row.
 ```
 
 ```{r}
-q19_data12 <- get_single_selection_2(q19_data, "Feeling as if your future will somehow be cut short?") %>%
-  filter(response != "N/A") %>%
+q19_data12 <- get_single_selection_3(q19_data, "Feeling as if your future will somehow be cut short?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n12 <- tally(q19_data12, count)
 q19_t12 <- "Feeling as if your future will somehow be cut short?"
@@ -755,8 +755,8 @@ write.csv(q19_data12, paste0("output/q19_ptsd/q19_short_future_", q19_n12, ".csv
 ```
 
 ```{r}
-q19_data13 <- get_single_selection_2(q19_data, "Trouble falling or staying asleep?") %>%
-  filter(response != "N/A") %>%
+q19_data13 <- get_single_selection_3(q19_data, "Trouble falling or staying asleep?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n13 <- tally(q19_data13, count)
 q19_t13 <- "Trouble falling or staying asleep?"
@@ -770,8 +770,8 @@ write.csv(q19_data13, paste0("output/q19_ptsd/q19_sleep_", q19_n13, ".csv"), row
 ```
 
 ```{r}
-q19_data14 <- get_single_selection_2(q19_data, "Feeling irritable or having angry outbursts?") %>%
-  filter(response != "N/A") %>%
+q19_data14 <- get_single_selection_3(q19_data, "Feeling irritable or having angry outbursts?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n14 <- tally(q19_data14, count)
 q19_t14 <- "Feeling irritable or having angry outbursts?"
@@ -785,8 +785,8 @@ write.csv(q19_data14, paste0("output/q19_ptsd/q19_irritable_", q19_n14, ".csv"),
 ```
 
 ```{r}
-q19_data15 <- get_single_selection_2(q19_data, "Having difficulty concentrating?") %>%
-  filter(response != "N/A") %>%
+q19_data15 <- get_single_selection_3(q19_data, "Having difficulty concentrating?") %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n15 <- tally(q19_data15, count)
 q19_t15 <- "Having difficulty concentrating?"
@@ -800,8 +800,8 @@ write.csv(q19_data15, paste0("output/q19_ptsd/q19_concentration_", q19_n15, ".cs
 ```
 
 ```{r}
-q19_data16 <- get_single_selection_2(q19_data, 'Being "super alert" or watchful on guard?') %>%
-  filter(response != "N/A") %>%
+q19_data16 <- get_single_selection_3(q19_data, 'Being "super alert" or watchful on guard?') %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n16 <- tally(q19_data16, count)
 q19_t16 <- 'Being "super alert" or watchful on guard?'
@@ -815,8 +815,8 @@ write.csv(q19_data16, paste0("output/q19_ptsd/q19_alert_", q19_n16, ".csv"), row
 ```
 
 ```{r}
-q19_data17 <- get_single_selection_2(q19_data, 'Feeling jumpy or easily startled?') %>%
-  filter(response != "N/A") %>%
+q19_data17 <- get_single_selection_3(q19_data, 'Feeling jumpy or easily startled?') %>%
+  filter(response != "") %>%
   clean_single_select()
 q19_n17 <- tally(q19_data17, count)
 q19_t17 <- 'Feeling jumpy or easily startled?'
@@ -1266,8 +1266,9 @@ write.csv(q43_data, 'output/q43_qol/q43_daily_qol_data.csv', row.names = FALSE)
 ```
 
 ```{r}
-q43_data1 <- get_single_selection_2(q43_data, "I experience a greater quality of life") %>%
+q43_data1 <- get_single_selection_3(q43_data, "I experience a greater quality of life") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n1 <- tally(q43_data1, count)
 q43_t1 <- "I experience a greater quality of life"
@@ -1281,8 +1282,9 @@ write.csv(q43_data1, paste0("output/q43_qol/q43_greater_qol_", q43_n1, ".csv"), 
 ```
 
 ```{r}
-q43_data2 <- get_single_selection_2(q43_data, "I experience physical symptoms (body pains, function, sensation)") %>%
+q43_data2 <- get_single_selection_3(q43_data, "I experience physical symptoms (body pains, function, sensation)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n2 <- tally(q43_data2, count)
 q43_t2 <- "I experience physical symptoms (body pains, function, sensation)"
@@ -1296,8 +1298,9 @@ write.csv(q43_data2, paste0("output/q43_qol/q43_physical_", q43_n2, ".csv"), row
 ```
 
 ```{r}
-q43_data3 <- get_single_selection_2(q43_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
+q43_data3 <- get_single_selection_3(q43_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n3 <- tally(q43_data3, count)
 q43_t3 <- "I experience psychological symptoms (anxiety, stress, sadness)"
@@ -1311,8 +1314,9 @@ write.csv(q43_data3, paste0("output/q43_qol/q43_psychological_", q43_n3, ".csv")
 ```
 
 ```{r}
-q43_data4 <- get_single_selection_2(q43_data, "I use opioids") %>%
+q43_data4 <- get_single_selection_3(q43_data, "I use opioids") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n4 <- tally(q43_data4, count)
 q43_t4 <- "I use opioids"
@@ -1326,8 +1330,9 @@ write.csv(q43_data4, paste0("output/q43_qol/q43_opioid_use_", q43_n4, ".csv"), r
 ```
 
 ```{r}
-q43_data5 <- get_single_selection_2(q43_data, "I use my prior medications (non-opioid)") %>%
+q43_data5 <- get_single_selection_3(q43_data, "I use my prior medications (non-opioid)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n5 <- tally(q43_data5, count)
 q43_t5 <- "I use my prior medications (non-opioid)"
@@ -1341,8 +1346,9 @@ write.csv(q43_data5, paste0("output/q43_qol/q43_prior_med_use_", q43_n5, ".csv")
 ```
 
 ```{r}
-q43_data6 <- get_single_selection_2(q43_data, "I use alcohol") %>%
+q43_data6 <- get_single_selection_3(q43_data, "I use alcohol") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n6 <- tally(q43_data6, count)
 q43_t6 <- "I use alcohol"
@@ -1356,8 +1362,9 @@ write.csv(q43_data6, paste0("output/q43_qol/q43_alcohol_", q43_n6, ".csv"), row.
 ```
 
 ```{r}
-q43_data7 <- get_single_selection_2(q43_data, "I use tobacco") %>%
+q43_data7 <- get_single_selection_3(q43_data, "I use tobacco") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n7 <- tally(q43_data7, count)
 q43_t7 <- "I use tobacco"
@@ -1371,8 +1378,9 @@ write.csv(q43_data7, paste0("output/q43_qol/q43_tobacco_", q43_n7, ".csv"), row.
 ```
 
 ```{r}
-q43_data8 <- get_single_selection_2(q43_data, "I feel the quality of my daily life is") %>%
+q43_data8 <- get_single_selection_3(q43_data, "I feel the quality of my daily life is") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n8 <- tally(q43_data8, count)
 q43_t8 <- "I feel the quality of my daily life is"
@@ -1497,8 +1505,8 @@ write.csv(q49_data, 'output/q49_cannabis_aspect_importance/q49_cannabis_aspect_i
 ```
 
 ```{r}
-q49_data1 <- get_single_selection_2(q49_data, "THC content - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data1 <- get_single_selection_3(q49_data, "THC content - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n1 <- tally(q49_data1, count)
 q49_t1 <- "THC content"
@@ -1512,8 +1520,8 @@ write.csv(q49_data1, paste0("output/q49_cannabis_aspect_importance/q49_thc_", q4
 ```
 
 ```{r}
-q49_data2 <- get_single_selection_2(q49_data, "CBD content - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data2 <- get_single_selection_3(q49_data, "CBD content - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n2 <- tally(q49_data2, count)
 q49_t2 <- "CBD content - Importance"
@@ -1527,8 +1535,8 @@ write.csv(q49_data2, paste0("output/q49_cannabis_aspect_importance/q49_cbd_", q4
 ```
 
 ```{r}
-q49_data3 <- get_single_selection_2(q49_data, "Other cannabinoids and terpenes - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data3 <- get_single_selection_3(q49_data, "Other cannabinoids and terpenes - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n3 <- tally(q49_data3, count)
 q49_t3 <- "Other cannabinoids and terpenes"
@@ -1542,8 +1550,8 @@ write.csv(q49_data3, paste0("output/q49_cannabis_aspect_importance/q49_other_cbd
 ```
 
 ```{r}
-q49_data4 <- get_single_selection_2(q49_data, "Cost/price - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data4 <- get_single_selection_3(q49_data, "Cost/price - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n4 <- tally(q49_data4, count)
 q49_t4 <- "Cost/price - Importance"
@@ -1557,8 +1565,8 @@ write.csv(q49_data4, paste0("output/q49_cannabis_aspect_importance/q49_cost_", q
 ```
 
 ```{r}
-q49_data5 <- get_single_selection_2(q49_data, "Quality - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data5 <- get_single_selection_3(q49_data, "Quality - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n5 <- tally(q49_data5, count)
 q49_t5 <- "Quality - Importance"
@@ -1572,8 +1580,8 @@ write.csv(q49_data5, paste0("output/q49_cannabis_aspect_importance/q49_quality_"
 ```
 
 ```{r}
-q49_data6 <- get_single_selection_2(q49_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data6 <- get_single_selection_3(q49_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n6 <- tally(q49_data6, count)
 q49_t6 <- "Product type (flower, vape cartridge, edibles, etc.) - Importance"
@@ -1587,8 +1595,8 @@ write.csv(q49_data6, paste0("output/q49_cannabis_aspect_importance/q49_product_t
 ```
 
 ```{r}
-q49_data7 <- get_single_selection_2(q49_data, "Favorite strain - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data7 <- get_single_selection_3(q49_data, "Favorite strain - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n7 <- tally(q49_data7, count)
 q49_t7 <- "Favorite strain - Importance"
@@ -1602,8 +1610,8 @@ write.csv(q49_data7, paste0("output/q49_cannabis_aspect_importance/q49_favorite_
 ```
 
 ```{r}
-q49_data8 <- get_single_selection_2(q49_data, "Other - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data8 <- get_single_selection_3(q49_data, "Other - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n8 <- tally(q49_data8, count)
 q49_t8 <- "Other - Importance"
@@ -1842,8 +1850,8 @@ write.csv(q62_data, 'output/q62_smoke_vape_wkly/q62_smoke_vape_wkly_data.csv', r
 ```
 
 ```{r}
-q62_data1 <- get_single_selection_2(q62_data, "Smoke flower") %>%
-  filter(response != "N/A") %>%
+q62_data1 <- get_single_selection_3(q62_data, "Smoke flower") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n1 <- tally(q62_data1, count)
 q62_t1 <- "Flower weekly"
@@ -1857,8 +1865,8 @@ write.csv(q62_data1, paste0("output/q62_smoke_vape_wkly/smoke_flower_", q62_n1, 
 ```
 
 ```{r}
-q62_data2 <- get_single_selection_2(q62_data, "Vape flower") %>%
-  filter(response != "N/A") %>%
+q62_data2 <- get_single_selection_3(q62_data, "Vape flower") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n2 <- tally(q62_data2, count)
 q62_t2 <- "Vape weekly"
@@ -1872,8 +1880,8 @@ write.csv(q62_data2, paste0("output/q62_smoke_vape_wkly/vape_flower_", q62_n2, "
 ```
 
 ```{r}
-q62_data3 <- get_single_selection_2(q62_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
-  filter(response != "N/A") %>%
+q62_data3 <- get_single_selection_3(q62_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n3 <- tally(q62_data3, count)
 q62_t3 <- "Concentrates weekly"
@@ -1899,8 +1907,8 @@ write.csv(q63_data, 'output/q63_mg_edibles_etc/q63_mg_edibles_etc_data.csv', row
 ```
 
 ```{r}
-q63_data1 <- get_single_selection_2(q63_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
-  filter(response != "N/A") %>%
+q63_data1 <- get_single_selection_3(q63_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n1 <- tally(q63_data1, count)
 q63_t1 <- "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)"
@@ -1914,8 +1922,8 @@ write.csv(q63_data1, paste0("output/q63_mg_edibles_etc/q63_edibles_", q63_n1, ".
 ```
 
 ```{r}
-q63_data2 <- get_single_selection_2(q63_data, "Transdermal patches") %>%
-  filter(response != "N/A") %>%
+q63_data2 <- get_single_selection_3(q63_data, "Transdermal patches") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n2 <- tally(q63_data2, count)
 q63_t2 <- "Transdermal patches"
@@ -1929,8 +1937,8 @@ write.csv(q63_data2, paste0("output/q63_mg_edibles_etc/q63_patches_", q63_n2, ".
 ```
 
 ```{r}
-q63_data3 <- get_single_selection_2(q63_data, "Suppositories") %>%
-  filter(response != "N/A") %>%
+q63_data3 <- get_single_selection_3(q63_data, "Suppositories") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n3 <- tally(q63_data3, count)
 q63_t3 <- "Suppositories"
@@ -1944,8 +1952,8 @@ write.csv(q63_data3, paste0("output/q63_mg_edibles_etc/q63_suppositories_", q63_
 ```
 
 ```{r}
-q63_data4 <- get_single_selection_2(q63_data, "Capsules") %>%
-  filter(response != "N/A") %>%
+q63_data4 <- get_single_selection_3(q63_data, "Capsules") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n4 <- tally(q63_data4, count)
 q63_t4 <- "Capsules"
@@ -1967,8 +1975,8 @@ dir.create("output/q64_salves_topicals_wkly")
 ```
 
 ```{r}
-q64_data1 <- get_single_selection_2(q64_data, "Salves/topicals") %>%
-  filter(response != "N/A") %>%
+q64_data1 <- get_single_selection_3(q64_data, "Salves/topicals") %>%
+  filter(response != "") %>%
   clean_single_select()
 q64_n1 <- tally(q64_data1, count)
 q64_t1 <- "Salves/topicals"
@@ -1990,8 +1998,8 @@ dir.create("output/q65_tinctures_wkly")
 ```
 
 ```{r}
-q65_data1 <- get_single_selection_2(q65_data, "Tinctures") %>%
-  filter(response != "N/A") %>%
+q65_data1 <- get_single_selection_3(q65_data, "Tinctures") %>%
+  filter(response != "") %>%
   clean_single_select()
 q65_n1 <- tally(q65_data1, count)
 q65_t1 <- "Tinctures"
