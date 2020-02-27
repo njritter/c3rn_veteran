@@ -30,8 +30,8 @@ write.csv(q63_data, 'output/q63_mg_edibles_etc/q63_mg_edibles_etc_data.csv', row
 ```
 
 ```{r}
-q63_data1 <- get_single_selection_2(q63_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
-  filter(response != "N/A") %>%
+q63_data1 <- get_single_selection_3(q63_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n1 <- tally(q63_data1, count)
 q63_t1 <- "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)"
@@ -45,8 +45,8 @@ write.csv(q63_data1, paste0("output/q63_mg_edibles_etc/q63_edibles_", q63_n1, ".
 ```
 
 ```{r}
-q63_data2 <- get_single_selection_2(q63_data, "Transdermal patches") %>%
-  filter(response != "N/A") %>%
+q63_data2 <- get_single_selection_3(q63_data, "Transdermal patches") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n2 <- tally(q63_data2, count)
 q63_t2 <- "Transdermal patches"
@@ -60,8 +60,8 @@ write.csv(q63_data2, paste0("output/q63_mg_edibles_etc/q63_patches_", q63_n2, ".
 ```
 
 ```{r}
-q63_data3 <- get_single_selection_2(q63_data, "Suppositories") %>%
-  filter(response != "N/A") %>%
+q63_data3 <- get_single_selection_3(q63_data, "Suppositories") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n3 <- tally(q63_data3, count)
 q63_t3 <- "Suppositories"
@@ -75,8 +75,8 @@ write.csv(q63_data3, paste0("output/q63_mg_edibles_etc/q63_suppositories_", q63_
 ```
 
 ```{r}
-q63_data4 <- get_single_selection_2(q63_data, "Capsules") %>%
-  filter(response != "N/A") %>%
+q63_data4 <- get_single_selection_3(q63_data, "Capsules") %>%
+  filter(response != "") %>%
   clean_single_select()
 q63_n4 <- tally(q63_data4, count)
 q63_t4 <- "Capsules"

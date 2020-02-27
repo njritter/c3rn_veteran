@@ -30,8 +30,9 @@ write.csv(q43_data, 'output/q43_qol/q43_daily_qol_data.csv', row.names = FALSE)
 ```
 
 ```{r}
-q43_data1 <- get_single_selection_2(q43_data, "I experience a greater quality of life") %>%
+q43_data1 <- get_single_selection_3(q43_data, "I experience a greater quality of life") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n1 <- tally(q43_data1, count)
 q43_t1 <- "I experience a greater quality of life"
@@ -45,8 +46,9 @@ write.csv(q43_data1, paste0("output/q43_qol/q43_greater_qol_", q43_n1, ".csv"), 
 ```
 
 ```{r}
-q43_data2 <- get_single_selection_2(q43_data, "I experience physical symptoms (body pains, function, sensation)") %>%
+q43_data2 <- get_single_selection_3(q43_data, "I experience physical symptoms (body pains, function, sensation)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n2 <- tally(q43_data2, count)
 q43_t2 <- "I experience physical symptoms (body pains, function, sensation)"
@@ -60,8 +62,9 @@ write.csv(q43_data2, paste0("output/q43_qol/q43_physical_", q43_n2, ".csv"), row
 ```
 
 ```{r}
-q43_data3 <- get_single_selection_2(q43_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
+q43_data3 <- get_single_selection_3(q43_data, "I experience psychological symptoms (anxiety, stress, sadness)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n3 <- tally(q43_data3, count)
 q43_t3 <- "I experience psychological symptoms (anxiety, stress, sadness)"
@@ -75,8 +78,9 @@ write.csv(q43_data3, paste0("output/q43_qol/q43_psychological_", q43_n3, ".csv")
 ```
 
 ```{r}
-q43_data4 <- get_single_selection_2(q43_data, "I use opioids") %>%
+q43_data4 <- get_single_selection_3(q43_data, "I use opioids") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n4 <- tally(q43_data4, count)
 q43_t4 <- "I use opioids"
@@ -90,8 +94,9 @@ write.csv(q43_data4, paste0("output/q43_qol/q43_opioid_use_", q43_n4, ".csv"), r
 ```
 
 ```{r}
-q43_data5 <- get_single_selection_2(q43_data, "I use my prior medications (non-opioid)") %>%
+q43_data5 <- get_single_selection_3(q43_data, "I use my prior medications (non-opioid)") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n5 <- tally(q43_data5, count)
 q43_t5 <- "I use my prior medications (non-opioid)"
@@ -105,8 +110,9 @@ write.csv(q43_data5, paste0("output/q43_qol/q43_prior_med_use_", q43_n5, ".csv")
 ```
 
 ```{r}
-q43_data6 <- get_single_selection_2(q43_data, "I use alcohol") %>%
+q43_data6 <- get_single_selection_3(q43_data, "I use alcohol") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n6 <- tally(q43_data6, count)
 q43_t6 <- "I use alcohol"
@@ -120,8 +126,9 @@ write.csv(q43_data6, paste0("output/q43_qol/q43_alcohol_", q43_n6, ".csv"), row.
 ```
 
 ```{r}
-q43_data7 <- get_single_selection_2(q43_data, "I use tobacco") %>%
+q43_data7 <- get_single_selection_3(q43_data, "I use tobacco") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n7 <- tally(q43_data7, count)
 q43_t7 <- "I use tobacco"
@@ -135,8 +142,9 @@ write.csv(q43_data7, paste0("output/q43_qol/q43_tobacco_", q43_n7, ".csv"), row.
 ```
 
 ```{r}
-q43_data8 <- get_single_selection_2(q43_data, "I feel the quality of my daily life is") %>%
+q43_data8 <- get_single_selection_3(q43_data, "I feel the quality of my daily life is") %>%
   filter(response != "N/A") %>%
+  filter(response != "") %>%
   clean_single_select()
 q43_n8 <- tally(q43_data8, count)
 q43_t8 <- "I feel the quality of my daily life is"

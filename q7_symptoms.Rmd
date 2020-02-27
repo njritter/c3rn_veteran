@@ -34,8 +34,10 @@ q7_plot2 <- rbind(q7_plot, q7_t)
 dir.create("output/q7_symptoms")
 ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r7, device = 'png')
 write.csv(q7_plot2, paste0("output/q7_symptoms/q7_symptoms_", q7_n,".csv"), row.names=F)
-write.csv(q_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
+write.csv(q7_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
 ```
+
+
 
 ```{r}
 qf_data <- q_data %>%

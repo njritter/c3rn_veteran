@@ -34,6 +34,8 @@ ggsave(filename = 'output/q18_depression_difficulty/q18_depression_difficulty.pn
 write.csv(q18_plot2, paste0("output/q18_depression_difficulty/q18_depression_difficulty_", q18_n,".csv"), row.names=F)
 ```
 
+
+
 ```{r}
 qf_data <- filter(q_data, response == "Very difficult")
 ```

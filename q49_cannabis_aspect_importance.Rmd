@@ -30,8 +30,8 @@ write.csv(q49_data, 'output/q49_cannabis_aspect_importance/q49_cannabis_aspect_i
 ```
 
 ```{r}
-q49_data1 <- get_single_selection_2(q49_data, "THC content - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data1 <- get_single_selection_3(q49_data, "THC content - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n1 <- tally(q49_data1, count)
 q49_t1 <- "THC content"
@@ -45,8 +45,8 @@ write.csv(q49_data1, paste0("output/q49_cannabis_aspect_importance/q49_thc_", q4
 ```
 
 ```{r}
-q49_data2 <- get_single_selection_2(q49_data, "CBD content - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data2 <- get_single_selection_3(q49_data, "CBD content - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n2 <- tally(q49_data2, count)
 q49_t2 <- "CBD content - Importance"
@@ -60,8 +60,8 @@ write.csv(q49_data2, paste0("output/q49_cannabis_aspect_importance/q49_cbd_", q4
 ```
 
 ```{r}
-q49_data3 <- get_single_selection_2(q49_data, "Other cannabinoids and terpenes - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data3 <- get_single_selection_3(q49_data, "Other cannabinoids and terpenes - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n3 <- tally(q49_data3, count)
 q49_t3 <- "Other cannabinoids and terpenes"
@@ -75,8 +75,8 @@ write.csv(q49_data3, paste0("output/q49_cannabis_aspect_importance/q49_other_cbd
 ```
 
 ```{r}
-q49_data4 <- get_single_selection_2(q49_data, "Cost/price - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data4 <- get_single_selection_3(q49_data, "Cost/price - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n4 <- tally(q49_data4, count)
 q49_t4 <- "Cost/price - Importance"
@@ -90,8 +90,8 @@ write.csv(q49_data4, paste0("output/q49_cannabis_aspect_importance/q49_cost_", q
 ```
 
 ```{r}
-q49_data5 <- get_single_selection_2(q49_data, "Quality - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data5 <- get_single_selection_3(q49_data, "Quality - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n5 <- tally(q49_data5, count)
 q49_t5 <- "Quality - Importance"
@@ -105,8 +105,8 @@ write.csv(q49_data5, paste0("output/q49_cannabis_aspect_importance/q49_quality_"
 ```
 
 ```{r}
-q49_data6 <- get_single_selection_2(q49_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data6 <- get_single_selection_3(q49_data, "Product type (flower, vape cartridge, edibles, etc.) - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n6 <- tally(q49_data6, count)
 q49_t6 <- "Product type (flower, vape cartridge, edibles, etc.) - Importance"
@@ -120,8 +120,8 @@ write.csv(q49_data6, paste0("output/q49_cannabis_aspect_importance/q49_product_t
 ```
 
 ```{r}
-q49_data7 <- get_single_selection_2(q49_data, "Favorite strain - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data7 <- get_single_selection_3(q49_data, "Favorite strain - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n7 <- tally(q49_data7, count)
 q49_t7 <- "Favorite strain - Importance"
@@ -135,8 +135,8 @@ write.csv(q49_data7, paste0("output/q49_cannabis_aspect_importance/q49_favorite_
 ```
 
 ```{r}
-q49_data8 <- get_single_selection_2(q49_data, "Other - Importance") %>%
-  filter(response != "N/A") %>%
+q49_data8 <- get_single_selection_3(q49_data, "Other - Importance") %>%
+  filter(response != "") %>%
   clean_single_select()
 q49_n8 <- tally(q49_data8, count)
 q49_t8 <- "Other - Importance"

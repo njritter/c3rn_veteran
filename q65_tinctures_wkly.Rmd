@@ -26,8 +26,8 @@ dir.create("output/q65_tinctures_wkly")
 ```
 
 ```{r}
-q65_data1 <- get_single_selection_2(q65_data, "Tinctures") %>%
-  filter(response != "N/A") %>%
+q65_data1 <- get_single_selection_3(q65_data, "Tinctures") %>%
+  filter(response != "") %>%
   clean_single_select()
 q65_n1 <- tally(q65_data1, count)
 q65_t1 <- "Tinctures"

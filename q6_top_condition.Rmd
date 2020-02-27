@@ -34,6 +34,8 @@ ggsave(filename = 'output/q6_top_condition/q6_top_condition.png', plot = r6, dev
 write.csv(q6_plot2, paste0("output/q6_top_condition/q6_top_condition_", q6_n,".csv"), row.names=F)
 ```
 
+
+
 ```{r}
 qf_data <- q_data %>%
   filter(response == "Anxiety")

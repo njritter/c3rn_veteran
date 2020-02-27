@@ -165,3 +165,13 @@ get_single_selection_0 <- function(data, q.name)
   return(responses)
 }
 
+# Get all responses for single select questions that are sub questions of a larger question
+get_single_selection_3 <- function(data, q.name)
+{
+  responses <- 
+    data %>%
+    select(id = "id", question = q.name) %>%
+    rename(response = question)
+  
+  return(responses)
+}

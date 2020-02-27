@@ -34,6 +34,8 @@ ggsave(filename = 'output/q68_va_cannabis_use_support/q68_va_cannabis_use_suppor
 write.csv(q68_plot2, paste0("output/q68_va_cannabis_use_support/q68_va_cannabis_use_support_", q68_n,".csv"), row.names=F)
 ```
 
+
+
 ```{r}
 qf_data <- q_data %>%
   filter(response == "Response text")

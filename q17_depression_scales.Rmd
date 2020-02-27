@@ -30,8 +30,8 @@ write.csv(q17_data, 'output/q17_depression/q17_depression_scales_data.csv', row.
 ```
 
 ```{r}
-q17_data1 <- get_single_selection_2(q17_data, "Little interest or pleasure in doing things") %>%
-  filter(response != "N/A") %>%
+q17_data1 <- get_single_selection_3(q17_data, "Little interest or pleasure in doing things") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n1 <- tally(q17_data1, count)
 q17_t1 <- "Little interest or pleasure in doing things"
@@ -45,8 +45,8 @@ write.csv(q17_data1, paste0("output/q17_depression/q17_interest_", q17_n1, ".csv
 ```
 
 ```{r}
-q17_data2 <- get_single_selection_2(q17_data, "Feeling down, depressed, or hopeless") %>%
-  filter(response != "N/A") %>%
+q17_data2 <- get_single_selection_3(q17_data, "Feeling down, depressed, or hopeless") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n2 <- tally(q17_data2, count)
 q17_t2 <- "Feeling down, depressed, or hopeless"
@@ -60,8 +60,8 @@ write.csv(q17_data2, paste0("output/q17_depression/q17_depressed_", q17_n2, ".cs
 ```
 
 ```{r}
-q17_data3 <- get_single_selection_2(q17_data, "Trouble falling or staying asleep, or sleeping too much") %>%
-  filter(response != "N/A") %>%
+q17_data3 <- get_single_selection_3(q17_data, "Trouble falling or staying asleep, or sleeping too much") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n3 <- tally(q17_data3, count)
 q17_t3 <- "Trouble falling or staying asleep, or sleeping too much"
@@ -75,8 +75,8 @@ write.csv(q17_data3, paste0("output/q17_depression/q17_sleep_", q17_n3, ".csv"),
 ```
 
 ```{r}
-q17_data4 <- get_single_selection_2(q17_data, "Feeling tired or having little energy") %>%
-  filter(response != "N/A") %>%
+q17_data4 <- get_single_selection_3(q17_data, "Feeling tired or having little energy") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n4 <- tally(q17_data4, count)
 q17_t4 <- "Feeling tired or having little energy"
@@ -90,8 +90,8 @@ write.csv(q17_data4, paste0("output/q17_depression/q17_fatigue_", q17_n4, ".csv"
 ```
 
 ```{r}
-q17_data5 <- get_single_selection_2(q17_data, "Poor appetite or overeating") %>%
-  filter(response != "N/A") %>%
+q17_data5 <- get_single_selection_3(q17_data, "Poor appetite or overeating") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n5 <- tally(q17_data5, count)
 q17_t5 <- "Poor appetite or overeating"
@@ -105,8 +105,8 @@ write.csv(q17_data5, paste0("output/q17_depression/q17_appetite_", q17_n5, ".csv
 ```
 
 ```{r}
-q17_data6 <- get_single_selection_2(q17_data, "Feeling bad about yourself or that you are a failure or have let yourself or your family down") %>%
-  filter(response != "N/A") %>%
+q17_data6 <- get_single_selection_3(q17_data, "Feeling bad about yourself or that you are a failure or have let yourself or your family down") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n6 <- tally(q17_data6, count)
 q17_t6 <- "Feeling bad about yourself or that you are a failure or have let yourself or your family down"
@@ -120,8 +120,8 @@ write.csv(q17_data6, paste0("output/q17_depression/q17_failure_", q17_n6, ".csv"
 ```
 
 ```{r}
-q17_data7 <- get_single_selection_2(q17_data, "Trouble concentrating on things such as reading the newspaper or watching television") %>%
-  filter(response != "N/A") %>%
+q17_data7 <- get_single_selection_3(q17_data, "Trouble concentrating on things such as reading the newspaper or watching television") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n7 <- tally(q17_data7, count)
 q17_t7 <- "Trouble concentrating on things such as reading the newspaper or watching television"
@@ -135,8 +135,8 @@ write.csv(q17_data7, paste0("output/q17_depression/q17_concentration_", q17_n7, 
 ```
 
 ```{r}
-q17_data8 <- get_single_selection_2(q17_data, "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual") %>%
-  filter(response != "N/A") %>%
+q17_data8 <- get_single_selection_3(q17_data, "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n8 <- tally(q17_data8, count)
 q17_t8 <- "Moving or speaking so slowly that other people could have noticed, or the opposite: being so fidgety or restless that you have been moving around a lot more than usual"
@@ -150,8 +150,8 @@ write.csv(q17_data8, paste0("output/q17_depression/q17_movement_", q17_n8, ".csv
 ```
 
 ```{r}
-q17_data9 <- get_single_selection_2(q17_data, "Thoughts that you would be better off dead or of hurting yourself in some way") %>%
-  filter(response != "N/A") %>%
+q17_data9 <- get_single_selection_3(q17_data, "Thoughts that you would be better off dead or of hurting yourself in some way") %>%
+  filter(response != "") %>%
   clean_single_select()
 q17_n9 <- tally(q17_data9, count)
 q17_t9 <- "Thoughts that you would be better off dead or of hurting yourself in some way"

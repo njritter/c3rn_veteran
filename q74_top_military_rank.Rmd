@@ -29,7 +29,6 @@ r74 <- plot_single_select(q74_plot, q74_t, q74_n)
 ```{r}
 q74_plot2 <- rbind(q74_plot, q74_t)
 dir.create("output/q74_top_military_rank")
-ggsave(filename = 'output/q74_top_military_rank/q74_top_military_rank.png', plot = r74, device = 'png')
 write.csv(q74_plot2, paste0("output/q74_top_military_rank/q74_top_military_rank_", q74_n,".csv"), row.names=F)
 ```
 

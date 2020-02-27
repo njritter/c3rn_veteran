@@ -32,7 +32,6 @@ q73_plot2 <- rbind(q73_plot, q73_t)
 dir.create("output/q73_advertising")
 ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r73, device = 'png')
 write.csv(q73_plot2, paste0("output/q73_advertising/q73_advertising_", q73_n,".csv"), row.names=F)
-write.csv(q73_data, 'output/q73_advertising/q73_advertising_ids.csv', row.names = FALSE)
 ```
 
 

@@ -35,6 +35,8 @@ write.csv(q41_plot2, paste0("output/q41_med_cannabis_duration/q41_med_cannabis_d
 ```
 
 
+
+
 ```{r}
 qf_data <- q_data %>%
   filter(response == "Response text")

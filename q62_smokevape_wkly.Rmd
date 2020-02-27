@@ -30,8 +30,8 @@ write.csv(q62_data, 'output/q62_smoke_vape_wkly/q62_smoke_vape_wkly_data.csv', r
 ```
 
 ```{r}
-q62_data1 <- get_single_selection_2(q62_data, "Smoke flower") %>%
-  filter(response != "N/A") %>%
+q62_data1 <- get_single_selection_3(q62_data, "Smoke flower") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n1 <- tally(q62_data1, count)
 q62_t1 <- "Flower weekly"
@@ -45,8 +45,8 @@ write.csv(q62_data1, paste0("output/q62_smoke_vape_wkly/smoke_flower_", q62_n1, 
 ```
 
 ```{r}
-q62_data2 <- get_single_selection_2(q62_data, "Vape flower") %>%
-  filter(response != "N/A") %>%
+q62_data2 <- get_single_selection_3(q62_data, "Vape flower") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n2 <- tally(q62_data2, count)
 q62_t2 <- "Vape weekly"
@@ -60,8 +60,8 @@ write.csv(q62_data2, paste0("output/q62_smoke_vape_wkly/vape_flower_", q62_n2, "
 ```
 
 ```{r}
-q62_data3 <- get_single_selection_2(q62_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
-  filter(response != "N/A") %>%
+q62_data3 <- get_single_selection_3(q62_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief)") %>%
+  filter(response != "") %>%
   clean_single_select()
 q62_n3 <- tally(q62_data3, count)
 q62_t3 <- "Concentrates weekly"

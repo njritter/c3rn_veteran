@@ -30,12 +30,12 @@ write.csv(q15_data, 'output/q15_anxiety/q15_anxiety_scales_data.csv', row.names 
 ```
 
 ```{r}
-q15_data1 <- get_single_selection_2(q15_data, "Feeling nervous, anxious, or on edge") %>%
-  filter(response != "N/A") %>%
+q15_data1 <- get_single_selection_3(q15_data, "Feeling nervous, anxious, or on edge") %>%
+  filter(response != "") %>%
   clean_single_select()
-q15_n1 <- tally(q15_data_1, count)
+q15_n1 <- tally(q15_data1, count)
 q15_t1 <- "Feeling nervous, anxious, or on edge"
-q15_r1 <- plot_single_select(q15_data_1, q15_t1, q15_n1)
+q15_r1 <- plot_single_select(q15_data1, q15_t1, q15_n1)
 q15_r1
 ```
 
@@ -45,8 +45,8 @@ write.csv(q15_data1, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), 
 ```
 
 ```{r}
-q15_data2 <- get_single_selection_2(q15_data, "Not being able to stop or control worrying") %>%
-  filter(response != "N/A") %>%
+q15_data2 <- get_single_selection_3(q15_data, "Not being able to stop or control worrying") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_t2 <- "Not being able to stop or control worrying"
 q15_n2 <- tally(q15_data2, count)
@@ -60,8 +60,8 @@ write.csv(q15_data2, paste0("output/q15_anxiety/q15_control_", q15_n2, ".csv"), 
 ```
 
 ```{r}
-q15_data3 <- get_single_selection_2(q15_data, "Worrying too much about different things") %>%
-  filter(response != "N/A") %>%
+q15_data3 <- get_single_selection_3(q15_data, "Worrying too much about different things") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n3 <- tally(q15_data3, count)
 q15_t3 <- "Worrying too much about different things"
@@ -75,8 +75,8 @@ write.csv(q15_data3, paste0("output/q15_anxiety/q15_worry_", q15_n3, ".csv"), ro
 ```
 
 ```{r}
-q15_data4 <- get_single_selection_2(q15_data, "Trouble relaxing") %>%
-  filter(response != "N/A") %>%
+q15_data4 <- get_single_selection_3(q15_data, "Trouble relaxing") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n4 <- tally(q15_data4, count)
 q15_t4 <- "Trouble relaxing"
@@ -90,8 +90,8 @@ write.csv(q15_data4, paste0("output/q15_anxiety/q15_relax_", q15_n4, ".csv"), ro
 ```
 
 ```{r}
-q15_data5 <- get_single_selection_2(q15_data, "Being so restless that it is hard to sit still") %>%
-  filter(response != "N/A") %>%
+q15_data5 <- get_single_selection_3(q15_data, "Being so restless that it is hard to sit still") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n5 <- tally(q15_data5, count)
 q15_t5 <- "Being so restless that it is hard to sit still"
@@ -105,8 +105,8 @@ write.csv(q15_data5, paste0("output/q15_anxiety/q15_restless_", q15_n5, ".csv"),
 ```
 
 ```{r}
-q15_data6 <- get_single_selection_2(q15_data, "Becoming easily annoyed or irritable") %>%
-  filter(response != "N/A") %>%
+q15_data6 <- get_single_selection_3(q15_data, "Becoming easily annoyed or irritable") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n6 <- tally(q15_data6, count)
 q15_t6 <- "Becoming easily annoyed or irritable"
@@ -120,8 +120,8 @@ write.csv(q15_data6, paste0("output/q15_anxiety/q15_annoyed_", q15_n6, ".csv"), 
 ```
 
 ```{r}
-q15_data7 <- get_single_selection_2(q15_data, "Feeling afraid as if something awful might happen") %>%
-  filter(response != "N/A") %>%
+q15_data7 <- get_single_selection_3(q15_data, "Feeling afraid as if something awful might happen") %>%
+  filter(response != "") %>%
   clean_single_select()
 q15_n7 <- tally(q15_data7, count)
 q15_t7 <- "Feeling afraid as if something awful might happen"

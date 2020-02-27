@@ -26,8 +26,8 @@ dir.create("output/q64_salves_topicals_wkly")
 ```
 
 ```{r}
-q64_data1 <- get_single_selection_2(q64_data, "Salves/topicals") %>%
-  filter(response != "N/A") %>%
+q64_data1 <- get_single_selection_3(q64_data, "Salves/topicals") %>%
+  filter(response != "") %>%
   clean_single_select()
 q64_n1 <- tally(q64_data1, count)
 q64_t1 <- "Salves/topicals"
