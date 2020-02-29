@@ -1,7 +1,7 @@
 ---
 title: "q86 'How often did you see someone hit by incoming or outgoing rounds?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r86
 ```
 
 ```{r}
-q86_plot2 <- rbind(q86_plot, q86_t)
+row3 <- colnames(q86_plot)
+q86_plot2 <- rbind(row3, q86_plot)
+names(q86_plot2) <- c("q86", q86_t, paste("n = ", q86_n))
+```
+
+```{r}
 dir.create("output/q86_witness_hit_rounds")
 ggsave(filename = 'output/q86_witness_hit_rounds/q86_witness_hit_rounds.png', plot = r86, device = 'png')
 write.csv(q86_plot2, paste0("output/q86_witness_hit_rounds/q86_witness_hit_rounds_", q86_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: "q30 'Do you currently have health insurance? (Please select one)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r30
 ```
 
 ```{r}
-q30_plot2 <- rbind(q30_plot, q30_t)
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
 dir.create("output/q30_health_insurance")
 ggsave(filename = 'output/q30_health_insurance/q30_health_insurance.png', plot = r30, device = 'png')
 write.csv(q30_plot2, paste0("output/q30_health_insurance/q30_health_insurance_", q30_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

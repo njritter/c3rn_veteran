@@ -1,7 +1,7 @@
 ---
 title: "q45 'What prescription medications are you currently taking for the health conditions and symptoms you face that you are actively trying to reduce the use of by using cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,21 @@ r45
 ```
 
 ```{r}
-q45_plot2 <- rbind(q45_plot, q45_t)
+row3 <- colnames(q45_plot)
+q45_plot2 <- rbind(row3, q45_plot)
+names(q45_plot2) <- c("q45", q45_t, paste("n = ", q45_n))
+```
+
+```{r}
 dir.create("output/q45_meds_reduced_cannabis")
 ggsave(filename = 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis.png', plot = r45, device = 'png')
 write.csv(q45_plot2, paste0("output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_", q45_n,".csv"), row.names=F)
 write.csv(q45_data, 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_ids.csv', row.names = FALSE)
 ```
+
+
+
+
 
 
 

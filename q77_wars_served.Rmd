@@ -1,7 +1,7 @@
 ---
 title: "q77 'What war(s) did you serve in? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,21 @@ r77
 ```
 
 ```{r}
-q77_plot2 <- rbind(q77_plot, q77_t)
+row3 <- colnames(q77_plot)
+q77_plot2 <- rbind(row3, q77_plot)
+names(q77_plot2) <- c("q77", q77_t, paste("n = ", q77_n))
+```
+
+```{r}
 dir.create("output/q77_wars_served")
 ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r77, device = 'png')
 write.csv(q77_plot2, paste0("output/q77_wars_served/q77_wars_served_", q77_n,".csv"), row.names=F)
 write.csv(q77_data, 'output/q77_wars_served/q77_wars_served_ids.csv', row.names = FALSE)
 ```
+
+
+
+
 
 
 

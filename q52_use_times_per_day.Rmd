@@ -1,7 +1,7 @@
 ---
 title: "q52 'On days you regularly use cannabis, how many times per day do you use cannabis?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r52
 ```
 
 ```{r}
-q52_plot2 <- rbind(q52_plot, q52_t)
+row3 <- colnames(q52_plot)
+q52_plot2 <- rbind(row3, q52_plot)
+names(q52_plot2) <- c("q52", q52_t, paste("n = ", q52_n))
+```
+
+```{r}
 dir.create("output/q52_use_times_per_day")
 ggsave(filename = 'output/q52_use_times_per_day/q52_use_times_per_day.png', plot = r52, device = 'png')
 write.csv(q52_plot2, paste0("output/q52_use_times_per_day/q52_use_times_per_day_", q52_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

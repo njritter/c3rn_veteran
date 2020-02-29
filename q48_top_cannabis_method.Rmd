@@ -1,7 +1,7 @@
 ---
 title: "q48 'What is your top preferred method (that is, favorite method) of using cannabis? (Please select one)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r48
 ```
 
 ```{r}
-q48_plot2 <- rbind(q48_plot, q48_t)
+row3 <- colnames(q48_plot)
+q48_plot2 <- rbind(row3, q48_plot)
+names(q48_plot2) <- c("q48", q48_t, paste("n = ", q48_n))
+```
+
+```{r}
 dir.create("output/q48_top_cannabis_method")
 ggsave(filename = 'output/q48_top_cannabis_method/q48_top_cannabis_method.png', plot = r48, device = 'png')
 write.csv(q48_plot2, paste0("output/q48_top_cannabis_method/q48_top_cannabis_method_", q48_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

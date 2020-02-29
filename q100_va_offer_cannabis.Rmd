@@ -1,7 +1,7 @@
 ---
 title: "q100 'Do you think the VA should be trained in medical cannabis and allowed to recommend it for veterans?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r100
 ```
 
 ```{r}
-q100_plot2 <- rbind(q100_plot, q100_t)
+row3 <- colnames(q100_plot)
+q100_plot2 <- rbind(row3, q100_plot)
+names(q100_plot2) <- c("q100", q100_t, paste("n = ", q100_n))
+```
+
+```{r}
 dir.create("output/q100_va_offer_cannabis")
 ggsave(filename = 'output/q100_va_offer_cannabis/q100_va_offer_cannabis.png', plot = r100, device = 'png')
 write.csv(q100_plot2, paste0("output/q100_va_offer_cannabis/q100_va_offer_cannabis_", q100_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

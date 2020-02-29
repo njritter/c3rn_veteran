@@ -1,7 +1,7 @@
 ---
 title: "q79 'Were you exposed to any of the following during your service? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,21 @@ r79
 ```
 
 ```{r}
-q79_plot2 <- rbind(q79_plot, q79_t)
+row3 <- colnames(q79_plot)
+q79_plot2 <- rbind(row3, q79_plot)
+names(q79_plot2) <- c("q79", q79_t, paste("n = ", q79_n))
+```
+
+```{r}
 dir.create("output/q79_service_exposure")
 ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r79, device = 'png')
 write.csv(q79_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", q79_n,".csv"), row.names=F)
 write.csv(q79_data, 'output/q79_service_exposure/q79_service_exposure_ids.csv', row.names = FALSE)
 ```
+
+
+
+
 
 
 

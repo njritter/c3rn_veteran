@@ -1,7 +1,7 @@
 ---
 title: "q6 'Which is the primary health condition that causes you the most distress? (Please select one)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,21 @@ r6
 ```
 
 ```{r}
-q6_plot2 <- rbind(q6_plot, q6_t)
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
 dir.create("output/q6_top_condition")
 ggsave(filename = 'output/q6_top_condition/q6_top_condition.png', plot = r6, device = 'png')
 write.csv(q6_plot2, paste0("output/q6_top_condition/q6_top_condition_", q6_n,".csv"), row.names=F)
 ```
+
+
+
+
+
 
 
 

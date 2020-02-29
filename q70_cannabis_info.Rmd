@@ -1,7 +1,7 @@
 ---
 title: "q70 'Where do you get your information to make informed decisions about cannabis products? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r70
 ```
 
 ```{r}
-q70_plot2 <- rbind(q70_plot, q70_t)
+row3 <- colnames(q70_plot)
+q70_plot2 <- rbind(row3, q70_plot)
+names(q70_plot2) <- c("q70", q70_t, paste("n = ", q70_n))
+```
+
+```{r}
 dir.create("output/q70_cannabis_info")
 ggsave(filename = 'output/q70_cannabis_info/q70_cannabis_info.png', plot = r70, device = 'png')
 write.csv(q70_plot2, paste0("output/q70_cannabis_info/q70_cannabis_info_", q70_n,".csv"), row.names=F)
 write.csv(q70_data, 'output/q70_cannabis_info/q70_cannabis_info_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

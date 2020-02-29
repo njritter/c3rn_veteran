@@ -1,7 +1,7 @@
 ---
 title: "q7 'Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r7
 ```
 
 ```{r}
-q7_plot2 <- rbind(q7_plot, q7_t)
+row3 <- colnames(q7_plot)
+q7_plot2 <- rbind(row3, q7_plot)
+names(q7_plot2) <- c("q7", q7_t, paste("n = ", q7_n))
+```
+
+```{r}
 dir.create("output/q7_symptoms")
 ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r7, device = 'png')
 write.csv(q7_plot2, paste0("output/q7_symptoms/q7_symptoms_", q7_n,".csv"), row.names=F)
 write.csv(q7_data, 'output/q7_symptoms/q7_symptoms_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

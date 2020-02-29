@@ -40,8 +40,14 @@ q15_r1
 ```
 
 ```{r}
+row3 <- colnames(q15_data1)
+q15_data1b <- rbind(row3, q15_data1)
+names(q15_data1b) <- c("q15.1", q15_t1, paste("n = ", q15_n1))
+```
+
+```{r}
 ggsave(filename = "output/q15_anxiety/q15_anxiety.png", plot = q15_r1, device = 'png')
-write.csv(q15_data1, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), row.names = FALSE)
+write.csv(q15_data1b, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), row.names = FALSE)
 ```
 
 ```{r}

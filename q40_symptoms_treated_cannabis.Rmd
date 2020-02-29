@@ -1,7 +1,7 @@
 ---
 title: "q40 'What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r40
 ```
 
 ```{r}
-q40_plot2 <- rbind(q40_plot, q40_t)
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
 dir.create("output/q40_symptoms_treated")
 ggsave(filename = 'output/q40_symptoms_treated/q40_symptoms_treated.png', plot = r40, device = 'png')
 write.csv(q40_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", q40_n,".csv"), row.names=F)
 write.csv(q40_data, 'output/q40_symptoms_treated/q40_symptoms_treated_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

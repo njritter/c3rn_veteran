@@ -1,7 +1,7 @@
 ---
 title: "q60 'Are you concerned that your workplace or other agency will test you for your cannabis use?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r60
 ```
 
 ```{r}
-q60_plot2 <- rbind(q60_plot, q60_t)
+row3 <- colnames(q60_plot)
+q60_plot2 <- rbind(row3, q60_plot)
+names(q60_plot2) <- c("q60", q60_t, paste("n = ", q60_n))
+```
+
+```{r}
 dir.create("output/q60_workplace_cannabis_testing")
 ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r60, device = 'png')
 write.csv(q60_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", q60_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

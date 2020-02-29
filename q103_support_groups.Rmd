@@ -1,7 +1,7 @@
 ---
 title: "q103 'Do you belong to any of the following veterans support organizations? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r103
 ```
 
 ```{r}
-q103_plot2 <- rbind(q103_plot, q103_t)
+row3 <- colnames(q103_plot)
+q103_plot2 <- rbind(row3, q103_plot)
+names(q103_plot2) <- c("q103", q103_t, paste("n = ", q103_n))
+```
+
+```{r}
 dir.create("output/q103_support_groups")
 ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r103, device = 'png')
 write.csv(q103_plot2, paste0("output/q103_support_groups/q103_support_groups_", q103_n,".csv"), row.names=F)
 write.csv(q103_data, 'output/q103_support_groups/q103_support_groups_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

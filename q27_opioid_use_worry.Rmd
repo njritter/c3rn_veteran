@@ -1,7 +1,7 @@
 ---
 title: "q27 'Do you worry about your use of opioids?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,7 +28,12 @@ r27
 ```
 
 ```{r}
-q27_plot2 <- rbind(q27_plot, q27_t)
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
 dir.create("output/q27_opioid_use_worry")
 ggsave(filename = 'output/q27_opioid_use_worry/q27_opioid_use_worry.png', plot = r27, device = 'png')
 write.csv(q27_plot2, paste0("output/q27_opioid_use_worry/q27_opioid_use_worry_", q27_n,".csv"), row.names=F)

@@ -1,7 +1,7 @@
 ---
 title: "q89 'To which gender do you most identify?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r89
 ```
 
 ```{r}
-q89_plot2 <- rbind(q89_plot, q89_t)
+row3 <- colnames(q89_plot)
+q89_plot2 <- rbind(row3, q89_plot)
+names(q89_plot2) <- c("q89", q89_t, paste("n = ", q89_n))
+```
+
+```{r}
 dir.create("output/q89_gender")
 ggsave(filename = 'output/q89_gender/q89_gender.png', plot = r89, device = 'png')
 write.csv(q89_plot2, paste0("output/q89_gender/q89_gender_", q89_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

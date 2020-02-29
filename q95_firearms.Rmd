@@ -1,7 +1,7 @@
 ---
 title: "q95 'Do you own a firearm?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r95
 ```
 
 ```{r}
-q95_plot2 <- rbind(q95_plot, q95_t)
+row3 <- colnames(q95_plot)
+q95_plot2 <- rbind(row3, q95_plot)
+names(q95_plot2) <- c("q95", q95_t, paste("n = ", q95_n))
+```
+
+```{r}
 dir.create("output/q95_firearms")
 ggsave(filename = 'output/q95_firearms/q95_firearms.png', plot = r95, device = 'png')
 write.csv(q95_plot2, paste0("output/q95_firearms/q95_firearms_", q95_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

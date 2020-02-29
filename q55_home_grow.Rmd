@@ -1,7 +1,7 @@
 ---
 title: "q55 'Do you grow your own cannabis at home?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r55
 ```
 
 ```{r}
-q55_plot2 <- rbind(q55_plot, q55_t)
+row3 <- colnames(q55_plot)
+q55_plot2 <- rbind(row3, q55_plot)
+names(q55_plot2) <- c("q55", q55_t, paste("n = ", q55_n))
+```
+
+```{r}
 dir.create("output/q55_home_grow")
 ggsave(filename = 'output/q55_home_grow/q55_home_grow.png', plot = r55, device = 'png')
 write.csv(q55_plot2, paste0("output/q55_home_grow/q55_home_grow_", q55_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

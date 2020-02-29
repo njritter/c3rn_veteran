@@ -1,7 +1,7 @@
 ---
 title: "q24 'What types of treatments are you currently receiving for your OUD?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,7 +28,12 @@ r24
 ```
 
 ```{r}
-q24_plot2 <- rbind(q24_plot, q24_t)
+row3 <- colnames(q24_plot)
+q24_plot2 <- rbind(row3, q24_plot)
+names(q24_plot2) <- c("q24", q24_t, paste("n = ", q24_n))
+```
+
+```{r}
 dir.create("output/q24_oud_treatment")
 ggsave(filename = 'output/q24_oud_treatment/q24_oud_treatment.png', plot = r24, device = 'png')
 write.csv(q24_plot2, paste0("output/q24_oud_treatment/q24_oud_treatment_", q24_n,".csv"), row.names=F)

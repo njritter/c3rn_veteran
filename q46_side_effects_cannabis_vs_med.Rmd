@@ -1,7 +1,7 @@
 ---
 title: "q46 'Please rate the severity of the side effects you have faced with prescription medications compared to cannabis treatments:'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -32,12 +32,20 @@ r46
 ```
 
 ```{r}
-q46_plot2 <- rbind(q46_plot, q46_t, paste("average", q46_mean, sep = " = "))
+row3 <- colnames(q46_plot)
+q46_plot2 <- rbind(row3, q46_plot)
+names(q46_plot2) <- c("q46", q46_t, paste("n = ", q46_n, paste(" avg = ", q46_mean)))
+```
+
+```{r}
 dir.create("output/q46_side_effects_cannabis_v_med")
 ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r46, device = 'png')
 write.csv(q46_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", q46_n,".csv"), row.names=F)
 write.csv(q46_data, 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

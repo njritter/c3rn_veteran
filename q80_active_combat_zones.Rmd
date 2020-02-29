@@ -1,7 +1,7 @@
 ---
 title: "q80 'Did you serve and/or live in an active combat zone?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r80
 ```
 
 ```{r}
-q80_plot2 <- rbind(q80_plot, q80_t)
+row3 <- colnames(q80_plot)
+q80_plot2 <- rbind(row3, q80_plot)
+names(q80_plot2) <- c("q80", q80_t, paste("n = ", q80_n))
+```
+
+```{r}
 dir.create("output/q80_active_combat_zones")
 ggsave(filename = 'output/q80_active_combat_zones/q80_active_combat_zones.png', plot = r80, device = 'png')
 write.csv(q80_plot2, paste0("output/q80_active_combat_zones/q80_active_combat_zones_", q80_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

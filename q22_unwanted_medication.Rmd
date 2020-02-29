@@ -1,7 +1,7 @@
 ---
 title: "q22 'Do you have prescription medications in your house that you don't want to use and currently need to get rid of?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r22
 ```
 
 ```{r}
-q22_plot2 <- rbind(q22_plot, q22_t)
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
 dir.create("output/q22_unwanted_medication")
 ggsave(filename = 'output/q22_unwanted_medication/q22_unwanted_medication.png', plot = r22, device = 'png')
 write.csv(q22_plot2, paste0("output/q22_unwanted_medication/q22_unwanted_medication_", q22_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

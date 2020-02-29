@@ -1,7 +1,7 @@
 ---
 title: "q32 'Where/how do you get your medications?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r32
 ```
 
 ```{r}
-q32_plot2 <- rbind(q32_plot, q32_t)
+row3 <- colnames(q32_plot)
+q32_plot2 <- rbind(row3, q32_plot)
+names(q32_plot2) <- c("q32", q32_t, paste("n = ", q32_n))
+```
+
+```{r}
 dir.create("output/q32_medication_sourcing")
 ggsave(filename = 'output/q32_medication_sourcing/q32_medication_sourcing.png', plot = r32, device = 'png')
 write.csv(q32_plot2, paste0("output/q32_medication_sourcing/q32_medication_sourcing_", q32_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

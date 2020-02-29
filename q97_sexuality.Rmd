@@ -1,7 +1,7 @@
 ---
 title: "q97 'Do you consider yourself to be any of the following?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r97
 ```
 
 ```{r}
-q97_plot2 <- rbind(q97_plot, q97_t)
+row3 <- colnames(q97_plot)
+q97_plot2 <- rbind(row3, q97_plot)
+names(q97_plot2) <- c("q97", q97_t, paste("n = ", q97_n))
+```
+
+```{r}
 dir.create("output/q97_sexuality")
 ggsave(filename = 'output/q97_sexuality/q97_sexuality.png', plot = r97, device = 'png')
 write.csv(q97_plot2, paste0("output/q97_sexuality/q97_sexuality_", q97_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

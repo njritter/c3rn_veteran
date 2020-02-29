@@ -1,7 +1,7 @@
 ---
 title: "q67 'Which VA do you go to?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -27,7 +27,12 @@ q67_plot<- clean_single_select(q67_data)
 ```
 
 ```{r}
-q67_plot2 <- rbind(q67_plot, q67_t)
+row3 <- colnames(q67_plot)
+q67_plot2 <- rbind(row3, q67_plot)
+names(q67_plot2) <- c("q67", q67_t, paste("n = ", q67_n))
+```
+
+```{r}
 dir.create("output/q67_va_location")
 write.csv(q67_plot2, paste0("output/q67_va_location/q67_va_location_", q67_n,".csv"), row.names=F)
 ```

@@ -1,7 +1,7 @@
 ---
 title: "q78 'Were you exposed to workplace hazards including loud noises from firearms/factories/etc, chemicals, exposed to burn pits during war, or working hazardous environments that could impair any of your five senses and clinical health?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r78
 ```
 
 ```{r}
-q78_plot2 <- rbind(q78_plot, q78_t)
+row3 <- colnames(q78_plot)
+q78_plot2 <- rbind(row3, q78_plot)
+names(q78_plot2) <- c("q78", q78_t, paste("n = ", q78_n))
+```
+
+```{r}
 dir.create("output/q78_workplace_hazards")
 ggsave(filename = 'output/q78_workplace_hazards/q78_workplace_hazards.png', plot = r78, device = 'png')
 write.csv(q78_plot2, paste0("output/q78_workplace_hazards/q78_workplace_hazards_", q78_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

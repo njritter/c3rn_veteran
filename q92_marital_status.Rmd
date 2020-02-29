@@ -1,7 +1,7 @@
 ---
 title: "q92 'What is your marital status?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r92
 ```
 
 ```{r}
-q92_plot2 <- rbind(q92_plot, q92_t)
+row3 <- colnames(q92_plot)
+q92_plot2 <- rbind(row3, q92_plot)
+names(q92_plot2) <- c("q92", q92_t, paste("n = ", q92_n))
+```
+
+```{r}
 dir.create("output/q92_marital_status")
 ggsave(filename = 'output/q92_marital_status/q92_marital_status.png', plot = r92, device = 'png')
 write.csv(q92_plot2, paste0("output/q92_marital_status/q92_marital_status_", q92_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

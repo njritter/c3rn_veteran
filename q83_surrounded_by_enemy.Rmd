@@ -1,7 +1,7 @@
 ---
 title: "q83 'Were you ever surrounded by the enemy?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r83
 ```
 
 ```{r}
-q83_plot2 <- rbind(q83_plot, q83_t)
+row3 <- colnames(q83_plot)
+q83_plot2 <- rbind(row3, q83_plot)
+names(q83_plot2) <- c("q83", q83_t, paste("n = ", q83_n))
+```
+
+```{r}
 dir.create("output/q83_surrounded_by_enemy")
 ggsave(filename = 'output/q83_surrounded_by_enemy/q83_surrounded_by_enemy.png', plot = r83, device = 'png')
 write.csv(q83_plot2, paste0("output/q83_surrounded_by_enemy/q83_surrounded_by_enemy_", q83_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

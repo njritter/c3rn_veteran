@@ -1,7 +1,7 @@
 ---
 title: "q29 'What percentage of disability are you rated, as indicated by the Veteran's Affairs (VA)?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 ---
 
@@ -32,22 +32,30 @@ r29
 ```
 
 ```{r}
-q29_plot2 <- rbind(q29_plot, q29_t, paste("average", q29_mean, sep = " = "))
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n, paste(" avg = ", q29_mean)))
+```
+
+```{r}
 dir.create("output/q29_disability")
 ggsave(filename = 'output/q29_disability/q29_disability.png', plot = r29, device = 'png')
 write.csv(q29_plot2, paste0("output/q29_disability/q29_disability_", q29_n,".csv"), row.names=F)
 write.csv(q29_data, 'output/q29_disability/q29_disability_ids.csv', row.names = FALSE)
 ```
 
-
-
-
 ```{r}
-histogram_object <- hist(as.numeric(q_data$response))
+histogram_object <- hist(as.numeric(q29_data$response))
 histogram_object$breaks
 histogram_object$counts
 plot(histogram_object)
 ```
+
+
+
+
+
+
 
 ```{r}
 qf_data <- q_data %>%

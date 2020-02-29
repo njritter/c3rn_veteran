@@ -1,7 +1,7 @@
 ---
 title: "q21 'How many total prescription medications are you currently taking? (Please insert number)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,12 +33,20 @@ r21
 ```
 
 ```{r}
-q21_plot2 <- rbind(q21_plot, q21_t, paste("average", q21_mean, sep = " = "))
+row3 <- colnames(q21_plot)
+q21_plot2 <- rbind(row3, q21_plot)
+names(q21_plot2) <- c("q21", q21_t, paste("n = ", q21_n, paste(" avg = ", q21_mean)))
+```
+
+```{r}
 dir.create("output/q21_total_prescriptions")
 ggsave(filename = 'output/q21_total_prescriptions/q21_total_prescriptions.png', plot = r21, device = 'png')
 write.csv(q21_plot2, paste0("output/q21_total_prescriptions/q21_total_prescriptions_", q21_n,".csv"), row.names=F)
 write.csv(q21_data, 'output/q21_total_prescriptions/q21_total_prescriptions_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

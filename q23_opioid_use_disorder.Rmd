@@ -1,7 +1,7 @@
 ---
 title: "q23 'Have you ever been diagnosed with Opioid Use Disorder (OUD)?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r23
 ```
 
 ```{r}
-q23_plot2 <- rbind(q23_plot, q23_t)
+row3 <- colnames(q23_plot)
+q23_plot2 <- rbind(row3, q23_plot)
+names(q23_plot2) <- c("q23", q23_t, paste("n = ", q23_n))
+```
+
+```{r}
 dir.create("output/q23_opioid_use_disorder")
 ggsave(filename = 'output/q23_opioid_use_disorder/q23_opioid_use_disorder.png', plot = r23, device = 'png')
 write.csv(q23_plot2, paste0("output/q23_opioid_use_disorder/q23_opioid_use_disorder_", q23_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

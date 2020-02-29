@@ -1,7 +1,7 @@
 ---
 title: "q33 'On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,12 +33,21 @@ r33
 ```
 
 ```{r}
-q33_plot2 <- rbind(q33_plot, q33_t, paste("average", q33_mean, sep = " = "))
+row3 <- colnames(q33_plot)
+q33_plot2 <- rbind(row3, q33_plot)
+names(q33_plot2) <- c("q33", q33_t, paste("n = ", q33_n, paste(" avg = ", q33_mean)))
+```
+
+```{r}
 dir.create("output/q33_med_cost_monthly")
 ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r33, device = 'png')
 write.csv(q33_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", q33_n,".csv"), row.names=F)
 write.csv(q33_data, 'output/q33_med_cost_monthly/q33_med_cost_monthly_ids.csv', row.names = FALSE)
 ```
+
+
+
+
 
 
 

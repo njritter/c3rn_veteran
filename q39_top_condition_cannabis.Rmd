@@ -1,7 +1,7 @@
 ---
 title: "q39 'What is the primary health condition for which you find cannabis to be helpful? (Please select one)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r39
 ```
 
 ```{r}
-q39_plot2 <- rbind(q39_plot, q39_t)
+row3 <- colnames(q39_plot)
+q39_plot2 <- rbind(row3, q39_plot)
+names(q39_plot2) <- c("q39", q39_t, paste("n = ", q39_n))
+```
+
+```{r}
 dir.create("output/q39_top_condition_cannabis")
 ggsave(filename = 'output/q39_top_condition_cannabis/q39_top_condition_cannabis.png', plot = r39, device = 'png')
 write.csv(q39_plot2, paste0("output/q39_top_condition_cannabis/q39_top_condition_cannabis_", q39_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

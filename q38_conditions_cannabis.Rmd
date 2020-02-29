@@ -1,7 +1,7 @@
 ---
 title: "q38 'Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r38
 ```
 
 ```{r}
-q38_plot2 <- rbind(q38_plot, q38_t)
+row3 <- colnames(q38_plot)
+q38_plot2 <- rbind(row3, q38_plot)
+names(q38_plot2) <- c("q38", q38_t, paste("n = ", q38_n))
+```
+
+```{r}
 dir.create("output/q38_conditions_cannabis")
 ggsave(filename = 'output/q38_conditions_cannabis/q38_conditions_cannabis.png', plot = r38, device = 'png')
 write.csv(q38_plot2, paste0("output/q38_conditions_cannabis/q38_conditions_cannabis_", q38_n,".csv"), row.names=F)
 write.csv(q38_data, 'output/q38_conditions_cannabis/q38_conditions_cannabis_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

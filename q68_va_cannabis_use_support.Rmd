@@ -1,7 +1,7 @@
 ---
 title: "q68 'Does your VA doctor or clinician support your cannabis use?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r68
 ```
 
 ```{r}
-q68_plot2 <- rbind(q68_plot, q68_t)
+row3 <- colnames(q68_plot)
+q68_plot2 <- rbind(row3, q68_plot)
+names(q68_plot2) <- c("q68", q68_t, paste("n = ", q68_n))
+```
+
+```{r}
 dir.create("output/q68_va_cannabis_use_support")
 ggsave(filename = 'output/q68_va_cannabis_use_support/q68_va_cannabis_use_support.png', plot = r68, device = 'png')
 write.csv(q68_plot2, paste0("output/q68_va_cannabis_use_support/q68_va_cannabis_use_support_", q68_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 ---
 title: "q85 'How often did you fire rounds at the enemy?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r85
 ```
 
 ```{r}
-q85_plot2 <- rbind(q85_plot, q85_t)
+row3 <- colnames(q85_plot)
+q85_plot2 <- rbind(row3, q85_plot)
+names(q85_plot2) <- c("q85", q85_t, paste("n = ", q85_n))
+```
+
+```{r}
 dir.create("output/q85_fire_rounds_enemy")
 ggsave(filename = 'output/q85_fire_rounds_enemy/q85_fire_rounds_enemy.png', plot = r85, device = 'png')
 write.csv(q85_plot2, paste0("output/q85_fire_rounds_enemy/q85_fire_rounds_enemy_", q85_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

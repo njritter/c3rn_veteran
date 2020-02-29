@@ -1,7 +1,7 @@
 ---
 title: "q72 'Which of the websites/apps is your primary source of information? (Please select one)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r72
 ```
 
 ```{r}
-q72_plot2 <- rbind(q72_plot, q72_t)
+row3 <- colnames(q72_plot)
+q72_plot2 <- rbind(row3, q72_plot)
+names(q72_plot2) <- c("q72", q72_t, paste("n = ", q72_n))
+```
+
+```{r}
 dir.create("output/q72_top_website_app")
 ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r72, device = 'png')
 write.csv(q72_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", q72_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

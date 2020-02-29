@@ -1,7 +1,7 @@
 ---
-title: "q 'Master'"
-author: "David Ritter"
-date: "2/26/2020"
+title: "Master Question Analysis Document"
+author: "DJ"
+date: "2/29/2020"
 output: html_document
 runtime: shiny
 ---
@@ -35,18 +35,24 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 #raw_data <- rbind(headers, filtered_data)
 ```
 
+
 ```{r}
 q4 <- "How.would.you.rate.your.quality.of.health.today."
 q4_t <- "How would you rate your quality of health today?"
 q4_data <- get_single_selection(data = raw_data, q.name = q4)
 q4_n <- length(unique(q4_data$id))
-q4_plot<- clean_single_select(q4_data)
+q4_plot <- clean_single_select(q4_data)
 r4 <- plot_single_select(q4_plot, q4_t, q4_n)
 r4
 ```
 
 ```{r}
-q4_plot2 <- rbind(q4_plot, q4_t)
+row3 <- colnames(q4_plot)
+q4_plot2 <- rbind(row3, q4_plot)
+names(q4_plot2) <- c("q4", q4_t, paste("n = ", q4_n))
+```
+
+```{r}
 dir.create("output/q4_health_quality")
 ggsave(filename = 'output/q4_health_quality/q4_health_quality.png', plot = r4, device = 'png')
 write.csv(q4_plot2, paste0("output/q4_health_quality/q4_health_quality_", q4_n,".csv"), row.names=F)
@@ -65,7 +71,12 @@ r5
 ```
 
 ```{r}
-q5_plot2 <- rbind(q5_plot, q5_t)
+row3 <- colnames(q5_plot)
+q5_plot2 <- rbind(row3, q5_plot)
+names(q5_plot2) <- c("q5", q5_t, paste("n = ", q5_n))
+```
+
+```{r}
 dir.create("output/q5_conditions")
 ggsave(filename = 'output/q5_conditions/q5_conditions.png', plot = r5, device = 'png')
 write.csv(q5_plot2, paste0("output/q5_conditions/q5_conditions_", q5_n,".csv"), row.names=F)
@@ -83,7 +94,12 @@ r6
 ```
 
 ```{r}
-q6_plot2 <- rbind(q6_plot, q6_t)
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
 dir.create("output/q6_top_condition")
 ggsave(filename = 'output/q6_top_condition/q6_top_condition.png', plot = r6, device = 'png')
 write.csv(q6_plot2, paste0("output/q6_top_condition/q6_top_condition_", q6_n,".csv"), row.names=F)
@@ -102,7 +118,12 @@ r7
 ```
 
 ```{r}
-q7_plot2 <- rbind(q7_plot, q7_t)
+row3 <- colnames(q7_plot)
+q7_plot2 <- rbind(row3, q7_plot)
+names(q7_plot2) <- c("q7", q7_t, paste("n = ", q7_n))
+```
+
+```{r}
 dir.create("output/q7_symptoms")
 ggsave(filename = 'output/q7_symptoms/q7_symptoms.png', plot = r7, device = 'png')
 write.csv(q7_plot2, paste0("output/q7_symptoms/q7_symptoms_", q7_n,".csv"), row.names=F)
@@ -125,7 +146,12 @@ r8
 ```
 
 ```{r}
-q8_plot2 <- rbind(q8_plot, q8_t, paste("average", q8_mean, sep = " = "))
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n, paste(" avg = ", q8_mean)))
+```
+
+```{r}
 dir.create("output/q8_current_pain")
 ggsave(filename = 'output/q8_current_pain/q8_current_pain.png', plot = r8, device = 'png')
 write.csv(q8_plot2, paste0("output/q8_current_pain/q8_current_pain_", q8_n,".csv"), row.names=F)
@@ -148,7 +174,12 @@ r9
 ```
 
 ```{r}
-q9_plot2 <- rbind(q9_plot, q9_t, paste("average", q9_mean, sep = " = "))
+row3 <- colnames(q9_plot)
+q9_plot2 <- rbind(row3, q9_plot)
+names(q9_plot2) <- c("q9", q9_t, paste("n = ", q9_n, paste(" avg = ", q9_mean)))
+```
+
+```{r}
 dir.create("output/q9_usual_pain")
 ggsave(filename = 'output/q9_usual_pain/q9_usual_pain.png', plot = r9, device = 'png')
 write.csv(q9_plot2, paste0("output/q9_usual_pain/q9_usual_pain_", q9_n,".csv"), row.names=F)
@@ -171,7 +202,12 @@ r10
 ```
 
 ```{r}
-q10_plot2 <- rbind(q10_plot, q10_t, paste("average", q10_mean, sep = " = "))
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n, paste(" avg = ", q10_mean)))
+```
+
+```{r}
 dir.create("output/q10_least_pain")
 ggsave(filename = 'output/q10_least_pain/q10_least_pain.png', plot = r10, device = 'png')
 write.csv(q10_plot2, paste0("output/q10_least_pain/q10_least_pain_", q10_n,".csv"), row.names=F)
@@ -179,14 +215,14 @@ write.csv(q10_data, 'output/q10_least_pain/q10_least_pain_ids.csv', row.names = 
 ```
 
 ```{r}
-q11 <- "What.is.yourÂ.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
+q11 <- "What.is.yourÃ‚.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
 q11_t <- "What is your highest level of pain (what is the highest level of pain you feel?)"
 q11_data <- get_single_selection_0(data = raw_data, q.name = q11) %>%
   filter(response != "")
 q11_n <- length(unique(q11_data$id))
 q11_mean_data <- as.numeric(as.character(q11_data$response))
 q11_mean <- mean(q11_mean_data) %>%
-  round(3) %>%
+  round(2) %>%
   print()
 q11_plot<- clean_single_select(q11_data)
 r11 <- plot_single_select_0(q11_plot, q11_t, q11_n, q11_mean)
@@ -194,7 +230,12 @@ r11
 ```
 
 ```{r}
-q11_plot2 <- rbind(q11_plot, q11_t, paste("average", q11_mean, sep = " = "))
+row3 <- colnames(q11_plot)
+q11_plot2 <- rbind(row3, q11_plot)
+names(q11_plot2) <- c("q11", q11_t, paste("n = ", q11_n, paste(" avg = ", q11_mean)))
+```
+
+```{r}
 dir.create("output/q11_highest_pain")
 ggsave(filename = 'output/q11_highest_pain/q11_highest_pain.png', plot = r11, device = 'png')
 write.csv(q11_plot2, paste0("output/q11_highest_pain/q11_highest_pain_", q11_n,".csv"), row.names=F)
@@ -217,7 +258,12 @@ r12
 ```
 
 ```{r}
-q12_plot2 <- rbind(q12_plot, q12_t, paste("average", q12_mean, sep = " = "))
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n, paste(" avg = ", q12_mean)))
+```
+
+```{r}
 dir.create("output/q12_acceptable_pain")
 ggsave(filename = 'output/q12_acceptable_pain/q12_acceptable_pain.png', plot = r12, device = 'png')
 write.csv(q12_plot2, paste0("output/q12_acceptable_pain/q12_acceptable_pain_", q12_n,".csv"), row.names=F)
@@ -237,7 +283,12 @@ r13
 ```
 
 ```{r}
-q13_plot2 <- rbind(q13_plot, q13_t)
+row3 <- colnames(q13_plot)
+q13_plot2 <- rbind(row3, q13_plot)
+names(q13_plot2) <- c("q13", q13_t, paste("n = ", q13_n))
+```
+
+```{r}
 dir.create("output/q13_pain_locations")
 ggsave(filename = 'output/q13_pain_locations/q13_pain_locations.png', plot = r13, device = 'png')
 write.csv(q13_plot2, paste0("output/q13_pain_locations/q13_pain_locations_", q13_n,".csv"), row.names=F)
@@ -257,12 +308,18 @@ r14
 ```
 
 ```{r}
-q14_plot2 <- rbind(q14_plot, q14_t)
+row3 <- colnames(q14_plot)
+q14_plot2 <- rbind(row3, q14_plot)
+names(q14_plot2) <- c("q14", q14_t, paste("n = ", q14_n))
+```
+
+```{r}
 dir.create("output/q14_pain_effects")
 ggsave(filename = 'output/q14_pain_effects/q14_pain_effects.png', plot = r14, device = 'png')
 write.csv(q14_plot2, paste0("output/q14_pain_effects/q14_pain_effects_", q14_n,".csv"), row.names=F)
 write.csv(q14_data, 'output/q14_pain_effects/q14_pain_effects_ids.csv', row.names = FALSE)
 ```
+
 
 ```{r}
 q15 <- "Over.the.last.2.weeks..how.often.have.you.been.bothered.by.any.of.the.following.problems."
@@ -287,8 +344,14 @@ q15_r1
 ```
 
 ```{r}
+row3 <- colnames(q15_data1)
+q15_data1b <- rbind(row3, q15_data1)
+names(q15_data1b) <- c("q15.1", q15_t1, paste("n = ", q15_n1))
+```
+
+```{r}
 ggsave(filename = "output/q15_anxiety/q15_anxiety.png", plot = q15_r1, device = 'png')
-write.csv(q15_data1, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), row.names = FALSE)
+write.csv(q15_data1b, paste0("output/q15_anxiety/q15_anxiety_", q15_n1, ".csv"), row.names = FALSE)
 ```
 
 ```{r}
@@ -382,7 +445,7 @@ write.csv(q15_data7, paste0("output/q15_anxiety/q15_afraid_", q15_n7, ".csv"), r
 ```
 
 ```{r}
-q16 <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
+q16 <- "If.you.checked.offÃ‚.Ã¯..anyÃ¯...problems..howÃ‚.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
 q16_t <- "Difficulty of living with anxiety as top condition"
 q16_data <- get_single_selection(data = raw_data, q.name = q16)
 q16_n <- length(unique(q16_data$id))
@@ -392,7 +455,12 @@ r16
 ```
 
 ```{r}
-q16_plot2 <- rbind(q16_plot, q16_t)
+row3 <- colnames(q16_plot)
+q16_plot2 <- rbind(row3, q16_plot)
+names(q16_plot2) <- c("q16", q16_t, paste("n = ", q16_n))
+```
+
+```{r}
 dir.create("output/q16_anxiety_difficulty")
 ggsave(filename = 'output/q16_anxiety_difficulty/q16_anxiety_difficulty.png', plot = r16, device = 'png')
 write.csv(q16_plot2, paste0("output/q16_anxiety_difficulty/q16_anxiety_difficulty_", q16_n,".csv"), row.names=F)
@@ -546,7 +614,7 @@ write.csv(q17_data9, paste0("output/q17_depression/q17_self_harm_", q17_n9, ".cs
 ```
 
 ```{r}
-q18 <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.ï..difficultï...have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
+q18 <- "If.you.checked.offÃ‚.Ã¯..anyÃ¯...problems..howÃ‚.Ã¯..difficultÃ¯...have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
 q18_t <- "Difficulty of living with depression as top condition"
 q18_data <- get_single_selection(data = raw_data, q.name = q18)
 q18_n <- length(unique(q18_data$id))
@@ -556,14 +624,19 @@ r18
 ```
 
 ```{r}
-q18_plot2 <- rbind(q18_plot, q18_t)
+row3 <- colnames(q18_plot)
+q18_plot2 <- rbind(row3, q18_plot)
+names(q18_plot2) <- c("q18", q18_t, paste("n = ", q18_n))
+```
+
+```{r}
 dir.create("output/q18_depression_difficulty")
 ggsave(filename = 'output/q18_depression_difficulty/q18_depression_difficulty.png', plot = r18, device = 'png')
 write.csv(q18_plot2, paste0("output/q18_depression_difficulty/q18_depression_difficulty_", q18_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q19 <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in.response.to.stressful.military.experiences..Please.read.each.one.carefully.and.indicate.how.much.you.have.beenÂ.ï..bothered.by.that.problem.in.the.last.month.ï.."
+q19 <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in.response.to.stressful.military.experiences..Please.read.each.one.carefully.and.indicate.how.much.you.have.beenÃ‚.Ã¯..bothered.by.that.problem.in.the.last.month.Ã¯.."
 q19_final_response <- "X.115"
 q19_t <- "PTSD Scales"
 q19_data <- get_choose_all(raw_data, q.name = q19, f.response = q19_final_response)
@@ -842,7 +915,12 @@ r20
 ```
 
 ```{r}
-q20_plot2 <- rbind(q20_plot, q20_t)
+row3 <- colnames(q20_plot)
+q20_plot2 <- rbind(row3, q20_plot)
+names(q20_plot2) <- c("q20", q20_t, paste("n = ", q20_n))
+```
+
+```{r}
 dir.create("output/q20_prescriptions")
 ggsave(filename = 'output/q20_prescriptions/q20_prescriptions.png', plot = r20, device = 'png')
 write.csv(q20_plot2, paste0("output/q20_prescriptions/q20_prescriptions_", q20_n,".csv"), row.names=F)
@@ -865,7 +943,12 @@ r21
 ```
 
 ```{r}
-q21_plot2 <- rbind(q21_plot, q21_t, paste("average", q21_mean, sep = " = "))
+row3 <- colnames(q21_plot)
+q21_plot2 <- rbind(row3, q21_plot)
+names(q21_plot2) <- c("q21", q21_t, paste("n = ", q21_n, paste(" avg = ", q21_mean)))
+```
+
+```{r}
 dir.create("output/q21_total_prescriptions")
 ggsave(filename = 'output/q21_total_prescriptions/q21_total_prescriptions.png', plot = r21, device = 'png')
 write.csv(q21_plot2, paste0("output/q21_total_prescriptions/q21_total_prescriptions_", q21_n,".csv"), row.names=F)
@@ -883,7 +966,12 @@ r22
 ```
 
 ```{r}
-q22_plot2 <- rbind(q22_plot, q22_t)
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
 dir.create("output/q22_unwanted_medication")
 ggsave(filename = 'output/q22_unwanted_medication/q22_unwanted_medication.png', plot = r22, device = 'png')
 write.csv(q22_plot2, paste0("output/q22_unwanted_medication/q22_unwanted_medication_", q22_n,".csv"), row.names=F)
@@ -900,7 +988,12 @@ r23
 ```
 
 ```{r}
-q23_plot2 <- rbind(q23_plot, q23_t)
+row3 <- colnames(q23_plot)
+q23_plot2 <- rbind(row3, q23_plot)
+names(q23_plot2) <- c("q23", q23_t, paste("n = ", q23_n))
+```
+
+```{r}
 dir.create("output/q23_opioid_use_disorder")
 ggsave(filename = 'output/q23_opioid_use_disorder/q23_opioid_use_disorder.png', plot = r23, device = 'png')
 write.csv(q23_plot2, paste0("output/q23_opioid_use_disorder/q23_opioid_use_disorder_", q23_n,".csv"), row.names=F)
@@ -917,7 +1010,12 @@ r24
 ```
 
 ```{r}
-q24_plot2 <- rbind(q24_plot, q24_t)
+row3 <- colnames(q24_plot)
+q24_plot2 <- rbind(row3, q24_plot)
+names(q24_plot2) <- c("q24", q24_t, paste("n = ", q24_n))
+```
+
+```{r}
 dir.create("output/q24_oud_treatment")
 ggsave(filename = 'output/q24_oud_treatment/q24_oud_treatment.png', plot = r24, device = 'png')
 write.csv(q24_plot2, paste0("output/q24_oud_treatment/q24_oud_treatment_", q24_n,".csv"), row.names=F)
@@ -934,7 +1032,12 @@ r25
 ```
 
 ```{r}
-q25_plot2 <- rbind(q25_plot, q25_t)
+row3 <- colnames(q25_plot)
+q25_plot2 <- rbind(row3, q25_plot)
+names(q25_plot2) <- c("q25", q25_t, paste("n = ", q25_n))
+```
+
+```{r}
 dir.create("output/q25_thc_test_oud")
 ggsave(filename = 'output/q25_thc_test_oud/q25_thc_test_oud.png', plot = r25, device = 'png')
 write.csv(q25_plot2, paste0("output/q25_thc_test_oud/q25_thc_test_oud_", q25_n,".csv"), row.names=F)
@@ -953,7 +1056,12 @@ r26
 ```
 
 ```{r}
-q26_plot2 <- rbind(q26_plot, q26_t)
+row3 <- colnames(q26_plot)
+q26_plot2 <- rbind(row3, q26_plot)
+names(q26_plot2) <- c("q26", q26_t, paste("n = ", q26_n))
+```
+
+```{r}
 dir.create("output/q26_opioids_taken")
 ggsave(filename = 'output/q26_opioids_taken/q26_opioids_taken.png', plot = r26, device = 'png')
 write.csv(q26_plot2, paste0("output/q26_opioids_taken/q26_opioids_taken_", q26_n,".csv"), row.names=F)
@@ -971,7 +1079,12 @@ r27
 ```
 
 ```{r}
-q27_plot2 <- rbind(q27_plot, q27_t)
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
 dir.create("output/q27_opioid_use_worry")
 ggsave(filename = 'output/q27_opioid_use_worry/q27_opioid_use_worry.png', plot = r27, device = 'png')
 write.csv(q27_plot2, paste0("output/q27_opioid_use_worry/q27_opioid_use_worry_", q27_n,".csv"), row.names=F)
@@ -988,7 +1101,12 @@ r28
 ```
 
 ```{r}
-q28_plot2 <- rbind(q28_plot, q28_t)
+row3 <- colnames(q28_plot)
+q28_plot2 <- rbind(row3, q28_plot)
+names(q28_plot2) <- c("q28", q28_t, paste("n = ", q28_n))
+```
+
+```{r}
 dir.create("output/q28_opioid_cessation")
 ggsave(filename = 'output/q28_opioid_cessation/q28_opioid_cessation.png', plot = r28, device = 'png')
 write.csv(q28_plot2, paste0("output/q28_opioid_cessation/q28_opioid_cessation_", q28_n,".csv"), row.names=F)
@@ -1010,7 +1128,12 @@ r29
 ```
 
 ```{r}
-q29_plot2 <- rbind(q29_plot, q29_t, paste("average", q29_mean, sep = " = "))
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n, paste(" avg = ", q29_mean)))
+```
+
+```{r}
 dir.create("output/q29_disability")
 ggsave(filename = 'output/q29_disability/q29_disability.png', plot = r29, device = 'png')
 write.csv(q29_plot2, paste0("output/q29_disability/q29_disability_", q29_n,".csv"), row.names=F)
@@ -1028,7 +1151,12 @@ r30
 ```
 
 ```{r}
-q30_plot2 <- rbind(q30_plot, q30_t)
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
 dir.create("output/q30_health_insurance")
 ggsave(filename = 'output/q30_health_insurance/q30_health_insurance.png', plot = r30, device = 'png')
 write.csv(q30_plot2, paste0("output/q30_health_insurance/q30_health_insurance_", q30_n,".csv"), row.names=F)
@@ -1045,7 +1173,12 @@ r31
 ```
 
 ```{r}
-q31_plot2 <- rbind(q31_plot, q31_t)
+row3 <- colnames(q31_plot)
+q31_plot2 <- rbind(row3, q31_plot)
+names(q31_plot2) <- c("q31", q31_t, paste("n = ", q31_n))
+```
+
+```{r}
 dir.create("output/q31_drug_coverage")
 ggsave(filename = 'output/q31_drug_coverage/q31_drug_coverage.png', plot = r31, device = 'png')
 write.csv(q31_plot2, paste0("output/q31_drug_coverage/q31_drug_coverage_", q31_n,".csv"), row.names=F)
@@ -1062,7 +1195,12 @@ r32
 ```
 
 ```{r}
-q32_plot2 <- rbind(q32_plot, q32_t)
+row3 <- colnames(q32_plot)
+q32_plot2 <- rbind(row3, q32_plot)
+names(q32_plot2) <- c("q32", q32_t, paste("n = ", q32_n))
+```
+
+```{r}
 dir.create("output/q32_medication_sourcing")
 ggsave(filename = 'output/q32_medication_sourcing/q32_medication_sourcing.png', plot = r32, device = 'png')
 write.csv(q32_plot2, paste0("output/q32_medication_sourcing/q32_medication_sourcing_", q32_n,".csv"), row.names=F)
@@ -1084,7 +1222,12 @@ r33
 ```
 
 ```{r}
-q33_plot2 <- rbind(q33_plot, q33_t, paste("average", q33_mean, sep = " = "))
+row3 <- colnames(q33_plot)
+q33_plot2 <- rbind(row3, q33_plot)
+names(q33_plot2) <- c("q33", q33_t, paste("n = ", q33_n, paste(" avg = ", q33_mean)))
+```
+
+```{r}
 dir.create("output/q33_med_cost_monthly")
 ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r33, device = 'png')
 write.csv(q33_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", q33_n,".csv"), row.names=F)
@@ -1102,7 +1245,12 @@ r34
 ```
 
 ```{r}
-q34_plot2 <- rbind(q34_plot, q34_t)
+row3 <- colnames(q34_plot)
+q34_plot2 <- rbind(row3, q34_plot)
+names(q34_plot2) <- c("q34", q34_t, paste("n = ", q34_n))
+```
+
+```{r}
 dir.create("output/q34_mental_health_services")
 ggsave(filename = 'output/q34_mental_health_services/q34_mental_health_services.png', plot = r34, device = 'png')
 write.csv(q34_plot2, paste0("output/q34_mental_health_services/q34_mental_health_services_", q34_n,".csv"), row.names=F)
@@ -1119,7 +1267,12 @@ r35
 ```
 
 ```{r}
-q35_plot2 <- rbind(q35_plot, q35_t)
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n))
+```
+
+```{r}
 dir.create("output/q35_medical_cannabis")
 ggsave(filename = 'output/q35_medical_cannabis/q35_medical_cannabis.png', plot = r35, device = 'png')
 write.csv(q35_plot2, paste0("output/q35_medical_cannabis/q35_medical_cannabis_", q35_n,".csv"), row.names=F)
@@ -1136,7 +1289,12 @@ r36
 ```
 
 ```{r}
-q36_plot2 <- rbind(q36_plot, q36_t)
+row3 <- colnames(q36_plot)
+q36_plot2 <- rbind(row3, q36_plot)
+names(q36_plot2) <- c("q36", q36_t, paste("n = ", q36_n))
+```
+
+```{r}
 dir.create("output/q36_rec_cannabis")
 ggsave(filename = 'output/q36_rec_cannabis/q36_rec_cannabis.png', plot = r36, device = 'png')
 write.csv(q36_plot2, paste0("output/q36_rec_cannabis/q36_rec_cannabis_", q36_n,".csv"), row.names=F)
@@ -1155,7 +1313,12 @@ r37
 ```
 
 ```{r}
-q37_plot2 <- rbind(q37_plot, q37_t)
+row3 <- colnames(q37_plot)
+q37_plot2 <- rbind(row3, q37_plot)
+names(q37_plot2) <- c("q37", q37_t, paste("n = ", q37_n))
+```
+
+```{r}
 dir.create("output/q37_cannabis_uses")
 ggsave(filename = 'output/q37_cannabis_uses/q37_cannabis_uses.png', plot = r37, device = 'png')
 write.csv(q37_plot2, paste0("output/q37_cannabis_uses/q37_cannabis_uses_", q37_n,".csv"), row.names=F)
@@ -1175,7 +1338,12 @@ r38
 ```
 
 ```{r}
-q38_plot2 <- rbind(q38_plot, q38_t)
+row3 <- colnames(q38_plot)
+q38_plot2 <- rbind(row3, q38_plot)
+names(q38_plot2) <- c("q38", q38_t, paste("n = ", q38_n))
+```
+
+```{r}
 dir.create("output/q38_conditions_cannabis")
 ggsave(filename = 'output/q38_conditions_cannabis/q38_conditions_cannabis.png', plot = r38, device = 'png')
 write.csv(q38_plot2, paste0("output/q38_conditions_cannabis/q38_conditions_cannabis_", q38_n,".csv"), row.names=F)
@@ -1193,7 +1361,12 @@ r39
 ```
 
 ```{r}
-q39_plot2 <- rbind(q39_plot, q39_t)
+row3 <- colnames(q39_plot)
+q39_plot2 <- rbind(row3, q39_plot)
+names(q39_plot2) <- c("q39", q39_t, paste("n = ", q39_n))
+```
+
+```{r}
 dir.create("output/q39_top_condition_cannabis")
 ggsave(filename = 'output/q39_top_condition_cannabis/q39_top_condition_cannabis.png', plot = r39, device = 'png')
 write.csv(q39_plot2, paste0("output/q39_top_condition_cannabis/q39_top_condition_cannabis_", q39_n,".csv"), row.names=F)
@@ -1212,7 +1385,12 @@ r40
 ```
 
 ```{r}
-q40_plot2 <- rbind(q40_plot, q40_t)
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
 dir.create("output/q40_symptoms_treated")
 ggsave(filename = 'output/q40_symptoms_treated/q40_symptoms_treated.png', plot = r40, device = 'png')
 write.csv(q40_plot2, paste0("output/q40_symptoms_treated/q40_symptoms_treated_", q40_n,".csv"), row.names=F)
@@ -1230,7 +1408,12 @@ r41
 ```
 
 ```{r}
-q41_plot2 <- rbind(q41_plot, q41_t)
+row3 <- colnames(q41_plot)
+q41_plot2 <- rbind(row3, q41_plot)
+names(q41_plot2) <- c("q41", q41_t, paste("n = ", q41_n))
+```
+
+```{r}
 dir.create("output/q41_med_cannabis_duration")
 ggsave(filename = 'output/q41_med_cannabis_duration/q41_med_cannabis_duration.png', plot = r41, device = 'png')
 write.csv(q41_plot2, paste0("output/q41_med_cannabis_duration/q41_med_cannabis_duration_", q41_n,".csv"), row.names=F)
@@ -1247,14 +1430,19 @@ r42
 ```
 
 ```{r}
-q42_plot2 <- rbind(q42_plot, q42_t)
+row3 <- colnames(q42_plot)
+q42_plot2 <- rbind(row3, q42_plot)
+names(q42_plot2) <- c("q42", q42_t, paste("n = ", q42_n))
+```
+
+```{r}
 dir.create("output/q42_rec_cannabis_duration")
 ggsave(filename = 'output/q42_rec_cannabis_duration/q42_rec_cannabis_duration.png', plot = r42, device = 'png')
 write.csv(q42_plot2, paste0("output/q42_rec_cannabis_duration/q42_rec_cannabis_duration_", q42_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q43 <- 'How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÂ.TODAYÂ.compared.to.theÂ.BEGINNINGÂ.of.your.use.of.cannabis.to.treat.your.primary.medical.condition...'
+q43 <- 'How.do.you.feel.cannabis.has.helped.your.daily.life.Thinking.about.how.you.feelÃ‚.TODAYÃ‚.compared.to.theÃ‚.BEGINNINGÃ‚.of.your.use.of.cannabis.to.treat.your.primary.medical.condition...'
 q43_final_response <- "X.204"
 q43_t <- "How do you feel cannabis has helped your daily life?"
 q43_data <- get_choose_all(raw_data, q.name = q43, f.response = q43_final_response)
@@ -1406,7 +1594,12 @@ r44
 ```
 
 ```{r}
-q44_plot2 <- rbind(q44_plot, q44_t)
+row3 <- colnames(q44_plot)
+q44_plot2 <- rbind(row3, q44_plot)
+names(q44_plot2) <- c("q44", q44_t, paste("n = ", q44_n))
+```
+
+```{r}
 dir.create("output/q44_cannabis_side_effects")
 ggsave(filename = 'output/q44_cannabis_side_effects/q44_cannabis_side_effects.png', plot = r44, device = 'png')
 write.csv(q44_plot2, paste0("output/q44_cannabis_side_effects/q44_cannabis_side_effects_", q44_n,".csv"), row.names=F)
@@ -1426,7 +1619,12 @@ r45
 ```
 
 ```{r}
-q45_plot2 <- rbind(q45_plot, q45_t)
+row3 <- colnames(q45_plot)
+q45_plot2 <- rbind(row3, q45_plot)
+names(q45_plot2) <- c("q45", q45_t, paste("n = ", q45_n))
+```
+
+```{r}
 dir.create("output/q45_meds_reduced_cannabis")
 ggsave(filename = 'output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis.png', plot = r45, device = 'png')
 write.csv(q45_plot2, paste0("output/q45_meds_reduced_cannabis/q45_meds_reduced_cannabis_", q45_n,".csv"), row.names=F)
@@ -1448,7 +1646,12 @@ r46
 ```
 
 ```{r}
-q46_plot2 <- rbind(q46_plot, q46_t, paste("average", q46_mean, sep = " = "))
+row3 <- colnames(q46_plot)
+q46_plot2 <- rbind(row3, q46_plot)
+names(q46_plot2) <- c("q46", q46_t, paste("n = ", q46_n, paste(" avg = ", q46_mean)))
+```
+
+```{r}
 dir.create("output/q46_side_effects_cannabis_v_med")
 ggsave(filename = 'output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med.png', plot = r46, device = 'png')
 write.csv(q46_plot2, paste0("output/q46_side_effects_cannabis_v_med/q46_side_effects_cannabis_v_med_", q46_n,".csv"), row.names=F)
@@ -1468,7 +1671,12 @@ r47
 ```
 
 ```{r}
-q47_plot2 <- rbind(q47_plot, q47_t)
+row3 <- colnames(q47_plot)
+q47_plot2 <- rbind(row3, q47_plot)
+names(q47_plot2) <- c("q47", q47_t, paste("n = ", q47_n))
+```
+
+```{r}
 dir.create("output/q47_cannabis_methods")
 ggsave(filename = 'output/q47_cannabis_methods/q47_cannabis_methods.png', plot = r47, device = 'png')
 write.csv(q47_plot2, paste0("output/q47_cannabis_methods/q47_cannabis_methods_", q47_n,".csv"), row.names=F)
@@ -1486,14 +1694,20 @@ r48
 ```
 
 ```{r}
-q48_plot2 <- rbind(q48_plot, q48_t)
+row3 <- colnames(q48_plot)
+q48_plot2 <- rbind(row3, q48_plot)
+names(q48_plot2) <- c("q48", q48_t, paste("n = ", q48_n))
+```
+
+```{r}
 dir.create("output/q48_top_cannabis_method")
 ggsave(filename = 'output/q48_top_cannabis_method/q48_top_cannabis_method.png', plot = r48, device = 'png')
 write.csv(q48_plot2, paste0("output/q48_top_cannabis_method/q48_top_cannabis_method_", q48_n,".csv"), row.names=F)
 ```
 
+
 ```{r}
-q49 <- "Please.rate.the.importance.of.the.following.aspects.ofÂ.cannabis.products.to.you."
+q49 <- "Please.rate.the.importance.of.the.following.aspects.ofÃ‚.cannabis.products.to.you."
 q49_final_response <- "X.267"
 q49_t <- "Please rate the importance of the following aspects of cannabis products to you"
 q49_data <- get_choose_all(raw_data, q.name = q49, f.response = q49_final_response)
@@ -1635,14 +1849,19 @@ r50
 ```
 
 ```{r}
-q50_plot2 <- rbind(q50_plot, q50_t)
+row3 <- colnames(q50_plot)
+q50_plot2 <- rbind(row3, q50_plot)
+names(q50_plot2) <- c("q50", q50_t, paste("n = ", q50_n))
+```
+
+```{r}
 dir.create("output/q50_cannabis_days_per_wk")
 ggsave(filename = 'output/q50_cannabis_days_per_wk/q50_cannabis_days_per_wk.png', plot = r50, device = 'png')
 write.csv(q50_plot2, paste0("output/q50_cannabis_days_per_wk/q50_cannabis_days_per_wk_", q50_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q51 <- "What.isÂ.ï..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
+q51 <- "What.isÃ‚.Ã¯..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
 q51_t <- "What is your preferred time of day to use cannabis? (Please select one)"
 q51_data <- get_single_selection(data = raw_data, q.name = q51)
 q51_n <- length(unique(q51_data$id))
@@ -1652,7 +1871,12 @@ r51
 ```
 
 ```{r}
-q51_plot2 <- rbind(q51_plot, q51_t)
+row3 <- colnames(q51_plot)
+q51_plot2 <- rbind(row3, q51_plot)
+names(q51_plot2) <- c("q51", q51_t, paste("n = ", q51_n))
+```
+
+```{r}
 dir.create("output/q51_preferred_use_time")
 ggsave(filename = 'output/q51_preferred_use_time/q51_preferred_use_time.png', plot = r51, device = 'png')
 write.csv(q51_plot2, paste0("output/q51_preferred_use_time/q51_preferred_use_time_", q51_n,".csv"), row.names=F)
@@ -1669,7 +1893,12 @@ r52
 ```
 
 ```{r}
-q52_plot2 <- rbind(q52_plot, q52_t)
+row3 <- colnames(q52_plot)
+q52_plot2 <- rbind(row3, q52_plot)
+names(q52_plot2) <- c("q52", q52_t, paste("n = ", q52_n))
+```
+
+```{r}
 dir.create("output/q52_use_times_per_day")
 ggsave(filename = 'output/q52_use_times_per_day/q52_use_times_per_day.png', plot = r52, device = 'png')
 write.csv(q52_plot2, paste0("output/q52_use_times_per_day/q52_use_times_per_day_", q52_n,".csv"), row.names=F)
@@ -1691,7 +1920,12 @@ r53
 ```
 
 ```{r}
-q53_plot2 <- rbind(q53_plot, q53_t, paste("average", q53_mean, sep = " = "))
+row3 <- colnames(q53_plot)
+q53_plot2 <- rbind(row3, q53_plot)
+names(q53_plot2) <- c("q53", q53_t, paste("n = ", q53_n, paste(" avg = ", q53_mean)))
+```
+
+```{r}
 dir.create("output/q53_cannabis_cost_wkly")
 ggsave(filename = 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly.png', plot = r53, device = 'png')
 write.csv(q53_plot2, paste0("output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_", q53_n,".csv"), row.names=F)
@@ -1714,7 +1948,12 @@ r54
 ```
 
 ```{r}
-q54_plot2 <- rbind(q54_plot, q54_t, paste("average", q54_mean, sep = " = "))
+row3 <- colnames(q54_plot)
+q54_plot2 <- rbind(row3, q54_plot)
+names(q54_plot2) <- c("q54", q54_t, paste("n = ", q54_n, paste(" avg = ", q54_mean)))
+```
+
+```{r}
 dir.create("output/q54_purchase_sources")
 ggsave(filename = 'output/q54_purchase_sources/q54_purchase_sources.png', plot = r54, device = 'png')
 write.csv(q54_plot2, paste0("output/q54_purchase_sources/q54_purchase_sources_", q54_n,".csv"), row.names=F)
@@ -1732,7 +1971,12 @@ r55
 ```
 
 ```{r}
-q55_plot2 <- rbind(q55_plot, q55_t)
+row3 <- colnames(q55_plot)
+q55_plot2 <- rbind(row3, q55_plot)
+names(q55_plot2) <- c("q55", q55_t, paste("n = ", q55_n))
+```
+
+```{r}
 dir.create("output/q55_home_grow")
 ggsave(filename = 'output/q55_home_grow/q55_home_grow.png', plot = r55, device = 'png')
 write.csv(q55_plot2, paste0("output/q55_home_grow/q55_home_grow_", q55_n,".csv"), row.names=F)
@@ -1747,7 +1991,12 @@ q56_plot <- clean_single_select(q56_data)
 ```
 
 ```{r}
-q56_plot2 <- rbind(q56_plot, q56_t)
+row3 <- colnames(q56_plot)
+q56_plot2 <- rbind(row3, q56_plot)
+names(q56_plot2) <- c("q56", q56_t, paste("n = ", q56_n))
+```
+
+```{r}
 dir.create("output/q56_favorite_strain")
 write.csv(q56_plot2, paste0("output/q56_favorite_strain/q56_favorite_strain_", q56_n,".csv"), row.names=F)
 ```
@@ -1761,7 +2010,12 @@ q57_plot<- clean_single_select(q57_data)
 ```
 
 ```{r}
-q57_plot2 <- rbind(q57_plot, q57_t)
+row3 <- colnames(q57_plot)
+q57_plot2 <- rbind(row3, q57_plot)
+names(q57_plot2) <- c("q57", q57_t, paste("n = ", q57_n))
+```
+
+```{r}
 dir.create("output/q57_products_desired")
 write.csv(q57_plot2, paste0("output/q57_products_desired/q57_products_desired_", q57_n,".csv"), row.names=F)
 ```
@@ -1777,7 +2031,12 @@ r58
 ```
 
 ```{r}
-q58_plot2 <- rbind(q58_plot, q58_t)
+row3 <- colnames(q58_plot)
+q58_plot2 <- rbind(row3, q58_plot)
+names(q58_plot2) <- c("q58", q58_t, paste("n = ", q58_n))
+```
+
+```{r}
 dir.create("output/q58_family_cannabis_acceptence")
 ggsave(filename = 'output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence.png', plot = r58, device = 'png')
 write.csv(q58_plot2, paste0("output/q58_family_cannabis_acceptence/q58_family_cannabis_acceptence_", q58_n,".csv"), row.names=F)
@@ -1794,7 +2053,12 @@ r59
 ```
 
 ```{r}
-q59_plot2 <- rbind(q59_plot, q59_t)
+row3 <- colnames(q59_plot)
+q59_plot2 <- rbind(row3, q59_plot)
+names(q59_plot2) <- c("q59", q59_t, paste("n = ", q59_n))
+```
+
+```{r}
 dir.create("output/q59_workplace_cannabis_knowledge")
 ggsave(filename = 'output/q59_workplace_cannabis_knowledge/q59_workplace_cannabis_knowledge.png', plot = r59, device = 'png')
 write.csv(q59_plot2, paste0("output/q59_workplace_cannabis_knowledge/q59_workplace_cannabis_knowledge_", q59_n,".csv"), row.names=F)
@@ -1811,7 +2075,12 @@ r60
 ```
 
 ```{r}
-q60_plot2 <- rbind(q60_plot, q60_t)
+row3 <- colnames(q60_plot)
+q60_plot2 <- rbind(row3, q60_plot)
+names(q60_plot2) <- c("q60", q60_t, paste("n = ", q60_n))
+```
+
+```{r}
 dir.create("output/q60_workplace_cannabis_testing")
 ggsave(filename = 'output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing.png', plot = r60, device = 'png')
 write.csv(q60_plot2, paste0("output/q60_workplace_cannabis_testing/q60_workplace_cannabis_testing_", q60_n,".csv"), row.names=F)
@@ -1830,12 +2099,18 @@ r61
 ```
 
 ```{r}
-q61_plot2 <- rbind(q61_plot, q61_t)
+row3 <- colnames(q61_plot)
+q61_plot2 <- rbind(row3, q61_plot)
+names(q61_plot2) <- c("q61", q61_t, paste("n = ", q61_n))
+```
+
+```{r}
 dir.create("output/q61_barriers")
 ggsave(filename = 'output/q61_barriers/q61_barriers.png', plot = r61, device = 'png')
 write.csv(q61_plot2, paste0("output/q61_barriers/q61_barriers_", q61_n,".csv"), row.names=F)
 write.csv(q61_data, 'output/q61_barriers/q61_barriers_ids.csv', row.names = FALSE)
 ```
+
 
 ```{r}
 q62 <- 'How.much.cannabis.flower.are.you.smoking.or.vaping.per.week...i.e..grams..ounces..etc..'
@@ -1893,6 +2168,7 @@ q62_r3
 ggsave(filename = "output/q62_smoke_vape_wkly/concentrates.png", plot = q62_r3, device = 'png')
 write.csv(q62_data3, paste0("output/q62_smoke_vape_wkly/concentrates_", q62_n3, ".csv"), row.names = FALSE)
 ```
+
 
 ```{r}
 q63 <- 'How.many.milligrams.of.cannabis.do.you.use.per.week.'
@@ -2013,7 +2289,7 @@ write.csv(q65_data1, paste0("output/q65_tinctures_wkly/q65_tinctures_wkly_", q65
 ```
 
 ```{r}
-q66 <- "Does.yourÂ.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
+q66 <- "Does.yourÃ‚.VA.doctor.or.clinical.care.provider.know.about.your.medical.cannabis.use."
 q66_t <- "Does your VA doctor or clinical care provider know about your medical cannabis use?"
 q66_data <- get_single_selection(data = raw_data, q.name = q66)
 q66_n <- length(unique(q66_data$id))
@@ -2023,7 +2299,12 @@ r66
 ```
 
 ```{r}
-q66_plot2 <- rbind(q66_plot, q66_t)
+row3 <- colnames(q66_plot)
+q66_plot2 <- rbind(row3, q66_plot)
+names(q66_plot2) <- c("q66", q66_t, paste("n = ", q66_n))
+```
+
+```{r}
 dir.create("output/q66_va_use_knowledge")
 ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r66, device = 'png')
 write.csv(q66_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", q66_n,".csv"), row.names=F)
@@ -2039,13 +2320,18 @@ q67_plot<- clean_single_select(q67_data)
 ```
 
 ```{r}
-q67_plot2 <- rbind(q67_plot, q67_t)
+row3 <- colnames(q67_plot)
+q67_plot2 <- rbind(row3, q67_plot)
+names(q67_plot2) <- c("q67", q67_t, paste("n = ", q67_n))
+```
+
+```{r}
 dir.create("output/q67_va_location")
 write.csv(q67_plot2, paste0("output/q67_va_location/q67_va_location_", q67_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q68 <- "Does.your.VA.doctor.or.clinician.supportÂ.yourÂ.cannabis.use."
+q68 <- "Does.your.VA.doctor.or.clinician.supportÃ‚.yourÃ‚.cannabis.use."
 q68_t <- "Does your VA doctor or clinician support your cannabis use?"
 q68_data <- get_single_selection(data = raw_data, q.name = q68)
 q68_n <- length(unique(q68_data$id))
@@ -2055,7 +2341,12 @@ r68
 ```
 
 ```{r}
-q68_plot2 <- rbind(q68_plot, q68_t)
+row3 <- colnames(q68_plot)
+q68_plot2 <- rbind(row3, q68_plot)
+names(q68_plot2) <- c("q68", q68_t, paste("n = ", q68_n))
+```
+
+```{r}
 dir.create("output/q68_va_cannabis_use_support")
 ggsave(filename = 'output/q68_va_cannabis_use_support/q68_va_cannabis_use_support.png', plot = r68, device = 'png')
 write.csv(q68_plot2, paste0("output/q68_va_cannabis_use_support/q68_va_cannabis_use_support_", q68_n,".csv"), row.names=F)
@@ -2072,7 +2363,12 @@ r69
 ```
 
 ```{r}
-q69_plot2 <- rbind(q69_plot, q69_t)
+row3 <- colnames(q69_plot)
+q69_plot2 <- rbind(row3, q69_plot)
+names(q69_plot2) <- c("q69", q69_t, paste("n = ", q69_n))
+```
+
+```{r}
 dir.create("output/q69_va_satisfaction")
 ggsave(filename = 'output/q69_va_satisfaction/q69_va_satisfaction.png', plot = r69, device = 'png')
 write.csv(q69_plot2, paste0("output/q69_va_satisfaction/q69_va_satisfaction_", q69_n,".csv"), row.names=F)
@@ -2091,7 +2387,12 @@ r70
 ```
 
 ```{r}
-q70_plot2 <- rbind(q70_plot, q70_t)
+row3 <- colnames(q70_plot)
+q70_plot2 <- rbind(row3, q70_plot)
+names(q70_plot2) <- c("q70", q70_t, paste("n = ", q70_n))
+```
+
+```{r}
 dir.create("output/q70_cannabis_info")
 ggsave(filename = 'output/q70_cannabis_info/q70_cannabis_info.png', plot = r70, device = 'png')
 write.csv(q70_plot2, paste0("output/q70_cannabis_info/q70_cannabis_info_", q70_n,".csv"), row.names=F)
@@ -2111,7 +2412,12 @@ r71
 ```
 
 ```{r}
-q71_plot2 <- rbind(q71_plot, q71_t)
+row3 <- colnames(q71_plot)
+q71_plot2 <- rbind(row3, q71_plot)
+names(q71_plot2) <- c("q71", q71_t, paste("n = ", q71_n))
+```
+
+```{r}
 dir.create("output/q71_websites_apps_used")
 ggsave(filename = 'output/q71_websites_apps_used/q71_websites_apps_used.png', plot = r71, device = 'png')
 write.csv(q71_plot2, paste0("output/q71_websites_apps_used/q71_websites_apps_used_", q71_n,".csv"), row.names=F)
@@ -2129,7 +2435,12 @@ r72
 ```
 
 ```{r}
-q72_plot2 <- rbind(q72_plot, q72_t)
+row3 <- colnames(q72_plot)
+q72_plot2 <- rbind(row3, q72_plot)
+names(q72_plot2) <- c("q72", q72_t, paste("n = ", q72_n))
+```
+
+```{r}
 dir.create("output/q72_top_website_app")
 ggsave(filename = 'output/q72_top_website_app/q72_top_website_app.png', plot = r72, device = 'png')
 write.csv(q72_plot2, paste0("output/q72_top_website_app/q72_top_website_app_", q72_n,".csv"), row.names=F)
@@ -2146,7 +2457,12 @@ r73
 ```
 
 ```{r}
-q73_plot2 <- rbind(q73_plot, q73_t)
+row3 <- colnames(q73_plot)
+q73_plot2 <- rbind(row3, q73_plot)
+names(q73_plot2) <- c("q73", q73_t, paste("n = ", q73_n))
+```
+
+```{r}
 dir.create("output/q73_advertising")
 ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r73, device = 'png')
 write.csv(q73_plot2, paste0("output/q73_advertising/q73_advertising_", q73_n,".csv"), row.names=F)
@@ -2162,7 +2478,12 @@ r74 <- plot_single_select(q74_plot, q74_t, q74_n)
 ```
 
 ```{r}
-q74_plot2 <- rbind(q74_plot, q74_t)
+row3 <- colnames(q74_plot)
+q74_plot2 <- rbind(row3, q74_plot)
+names(q74_plot2) <- c("q74", q74_t, paste("n = ", q74_n))
+```
+
+```{r}
 dir.create("output/q74_top_military_rank")
 write.csv(q74_plot2, paste0("output/q74_top_military_rank/q74_top_military_rank_", q74_n,".csv"), row.names=F)
 ```
@@ -2180,7 +2501,12 @@ r75
 ```
 
 ```{r}
-q75_plot2 <- rbind(q75_plot, q75_t)
+row3 <- colnames(q75_plot)
+q75_plot2 <- rbind(row3, q75_plot)
+names(q75_plot2) <- c("q75", q75_t, paste("n = ", q75_n))
+```
+
+```{r}
 dir.create("output/q75_service_branch")
 ggsave(filename = 'output/q75_service_branch/q75_service_branch.png', plot = r75, device = 'png')
 write.csv(q75_plot2, paste0("output/q75_service_branch/q75_service_branch_", q75_n,".csv"), row.names=F)
@@ -2200,7 +2526,12 @@ r76
 ```
 
 ```{r}
-q76_plot2 <- rbind(q76_plot, q76_t)
+row3 <- colnames(q76_plot)
+q76_plot2 <- rbind(row3, q76_plot)
+names(q76_plot2) <- c("q76", q76_t, paste("n = ", q76_n))
+```
+
+```{r}
 dir.create("output/q76_deployment_locations")
 ggsave(filename = 'output/q76_deployment_locations/q76_deployment_locations.png', plot = r76, device = 'png')
 write.csv(q76_plot2, paste0("output/q76_deployment_locations/q76_deployment_locations_", q76_n,".csv"), row.names=F)
@@ -2220,7 +2551,12 @@ r77
 ```
 
 ```{r}
-q77_plot2 <- rbind(q77_plot, q77_t)
+row3 <- colnames(q77_plot)
+q77_plot2 <- rbind(row3, q77_plot)
+names(q77_plot2) <- c("q77", q77_t, paste("n = ", q77_n))
+```
+
+```{r}
 dir.create("output/q77_wars_served")
 ggsave(filename = 'output/q77_wars_served/q77_wars_served.png', plot = r77, device = 'png')
 write.csv(q77_plot2, paste0("output/q77_wars_served/q77_wars_served_", q77_n,".csv"), row.names=F)
@@ -2238,7 +2574,12 @@ r78
 ```
 
 ```{r}
-q78_plot2 <- rbind(q78_plot, q78_t)
+row3 <- colnames(q78_plot)
+q78_plot2 <- rbind(row3, q78_plot)
+names(q78_plot2) <- c("q78", q78_t, paste("n = ", q78_n))
+```
+
+```{r}
 dir.create("output/q78_workplace_hazards")
 ggsave(filename = 'output/q78_workplace_hazards/q78_workplace_hazards.png', plot = r78, device = 'png')
 write.csv(q78_plot2, paste0("output/q78_workplace_hazards/q78_workplace_hazards_", q78_n,".csv"), row.names=F)
@@ -2257,7 +2598,12 @@ r79
 ```
 
 ```{r}
-q79_plot2 <- rbind(q79_plot, q79_t)
+row3 <- colnames(q79_plot)
+q79_plot2 <- rbind(row3, q79_plot)
+names(q79_plot2) <- c("q79", q79_t, paste("n = ", q79_n))
+```
+
+```{r}
 dir.create("output/q79_service_exposure")
 ggsave(filename = 'output/q79_service_exposure/q79_service_exposure.png', plot = r79, device = 'png')
 write.csv(q79_plot2, paste0("output/q79_service_exposure/q79_service_exposure_", q79_n,".csv"), row.names=F)
@@ -2275,7 +2621,12 @@ r80
 ```
 
 ```{r}
-q80_plot2 <- rbind(q80_plot, q80_t)
+row3 <- colnames(q80_plot)
+q80_plot2 <- rbind(row3, q80_plot)
+names(q80_plot2) <- c("q80", q80_t, paste("n = ", q80_n))
+```
+
+```{r}
 dir.create("output/q80_active_combat_zones")
 ggsave(filename = 'output/q80_active_combat_zones/q80_active_combat_zones.png', plot = r80, device = 'png')
 write.csv(q80_plot2, paste0("output/q80_active_combat_zones/q80_active_combat_zones_", q80_n,".csv"), row.names=F)
@@ -2292,7 +2643,12 @@ r81
 ```
 
 ```{r}
-q81_plot2 <- rbind(q81_plot, q81_t)
+row3 <- colnames(q81_plot)
+q81_plot2 <- rbind(row3, q81_plot)
+names(q81_plot2) <- c("q81", q81_t, paste("n = ", q81_n))
+```
+
+```{r}
 dir.create("output/q81_dangerous_duties")
 ggsave(filename = 'output/q81_dangerous_duties/q81_dangerous_duties.png', plot = r81, device = 'png')
 write.csv(q81_plot2, paste0("output/q81_dangerous_duties/q81_dangerous_duties_", q81_n,".csv"), row.names=F)
@@ -2309,7 +2665,12 @@ r82
 ```
 
 ```{r}
-q82_plot2 <- rbind(q82_plot, q82_t)
+row3 <- colnames(q82_plot)
+q82_plot2 <- rbind(row3, q82_plot)
+names(q82_plot2) <- c("q82", q82_t, paste("n = ", q82_n))
+```
+
+```{r}
 dir.create("output/q82_enemy_fire")
 ggsave(filename = 'output/q82_enemy_fire/q82_enemy_fire.png', plot = r82, device = 'png')
 write.csv(q82_plot2, paste0("output/q82_enemy_fire/q82_enemy_fire_", q82_n,".csv"), row.names=F)
@@ -2326,7 +2687,12 @@ r83
 ```
 
 ```{r}
-q83_plot2 <- rbind(q83_plot, q83_t)
+row3 <- colnames(q83_plot)
+q83_plot2 <- rbind(row3, q83_plot)
+names(q83_plot2) <- c("q83", q83_t, paste("n = ", q83_n))
+```
+
+```{r}
 dir.create("output/q83_surrounded_by_enemy")
 ggsave(filename = 'output/q83_surrounded_by_enemy/q83_surrounded_by_enemy.png', plot = r83, device = 'png')
 write.csv(q83_plot2, paste0("output/q83_surrounded_by_enemy/q83_surrounded_by_enemy_", q83_n,".csv"), row.names=F)
@@ -2343,7 +2709,12 @@ r84
 ```
 
 ```{r}
-q84_plot2 <- rbind(q84_plot, q84_t)
+row3 <- colnames(q84_plot)
+q84_plot2 <- rbind(row3, q84_plot)
+names(q84_plot2) <- c("q84", q84_t, paste("n = ", q84_n))
+```
+
+```{r}
 dir.create("output/q84_soldiers_kia_mia")
 ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r84, device = 'png')
 write.csv(q84_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", q84_n,".csv"), row.names=F)
@@ -2360,7 +2731,12 @@ r85
 ```
 
 ```{r}
-q85_plot2 <- rbind(q85_plot, q85_t)
+row3 <- colnames(q85_plot)
+q85_plot2 <- rbind(row3, q85_plot)
+names(q85_plot2) <- c("q85", q85_t, paste("n = ", q85_n))
+```
+
+```{r}
 dir.create("output/q85_fire_rounds_enemy")
 ggsave(filename = 'output/q85_fire_rounds_enemy/q85_fire_rounds_enemy.png', plot = r85, device = 'png')
 write.csv(q85_plot2, paste0("output/q85_fire_rounds_enemy/q85_fire_rounds_enemy_", q85_n,".csv"), row.names=F)
@@ -2377,7 +2753,12 @@ r86
 ```
 
 ```{r}
-q86_plot2 <- rbind(q86_plot, q86_t)
+row3 <- colnames(q86_plot)
+q86_plot2 <- rbind(row3, q86_plot)
+names(q86_plot2) <- c("q86", q86_t, paste("n = ", q86_n))
+```
+
+```{r}
 dir.create("output/q86_witness_hit_rounds")
 ggsave(filename = 'output/q86_witness_hit_rounds/q86_witness_hit_rounds.png', plot = r86, device = 'png')
 write.csv(q86_plot2, paste0("output/q86_witness_hit_rounds/q86_witness_hit_rounds_", q86_n,".csv"), row.names=F)
@@ -2394,7 +2775,12 @@ r87
 ```
 
 ```{r}
-q87_plot2 <- rbind(q87_plot, q87_t)
+row3 <- colnames(q87_plot)
+q87_plot2 <- rbind(row3, q87_plot)
+names(q87_plot2) <- c("q87", q87_t, paste("n = ", q87_n))
+```
+
+```{r}
 dir.create("output/q87_danger_frequency")
 ggsave(filename = 'output/q87_danger_frequency/q87_danger_frequency.png', plot = r87, device = 'png')
 write.csv(q87_plot2, paste0("output/q87_danger_frequency/q87_danger_frequency_", q87_n,".csv"), row.names=F)
@@ -2411,7 +2797,12 @@ r88
 ```
 
 ```{r}
-q88_plot2 <- rbind(q88_plot, q88_t)
+row3 <- colnames(q88_plot)
+q88_plot2 <- rbind(row3, q88_plot)
+names(q88_plot2) <- c("q88", q88_t, paste("n = ", q88_n))
+```
+
+```{r}
 dir.create("output/q88_age")
 ggsave(filename = 'output/q88_age/q88_age.png', plot = r88, device = 'png')
 write.csv(q88_plot2, paste0("output/q88_age/q88_age_", q88_n,".csv"), row.names=F)
@@ -2428,7 +2819,12 @@ r89
 ```
 
 ```{r}
-q89_plot2 <- rbind(q89_plot, q89_t)
+row3 <- colnames(q89_plot)
+q89_plot2 <- rbind(row3, q89_plot)
+names(q89_plot2) <- c("q89", q89_t, paste("n = ", q89_n))
+```
+
+```{r}
 dir.create("output/q89_gender")
 ggsave(filename = 'output/q89_gender/q89_gender.png', plot = r89, device = 'png')
 write.csv(q89_plot2, paste0("output/q89_gender/q89_gender_", q89_n,".csv"), row.names=F)
@@ -2446,14 +2842,19 @@ r90
 ```
 
 ```{r}
-q90_plot2 <- rbind(q90_plot, q90_t)
+row3 <- colnames(q90_plot)
+q90_plot2 <- rbind(row3, q90_plot)
+names(q90_plot2) <- c("q90", q90_t, paste("n = ", q90_n))
+```
+
+```{r}
 dir.create("output/q90_income")
 ggsave(filename = 'output/q90_income/q90_income.png', plot = r90, device = 'png')
 write.csv(q90_plot2, paste0("output/q90_income/q90_income_", q90_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q91 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÂ.received..Â."
+q91 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed...If.you.re.currently.enrolled.in.school..please.indicate.the.highest.degree.you.haveÃ‚.received..Ã‚."
 q91_t <- "What is the highest degree or level of school you have completed? (If you're currently enrolled in school, please indicate the highest degree you have received.)"
 q91_data <- get_single_selection(data = raw_data, q.name = q91)
 q91_n <- length(unique(q91_data$id))
@@ -2463,7 +2864,12 @@ r91
 ```
 
 ```{r}
-q91_plot2 <- rbind(q91_plot, q91_t)
+row3 <- colnames(q91_plot)
+q91_plot2 <- rbind(row3, q91_plot)
+names(q91_plot2) <- c("q91", q91_t, paste("n = ", q91_n))
+```
+
+```{r}
 dir.create("output/q91_highest_degree")
 ggsave(filename = 'output/q91_highest_degree/q91_highest_degree.png', plot = r91, device = 'png')
 write.csv(q91_plot2, paste0("output/q91_highest_degree/q91_highest_degree_", q91_n,".csv"), row.names=F)
@@ -2480,7 +2886,12 @@ r92
 ```
 
 ```{r}
-q92_plot2 <- rbind(q92_plot, q92_t)
+row3 <- colnames(q92_plot)
+q92_plot2 <- rbind(row3, q92_plot)
+names(q92_plot2) <- c("q92", q92_t, paste("n = ", q92_n))
+```
+
+```{r}
 dir.create("output/q92_marital_status")
 ggsave(filename = 'output/q92_marital_status/q92_marital_status.png', plot = r92, device = 'png')
 write.csv(q92_plot2, paste0("output/q92_marital_status/q92_marital_status_", q92_n,".csv"), row.names=F)
@@ -2497,7 +2908,12 @@ r93
 ```
 
 ```{r}
-q93_plot2 <- rbind(q93_plot, q93_t)
+row3 <- colnames(q93_plot)
+q93_plot2 <- rbind(row3, q93_plot)
+names(q93_plot2) <- c("q93", q93_t, paste("n = ", q93_n))
+```
+
+```{r}
 dir.create("output/q93_employment_status")
 ggsave(filename = 'output/q93_employment_status/q93_employment_status.png', plot = r93, device = 'png')
 write.csv(q93_plot2, paste0("output/q93_employment_status/q93_employment_status_", q93_n,".csv"), row.names=F)
@@ -2514,7 +2930,12 @@ r94
 ```
 
 ```{r}
-q94_plot2 <- rbind(q94_plot, q94_t)
+row3 <- colnames(q94_plot)
+q94_plot2 <- rbind(row3, q94_plot)
+names(q94_plot2) <- c("q94", q94_t, paste("n = ", q94_n))
+```
+
+```{r}
 dir.create("output/q94_homeless")
 ggsave(filename = 'output/q94_homeless/q94_homeless.png', plot = r94, device = 'png')
 write.csv(q94_plot2, paste0("output/q94_homeless/q94_homeless_", q94_n,".csv"), row.names=F)
@@ -2531,7 +2952,12 @@ r95
 ```
 
 ```{r}
-q95_plot2 <- rbind(q95_plot, q95_t)
+row3 <- colnames(q95_plot)
+q95_plot2 <- rbind(row3, q95_plot)
+names(q95_plot2) <- c("q95", q95_t, paste("n = ", q95_n))
+```
+
+```{r}
 dir.create("output/q95_firearms")
 ggsave(filename = 'output/q95_firearms/q95_firearms.png', plot = r95, device = 'png')
 write.csv(q95_plot2, paste0("output/q95_firearms/q95_firearms_", q95_n,".csv"), row.names=F)
@@ -2548,7 +2974,12 @@ r96
 ```
 
 ```{r}
-q96_plot2 <- rbind(q96_plot, q96_t)
+row3 <- colnames(q96_plot)
+q96_plot2 <- rbind(row3, q96_plot)
+names(q96_plot2) <- c("q96", q96_t, paste("n = ", q96_n))
+```
+
+```{r}
 dir.create("output/q96_race")
 ggsave(filename = 'output/q96_race/q96_race.png', plot = r96, device = 'png')
 write.csv(q96_plot2, paste0("output/q96_race/q96_race_", q96_n,".csv"), row.names=F)
@@ -2565,7 +2996,12 @@ r97
 ```
 
 ```{r}
-q97_plot2 <- rbind(q97_plot, q97_t)
+row3 <- colnames(q97_plot)
+q97_plot2 <- rbind(row3, q97_plot)
+names(q97_plot2) <- c("q97", q97_t, paste("n = ", q97_n))
+```
+
+```{r}
 dir.create("output/q97_sexuality")
 ggsave(filename = 'output/q97_sexuality/q97_sexuality.png', plot = r97, device = 'png')
 write.csv(q97_plot2, paste0("output/q97_sexuality/q97_sexuality_", q97_n,".csv"), row.names=F)
@@ -2582,7 +3018,12 @@ r98
 ```
 
 ```{r}
-q98_plot2 <- rbind(q98_plot, q98_t)
+row3 <- colnames(q98_plot)
+q98_plot2 <- rbind(row3, q98_plot)
+names(q98_plot2) <- c("q98", q98_t, paste("n = ", q98_n))
+```
+
+```{r}
 dir.create("output/q98_state")
 ggsave(filename = 'output/q98_state/q98_state.png', plot = r98, device = 'png')
 write.csv(q98_plot2, paste0("output/q98_state/q98_state_", q98_n,".csv"), row.names=F)
@@ -2599,7 +3040,12 @@ r99
 ```
 
 ```{r}
-q99_plot2 <- rbind(q99_plot, q99_t)
+row3 <- colnames(q99_plot)
+q99_plot2 <- rbind(row3, q99_plot)
+names(q99_plot2) <- c("q99", q99_t, paste("n = ", q99_n))
+```
+
+```{r}
 dir.create("output/q99_cannabis_if_legal")
 ggsave(filename = 'output/q99_cannabis_if_legal/q99_cannabis_if_legal.png', plot = r99, device = 'png')
 write.csv(q99_plot2, paste0("output/q99_cannabis_if_legal/q99_cannabis_if_legal_", q99_n,".csv"), row.names=F)
@@ -2616,7 +3062,12 @@ r100
 ```
 
 ```{r}
-q100_plot2 <- rbind(q100_plot, q100_t)
+row3 <- colnames(q100_plot)
+q100_plot2 <- rbind(row3, q100_plot)
+names(q100_plot2) <- c("q100", q100_t, paste("n = ", q100_n))
+```
+
+```{r}
 dir.create("output/q100_va_offer_cannabis")
 ggsave(filename = 'output/q100_va_offer_cannabis/q100_va_offer_cannabis.png', plot = r100, device = 'png')
 write.csv(q100_plot2, paste0("output/q100_va_offer_cannabis/q100_va_offer_cannabis_", q100_n,".csv"), row.names=F)
@@ -2633,14 +3084,19 @@ r101
 ```
 
 ```{r}
-q101_plot2 <- rbind(q101_plot, q101_t)
+row3 <- colnames(q101_plot)
+q101_plot2 <- rbind(row3, q101_plot)
+names(q101_plot2) <- c("q101", q101_t, paste("n = ", q101_n))
+```
+
+```{r}
 dir.create("output/q101_support_med_cannabis_research")
 ggsave(filename = 'output/q101_support_med_cannabis_research/q101_support_med_cannabis_research.png', plot = r101, device = 'png')
 write.csv(q101_plot2, paste0("output/q101_support_med_cannabis_research/q101_support_med_cannabis_research_", q101_n,".csv"), row.names=F)
 ```
 
 ```{r}
-q102 <- "Do.you.believe.the.VA.should.offerÂ.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
+q102 <- "Do.you.believe.the.VA.should.offerÃ‚.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
 q102_t <- "Do you believe the VA should offer free (or discounted) medical cannabis to veterans who qualify for its use?"
 q102_data <- get_single_selection(data = raw_data, q.name = q102)
 q102_n <- length(unique(q102_data$id))
@@ -2650,7 +3106,12 @@ r102
 ```
 
 ```{r}
-q102_plot2 <- rbind(q102_plot, q102_t)
+row3 <- colnames(q102_plot)
+q102_plot2 <- rbind(row3, q102_plot)
+names(q102_plot2) <- c("q102", q102_t, paste("n = ", q102_n))
+```
+
+```{r}
 dir.create("output/q102_cannabis_discount")
 ggsave(filename = 'output/q102_cannabis_discount/q102_cannabis_discount.png', plot = r102, device = 'png')
 write.csv(q102_plot2, paste0("output/q102_cannabis_discount/q102_cannabis_discount_", q102_n,".csv"), row.names=F)
@@ -2669,7 +3130,12 @@ r103
 ```
 
 ```{r}
-q103_plot2 <- rbind(q103_plot, q103_t)
+row3 <- colnames(q103_plot)
+q103_plot2 <- rbind(row3, q103_plot)
+names(q103_plot2) <- c("q103", q103_t, paste("n = ", q103_n))
+```
+
+```{r}
 dir.create("output/q103_support_groups")
 ggsave(filename = 'output/q103_support_groups/q103_support_groups.png', plot = r103, device = 'png')
 write.csv(q103_plot2, paste0("output/q103_support_groups/q103_support_groups_", q103_n,".csv"), row.names=F)
@@ -2687,7 +3153,12 @@ r104
 ```
 
 ```{r}
-q104_plot2 <- rbind(q104_plot, q104_t)
+row3 <- colnames(q104_plot)
+q104_plot2 <- rbind(row3, q104_plot)
+names(q104_plot2) <- c("q104", q104_t, paste("n = ", q104_n))
+```
+
+```{r}
 dir.create("output/q104_share_results")
 ggsave(filename = 'output/q104_share_results/q104_share_results.png', plot = r104, device = 'png')
 write.csv(q104_plot2, paste0("output/q104_share_results/q104_share_results_", q104_n,".csv"), row.names=F)
@@ -2704,4 +3175,9 @@ print(paste("med $ monthly avg =", q33_mean))
 print(paste("side effects cannabis v med avg =", q46_mean))
 print(paste("cannabis $ wkly avg =", q53_mean))
 print(paste("% purchased regulated avg =", q54_mean))
+```
+
+```{r}
+all_means <- as.data.frame(rbind(q8_mean, q9_mean, q10_mean, q11_mean, q12_mean, q21_mean, q33_mean, q46_mean, q53_mean, q54_mean))
+write.csv(all_means, "output/all_means_data.csv")
 ```

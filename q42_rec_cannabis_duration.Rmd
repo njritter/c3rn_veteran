@@ -1,7 +1,7 @@
 ---
 title: "q42 'How long have you been using cannabis for recreational purposes?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,21 @@ r42
 ```
 
 ```{r}
-q42_plot2 <- rbind(q42_plot, q42_t)
+row3 <- colnames(q42_plot)
+q42_plot2 <- rbind(row3, q42_plot)
+names(q42_plot2) <- c("q42", q42_t, paste("n = ", q42_n))
+```
+
+```{r}
 dir.create("output/q42_rec_cannabis_duration")
 ggsave(filename = 'output/q42_rec_cannabis_duration/q42_rec_cannabis_duration.png', plot = r42, device = 'png')
 write.csv(q42_plot2, paste0("output/q42_rec_cannabis_duration/q42_rec_cannabis_duration_", q42_n,".csv"), row.names=F)
 ```
+
+
+
+
+
 
 
 

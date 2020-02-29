@@ -1,7 +1,7 @@
 ---
 title: "q8 'What is your current level of pain (where 0 is no pain and 10 is the worst pain imaginable) what is your current level of pain?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,7 +33,12 @@ r8
 ```
 
 ```{r}
-q8_plot2 <- rbind(q8_plot, q8_t, paste("average", q8_mean, sep = " = "))
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n, paste(" avg = ", q8_mean)))
+```
+
+```{r}
 dir.create("output/q8_current_pain")
 ggsave(filename = 'output/q8_current_pain/q8_current_pain.png', plot = r8, device = 'png')
 write.csv(q8_plot2, paste0("output/q8_current_pain/q8_current_pain_", q8_n,".csv"), row.names=F)

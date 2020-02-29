@@ -1,7 +1,7 @@
 ---
 title: "Q66 Does your VA doctor or clinical care provider know about your medical cannabis use?"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r66
 ```
 
 ```{r}
-q66_plot2 <- rbind(q66_plot, q66_t)
+row3 <- colnames(q66_plot)
+q66_plot2 <- rbind(row3, q66_plot)
+names(q66_plot2) <- c("q66", q66_t, paste("n = ", q66_n))
+```
+
+```{r}
 dir.create("output/q66_va_use_knowledge")
 ggsave(filename = 'output/q66_va_use_knowledge/q66_va_use_knowledge.png', plot = r66, device = 'png')
 write.csv(q66_plot2, paste0("output/q66_va_use_knowledge/q66_va_use_knowledge_", q66_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

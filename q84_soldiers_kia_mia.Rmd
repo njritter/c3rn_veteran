@@ -1,7 +1,7 @@
 ---
 title: "q84 'What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r84
 ```
 
 ```{r}
-q84_plot2 <- rbind(q84_plot, q84_t)
+row3 <- colnames(q84_plot)
+q84_plot2 <- rbind(row3, q84_plot)
+names(q84_plot2) <- c("q84", q84_t, paste("n = ", q84_n))
+```
+
+```{r}
 dir.create("output/q84_soldiers_kia_mia")
 ggsave(filename = 'output/q84_soldiers_kia_mia/q84_soldiers_kia_mia.png', plot = r84, device = 'png')
 write.csv(q84_plot2, paste0("output/q84_soldiers_kia_mia/q84_soldiers_kia_mia_", q84_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

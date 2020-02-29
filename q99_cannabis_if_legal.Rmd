@@ -1,7 +1,7 @@
 ---
 title: "q99 'I would choose medical cannabis if it was a federally-legal treatment option.'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r99
 ```
 
 ```{r}
-q99_plot2 <- rbind(q99_plot, q99_t)
+row3 <- colnames(q99_plot)
+q99_plot2 <- rbind(row3, q99_plot)
+names(q99_plot2) <- c("q99", q99_t, paste("n = ", q99_n))
+```
+
+```{r}
 dir.create("output/q99_cannabis_if_legal")
 ggsave(filename = 'output/q99_cannabis_if_legal/q99_cannabis_if_legal.png', plot = r99, device = 'png')
 write.csv(q99_plot2, paste0("output/q99_cannabis_if_legal/q99_cannabis_if_legal_", q99_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

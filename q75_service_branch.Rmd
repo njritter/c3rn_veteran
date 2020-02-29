@@ -1,7 +1,7 @@
 ---
 title: "q75 'Which branch of the armed services did you serve in? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,21 @@ r75
 ```
 
 ```{r}
-q75_plot2 <- rbind(q75_plot, q75_t)
+row3 <- colnames(q75_plot)
+q75_plot2 <- rbind(row3, q75_plot)
+names(q75_plot2) <- c("q75", q75_t, paste("n = ", q75_n))
+```
+
+```{r}
 dir.create("output/q75_service_branch")
 ggsave(filename = 'output/q75_service_branch/q75_service_branch.png', plot = r75, device = 'png')
 write.csv(q75_plot2, paste0("output/q75_service_branch/q75_service_branch_", q75_n,".csv"), row.names=F)
 write.csv(q75_data, 'output/q75_service_branch/q75_service_branch_ids.csv', row.names = FALSE)
 ```
+
+
+
+
 
 
 

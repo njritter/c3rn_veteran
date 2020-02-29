@@ -1,7 +1,7 @@
 ---
 title: "q35 'Do you use cannabis for medical purposes?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,19 @@ r35
 ```
 
 ```{r}
-q35_plot2 <- rbind(q35_plot, q35_t)
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n))
+```
+
+```{r}
 dir.create("output/q35_medical_cannabis")
 ggsave(filename = 'output/q35_medical_cannabis/q35_medical_cannabis.png', plot = r35, device = 'png')
 write.csv(q35_plot2, paste0("output/q35_medical_cannabis/q35_medical_cannabis_", q35_n,".csv"), row.names=F)
 ```
+
+
+
 
 
 

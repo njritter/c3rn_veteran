@@ -1,7 +1,7 @@
 ---
 title: "q25 'Have you ever been tested for THC (marijuana) during your opioid recovery treatment?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,7 +28,12 @@ r25
 ```
 
 ```{r}
-q25_plot2 <- rbind(q25_plot, q25_t)
+row3 <- colnames(q25_plot)
+q25_plot2 <- rbind(row3, q25_plot)
+names(q25_plot2) <- c("q25", q25_t, paste("n = ", q25_n))
+```
+
+```{r}
 dir.create("output/q25_thc_test_oud")
 ggsave(filename = 'output/q25_thc_test_oud/q25_thc_test_oud.png', plot = r25, device = 'png')
 write.csv(q25_plot2, paste0("output/q25_thc_test_oud/q25_thc_test_oud_", q25_n,".csv"), row.names=F)

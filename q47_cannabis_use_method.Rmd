@@ -1,7 +1,7 @@
 ---
 title: "q47 'How do you prefer to use cannabis? (Please select all that apply)'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -30,12 +30,20 @@ r47
 ```
 
 ```{r}
-q47_plot2 <- rbind(q47_plot, q47_t)
+row3 <- colnames(q47_plot)
+q47_plot2 <- rbind(row3, q47_plot)
+names(q47_plot2) <- c("q47", q47_t, paste("n = ", q47_n))
+```
+
+```{r}
 dir.create("output/q47_cannabis_methods")
 ggsave(filename = 'output/q47_cannabis_methods/q47_cannabis_methods.png', plot = r47, device = 'png')
 write.csv(q47_plot2, paste0("output/q47_cannabis_methods/q47_cannabis_methods_", q47_n,".csv"), row.names=F)
 write.csv(q47_data, 'output/q47_cannabis_methods/q47_cannabis_methods_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

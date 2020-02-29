@@ -1,7 +1,7 @@
 ---
 title: "q10 'What is your least level of pain (what is the lowest level of pain you feel?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,7 +33,12 @@ r10
 ```
 
 ```{r}
-q10_plot2 <- rbind(q10_plot, q10_t, paste("average", q10_mean, sep = " = "))
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n, paste(" avg = ", q10_mean)))
+```
+
+```{r}
 dir.create("output/q10_least_pain")
 ggsave(filename = 'output/q10_least_pain/q10_least_pain.png', plot = r10, device = 'png')
 write.csv(q10_plot2, paste0("output/q10_least_pain/q10_least_pain_", q10_n,".csv"), row.names=F)

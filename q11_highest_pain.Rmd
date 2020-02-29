@@ -25,7 +25,7 @@ q11_data <- get_single_selection_0(data = raw_data, q.name = q11) %>%
 q11_n <- length(unique(q11_data$id))
 q11_mean_data <- as.numeric(as.character(q11_data$response))
 q11_mean <- mean(q11_mean_data) %>%
-  round(3) %>%
+  round(2) %>%
   print()
 q11_plot<- clean_single_select(q11_data)
 r11 <- plot_single_select_0(q11_plot, q11_t, q11_n, q11_mean)
@@ -33,7 +33,12 @@ r11
 ```
 
 ```{r}
-q11_plot2 <- rbind(q11_plot, q11_t, paste("average", q11_mean, sep = " = "))
+row3 <- colnames(q11_plot)
+q11_plot2 <- rbind(row3, q11_plot)
+names(q11_plot2) <- c("q11", q11_t, paste("n = ", q11_n, paste(" avg = ", q11_mean)))
+```
+
+```{r}
 dir.create("output/q11_highest_pain")
 ggsave(filename = 'output/q11_highest_pain/q11_highest_pain.png', plot = r11, device = 'png')
 write.csv(q11_plot2, paste0("output/q11_highest_pain/q11_highest_pain_", q11_n,".csv"), row.names=F)

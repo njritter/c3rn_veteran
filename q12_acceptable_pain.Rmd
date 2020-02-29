@@ -1,7 +1,7 @@
 ---
 title: "q12 'If you had to live with some pain, what level of pain would be acceptable?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,7 +33,12 @@ r12
 ```
 
 ```{r}
-q12_plot2 <- rbind(q12_plot, q12_t, paste("average", q12_mean, sep = " = "))
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n, paste(" avg = ", q12_mean)))
+```
+
+```{r}
 dir.create("output/q12_acceptable_pain")
 ggsave(filename = 'output/q12_acceptable_pain/q12_acceptable_pain.png', plot = r12, device = 'png')
 write.csv(q12_plot2, paste0("output/q12_acceptable_pain/q12_acceptable_pain_", q12_n,".csv"), row.names=F)

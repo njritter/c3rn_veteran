@@ -1,7 +1,7 @@
 ---
 title: "q53 'On average, how much do you spend (in US dollars) on consumable cannabis products per week?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -33,12 +33,20 @@ r53
 ```
 
 ```{r}
-q53_plot2 <- rbind(q53_plot, q53_t, paste("average", q53_mean, sep = " = "))
+row3 <- colnames(q53_plot)
+q53_plot2 <- rbind(row3, q53_plot)
+names(q53_plot2) <- c("q53", q53_t, paste("n = ", q53_n, paste(" avg = ", q53_mean)))
+```
+
+```{r}
 dir.create("output/q53_cannabis_cost_wkly")
 ggsave(filename = 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly.png', plot = r53, device = 'png')
 write.csv(q53_plot2, paste0("output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_", q53_n,".csv"), row.names=F)
 write.csv(q53_data, 'output/q53_cannabis_cost_wkly/q53_cannabis_cost_wkly_ids.csv', row.names = FALSE)
 ```
+
+
+
 
 
 

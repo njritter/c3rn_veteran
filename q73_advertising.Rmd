@@ -1,7 +1,7 @@
 ---
 title: "q73 'In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community (including TV, radio, signs, billboards, newspapers, pamphlets, or street-side marketing)?'"
 author: "David Ritter"
-date: "2/25/2020"
+date: "2/28/2020"
 output: html_document
 runtime: shiny
 ---
@@ -28,11 +28,20 @@ r73
 ```
 
 ```{r}
-q73_plot2 <- rbind(q73_plot, q73_t)
+row3 <- colnames(q73_plot)
+q73_plot2 <- rbind(row3, q73_plot)
+names(q73_plot2) <- c("q73", q73_t, paste("n = ", q73_n))
+```
+
+```{r}
 dir.create("output/q73_advertising")
 ggsave(filename = 'output/q73_advertising/q73_advertising.png', plot = r73, device = 'png')
 write.csv(q73_plot2, paste0("output/q73_advertising/q73_advertising_", q73_n,".csv"), row.names=F)
 ```
+
+
+
+
 
 
 

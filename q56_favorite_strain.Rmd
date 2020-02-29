@@ -26,7 +26,12 @@ q56_plot <- clean_single_select(q56_data)
 ```
 
 ```{r}
-q56_plot2 <- rbind(q56_plot, q56_t)
+row3 <- colnames(q56_plot)
+q56_plot2 <- rbind(row3, q56_plot)
+names(q56_plot2) <- c("q56", q56_t, paste("n = ", q56_n))
+```
+
+```{r}
 dir.create("output/q56_favorite_strain")
 write.csv(q56_plot2, paste0("output/q56_favorite_strain/q56_favorite_strain_", q56_n,".csv"), row.names=F)
 ```
