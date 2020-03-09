@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q68 <- "Does.your.VA.doctor.or.clinician.supportÂ.yourÂ.cannabis.use."
+q68 <- "Does.your.VA.doctor.or.clinician.supportÃ‚.yourÃ‚.cannabis.use."
 q68_t <- "Does your VA doctor or clinician support your cannabis use?"
 q68_data <- get_single_selection(data = raw_data, q.name = q68)
 q68_n <- length(unique(q68_data$id))

@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q16 <- "If.you.checked.offÂ.ï..anyï...problems..howÂ.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
+q16 <- "If.you.checked.offÃ‚.Ã¯..anyÃ¯...problems..howÃ‚.difficult.have.these.problems.made.it.for.you.to.do.your.work..take.care.of.things.at.home..or.get.along.with.other.people."
 q16_t <- "Difficulty of living with anxiety as top condition"
 q16_data <- get_single_selection(data = raw_data, q.name = q16)
 q16_n <- length(unique(q16_data$id))

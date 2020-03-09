@@ -1,0 +1,13 @@
+name: q8_current_pain
+title: q8_current_pain
+username:
+account: djr521
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1916350
+bundleId: 2858927
+url: https://djr521.shinyapps.io/q8_current_pain/
+when: 1583540635.12994
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: output/q8_current_pain/q8_current_pain.png|output/q8_current_pain/q8_current_pain_ids.csv

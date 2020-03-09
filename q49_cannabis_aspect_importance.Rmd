@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q49 <- "Please.rate.the.importance.of.the.following.aspects.ofÂ.cannabis.products.to.you."
+q49 <- "Please.rate.the.importance.of.the.following.aspects.ofÃ‚.cannabis.products.to.you."
 q49_final_response <- "X.267"
 q49_t <- "Please rate the importance of the following aspects of cannabis products to you"
 q49_data <- get_choose_all(raw_data, q.name = q49, f.response = q49_final_response)

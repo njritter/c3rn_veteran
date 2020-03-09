@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q102 <- "Do.you.believe.the.VA.should.offerÂ.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
+q102 <- "Do.you.believe.the.VA.should.offerÃ‚.free..or.discounted..medical.cannabis.to.veterans.who.qualify.for.its.use."
 q102_t <- "Do you believe the VA should offer free (or discounted) medical cannabis to veterans who qualify for its use?"
 q102_data <- get_single_selection(data = raw_data, q.name = q102)
 q102_n <- length(unique(q102_data$id))

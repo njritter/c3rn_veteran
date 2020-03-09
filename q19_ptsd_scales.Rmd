@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q19 <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in.response.to.stressful.military.experiences..Please.read.each.one.carefully.and.indicate.how.much.you.have.beenÂ.ï..bothered.by.that.problem.in.the.last.month.ï.."
+q19 <- "Below.is.a.list.of.problems.and.complaints.that.veterans.sometimes.have.in.response.to.stressful.military.experiences..Please.read.each.one.carefully.and.indicate.how.much.you.have.beenÃ‚.Ã¯..bothered.by.that.problem.in.the.last.month.Ã¯.."
 q19_final_response <- "X.115"
 q19_t <- "PTSD Scales"
 q19_data <- get_choose_all(raw_data, q.name = q19, f.response = q19_final_response)

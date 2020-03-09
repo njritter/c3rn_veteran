@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q51 <- "What.isÂ.ï..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
+q51 <- "What.isÃ‚.Ã¯..your.preferred.time.of.day.to.use.cannabis...Please.select.one."
 q51_t <- "What is your preferred time of day to use cannabis? (Please select one)"
 q51_data <- get_single_selection(data = raw_data, q.name = q51)
 q51_n <- length(unique(q51_data$id))

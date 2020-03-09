@@ -18,7 +18,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-q11 <- "What.is.yourÂ.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
+q11 <- "What.is.yourÃ‚.highest.level.of.pain..what.is.the.highest.level.of.pain.you.feel.."
 q11_t <- "What is your highest level of pain (what is the highest level of pain you feel?)"
 q11_data <- get_single_selection_0(data = raw_data, q.name = q11) %>%
   filter(response != "")

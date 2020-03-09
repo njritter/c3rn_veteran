@@ -15,18 +15,18 @@ source("helper.R")
 
 ```{r}
 #Use if not filtering
-#raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
-master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
-headers <- master[c(1), ]
+#master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+#headers <- master[c(1), ]
 ```
 
 ```{r}
 #Filtering for single select questions
-filtered_data <- filter(master, master$What.is.your.current.employment.status. == "Employed full time (40 or more hours per week)")
-raw_data <- rbind(headers, filtered_data)
+#filtered_data <- filter(master, master$What.is.your.current.employment.status. == "Employed full time (40 or more hours per week)")
+#raw_data <- rbind(headers, filtered_data)
 ```
 
 ```{r}
@@ -3183,4 +3183,12 @@ print(paste("% purchased regulated avg =", q54_mean))
 ```{r}
 all_means <- as.data.frame(rbind(q8_mean, q9_mean, q10_mean, q11_mean, q12_mean, q21_mean, q33_mean, q46_mean, q53_mean, q54_mean))
 write.csv(all_means, "output/all_means_data.csv")
+```
+
+```{r}
+#all_q <- rbind(q4_t, q4_plot, q5_t, q5_plot, q6_t, q6_plot, q7_t, q7_plot, q8_t, q8_plot, q9_t,  q9_plot, q10_t, q10_plot, q11_t, q11_plot, q12_t, q12_plot, q13_t, q13_plot, q14_t, q14_plot, q15_t, q15_t1, q15_data1, q15_t2, q15_data2, q15_t3, q15_data3, q15_t4, q15_data4, q15_t5, q15_data5, q15_t6, q15_data6, q15_t7, q15_data7, q16_t, q16_plot, q17_t, q17_t1, q17_data1, q17_t2, q17_data2, q17_t3, q17_data3, q17_t4, q17_data4, q17_t5, q17_data5, q17_t6, q17_data6, q17_t7, q17_data7, q17_t8, q17_data8, q17_t9, q17_data9, q18_t, q18_plot, q19_t, q19_t1, q19_data1, q19_t2, q19_data2, q19_t3, q19_data3, q19_t4, q19_data4, q19_t5, q19_data5, q19_t6, q19_data6, q19_t7, q19_data7, q19_t8, q19_data8, q19_t9, q19_data9, q19_t10, q19_data10, q19_t11, q19_data11, q19_t12, q19_data12, q19_t13, q19_data13, q19_t14, q19_data14, q19_t15, q19_data15, q19_t16, q19_data16, q19_t17, q19_data17, q20_t, q20_plot, q21_t, q21_plot, q22_t, q22_plot, q23_t, q23_plot, q24_t, q24_plot, q25_t, q25_plot, q26_t, q26_plot, q27_t, q27_plot, q28_t, q28_plot, q29_t, q29_plot, q30_t, q30_plot, q31_t, q31_plot, q32_t, q32_plot, q33_t, q33_plot, q34_t, q34_plot, q35_t, q35_plot, q36_t, q36_plot, q37_t, q37_plot, q38_t, q38_plot, q39_t, q39_plot, q40_t, q40_plot, q41_t, q41_plot, q42_t, q42_plot, q43_t, q43_t1, q43_data1, q43_t2, q43_data2, q43_t3, q43_data3, q43_t4, q43_data4, q43_t5, q43_data5, q43_t6, q43_data6, q43_t7, q43_data7, q43_t8, q43_data8, q44_t, q44_plot, q45_t, q45_plot, q46_t, q46_plot, q47_t, q47_plot, q48_t, q48_plot, q49_t, q49_t1, q49_data1, q49_t2, q49_data2, q49_t3, q49_data3, q49_t4, q49_data4, q49_t5, q49_data5, q49_t6, q49_data6, q49_t7, q49_data7, q49_t8, q49_data8, q50_t, q50_plot, q51_t, q51_plot, q52_t, q52_plot, q53_t, q53_plot, q54_t, q54_plot, q55_t, q55_plot, q56_t, q56_plot, q57_t, q57_plot, q58_t, q58_plot, q59_t, q59_plot, q60_t, q60_plot, q61_t, q61_plot, q62_t, q62_t1, q62_data1, q62_t2, q62_data2, q62_t3, q62_data3, q63_t, q63_t1, q63_data1, q63_t2, q63_data2, q63_t3, q63_data3, q63_t4, q63_data4, q64_t, q64_t1, q64_data1, q65_t, q65_t1, q65_data1, q66_t, q66_plot, q67_t, q67_plot, q68_t, q68_plot, q69_t, q69_plot, q70_t, q70_plot, q71_t, q71_plot, q72_t, q72_plot, q73_t, q73_plot, q74_t, q74_plot, q75_t, q75_plot, q76_t, q76_plot, q77_t, q77_plot, q78_t, q78_plot, q79_t, q79_plot, q80_t, q80_plot, q81_t, q81_plot, q82_t, q82_plot, q83_t, q83_plot, q84_t, q84_plot, q85_t, q85_plot, q86_t, q86_plot, q87_t, q87_plot, q88_t, q88_plot, q89_t, q90_plot, q91_t, q91_plot, q92_t, q92_plot, q93_t, q93_plot, q94_t, q94_plot, q95_t, q95_plot, q96_t, q96_plot, q97_t, q97_plot, q98_t, q98_plot, q99_t, q99_plot, q100_t, q100_plot, q101_t, q101_plot, q102_t, q102_plot, q103_t, q103_plot, q104_t, q104_plot)
+```
+
+```{r}
+#write.csv(all_q, "output/all_q_data.csv")
 ```
