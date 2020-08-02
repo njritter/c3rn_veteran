@@ -1,0 +1,40 @@
+---
+title: "q35 How.important.to.you.is.the.brand.of.product.you.purchase..not.including.flower.bud.."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q35 <- "How.important.to.you.is.the.brand.of.product.you.purchase..not.including.flower.bud.."
+q35_t <- "How important to you is the brand of product you purchase? (not including flower/bud..."
+q35_data <- get_single_selection(data = raw_data_occp, q.name = q35)
+q35_n <- length(unique(q35_data$id))
+q35_plot <- clean_single_select(q35_data)
+r35 <- plot_single_select(q35_plot, q35_t, q35_n)
+r35
+```
+
+```{r}
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n))
+```
+
+```{r}
+dir.create("output/q35_brand_importance_cannabis")
+ggsave(filename = 'output/q35_brand_importance_cannabis/q35_brand_importance_cannabis.png', plot = r35, device = 'png')
+write.csv(q35_plot2, paste0("output/q35_brand_importance_cannabis/q35_brand_importance_cannabis_", q35_n,".csv"), row.names=F)
+```

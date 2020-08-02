@@ -1,0 +1,42 @@
+---
+title: "q66 Would you be willing to let your anonymous responses submitted here be made available to other researchers for further inquiry?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q66 <- "Would.you.be.willing.to.let.your.anonymous.responses.submitted.here.be.made.available.to.other.researchers.for.further.inquiry."
+q66_t <- "Would you be willing to let your anonymous responses submitted here be made available to other researchers for further inquiry?"
+q66_data <- get_single_selection(data = raw_data_occp, q.name = q66)
+q66_n <- length(unique(q66_data$id))
+q66_plot <- clean_single_select(q66_data)
+r66 <- plot_single_select(q66_plot, q66_t, q66_n)
+r66
+```
+
+```{r}
+row3 <- colnames(q66_plot)
+q66_plot2 <- rbind(row3, q66_plot)
+names(q66_plot2) <- c("q66", q66_t, paste("n = ", q66_n))
+```
+
+```{r}
+dir.create("output/q66_make_data_public")
+ggsave(filename = 'output/q66_make_data_public/q66_make_data_public.png', plot = r66, device = 'png')
+write.csv(q66_plot2, paste0("output/q66_make_data_public/q66_make_data_public_", q66_n,".csv"), row.names=F)
+```
+
+

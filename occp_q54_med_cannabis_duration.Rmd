@@ -1,0 +1,41 @@
+---
+title: "q54 How.long.have.you.been.using.cannabis.for.medical.purposes."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q54 <- "How.long.have.you.been.using.cannabis.for.medical.purposes."
+q54_t <- "How long have you been using cannabis for medical purposes?"
+q54_data <- get_single_selection(data = raw_data_occp, q.name = q54)
+q54_n <- length(unique(q54_data$id))
+q54_plot <- clean_single_select(q54_data)
+r54 <- plot_single_select(q54_plot, q54_t, q54_n)
+r54
+```
+
+```{r}
+row3 <- colnames(q54_plot)
+q54_plot2 <- rbind(row3, q54_plot)
+names(q54_plot2) <- c("q54", q54_t, paste("n = ", q54_n))
+```
+
+```{r}
+dir.create("output/q54_med_cannabis_duration")
+ggsave(filename = 'output/q54_med_cannabis_duration/q54_med_cannabis_duration.png', plot = r54, device = 'png')
+write.csv(q54_plot2, paste0("output/q54_med_cannabis_duration/q54_med_cannabis_duration_", q54_n,".csv"), row.names=F)
+```
+
+

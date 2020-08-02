@@ -1,0 +1,43 @@
+---
+title: "Q10 'Are you actively trying to reduce your prescription medication intake using cannabis? Please select all that apply.' (OCCP)"
+author: "David Ritter"
+date: "June 23, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q10 <- "Are.you.actively.trying.to.reduce.your.prescription.medication.intake.using.cannabis..Please.select.all.that.apply."
+q10_final_response <- "X.66"
+q10_t  <- "Are you actively trying to reduce your prescription medication intake using cannabis? Please select all that apply."
+q10_data <- get_choose_all(raw_data_occp, q.name = q10, f.response = q10_final_response) %>%
+  tidy_choose_all()
+q10_n <- length(unique(q10_data$id))
+q10_plot <- clean_choose_all(q10_data, q10_n)
+r10 <- plot_choose_all(q10_plot, q10_t, q10_n)
+r10
+```
+
+```{r}
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n))
+```
+
+```{r}
+dir.create("output/q10_prescriptions_reduced_cannabis")
+ggsave(filename = 'output/q10_prescriptions_reduced_cannabis/q10_prescriptions_reduced_cannabis.png', plot = r10, device = 'png')
+write.csv(q10_plot2, paste0("output/q10_prescriptions_reduced_cannabis/q10_prescriptions_reduced_cannabis_", q10_n,".csv"), row.names=F)
+write.csv(q10_data, 'output/q10_prescriptions_reduced_cannabis/q10_prescriptions_reduced_cannabis_ids.csv', row.names = FALSE)
+```

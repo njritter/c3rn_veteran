@@ -1,0 +1,43 @@
+---
+title: "q42 How important is it to you that the cannabis you use is organically grown?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q42 <- "How.important.is.it.to.you.that.the.cannabis.you.use.is.organically.grown.Â."
+q42_t <- "How important is it to you that the cannabis you use is organically grown?"
+q42_data <- get_single_selection(data = raw_data_occp, q.name = q42)
+q42_n <- length(unique(q42_data$id))
+q42_plot <- clean_single_select(q42_data)
+r42 <- plot_single_select(q42_plot, q42_t, q42_n)
+r42
+```
+
+```{r}
+row3 <- colnames(q42_plot)
+q42_plot2 <- rbind(row3, q42_plot)
+names(q42_plot2) <- c("q42", q42_t, paste("n = ", q42_n))
+```
+
+```{r}
+dir.create("output/q42_organic_importance")
+ggsave(filename = 'output/q42_organic_importance/q42_organic_importance.png', plot = r42, device = 'png')
+write.csv(q42_plot2, paste0("output/q42_organic_importance/q42_organic_importance_", q42_n,".csv"), row.names=F)
+```
+
+
+

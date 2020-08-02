@@ -1,0 +1,43 @@
+---
+title: "q51 What type of cannabis advertising have you been exposed to in the past 30 days? Please check all that apply."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q51 <- "What.type.of.cannabis.advertising.have.you.been.exposed.to.in.theÂ.past.30.days...Please.check.all.that.apply."
+q51_final_response <- "X.198"
+q51_t  <- "What type of cannabis advertising have you been exposed to in the past 30 days? Please check all that apply."
+q51_data <- get_choose_all(raw_data_occp, q.name = q51, f.response = q51_final_response) %>%
+  tidy_choose_all()
+q51_n <- length(unique(q51_data$id))
+q51_plot <- clean_choose_all(q51_data, q51_n)
+r51 <- plot_choose_all(q51_plot, q51_t, q51_n)
+r51
+```
+
+```{r}
+row3 <- colnames(q51_plot)
+q51_plot2 <- rbind(row3, q51_plot)
+names(q51_plot2) <- c("q51", q51_t, paste("n = ", q51_n))
+```
+
+```{r}
+dir.create("output/q51_advertising_type")
+ggsave(filename = 'output/q51_advertising_type/q51_advertising_type.png', plot = r51, device = 'png')
+write.csv(q51_plot2, paste0("output/q51_advertising_type/q51_advertising_type_", q51_n,".csv"), row.names=F)
+write.csv(q51_data, 'output/q51_advertising_type/q51_advertising_type_ids.csv', row.names = FALSE)
+```

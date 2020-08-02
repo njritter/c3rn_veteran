@@ -1,0 +1,43 @@
+---
+title: "q45 What is your level of knowledge related to cannabis and cannabinoid profiles, i.e. how knowledgeable do you feel about cannabis?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q45 <- "What.is.your.level.of.knowledge.related.to.cannabis.and.cannabinoid.profiles..i.e..how.knowledgeable.do.you.feel.about.cannabis."
+q45_t <- "What is your level of knowledge related to cannabis and cannabinoid profiles, i.e. how knowledgeable do you feel about cannabis?"
+q45_data <- get_single_selection(data = raw_data_occp, q.name = q45)
+q45_n <- length(unique(q45_data$id))
+q45_plot <- clean_single_select(q45_data)
+r45 <- plot_single_select(q45_plot, q45_t, q45_n)
+r45
+```
+
+```{r}
+row3 <- colnames(q45_plot)
+q45_plot2 <- rbind(row3, q45_plot)
+names(q45_plot2) <- c("q45", q45_t, paste("n = ", q45_n))
+```
+
+```{r}
+dir.create("output/q45_cannabis_knowledge_level")
+ggsave(filename = 'output/q45_cannabis_knowledge_level/q45_cannabis_knowledge_level.png', plot = r45, device = 'png')
+write.csv(q45_plot2, paste0("output/q45_cannabis_knowledge_level/q45_cannabis_knowledge_level_", q45_n,".csv"), row.names=F)
+```
+
+
+

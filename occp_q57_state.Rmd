@@ -1,0 +1,43 @@
+---
+title: "q57 What US state do you live in?"
+author: "David Ritter"
+date: "6/25/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q57 <- 'What.US.state.do.you.live.in.'
+q57_final_response <- "X.207"
+q57_t <- "What US state do you live in?"
+q57_data <- get_choose_all(raw_data, q.name = q57, f.response = q57_final_response)
+dir.create("output/q57_state")
+```
+
+```{r}
+q57_data1 <- get_single_selection_3(q57_data, "State/Province") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q57_n1 <- tally(q57_data1, count)
+q57_t1 <- "State"
+q57_r1 <- plot_single_select(q57_data1, q57_t1, q57_n1)
+q57_r1
+```
+
+```{r}
+ggsave(filename = "output/q57_state/q57_state.png", plot = q57_r1, device = 'png')
+write.csv(q57_data1, paste0("output/q57_state/q57_state_", q57_n1, ".csv"), row.names = FALSE)
+```
+
+

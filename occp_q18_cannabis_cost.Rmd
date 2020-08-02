@@ -1,0 +1,46 @@
+---
+title: "q18 'On average, how much do you spend (in US dollar) on consumable cannabis products each week?' (OCCP)"
+author: "David Ritter"
+date: "June 23, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
+q18_t <- "On average, how much do you spend (in US dollars) on consumable cannabis products each week?"
+q18_data <- get_single_selection_0(data = raw_data, q.name = q18) %>%
+  filter(response != "")
+q18_n <- length(unique(q18_data$id))
+q18_mean_data <- as.numeric(as.character(q18_data$response))
+q18_mean <- mean(q18_mean_data) %>%
+  round(3) %>%
+  print()
+q18_plot<- clean_single_select(q18_data)
+r18 <- plot_single_select_0(q18_plot, q18_t, q18_n, q18_mean)
+r18
+```
+
+```{r}
+row3 <- colnames(q18_plot)
+q18_plot2 <- rbind(row3, q18_plot)
+names(q18_plot2) <- c("q18", q18_t, paste("n = ", q18_n, paste(" avg = ", q18_mean)))
+```
+
+```{r}
+dir.create("output/q18_cannabis_cost_wkly")
+ggsave(filename = 'output/q18_cannabis_cost_wkly/q18_cannabis_cost_wkly.png', plot = r18, device = 'png')
+write.csv(q18_plot2, paste0("output/q18_cannabis_cost_wkly/q18_cannabis_cost_wkly_", q18_n,".csv"), row.names=F)
+write.csv(q18_data, 'output/q18_cannabis_cost_wkly/q18_cannabis_cost_wkly_ids.csv', row.names = FALSE)
+```

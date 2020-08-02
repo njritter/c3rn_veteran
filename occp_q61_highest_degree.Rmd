@@ -1,0 +1,43 @@
+---
+title: "q61 What is the highest degree or level of school you have completed? If you are currently enrolled in school, please indicate the highest degree you have recieved."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q61 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed..If.you.are.currently.enrolled.in.school..please.indicate.the.highest.degree.you.have.received."
+q61_t <- "What is the highest degree or level of school you have completed? If you are currently enrolled in school, please indicate the highest degree you have recieved."
+q61_data <- get_single_selection(data = raw_data_occp, q.name = q61)
+q61_n <- length(unique(q61_data$id))
+q61_plot <- clean_single_select(q61_data)
+r61 <- plot_single_select(q61_plot, q61_t, q61_n)
+r61
+```
+
+```{r}
+row3 <- colnames(q61_plot)
+q61_plot2 <- rbind(row3, q61_plot)
+names(q61_plot2) <- c("q61", q61_t, paste("n = ", q61_n))
+```
+
+```{r}
+dir.create("output/q61_highest_degree")
+ggsave(filename = 'output/q61_highest_degree/q61_highest_degree.png', plot = r61, device = 'png')
+write.csv(q61_plot2, paste0("output/q61_highest_degree/q61_highest_degree_", q61_n,".csv"), row.names=F)
+```
+
+
+

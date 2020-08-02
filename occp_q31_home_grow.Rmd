@@ -1,0 +1,43 @@
+---
+title: "q31 Do.you.grow.your.own.cannabis.at.home."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q31 <- "Do.you.grow.your.own.cannabis.at.home."
+q31_t <- "Do you grow your own cannabis at home?"
+q31_data <- get_single_selection(data = raw_data_occp, q.name = q31)
+q31_n <- length(unique(q31_data$id))
+q31_plot <- clean_single_select(q31_data)
+r31 <- plot_single_select(q31_plot, q31_t, q31_n)
+r31
+```
+
+```{r}
+row3 <- colnames(q31_plot)
+q31_plot2 <- rbind(row3, q31_plot)
+names(q31_plot2) <- c("q31", q31_t, paste("n = ", q31_n))
+```
+
+```{r}
+dir.create("output/q31_home_grow")
+ggsave(filename = 'output/q31_home_grow/q31_home_grow.png', plot = r31, device = 'png')
+write.csv(q31_plot2, paste0("output/q31_home_grow/q31_home_grow_", q31_n,".csv"), row.names=F)
+```
+
+
+

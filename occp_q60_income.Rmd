@@ -1,0 +1,43 @@
+---
+title: "q60 'What is your annual household income in $ (USD)?' (OCCP)"
+author: "David Ritter"
+date: "June 24, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q60 <- "What.is.your.annual.household.income.in....USD.."
+q60_t <- "What is your annual household income in $ (USD)?"
+q60_data <- get_single_selection_0(data = raw_data_occp, q.name = q60)
+q60_n <- length(unique(q60_data$id))
+q60_plot <- clean_single_select(q60_data)
+r60 <- plot_single_select(q60_plot, q60_t, q60_n)
+r60
+```
+
+```{r}
+row3 <- colnames(q60_plot)
+q60_plot2 <- rbind(row3, q60_plot)
+names(q60_plot2) <- c("q60", q60_t, paste("n = ", q60_n))
+```
+
+```{r}
+dir.create("output/q60_income")
+ggsave(filename = 'output/q60_income/q60_income.png', plot = r60, device = 'png')
+write.csv(q60_plot2, paste0("output/q60_income/q60_income_", q60_n,".csv"), row.names=F)
+```
+
+
+

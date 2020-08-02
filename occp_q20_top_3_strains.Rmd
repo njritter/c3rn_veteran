@@ -1,0 +1,75 @@
+---
+title: "q20 "
+author: "David Ritter"
+date: "6/25/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q20 <- "What.are.your.three.favorite.cannabis.strains."
+q20_final_response <- "X.130"
+q20_t <- "What are your three favorite cannabis strains?"
+q20_data <- get_choose_all(raw_data_occp, q.name = q20, f.response = q20_final_response)
+dir.create("output/q20_top_3_strains")
+```
+
+```{r}
+write.csv(q20_data, 'output/q20_top_3_strains/q20_top_3_strains_data.csv', row.names = FALSE)
+```
+
+```{r}
+q20_data1 <- get_single_selection_3(q20_data, "Strain 1") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q20_n1 <- tally(q20_data1, count)
+q20_t1 <- "Strain 1"
+q20_r1 <- plot_single_select(q20_data1, q20_t1, q20_n1)
+q20_r1
+```
+
+```{r}
+ggsave(filename = "output/q20_top_3_strains/q20_most_important.png", plot = q20_r1, device = 'png')
+write.csv(q20_data1, paste0("output/q20_top_3_strains/q20_most_important_", q20_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q20_data2 <- get_single_selection_3(q20_data, "Strain 2") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q20_n2 <- tally(q20_data2, count)
+q20_t2 <- "Strain 2"
+q20_r2 <- plot_single_select(q20_data2, q20_t2, q20_n2)
+q20_r2
+```
+
+```{r}
+ggsave(filename = "output/q20_top_3_strains/q20_second_most_important.png", plot = q20_r2, device = 'png')
+write.csv(q20_data2, paste0("output/q20_top_3_strains/q20_second_most_important_", q20_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q20_data3 <- get_single_selection_3(q20_data, "Strain 3") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q20_n3 <- tally(q20_data3, count)
+q20_t3 <- "Strain 3"
+q20_r3 <- plot_single_select(q20_data3, q20_t3, q20_n3)
+q20_r3
+```
+
+```{r}
+ggsave(filename = "output/q20_top_3_strains/q20_third_most_important.png", plot = q20_r3, device = 'png')
+write.csv(q20_data3, paste0("output/q20_top_3_strains/q20_third_most_important_", q20_n3, ".csv"), row.names = FALSE)
+```

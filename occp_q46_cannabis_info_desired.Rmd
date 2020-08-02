@@ -1,0 +1,43 @@
+---
+title: "q46 What information would you like to know related to cannabis to help you make a decision about what cannabis products to use? Please select all that apply."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q46 <- "What.information.would.you.like.to.know.related.to.cannabis.to.help.you.make.a.decision.about.what.cannabis.products.to.use..Please.select.all.that.apply."
+q46_final_response <- "X.186"
+q46_t  <- "What information would you like to know related to cannabis to help you make a decision about what cannabis products to use? Please select all that apply."
+q46_data <- get_choose_all(raw_data_occp, q.name = q46, f.response = q46_final_response) %>%
+  tidy_choose_all()
+q46_n <- length(unique(q46_data$id))
+q46_plot <- clean_choose_all(q46_data, q46_n)
+r46 <- plot_choose_all(q46_plot, q46_t, q46_n)
+r46
+```
+
+```{r}
+row3 <- colnames(q46_plot)
+q46_plot2 <- rbind(row3, q46_plot)
+names(q46_plot2) <- c("q46", q46_t, paste("n = ", q46_n))
+```
+
+```{r}
+dir.create("output/q46_cannabis_info_desired")
+ggsave(filename = 'output/q46_cannabis_info_desired/q46_cannabis_info_desired.png', plot = r46, device = 'png')
+write.csv(q46_plot2, paste0("output/q46_cannabis_info_desired/q46_cannabis_info_desired_", q46_n,".csv"), row.names=F)
+write.csv(q46_data, 'output/q46_cannabis_info_desired/q46_cannabis_info_desired_ids.csv', row.names = FALSE)
+```

@@ -1,0 +1,42 @@
+---
+title: "q64 Do you consider youself to be...? (Sexuality)"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q64 <- "Do.you.consider.yourself.to.be."
+q64_t <- "Do you consider youself to be...? (Sexuality)"
+q64_data <- get_single_selection(data = raw_data_occp, q.name = q64)
+q64_n <- length(unique(q64_data$id))
+q64_plot <- clean_single_select(q64_data)
+r64 <- plot_single_select(q64_plot, q64_t, q64_n)
+r64
+```
+
+```{r}
+row3 <- colnames(q64_plot)
+q64_plot2 <- rbind(row3, q64_plot)
+names(q64_plot2) <- c("q64", q64_t, paste("n = ", q64_n))
+```
+
+```{r}
+dir.create("output/q64_sexuality")
+ggsave(filename = 'output/q64_sexuality/q64_sexuality.png', plot = r64, device = 'png')
+write.csv(q64_plot2, paste0("output/q64_sexuality/q64_sexuality_", q64_n,".csv"), row.names=F)
+```
+
+

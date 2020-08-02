@@ -1,0 +1,43 @@
+---
+title: "q40 Which of the apps/websites is your primary source of cannabis information? Please select one."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q40 <- "Which.of.the.apps.websites.is.your.primary.source.of.cannabis.information..PleaseÂ.select.one."
+q40_final_response <- "X.179"
+q40_t  <- "Which of the apps/websites is your primary source of cannabis information? Please select one."
+q40_data <- get_choose_all(raw_data_occp, q.name = q40, f.response = q40_final_response) %>%
+  tidy_choose_all()
+q40_n <- length(unique(q40_data$id))
+q40_plot <- clean_choose_all(q40_data, q40_n)
+r40 <- plot_choose_all(q40_plot, q40_t, q40_n)
+r40
+```
+
+```{r}
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
+dir.create("output/q40_top_website_app")
+ggsave(filename = 'output/q40_top_website_app/q40_top_website_app.png', plot = r40, device = 'png')
+write.csv(q40_plot2, paste0("output/q40_top_website_app/q40_top_website_app_", q40_n,".csv"), row.names=F)
+write.csv(q40_data, 'output/q40_top_website_app/q40_top_website_app_ids.csv', row.names = FALSE)
+```

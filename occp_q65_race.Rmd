@@ -1,0 +1,42 @@
+---
+title: "q65 Which of the following best represents your ethnic heritage?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q65 <- "Which.of.the.following.best.represents.your.ethnic.heritage."
+q65_t <- "Which of the following best represents your ethnic heritage?"
+q65_data <- get_single_selection(data = raw_data_occp, q.name = q65)
+q65_n <- length(unique(q65_data$id))
+q65_plot <- clean_single_select(q65_data)
+r65 <- plot_single_select(q65_plot, q65_t, q65_n)
+r65
+```
+
+```{r}
+row3 <- colnames(q65_plot)
+q65_plot2 <- rbind(row3, q65_plot)
+names(q65_plot2) <- c("q65", q65_t, paste("n = ", q65_n))
+```
+
+```{r}
+dir.create("output/q65_race")
+ggsave(filename = 'output/q65_race/q65_race.png', plot = r65, device = 'png')
+write.csv(q65_plot2, paste0("output/q65_race/q65_race_", q65_n,".csv"), row.names=F)
+```
+
+

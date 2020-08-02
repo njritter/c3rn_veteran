@@ -1,0 +1,41 @@
+---
+title: "q8 'In general, to what extent has the use of cannabis positively impacted your quality of life?' (OCCP)"
+author: "David Ritter"
+date: "June 23, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q8 <- "In.general..to.what.extent.has.the.use.of.cannabis.positively.impacted.your.quality.of.life."
+q8_t <- "In general, to what extent has the use of cannabis positively impacted your quality of life?"
+q8_data <- get_single_selection(data = raw_data_occp, q.name = q8)
+q8_n <- length(unique(q8_data$id))
+q8_plot <- clean_single_select(q8_data)
+r8 <- plot_single_select(q8_plot, q8_t, q8_n)
+r8
+```
+
+```{r}
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n))
+```
+
+```{r}
+dir.create("output/q8_cannabis_general")
+ggsave(filename = 'output/q8_cannabis_general/q8_cannabis_general.png', plot = r8, device = 'png')
+write.csv(q8_plot2, paste0("output/q8_cannabis_general/q8_cannabis_general_", q8_n,".csv"), row.names=F)
+```
+

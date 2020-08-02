@@ -1,0 +1,42 @@
+---
+title: "q49 'What impact do you think legalization will have on your consumption of cannabis?' (OCCP)"
+author: "David Ritter"
+date: "June 24, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q49 <- "What.impact.do.you.think.legalization.will.have.on.youth.consumption.of.cannabis."
+q49_t <- "What impact do you think legalization will have on youth consumption of cannabis?"
+q49_data <- get_single_selection(data = raw_data_occp, q.name = q49)
+q49_n <- length(unique(q49_data$id))
+q49_plot <- clean_single_select(q49_data)
+r49 <- plot_single_select(q49_plot, q49_t, q49_n)
+r49
+```
+
+```{r}
+row3 <- colnames(q49_plot)
+q49_plot2 <- rbind(row3, q49_plot)
+names(q49_plot2) <- c("q49", q49_t, paste("n = ", q49_n))
+```
+
+```{r}
+dir.create("output/q49_legalization_youth_effect")
+ggsave(filename = 'output/q49_legalization_youth_effect/q49_legalization_youth_effect.png', plot = r49, device = 'png')
+write.csv(q49_plot2, paste0("output/q49_legalization_youth_effect/q49_legalization_youth_effect_", q49_n,".csv"), row.names=F)
+```
+
+

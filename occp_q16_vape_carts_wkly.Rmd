@@ -1,0 +1,43 @@
+---
+title: "q16 How many cannabis vape cartidges (assuming a .5ml or 500mg vape cartridge) do you consume in a week?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q16 <- 'HowÂ.many.cannabis.vape.cartridges..assuming.a..5.mL.or.500.mg.vape.cartridge..do.you.consume.in.a.week.'
+q16_final_response <- "X.118"
+q16_t <- "How many cannabis vape cartidges (assuming a .5ml or 500mg vape cartridge) do you consume in a week?"
+q16_data <- get_choose_all(raw_data, q.name = q16, f.response = q16_final_response)
+dir.create("output/q16_vape_carts_wkly")
+```
+
+```{r}
+q16_data1 <- get_single_selection_3(q16_data, "Vape cartridges") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q16_n1 <- tally(q16_data1, count)
+q16_t1 <- "Vape cartidges"
+q16_r1 <- plot_single_select(q16_data1, q16_t1, q16_n1)
+q16_r1
+```
+
+```{r}
+ggsave(filename = "output/q16_vape_carts_wkly/q16_vape_carts_wkly.png", plot = q16_r1, device = 'png')
+write.csv(q16_data1, paste0("output/q16_vape_carts_wkly/q16_vape_carts_wkly_", q16_n1, ".csv"), row.names = FALSE)
+```
+
+

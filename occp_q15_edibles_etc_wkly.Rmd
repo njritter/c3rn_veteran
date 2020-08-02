@@ -1,0 +1,90 @@
+---
+title: "q15 How many milligrams of the following cannabis products do you use per week?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q15 <- 'How.manyÂ.mg.ofÂ.the.following.cannabis.products.do.youÂ.use.a.week.'
+q15_final_response <- "X.108"
+q15_t <- "How many milligrams of the following cannabis products do you use per week?"
+q15_data <- get_choose_all(raw_data, q.name = q15, f.response = q15_final_response)
+dir.create("output/q15_mg_edibles_etc")
+```
+
+```{r}
+write.csv(q15_data, 'output/q15_mg_edibles_etc/q15_mg_edibles_etc_data.csv', row.names = FALSE)
+```
+
+```{r}
+q15_data1 <- get_single_selection_3(q15_data, "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc)") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q15_n1 <- tally(q15_data1, count)
+q15_t1 <- "Edibles (e.g. gummies, chocolate, lozenges, beverages, cooking oils, etc.)"
+q15_r1 <- plot_single_select(q15_data1, q15_t1, q15_n1)
+q15_r1
+```
+
+```{r}
+ggsave(filename = "output/q15_mg_edibles_etc/q15_edibles.png", plot = q15_r1, device = 'png')
+write.csv(q15_data1, paste0("output/q15_mg_edibles_etc/q15_edibles_", q15_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q15_data2 <- get_single_selection_3(q15_data, "Transdermal patches") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q15_n2 <- tally(q15_data2, count)
+q15_t2 <- "Transdermal patches"
+q15_r2 <- plot_single_select(q15_data2, q15_t2, q15_n2)
+q15_r2
+```
+
+```{r}
+ggsave(filename = "output/q15_mg_edibles_etc/q15_patches.png", plot = q15_r2, device = 'png')
+write.csv(q15_data2, paste0("output/q15_mg_edibles_etc/q15_patches_", q15_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q15_data3 <- get_single_selection_3(q15_data, "Suppositories") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q15_n3 <- tally(q15_data3, count)
+q15_t3 <- "Suppositories"
+q15_r3 <- plot_single_select(q15_data3, q15_t3, q15_n3)
+q15_r3
+```
+
+```{r}
+ggsave(filename = "output/q15_mg_edibles_etc/q15_suppositories.png", plot = q15_r3, device = 'png')
+write.csv(q15_data3, paste0("output/q15_mg_edibles_etc/q15_suppositories_", q15_n3, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q15_data4 <- get_single_selection_3(q15_data, "Capsules") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q15_n4 <- tally(q15_data4, count)
+q15_t4 <- "Capsules"
+q15_r4 <- plot_single_select(q15_data4, q15_t4, q15_n4)
+q15_r4
+```
+
+```{r}
+ggsave(filename = "output/q15_mg_edibles_etc/q15_capsules.png", plot = q15_r4, device = 'png')
+write.csv(q15_data4, paste0("output/q15_mg_edibles_etc/q15_capsules_", q15_n4, ".csv"), row.names = FALSE)
+```

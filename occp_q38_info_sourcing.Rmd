@@ -1,0 +1,43 @@
+---
+title: "q38 Where do you get your information to make informed decisions about cannabis products? Please check all that apply."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q38 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products..Please.check.all.that.apply."
+q38_final_response <- "X.159"
+q38_t  <- "Where do you get your information to make informed decisions about cannabis products? Please check all that apply."
+q38_data <- get_choose_all(raw_data_occp, q.name = q38, f.response = q38_final_response) %>%
+  tidy_choose_all()
+q38_n <- length(unique(q38_data$id))
+q38_plot <- clean_choose_all(q38_data, q38_n)
+r38 <- plot_choose_all(q38_plot, q38_t, q38_n)
+r38
+```
+
+```{r}
+row3 <- colnames(q38_plot)
+q38_plot2 <- rbind(row3, q38_plot)
+names(q38_plot2) <- c("q38", q38_t, paste("n = ", q38_n))
+```
+
+```{r}
+dir.create("output/q38_info_sourcing")
+ggsave(filename = 'output/q38_info_sourcing/q38_info_sourcing.png', plot = r38, device = 'png')
+write.csv(q38_plot2, paste0("output/q38_info_sourcing/q38_info_sourcing_", q38_n,".csv"), row.names=F)
+write.csv(q38_data, 'output/q38_info_sourcing/q38_info_sourcing_ids.csv', row.names = FALSE)
+```

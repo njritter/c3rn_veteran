@@ -1,0 +1,43 @@
+---
+title: "q24 How many days do you use cannabis in a week? Please select one."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q24 <- "How.many.days.do.you.use.cannabis.in.a.week..Please.select.one"
+q24_t <- "How many days do you use cannabis in a week? Please select one."
+q24_data <- get_single_selection(data = raw_data_occp, q.name = q24)
+q24_n <- length(unique(q24_data$id))
+q24_plot <- clean_single_select(q24_data)
+r24 <- plot_single_select(q24_plot, q24_t, q24_n)
+r24
+```
+
+```{r}
+row3 <- colnames(q24_plot)
+q24_plot2 <- rbind(row3, q24_plot)
+names(q24_plot2) <- c("q24", q24_t, paste("n = ", q24_n))
+```
+
+```{r}
+dir.create("output/q24_cannabis_use_wkly_cannabis")
+ggsave(filename = 'output/q24_cannabis_use_wkly_cannabis/q24_cannabis_use_wkly_cannabis.png', plot = r24, device = 'png')
+write.csv(q24_plot2, paste0("output/q24_cannabis_use_wkly_cannabis/q24_cannabis_use_wkly_cannabis_", q24_n,".csv"), row.names=F)
+```
+
+
+

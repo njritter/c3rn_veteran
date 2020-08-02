@@ -1,0 +1,43 @@
+---
+title: "q11 How do you prefer to use cannabis? Please select all that apply."
+author: "DJ"
+date: "6/23/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q11 <- "How.do.you.prefer.to.use.cannabis...Please.check.all.that.apply."
+q11_final_response <- "X.76"
+q11_t  <- "How do you prefer to use cannabis? Please select all that apply."
+q11_data <- get_choose_all(raw_data_occp, q.name = q11, f.response = q11_final_response) %>%
+  tidy_choose_all()
+q11_n <- length(unique(q11_data$id))
+q11_plot <- clean_choose_all(q11_data, q11_n)
+r11 <- plot_choose_all(q11_plot, q11_t, q11_n)
+r11
+```
+
+```{r}
+row3 <- colnames(q11_plot)
+q11_plot2 <- rbind(row3, q11_plot)
+names(q11_plot2) <- c("q11", q11_t, paste("n = ", q11_n))
+```
+
+```{r}
+dir.create("output/q11_cannabis_method")
+ggsave(filename = 'output/q11_cannabis_method/q11_cannabis_method.png', plot = r11, device = 'png')
+write.csv(q11_plot2, paste0("output/q11_cannabis_method/q11_cannabis_method_", q11_n,".csv"), row.names=F)
+write.csv(q11_data, 'output/q11_cannabis_method/q11_cannabis_method_ids.csv', row.names = FALSE)
+```

@@ -1,0 +1,43 @@
+---
+title: "q62 What is your marital status?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q62 <- "What.is.your.marital.status."
+q62_t <- "What is your marital status?"
+q62_data <- get_single_selection(data = raw_data_occp, q.name = q62)
+q62_n <- length(unique(q62_data$id))
+q62_plot <- clean_single_select(q62_data)
+r62 <- plot_single_select(q62_plot, q62_t, q62_n)
+r62
+```
+
+```{r}
+row3 <- colnames(q62_plot)
+q62_plot2 <- rbind(row3, q62_plot)
+names(q62_plot2) <- c("q62", q62_t, paste("n = ", q62_n))
+```
+
+```{r}
+dir.create("output/q62_marital_status")
+ggsave(filename = 'output/q62_marital_status/q62_marital_status.png', plot = r62, device = 'png')
+write.csv(q62_plot2, paste0("output/q62_marital_status/q62_marital_status_", q62_n,".csv"), row.names=F)
+```
+
+
+

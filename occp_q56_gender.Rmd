@@ -1,0 +1,43 @@
+---
+title: "q56 To which gender identity do you most identify?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q56 <- "To.which.gender.identity.do.you.most.identify."
+q56_t <- "To which gender identity do you most identify?"
+q56_data <- get_single_selection(data = raw_data_occp, q.name = q56)
+q56_n <- length(unique(q56_data$id))
+q56_plot <- clean_single_select(q56_data)
+r56 <- plot_single_select(q56_plot, q56_t, q56_n)
+r56
+```
+
+```{r}
+row3 <- colnames(q56_plot)
+q56_plot2 <- rbind(row3, q56_plot)
+names(q56_plot2) <- c("q56", q56_t, paste("n = ", q56_n))
+```
+
+```{r}
+dir.create("output/q56_gender_identity")
+ggsave(filename = 'output/q56_gender_identity/q56_gender_identity.png', plot = r56, device = 'png')
+write.csv(q56_plot2, paste0("output/q56_gender_identity/q56_gender_identity_", q56_n,".csv"), row.names=F)
+```
+
+
+

@@ -1,0 +1,43 @@
+---
+title: "q30 'What are some barriers for you consuming cannabis? Please select all that apply.' (OCCP)"
+author: "David Ritter"
+date: "June 24, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q30 <- "What.are.some.barriers.for.you.consuming.cannabis..Please.select.all.that.apply."
+q30_final_response <- "X.151"
+q30_t  <- "What are some barriers for you consuming cannabis? Please select all that apply."
+q30_data <- get_choose_all(raw_data_occp, q.name = q30, f.response = q30_final_response) %>%
+  tidy_choose_all()
+q30_n <- length(unique(q30_data$id))
+q30_plot <- clean_choose_all(q30_data, q30_n)
+r30 <- plot_choose_all(q30_plot, q30_t, q30_n)
+r30
+```
+
+```{r}
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
+dir.create("output/q30_barriers")
+ggsave(filename = 'output/q30_barriers/q30_barriers.png', plot = r30, device = 'png')
+write.csv(q30_plot2, paste0("output/q30_barriers/q30_barriers_", q30_n,".csv"), row.names=F)
+write.csv(q30_data, 'output/q30_barriers/q30_barriers_ids.csv', row.names = FALSE)
+```

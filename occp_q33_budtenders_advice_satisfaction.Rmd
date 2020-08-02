@@ -1,0 +1,43 @@
+---
+title: "q33 How.satisfied.are.you.with.a.budtenders.patient.advocates..ability.to.accurately.recommend.products.that.meet.your.needs."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q33 <- "How.satisfied.are.you.with.a.budtenders.patient.advocates..ability.to.accurately.recommend.products.that.meet.your.needs."
+q33_t <- "How satisfied are you with a budtenders/patient advocates ability to accurately recommend products that meet your needs?"
+q33_data <- get_single_selection(data = raw_data_occp, q.name = q33)
+q33_n <- length(unique(q33_data$id))
+q33_plot <- clean_single_select(q33_data)
+r33 <- plot_single_select(q33_plot, q33_t, q33_n)
+r33
+```
+
+```{r}
+row3 <- colnames(q33_plot)
+q33_plot2 <- rbind(row3, q33_plot)
+names(q33_plot2) <- c("q33", q33_t, paste("n = ", q33_n))
+```
+
+```{r}
+dir.create("output/q33_budtenders_advice_satisfaction")
+ggsave(filename = 'output/q33_budtenders_advice_satisfaction/q33_budtenders_advice_satisfaction.png', plot = r33, device = 'png')
+write.csv(q33_plot2, paste0("output/q33_budtenders_advice_satisfaction/q33_budtenders_advice_satisfaction_", q33_n,".csv"), row.names=F)
+```
+
+
+

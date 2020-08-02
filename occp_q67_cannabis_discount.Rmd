@@ -1,0 +1,44 @@
+---
+title: "q67 Would.you.like.to.receive.a.discount.at.a.local.Massachusetts.registered.medical.cannabis.dispensary.for.completing.this.survey."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q67 <- "Would.you.like.to.receive.a.discount.at.a.local.Massachusetts.registered.medical.cannabis.dispensary.for.completing.this.survey."
+q67_t <- "Would you like to recieve a discount at a local Massachusetts registered medical cannabis dispensary for completing this survey?"
+q67_data <- get_single_selection(data = raw_data_occp, q.name = q67)
+q67_n <- length(unique(q67_data$id))
+q67_plot <- clean_single_select(q67_data)
+r67 <- plot_single_select(q67_plot, q67_t, q67_n)
+r67
+```
+
+```{r}
+row3 <- colnames(q67_plot)
+q67_plot2 <- rbind(row3, q67_plot)
+names(q67_plot2) <- c("q67", q67_t, paste("n = ", q67_n))
+```
+
+```{r}
+dir.create("output/q67_cannabis_discount")
+ggsave(filename = 'output/q67_cannabis_discount/q67_cannabis_discount.png', plot = r67, device = 'png')
+write.csv(q67_plot2, paste0("output/q67_cannabis_discount/q67_cannabis_discount_", q67_n,".csv"), row.names=F)
+```
+
+
+

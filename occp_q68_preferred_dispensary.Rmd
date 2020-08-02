@@ -1,0 +1,43 @@
+---
+title: "q68 Which Registered Medical Cannabis Dispensary in Massachusetts would you like a discount to for future purchases? Please select all that you would like."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q68 <- "Which.Registered.Medical.Cannabis.Dispensary.in.Massachusetts.would.you.like.a.discount.to.for.future.purchases..Please.select.all.that.you.would.like."
+q68_final_response <- "X.220"
+q68_t  <- "Which Registered Medical Cannabis Dispensary in Massachusetts would you like a discount to for future purchases? Please select all that you would like."
+q68_data <- get_choose_all(raw_data_occp, q.name = q68, f.response = q68_final_response) %>%
+  tidy_choose_all()
+q68_n <- length(unique(q68_data$id))
+q68_plot <- clean_choose_all(q68_data, q68_n)
+r68 <- plot_choose_all(q68_plot, q68_t, q68_n)
+r68
+```
+
+```{r}
+row3 <- colnames(q68_plot)
+q68_plot2 <- rbind(row3, q68_plot)
+names(q68_plot2) <- c("q68", q68_t, paste("n = ", q68_n))
+```
+
+```{r}
+dir.create("output/q68_preferred_dispensary")
+ggsave(filename = 'output/q68_preferred_dispensary/q68_preferred_dispensary.png', plot = r68, device = 'png')
+write.csv(q68_plot2, paste0("output/q68_preferred_dispensary/q68_preferred_dispensary_", q68_n,".csv"), row.names=F)
+write.csv(q68_data, 'output/q68_preferred_dispensary/q68_preferred_dispensary_ids.csv', row.names = FALSE)
+```

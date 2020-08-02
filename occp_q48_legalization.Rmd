@@ -1,0 +1,43 @@
+---
+title: "q48 'What are your general thoughts regarding the legalization of cannabis?' (OCCP)"
+author: "David Ritter"
+date: "June 25, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q48 <- "What.are.your.general.thoughts.regarding.the.legalization.of.cannabis."
+q48_t <- "What are your general thoughts regarding the legalization of cannabis?"
+q48_data <- get_single_selection(data = raw_data_occp, q.name = q48)
+q48_n <- length(unique(q48_data$id))
+q48_plot <- clean_single_select(q48_data)
+r48 <- plot_single_select(q48_plot, q48_t, q48_n)
+r48
+```
+
+```{r}
+row3 <- colnames(q48_plot)
+q48_plot2 <- rbind(row3, q48_plot)
+names(q48_plot2) <- c("q48", q48_t, paste("n = ", q48_n))
+```
+
+```{r}
+dir.create("output/q48_legalization_thoughts")
+ggsave(filename = 'output/q48_legalization_thoughts/q48_legalization_thoughts.png', plot = r48, device = 'png')
+write.csv(q48_plot2, paste0("output/q48_legalization_thoughts/q48_legalization_thoughts_", q48_n,".csv"), row.names=F)
+```
+
+
+

@@ -1,0 +1,42 @@
+---
+title: "q53 How long have you been using cannabis for recreational purposes?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q53 <- "How.long.have.you.been.using.cannabis.forÂ.recreational.purposes."
+q53_t <- "How long have you been using cannabis for recreational purposes?"
+q53_data <- get_single_selection(data = raw_data_occp, q.name = q53)
+q53_n <- length(unique(q53_data$id))
+q53_plot <- clean_single_select(q53_data)
+r53 <- plot_single_select(q53_plot, q53_t, q53_n)
+r53
+```
+
+```{r}
+row3 <- colnames(q53_plot)
+q53_plot2 <- rbind(row3, q53_plot)
+names(q53_plot2) <- c("q53", q53_t, paste("n = ", q53_n))
+```
+
+```{r}
+dir.create("output/q53_rec_cannabis_duration")
+ggsave(filename = 'output/q53_rec_cannabis_duration/q53_rec_cannabis_duration.png', plot = r53, device = 'png')
+write.csv(q53_plot2, paste0("output/q53_rec_cannabis_duration/q53_rec_cannabis_duration_", q53_n,".csv"), row.names=F)
+```
+
+
+

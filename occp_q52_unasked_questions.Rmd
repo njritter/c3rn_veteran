@@ -1,0 +1,43 @@
+---
+title: "q52 What questions regarding cannabis did we not ask that are important to you?"
+author: "David Ritter"
+date: "6/25/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q52 <- "What.questions.regarding.cannabis.did.we.not.ask.that.are.important.to.you."
+q52_t <- "What questions regarding cannabis did we not ask that are important to you?"
+q52_data <- get_single_selection(data = raw_data_occp, q.name = q52)
+q52_n <- length(unique(q52_data$id))
+q52_plot <- clean_single_select(q52_data)
+r52 <- plot_single_select(q52_plot, q52_t, q52_n)
+r52
+```
+
+```{r}
+row3 <- colnames(q52_plot)
+q52_plot2 <- rbind(row3, q52_plot)
+names(q52_plot2) <- c("q52", q52_t, paste("n = ", q52_n))
+```
+
+```{r}
+dir.create("output/q52_unasked_questions")
+ggsave(filename = 'output/q52_unasked_questions/q52_unasked_questions.png', plot = r52, device = 'png')
+write.csv(q52_plot2, paste0("output/q52_unasked_questions/q52_unasked_questions_", q52_n,".csv"), row.names=F)
+```
+
+
+

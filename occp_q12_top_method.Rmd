@@ -1,0 +1,41 @@
+---
+title: "q12 'What is your top preferred method (that is, favorite) of using cannabis? (Please select one)' (OCCP)"
+author: "David Ritter"
+date: "November 19, 2019"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q12 <- "What.is.your.top.preferred.method..that.is..favorite..of.using.cannabis...Please.select.one."
+q12_t <- "What is your top preferred method (that is, favorite) of using cannabis? (Please select one)"
+q12_data <- get_single_selection(data = raw_data_occp, q.name = q12)
+q12_n <- length(unique(q12_data$id))
+q12_plot <- clean_single_select(q12_data)
+r12 <- plot_single_select(q12_plot, q12_t, q12_n)
+r12
+```
+
+```{r}
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n))
+```
+
+```{r}
+dir.create("output/q12_top_method_cannabis")
+ggsave(filename = 'output/q12_top_method_cannabis/q12_top_method_cannabis.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_top_method_cannabis/q12_top_method_cannabis_", q12_n,".csv"), row.names=F)
+```
+

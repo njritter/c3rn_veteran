@@ -1,0 +1,76 @@
+---
+title: "q13 How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q13 <- 'How.much.cannabis..in.grams.ounces..do.youÂ.use.in.a.week.'
+q13_final_response <- "X.88"
+q13_t <- "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
+q13_data <- get_choose_all(raw_data_occp, q.name = q13, f.response = q13_final_response)
+dir.create("output/q13_smoke_vape_wkly")
+```
+
+```{r}
+write.csv(q13_data, 'output/q13_smoke_vape_wkly/q13_smoke_vape_wkly_data.csv', row.names = FALSE)
+```
+
+```{r}
+q13_data1 <- get_single_selection_3(q13_data, "Smoke flower") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q13_n1 <- tally(q13_data1, count)
+q13_t1 <- "Flower weekly"
+q13_r1 <- plot_single_select(q13_data1, q13_t1, q13_n1)
+q13_r1
+```
+
+```{r}
+ggsave(filename = "output/q13_smoke_vape_wkly/smoke_flower.png", plot = q13_r1, device = 'png')
+write.csv(q13_data1, paste0("output/q13_smoke_vape_wkly/smoke_flower_", q13_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q13_data2 <- get_single_selection_3(q13_data, "Vape flower") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q13_n2 <- tally(q13_data2, count)
+q13_t2 <- "Vape weekly"
+q13_r2 <- plot_single_select(q13_data2, q13_t2, q13_n2)
+q13_r2
+```
+
+```{r}
+ggsave(filename = "output/q13_smoke_vape_wkly/vape_flower.png", plot = q13_r2, device = 'png')
+write.csv(q13_data2, paste0("output/q13_smoke_vape_wkly/vape_flower_", q13_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q13_data3 <- get_single_selection_3(q13_data, "Concentrates (e.g. rosin, shatter, wax, hash, kief, etc)") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q13_n3 <- tally(q13_data3, count)
+q13_t3 <- "Concentrates weekly"
+q13_r3 <- plot_single_select(q13_data3, q13_t3, q13_n3)
+q13_r3
+```
+
+```{r}
+ggsave(filename = "output/q13_smoke_vape_wkly/concentrates.png", plot = q13_r3, device = 'png')
+write.csv(q13_data3, paste0("output/q13_smoke_vape_wkly/concentrates_", q13_n3, ".csv"), row.names = FALSE)
+```
+

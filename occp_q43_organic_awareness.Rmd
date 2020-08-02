@@ -1,0 +1,43 @@
+---
+title: "q43 How aware are you about how cannabis is cultivated organically or with synthetic nutrients at your local dispensary/cultivator etc.?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q43 <- "How.aware.are.you.about.how.cannabis.is.cultivated..organically.or.with.synthetic.nutrients..at.your.local.dispensary.cultivator.etc."
+q43_t <- "How aware are you about how cannabis is cultivated organically or with synthetic nutrients at your local dispensary/cultivator etc.?"
+q43_data <- get_single_selection(data = raw_data_occp, q.name = q43)
+q43_n <- length(unique(q43_data$id))
+q43_plot <- clean_single_select(q43_data)
+r43 <- plot_single_select(q43_plot, q43_t, q43_n)
+r43
+```
+
+```{r}
+row3 <- colnames(q43_plot)
+q43_plot2 <- rbind(row3, q43_plot)
+names(q43_plot2) <- c("q43", q43_t, paste("n = ", q43_n))
+```
+
+```{r}
+dir.create("output/q43_organic_awareness")
+ggsave(filename = 'output/q43_organic_awareness/q43_organic_awareness.png', plot = r43, device = 'png')
+write.csv(q43_plot2, paste0("output/q43_organic_awareness/q43_organic_awareness_", q43_n,".csv"), row.names=F)
+```
+
+
+

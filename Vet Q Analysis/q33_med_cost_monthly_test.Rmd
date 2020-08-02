@@ -1,0 +1,87 @@
+---
+title: "q33 'On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?'"
+author: "David Ritter"
+date: "2/28/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data<- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q33 <- "On.average..how.much.do.you.pay..in.US.dollars..for.your.medications.on.a.monthly.basis.out.of.pocket."
+q33_t <- "On average, how much do you pay (in US dollars) for your medications on a monthly basis out of pocket?"
+q33_data <- get_single_selection_0(data = raw_data, q.name = q33) %>%
+  filter(response != "")
+q33_n <- length(unique(q33_data$id))
+q33_mean_data <- as.numeric(as.character(q33_data$response))
+q33_mean <- mean(q33_mean_data) %>%
+  round(3) %>%
+  print()
+q33_plot <- clean_single_select(q33_data)
+r33 <- plot_single_select_0(q33_plot, q33_t, q33_n, q33_mean)
+r33
+```
+
+```{r}
+histogram_object <- hist(as.numeric(q33_data$response))
+histogram_object$breaks = c(10, 25, 50, 75, 100, 125, 150)
+histogram_object$counts
+plot(histogram_object)
+```
+
+```{r}
+row3 <- colnames(q33_plot)
+q33_plot2 <- rbind(row3, q33_plot)
+names(q33_plot2) <- c("q33", q33_t, paste("n = ", q33_n, paste(" avg = ", q33_mean)))
+```
+
+```{r}
+dir.create("output/q33_med_cost_monthly")
+ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r33, device = 'png')
+write.csv(q33_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", q33_n,".csv"), row.names=F)
+write.csv(q33_data, 'output/q33_med_cost_monthly/q33_med_cost_monthly_ids.csv', row.names = FALSE)
+```
+
+
+
+
+
+
+
+
+```{r}
+qf_data <- q_data %>%
+  filter(response == "Response text")
+```
+
+```{r}
+qf_all_data <- 
+  qf_data %>%
+  inner_join(q_data, by = "id")
+qf_mean_data <- as.numeric(as.character(qf_all_data$response.y))
+qf_mean <- mean(qf_mean_data) %>%
+  round(4) %>%
+  print()
+qf_n <- length(unique(qf_all_data$id))
+q_plot <- clean_single_select_y(qf_all_data)
+r <- plot_single_select_y(q_plot)
+r
+```
+
+```{r}
+q_plot2 <- rbind(q_plot, t, paste("average", q12_mean, sep = " = "))
+dir.create("output/q33_med_cost_monthly")
+ggsave(filename = 'output/q33_med_cost_monthly/q33_med_cost_monthly.png', plot = r, device = 'png')
+write.csv(q_plot2, paste0("output/q33_med_cost_monthly/q33_med_cost_monthly_", qf_n,".csv"), row.names=F)
+write.csv(qf_all_data, 'output/q33_med_cost_monthly/q33_med_cost_monthly_ids.csv', row.names = FALSE)
+```

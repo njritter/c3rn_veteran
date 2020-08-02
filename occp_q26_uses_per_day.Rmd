@@ -1,0 +1,41 @@
+---
+title: "q26 On.days.you.regularly.use.cannabis..how.many.times.a.day.do.you.use.cannabis.Â."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q26 <- "On.days.you.regularly.use.cannabis..how.many.times.a.day.do.you.use.cannabis.Â."
+q26_t <- "On days you regularly use cannabis, how many times a day do you use cannabis?"
+q26_data <- get_single_selection(data = raw_data_occp, q.name = q26)
+q26_n <- length(unique(q26_data$id))
+q26_plot <- clean_single_select(q26_data)
+r26 <- plot_single_select(q26_plot, q26_t, q26_n)
+r26
+```
+
+```{r}
+row3 <- colnames(q26_plot)
+q26_plot2 <- rbind(row3, q26_plot)
+names(q26_plot2) <- c("q26", q26_t, paste("n = ", q26_n))
+```
+
+```{r}
+dir.create("output/q26_uses_per_day")
+ggsave(filename = 'output/q26_uses_per_day/q26_uses_per_day.png', plot = r26, device = 'png')
+write.csv(q26_plot2, paste0("output/q26_uses_per_day/q26_uses_per_day_", q26_n,".csv"), row.names=F)
+```
+

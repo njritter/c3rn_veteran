@@ -1,0 +1,43 @@
+---
+title: "q41 What features are missing from your sources of information that you would like to see included?"
+author: "David Ritter"
+date: "6/25/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q41 <- "What.features.are.missing.from.your.sources.of.information.that.you.would.like.to.see.included."
+q41_t <- "What features are missing from your sources of information that you would like to see included?"
+q41_data <- get_single_selection(data = raw_data_occp, q.name = q41)
+q41_n <- length(unique(q41_data$id))
+q41_plot <- clean_single_select(q41_data)
+r41 <- plot_single_select(q41_plot, q41_t, q41_n)
+r41
+```
+
+```{r}
+row3 <- colnames(q41_plot)
+q41_plot2 <- rbind(row3, q41_plot)
+names(q41_plot2) <- c("q41", q41_t, paste("n = ", q41_n))
+```
+
+```{r}
+dir.create("output/q41_missing_info_feature")
+ggsave(filename = 'output/q41_missing_info_feature/q41_missing_info_feature.png', plot = r41, device = 'png')
+write.csv(q41_plot2, paste0("output/q41_missing_info_feature/q41_missing_info_feature_", q41_n,".csv"), row.names=F)
+```
+
+
+

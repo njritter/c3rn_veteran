@@ -1,0 +1,43 @@
+---
+title: "q17 In an average week, how often do you use salves/topicals"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q17 <- 'How.many.times.per.week.do.you.use.salves.topicals.'
+q17_final_response <- "X.128"
+q17_t <- "How many times per week do you use salves/topicals?"
+q17_data <- get_choose_all(raw_data, q.name = q17, f.response = q17_final_response)
+dir.create("output/q17_salves_topicals_wkly")
+```
+
+```{r}
+q17_data1 <- get_single_selection_3(q17_data, "Salves/topicals") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q17_n1 <- tally(q17_data1, count)
+q17_t1 <- "Salves/topicals"
+q17_r1 <- plot_single_select(q17_data1, q17_t1, q17_n1)
+q17_r1
+```
+
+```{r}
+ggsave(filename = "output/q17_salves_topicals_wkly/q17_salves_topicals_wkly.png", plot = q17_r1, device = 'png')
+write.csv(q17_data1, paste0("output/q17_salves_topicals_wkly/q17_salves_topicals_wkly_", q17_n1, ".csv"), row.names = FALSE)
+```
+
+

@@ -1,0 +1,42 @@
+---
+title: "q47 Do you use a cannabis delivery service?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q47 <- "Do.you.use.a.cannabis.delivery.service."
+q47_t <- "Do you use a cannabis delivery service?"
+q47_data <- get_single_selection(data = raw_data_occp, q.name = q47)
+q47_n <- length(unique(q47_data$id))
+q47_plot <- clean_single_select(q47_data)
+r47 <- plot_single_select(q47_plot, q47_t, q47_n)
+r47
+```
+
+```{r}
+row3 <- colnames(q47_plot)
+q47_plot2 <- rbind(row3, q47_plot)
+names(q47_plot2) <- c("q47", q47_t, paste("n = ", q47_n))
+```
+
+```{r}
+dir.create("output/q47_cannabis_delivery")
+ggsave(filename = 'output/q47_cannabis_delivery/q47_cannabis_delivery.png', plot = r47, device = 'png')
+write.csv(q47_plot2, paste0("output/q47_cannabis_delivery/q47_cannabis_delivery_", q47_n,".csv"), row.names=F)
+```
+
+

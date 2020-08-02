@@ -1,0 +1,43 @@
+---
+title: "q63 'What is your current employment status?' (OCCP)"
+author: "David Ritter"
+date: "June 24, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q63 <- "What.is.your.current.employment.status."
+q63_t <- "What is your current employment status?"
+q63_data <- get_single_selection(data = raw_data_occp, q.name = q63)
+q63_n <- length(unique(q63_data$id))
+q63_plot <- clean_single_select(q63_data)
+r63 <- plot_single_select(q63_plot, q63_t, q63_n)
+r63
+```
+
+```{r}
+row3 <- colnames(q63_plot)
+q63_plot2 <- rbind(row3, q63_plot)
+names(q63_plot2) <- c("q63", q63_t, paste("n = ", q63_n))
+```
+
+```{r}
+dir.create("output/q63_employment")
+ggsave(filename = 'output/q63_employment/q63_employment.png', plot = r63, device = 'png')
+write.csv(q63_plot2, paste0("output/q63_employment/q63_employment_", q63_n,".csv"), row.names=F)
+```
+
+
+

@@ -1,0 +1,43 @@
+---
+title: "q59 What is the University or College closest to where you live?"
+author: "David Ritter"
+date: "6/25/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q59 <- "What.is.the.University.or.College.closest.to.where.you.live."
+q59_t <- "What is the University or College closest to where you live?"
+q59_data <- get_single_selection(data = raw_data_occp, q.name = q59)
+q59_n <- length(unique(q59_data$id))
+q59_plot <- clean_single_select(q59_data)
+r59 <- plot_single_select(q59_plot, q59_t, q59_n)
+r59
+```
+
+```{r}
+row3 <- colnames(q59_plot)
+q59_plot2 <- rbind(row3, q59_plot)
+names(q59_plot2) <- c("q59", q59_t, paste("n = ", q59_n))
+```
+
+```{r}
+dir.create("output/q59_nearest_college")
+ggsave(filename = 'output/q59_nearest_college/q59_nearest_college.png', plot = r59, device = 'png')
+write.csv(q59_plot2, paste0("output/q59_nearest_college/q59_nearest_college_", q59_n,".csv"), row.names=F)
+```
+
+
+

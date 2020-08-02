@@ -1,0 +1,41 @@
+---
+title: "q29 Are.you.concerned.that.your.workplace.will.test.you.for.cannabis.use."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q29 <- "Are.you.concerned.that.your.workplace.will.test.you.for.cannabis.use."
+q29_t <- "Are you concerned that your workplace will test you for cannabis use?"
+q29_data <- get_single_selection(data = raw_data_occp, q.name = q29)
+q29_n <- length(unique(q29_data$id))
+q29_plot <- clean_single_select(q29_data)
+r29 <- plot_single_select(q29_plot, q29_t, q29_n)
+r29
+```
+
+```{r}
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n))
+```
+
+```{r}
+dir.create("output/q29_workplace_testing_concern")
+ggsave(filename = 'output/q29_workplace_testing_concern/q29_workplace_testing_concern.png', plot = r29, device = 'png')
+write.csv(q29_plot2, paste0("output/q29_workplace_testing_concern/q29_workplace_testing_concern_", q29_n,".csv"), row.names=F)
+```
+

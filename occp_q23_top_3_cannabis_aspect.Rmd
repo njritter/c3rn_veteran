@@ -1,0 +1,75 @@
+---
+title: "q23 What.is.your.top.three.selection.criteria.for.cannabis.products."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q23 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
+q23_final_response <- "X.142"
+q23_t <- "What is your top 3 selection criteria for cannabis products?"
+q23_data <- get_choose_all(raw_data_occp, q.name = q23, f.response = q23_final_response)
+dir.create("output/q23_top_3_cannabis_aspect")
+```
+
+```{r}
+write.csv(q23_data, 'output/q23_top_3_cannabis_aspect/q23_top_3_cannabis_aspect_data.csv', row.names = FALSE)
+```
+
+```{r}
+q23_data1 <- get_single_selection_3(q23_data, "Most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q23_n1 <- tally(q23_data1, count)
+q23_t1 <- "Most important"
+q23_r1 <- plot_single_select(q23_data1, q23_t1, q23_n1)
+q23_r1
+```
+
+```{r}
+ggsave(filename = "output/q23_top_3_cannabis_aspect/q23_most_important.png", plot = q23_r1, device = 'png')
+write.csv(q23_data1, paste0("output/q23_top_3_cannabis_aspect/q23_most_important_", q23_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q23_data2 <- get_single_selection_3(q23_data, "Second most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q23_n2 <- tally(q23_data2, count)
+q23_t2 <- "Second most important"
+q23_r2 <- plot_single_select(q23_data2, q23_t2, q23_n2)
+q23_r2
+```
+
+```{r}
+ggsave(filename = "output/q23_top_3_cannabis_aspect/q23_second_most_important.png", plot = q23_r2, device = 'png')
+write.csv(q23_data2, paste0("output/q23_top_3_cannabis_aspect/q23_second_most_important_", q23_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q23_data3 <- get_single_selection_3(q23_data, "Third most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q23_n3 <- tally(q23_data3, count)
+q23_t3 <- "Third most important"
+q23_r3 <- plot_single_select(q23_data3, q23_t3, q23_n3)
+q23_r3
+```
+
+```{r}
+ggsave(filename = "output/q23_top_3_cannabis_aspect/q23_third_most_important.png", plot = q23_r3, device = 'png')
+write.csv(q23_data3, paste0("output/q23_top_3_cannabis_aspect/q23_third_most_important_", q23_n3, ".csv"), row.names = FALSE)
+```

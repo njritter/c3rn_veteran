@@ -1,0 +1,41 @@
+---
+title: "q37 What.is.your.level.of.confidence.in.the.accuracy.of.levels.of.THC.CBD.stated.on.product.labels."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q37 <- "What.is.your.level.of.confidence.in.the.accuracy.of.levels.of.THC.CBD.stated.on.product.labels."
+q37_t <- "What is your level of confidence in the accuracy of levels of THC/CBD stated on product labels?"
+q37_data <- get_single_selection(data = raw_data_occp, q.name = q37)
+q37_n <- length(unique(q37_data$id))
+q37_plot <- clean_single_select(q37_data)
+r37 <- plot_single_select(q37_plot, q37_t, q37_n)
+r37
+```
+
+```{r}
+row3 <- colnames(q37_plot)
+q37_plot2 <- rbind(row3, q37_plot)
+names(q37_plot2) <- c("q37", q37_t, paste("n = ", q37_n))
+```
+
+```{r}
+dir.create("output/q37_label_confidence")
+ggsave(filename = 'output/q37_label_confidence/q37_label_confidence.png', plot = r37, device = 'png')
+write.csv(q37_plot2, paste0("output/q37_label_confidence/q37_label_confidence_", q37_n,".csv"), row.names=F)
+```
+

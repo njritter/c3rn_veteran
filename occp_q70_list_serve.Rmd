@@ -1,0 +1,42 @@
+---
+title: "q70 Do you want share your email (no other information) to receive the copy of the study results/join a list serve for future cannabis research studies/be entered in a lottery for a Samsung tablet/ or share your cannabis patient story at a C3RN event?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q70 <- "Do.you.want.share.your.email..no.other.information..to.receive.the.copy.of.the.study.results..join.a.list.serve.for.future.cannabis.research.studies..be.entered.in.a.lottery.for.a.Samsung.tablet..or.share.your.cannabis.patient.story.at.a.C3RN.event."
+q70_t <- "Do you want share your email (no other information) to receive the copy of the study results/join a list serve for future cannabis research studies/be entered in a lottery for a Samsung tablet/ or share your cannabis patient story at a C3RN event?"
+q70_data <- get_single_selection(data = raw_data_occp, q.name = q70)
+q70_n <- length(unique(q70_data$id))
+q70_plot <- clean_single_select(q70_data)
+r70 <- plot_single_select(q70_plot, q70_t, q70_n)
+r70
+```
+
+```{r}
+row3 <- colnames(q70_plot)
+q70_plot2 <- rbind(row3, q70_plot)
+names(q70_plot2) <- c("q70", q70_t, paste("n = ", q70_n))
+```
+
+```{r}
+dir.create("output/q70_list_serve")
+ggsave(filename = 'output/q70_list_serve/q70_list_serve.png', plot = r70, device = 'png')
+write.csv(q70_plot2, paste0("output/q70_list_serve/q70_list_serve_", q70_n,".csv"), row.names=F)
+```
+
+

@@ -1,0 +1,43 @@
+---
+title: "q22 'What are you looking for in cannabis products? Please select all that apply. (Please select all that apply)' (OCCP)"
+author: "David Ritter"
+date: "June 24, 2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q22 <- "What.are.you.looking.for.in.cannabis.products..Please.select.all.that.apply."
+q22_final_response <- "X.139"
+q22_t  <- "What are you looking for in cannabis products? Please select all that apply. (Please select all that apply)"
+q22_data <- get_choose_all(raw_data_occp, q.name = q22, f.response = q22_final_response) %>%
+  tidy_choose_all()
+q22_n <- length(unique(q22_data$id))
+q22_plot <- clean_choose_all(q22_data, q22_n)
+r22 <- plot_choose_all(q22_plot, q22_t, q22_n)
+r22
+```
+
+```{r}
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
+dir.create("output/q22_seek_cannabis_aspect")
+ggsave(filename = 'output/q22_seek_cannabis_aspect/q22_seek_cannabis_aspect.png', plot = r22, device = 'png')
+write.csv(q22_plot2, paste0("output/q22_seek_cannabis_aspect/q22_seek_cannabis_aspect_", q22_n,".csv"), row.names=F)
+write.csv(q22_data, 'output/q22_seek_cannabis_aspect/q22_seek_cannabis_aspect_ids.csv', row.names = FALSE)
+```

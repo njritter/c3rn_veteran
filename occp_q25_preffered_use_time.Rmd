@@ -1,0 +1,41 @@
+---
+title: "q25 What.is.your.preferred.time.a.day.to.use.cannabis...please.select.one."
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q25 <- "What.is.your.preferred.time.a.day.to.use.cannabis...please.select.one."
+q25_t <- "What is your preffered time a day to use cannabis? Please select one."
+q25_data <- get_single_selection(data = raw_data_occp, q.name = q25)
+q25_n <- length(unique(q25_data$id))
+q25_plot <- clean_single_select(q25_data)
+r25 <- plot_single_select(q25_plot, q25_t, q25_n)
+r25
+```
+
+```{r}
+row3 <- colnames(q25_plot)
+q25_plot2 <- rbind(row3, q25_plot)
+names(q25_plot2) <- c("q25", q25_t, paste("n = ", q25_n))
+```
+
+```{r}
+dir.create("output/q25_preffered_use_time")
+ggsave(filename = 'output/q25_preffered_use_time/q25_preffered_use_time.png', plot = r25, device = 'png')
+write.csv(q25_plot2, paste0("output/q25_preffered_use_time/q25_preffered_use_time_", q25_n,".csv"), row.names=F)
+```
+

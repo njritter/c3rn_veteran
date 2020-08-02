@@ -1,0 +1,43 @@
+---
+title: "q27 Are you concerned about your family members or loved ones knowing about your cannabis use?"
+author: "David Ritter"
+date: "6/24/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q27 <- "Are.you.concerned.about.your.family.members.or.loved.ones.knowing.about.your.cannabis.use."
+q27_t <- "Are you concerned about your family members or loved ones knowing about your cannabis use?"
+q27_data <- get_single_selection(data = raw_data_occp, q.name = q27)
+q27_n <- length(unique(q27_data$id))
+q27_plot <- clean_single_select(q27_data)
+r27 <- plot_single_select(q27_plot, q27_t, q27_n)
+r27
+```
+
+```{r}
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
+dir.create("output/q27_family_knowledge_concern")
+ggsave(filename = 'output/q27_family_knowledge_concern/q27_family_knowledge_concern.png', plot = r27, device = 'png')
+write.csv(q27_plot2, paste0("output/q27_family_knowledge_concern/q27_family_knowledge_concern_", q27_n,".csv"), row.names=F)
+```
+
+
+
