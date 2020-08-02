@@ -1,0 +1,25 @@
+Q#20,What types of prescription medications are you currently taking for the health conditions and symptoms you face? (Please select all that apply),
+,,
+chosen,count,percent_responded
+"Over the counter (OTC) medications (e.g. Ibuprofen, Acetaminophen, sleep aids, allergy medications, Tylenol)",256,45.31%
+"Antidepressants (eg. Lexapro, Prozac, Wellbutrin, Effexor, Nortriptyline)",185,32.74%
+Anti-inflammatories,142,25.13%
+I don't take any prescription medications,134,23.72%
+Other (please specify),115,20.35%
+Muscle relaxants,106,18.76%
+"Statins (e.g. Lipitor, Crestor)",101,17.88%
+"Mood Stabilizers/Anticonvulsants (e.g. Lamictal, Gapapentin, Keppra, Topzmax)",98,17.35%
+"Benzodiazepines (e.g valium, Xanax, Klonopin, Ativan)",78,13.81%
+"Narcotics/opioids (e.g. Percocet, Vicodin, Codeine)",73,12.92%
+Antihypertensives,59,10.44%
+"Steroids, including steroid creams",53,9.38%
+Beta Blockers,48,8.50%
+Antimigraine,32,5.66%
+"Antipsychotics (e.g. Abilify, Seroquel)",31,5.49%
+"Stimulants (e.g. Adderall, Vyvanse, Concerta, Ritalin)",30,5.31%
+Sedatives/hypnotics,28,4.96%
+Insulin,25,4.42%
+Proton pump inhibitors,24,4.25%
+Hormone replacement therapy (HRT),17,3.01%
+Barbiturates (e.g. Floricet),9,1.59%
+Antiemetics,4,0.71%

@@ -1,0 +1,308 @@
+"""Do you belong to any of the following veterans support organizations? (Please select all that apply)""",
+,
+id,chosen
+11208627585,American Legion
+11166390085,American Legion
+11156698544,American Legion
+11138400653,American Legion
+10978063065,American Legion
+10923325388,American Legion
+10889700541,American Legion
+10878751296,American Legion
+10878422887,American Legion
+10878214093,American Legion
+10877606410,American Legion
+10877565497,American Legion
+10876510380,American Legion
+10875700450,American Legion
+10875530570,American Legion
+10875529110,American Legion
+10875503972,American Legion
+10875473988,American Legion
+10875458883,American Legion
+10860535252,American Legion
+10859949104,American Legion
+10842274754,American Legion
+10831929904,American Legion
+10823088016,American Legion
+10800317244,American Legion
+10677653881,American Legion
+10675097210,American Legion
+10671862630,American Legion
+10668597062,American Legion
+10668361624,American Legion
+10667425695,American Legion
+10661330404,American Legion
+10658550964,American Legion
+10622925288,American Legion
+10602936383,American Legion
+10583893598,American Legion
+10579927077,American Legion
+10575849400,American Legion
+10767176517,American Legion
+10760373939,American Legion
+10758288741,American Legion
+10716623034,American Legion
+10699810522,American Legion
+10598306507,American Legion
+11208627585,AMVETS
+11138361963,AMVETS
+11132638848,AMVETS
+10889700541,AMVETS
+10878751296,AMVETS
+10875530570,AMVETS
+10800317244,AMVETS
+10685117930,AMVETS
+10667398958,AMVETS
+10658649988,AMVETS
+10658550964,AMVETS
+10622925288,AMVETS
+11212805644,AMVETS
+10760373939,AMVETS
+10716623034,AMVETS
+11222559871,Disabled American Veterans (DAV)
+11208627585,Disabled American Veterans (DAV)
+11166997346,Disabled American Veterans (DAV)
+11166535497,Disabled American Veterans (DAV)
+11137652132,Disabled American Veterans (DAV)
+11064342543,Disabled American Veterans (DAV)
+11062634752,Disabled American Veterans (DAV)
+11036310394,Disabled American Veterans (DAV)
+11033502369,Disabled American Veterans (DAV)
+11027692007,Disabled American Veterans (DAV)
+11003496788,Disabled American Veterans (DAV)
+10923325388,Disabled American Veterans (DAV)
+10893948558,Disabled American Veterans (DAV)
+10889700541,Disabled American Veterans (DAV)
+10888170961,Disabled American Veterans (DAV)
+10885759801,Disabled American Veterans (DAV)
+10884768912,Disabled American Veterans (DAV)
+10883497633,Disabled American Veterans (DAV)
+10882385979,Disabled American Veterans (DAV)
+10880798060,Disabled American Veterans (DAV)
+10879062209,Disabled American Veterans (DAV)
+10878751296,Disabled American Veterans (DAV)
+10878422887,Disabled American Veterans (DAV)
+10878214093,Disabled American Veterans (DAV)
+10877788133,Disabled American Veterans (DAV)
+10877606410,Disabled American Veterans (DAV)
+10877565497,Disabled American Veterans (DAV)
+10877416704,Disabled American Veterans (DAV)
+10877375002,Disabled American Veterans (DAV)
+10877194985,Disabled American Veterans (DAV)
+10876876072,Disabled American Veterans (DAV)
+10876510380,Disabled American Veterans (DAV)
+10876392009,Disabled American Veterans (DAV)
+10876100377,Disabled American Veterans (DAV)
+10875993925,Disabled American Veterans (DAV)
+10875700450,Disabled American Veterans (DAV)
+10875696093,Disabled American Veterans (DAV)
+10875617011,Disabled American Veterans (DAV)
+10875562577,Disabled American Veterans (DAV)
+10875530570,Disabled American Veterans (DAV)
+10875529110,Disabled American Veterans (DAV)
+10875526461,Disabled American Veterans (DAV)
+10875511603,Disabled American Veterans (DAV)
+10875507777,Disabled American Veterans (DAV)
+10875503972,Disabled American Veterans (DAV)
+10875473988,Disabled American Veterans (DAV)
+10875467061,Disabled American Veterans (DAV)
+10875462742,Disabled American Veterans (DAV)
+10875460020,Disabled American Veterans (DAV)
+10875458883,Disabled American Veterans (DAV)
+10872582813,Disabled American Veterans (DAV)
+10870148985,Disabled American Veterans (DAV)
+10867812743,Disabled American Veterans (DAV)
+10867810520,Disabled American Veterans (DAV)
+10867615622,Disabled American Veterans (DAV)
+10860535252,Disabled American Veterans (DAV)
+10859949104,Disabled American Veterans (DAV)
+10856437127,Disabled American Veterans (DAV)
+10855896441,Disabled American Veterans (DAV)
+10842274754,Disabled American Veterans (DAV)
+10833972658,Disabled American Veterans (DAV)
+10831929904,Disabled American Veterans (DAV)
+10758753382,Disabled American Veterans (DAV)
+10749570344,Disabled American Veterans (DAV)
+10685325930,Disabled American Veterans (DAV)
+10682649508,Disabled American Veterans (DAV)
+10677560387,Disabled American Veterans (DAV)
+10675806972,Disabled American Veterans (DAV)
+10669140575,Disabled American Veterans (DAV)
+10668597062,Disabled American Veterans (DAV)
+10667384979,Disabled American Veterans (DAV)
+10661330404,Disabled American Veterans (DAV)
+10660833205,Disabled American Veterans (DAV)
+10660294275,Disabled American Veterans (DAV)
+10658741910,Disabled American Veterans (DAV)
+10658580372,Disabled American Veterans (DAV)
+10626251939,Disabled American Veterans (DAV)
+10624147163,Disabled American Veterans (DAV)
+10622925288,Disabled American Veterans (DAV)
+10605637047,Disabled American Veterans (DAV)
+10604065323,Disabled American Veterans (DAV)
+10585520406,Disabled American Veterans (DAV)
+10583893598,Disabled American Veterans (DAV)
+10581933788,Disabled American Veterans (DAV)
+10581447651,Disabled American Veterans (DAV)
+10575849400,Disabled American Veterans (DAV)
+11213907729,Disabled American Veterans (DAV)
+11186271761,Disabled American Veterans (DAV)
+11072705197,Disabled American Veterans (DAV)
+11044680699,Disabled American Veterans (DAV)
+10977935510,Disabled American Veterans (DAV)
+10767176517,Disabled American Veterans (DAV)
+10760373939,Disabled American Veterans (DAV)
+10719755952,Disabled American Veterans (DAV)
+10659241585,Disabled American Veterans (DAV)
+10607782752,Disabled American Veterans (DAV)
+11208627585,Iraq and Afghanistan Veterans of America (IAVA)
+11064342543,Iraq and Afghanistan Veterans of America (IAVA)
+11033502369,Iraq and Afghanistan Veterans of America (IAVA)
+10880798060,Iraq and Afghanistan Veterans of America (IAVA)
+10878751296,Iraq and Afghanistan Veterans of America (IAVA)
+10875700450,Iraq and Afghanistan Veterans of America (IAVA)
+10870148985,Iraq and Afghanistan Veterans of America (IAVA)
+10802360410,Iraq and Afghanistan Veterans of America (IAVA)
+10681003613,Iraq and Afghanistan Veterans of America (IAVA)
+10675806972,Iraq and Afghanistan Veterans of America (IAVA)
+10658580372,Iraq and Afghanistan Veterans of America (IAVA)
+10595615049,Iraq and Afghanistan Veterans of America (IAVA)
+10716623034,Iraq and Afghanistan Veterans of America (IAVA)
+10684698263,Iraq and Afghanistan Veterans of America (IAVA)
+11250741921,Other (please specify)
+11249871277,Other (please specify)
+11246906361,Other (please specify)
+11245529294,Other (please specify)
+11241251752,Other (please specify)
+11238077963,Other (please specify)
+11220644956,Other (please specify)
+11215609540,Other (please specify)
+11183903124,Other (please specify)
+11166474867,Other (please specify)
+11166384877,Other (please specify)
+11161813510,Other (please specify)
+11156548224,Other (please specify)
+11149744263,Other (please specify)
+11138930846,Other (please specify)
+11137541759,Other (please specify)
+11135054998,Other (please specify)
+11131514317,Other (please specify)
+11105188699,Other (please specify)
+11100035804,Other (please specify)
+11091792560,Other (please specify)
+11061509902,Other (please specify)
+11057923056,Other (please specify)
+10889700541,Other (please specify)
+10876100377,Other (please specify)
+10874749577,Other (please specify)
+10870148985,Other (please specify)
+10867812743,Other (please specify)
+10867323115,Other (please specify)
+10855896441,Other (please specify)
+10837914247,Other (please specify)
+10836382971,Other (please specify)
+10831158462,Other (please specify)
+10830786742,Other (please specify)
+10808168894,Other (please specify)
+10764443236,Other (please specify)
+10762649964,Other (please specify)
+10726117373,Other (please specify)
+10716518478,Other (please specify)
+10691181667,Other (please specify)
+10675303210,Other (please specify)
+10670361680,Other (please specify)
+10668312322,Other (please specify)
+10668103394,Other (please specify)
+10667907917,Other (please specify)
+10667582585,Other (please specify)
+10667384024,Other (please specify)
+10667369837,Other (please specify)
+10665891738,Other (please specify)
+10659841121,Other (please specify)
+10658580372,Other (please specify)
+10600857474,Other (please specify)
+10598255910,Other (please specify)
+10598221024,Other (please specify)
+10598122285,Other (please specify)
+10597419828,Other (please specify)
+10596131278,Other (please specify)
+10591451425,Other (please specify)
+10580913646,Other (please specify)
+11042816472,Other (please specify)
+11037955315,Other (please specify)
+10991821033,Other (please specify)
+10978796014,Other (please specify)
+10974437681,Other (please specify)
+10965547652,Other (please specify)
+10868495105,Other (please specify)
+10659241585,Other (please specify)
+10607782752,Other (please specify)
+10575479401,Other (please specify)
+11222559871,VFW
+11208627585,VFW
+11138400653,VFW
+11137625236,VFW
+11134769709,VFW
+11129003813,VFW
+11064342543,VFW
+11033502369,VFW
+11027692007,VFW
+10884768912,VFW
+10882385979,VFW
+10880798060,VFW
+10878751296,VFW
+10878422887,VFW
+10877606410,VFW
+10877565497,VFW
+10877416704,VFW
+10877375002,VFW
+10876876072,VFW
+10875993925,VFW
+10875562577,VFW
+10875530570,VFW
+10875467061,VFW
+10870148985,VFW
+10868096498,VFW
+10859949104,VFW
+10831929904,VFW
+10822727213,VFW
+10749570344,VFW
+10677560387,VFW
+10675806972,VFW
+10675097210,VFW
+10662496256,VFW
+10661330404,VFW
+10658774056,VFW
+10658577550,VFW
+10658550964,VFW
+10602936383,VFW
+10598122285,VFW
+10585520406,VFW
+10584760225,VFW
+10576876213,VFW
+10575849400,VFW
+11212805644,VFW
+11151215837,VFW
+11044680699,VFW
+10956719648,VFW
+10767176517,VFW
+10671009796,VFW
+11208627585,Wounded Warrior Project
+11170108737,Wounded Warrior Project
+11033502369,Wounded Warrior Project
+11006369538,Wounded Warrior Project
+10878751296,Wounded Warrior Project
+10877565497,Wounded Warrior Project
+10875700450,Wounded Warrior Project
+10875562577,Wounded Warrior Project
+10870148985,Wounded Warrior Project
+10868096498,Wounded Warrior Project
+10867810520,Wounded Warrior Project
+10860535252,Wounded Warrior Project
+10859949104,Wounded Warrior Project
+10842274754,Wounded Warrior Project
+11170278059,Wounded Warrior Project
+11151215837,Wounded Warrior Project
+11044680699,Wounded Warrior Project
+10760373939,Wounded Warrior Project

@@ -1,0 +1,29 @@
+"""Which of the following health conditions do you face and/or have been diagnosed with? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Anxiety,138,68.66%
+Chronic pain,137,68.16%
+Depression,128,63.68%
+Posttraumatic stress disorder (PTSD),105,52.24%
+Arthritis,78,38.81%
+Insomnia,78,38.81%
+Hypertension,49,24.38%
+Allergies,47,23.38%
+Gastrointestinal/digestive system disorders,47,23.38%
+Reflux esophagitis,41,20.40%
+Obesity,37,18.41%
+Attention deficit/hyperactivity disorder (ADHD),34,16.92%
+Respiratory problems,34,16.92%
+Other (please specify),33,16.42%
+Substance abuse/addiction,33,16.42%
+Cancer,27,13.43%
+Diabetes,23,11.44%
+Cardiovascular disease,19,9.45%
+Inflammatory bowel disease (IBD),19,9.45%
+Bipolar/manic depression,15,7.46%
+Eczema,14,6.97%
+Fibromyalgia/myositis,12,5.97%
+Epilepsy,3,1.49%
+Multiple sclerosis,2,1.00%
+Autism,1,0.50%
+HIV/AIDS,1,0.50%

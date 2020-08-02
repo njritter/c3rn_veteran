@@ -1,0 +1,6 @@
+"""Have you ever been diagnosed with Opioid Use Disorder (OUD)?""",,
+,,
+response,count,percent_all
+No,186,92.54%
+"Yes, in the past but not currently",12,5.97%
+"Yes, currently",3,1.49%

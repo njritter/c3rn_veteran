@@ -1,0 +1,27 @@
+"""Where are the locations of your pain (please check all that apply)""",,
+,,
+chosen,count,percent_responded
+Lower back,58,77.33%
+Knee,42,56.00%
+Leg,38,50.67%
+Hips,37,49.33%
+General joint pain,35,46.67%
+Neck,33,44.00%
+Shoulder,31,41.33%
+Hand,28,37.33%
+Foot,27,36.00%
+Wrist,26,34.67%
+Upper back,23,30.67%
+Generalized muscle pain,22,29.33%
+Head/headache,20,26.67%
+Arm,19,25.33%
+Buttocks,17,22.67%
+Abdomen,11,14.67%
+Full body,10,13.33%
+Chest,7,9.33%
+Stomach,7,9.33%
+Mouth/dental pain,6,8.00%
+Other (please specify),5,6.67%
+Face,3,4.00%
+Rectum,3,4.00%
+Genitalia,1,1.33%

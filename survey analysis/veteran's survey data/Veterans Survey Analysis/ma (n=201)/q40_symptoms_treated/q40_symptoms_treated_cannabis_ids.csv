@@ -1,0 +1,627 @@
+"""What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)""",
+,
+id,chosen
+11246906361,Aggression
+11222559871,Aggression
+11208627585,Aggression
+11137652132,Aggression
+11137625236,Aggression
+11134769709,Aggression
+11132638848,Aggression
+11062634752,Aggression
+10884768912,Aggression
+10883497633,Aggression
+10879062209,Aggression
+10878751296,Aggression
+10878214093,Aggression
+10877606410,Aggression
+10877375002,Aggression
+10876510380,Aggression
+10876100377,Aggression
+10875700450,Aggression
+10875696093,Aggression
+10875462742,Aggression
+10867810520,Aggression
+10867323115,Aggression
+10836382971,Aggression
+10833972658,Aggression
+10822727213,Aggression
+10802360410,Aggression
+10764443236,Aggression
+10716518478,Aggression
+10685325930,Aggression
+10682649508,Aggression
+10675806972,Aggression
+10675303210,Aggression
+10671862630,Aggression
+10668597062,Aggression
+10667582585,Aggression
+10658577550,Aggression
+10658550964,Aggression
+10624147163,Aggression
+10604065323,Aggression
+10595615049,Aggression
+10585520406,Aggression
+10576876213,Aggression
+10575849400,Aggression
+11042816472,Aggression
+10974437681,Aggression
+10760373939,Aggression
+10716623034,Aggression
+10684698263,Aggression
+11250741921,Anxiety/panic attacks
+11222559871,Anxiety/panic attacks
+11208627585,Anxiety/panic attacks
+11161813510,Anxiety/panic attacks
+11156698544,Anxiety/panic attacks
+11149744263,Anxiety/panic attacks
+11137652132,Anxiety/panic attacks
+11137625236,Anxiety/panic attacks
+11134769709,Anxiety/panic attacks
+11131514317,Anxiety/panic attacks
+11129003813,Anxiety/panic attacks
+11062634752,Anxiety/panic attacks
+11061509902,Anxiety/panic attacks
+11057923056,Anxiety/panic attacks
+11033502369,Anxiety/panic attacks
+10978063065,Anxiety/panic attacks
+10889700541,Anxiety/panic attacks
+10888170961,Anxiety/panic attacks
+10885759801,Anxiety/panic attacks
+10884768912,Anxiety/panic attacks
+10882385979,Anxiety/panic attacks
+10879062209,Anxiety/panic attacks
+10878751296,Anxiety/panic attacks
+10878422887,Anxiety/panic attacks
+10878214093,Anxiety/panic attacks
+10877375002,Anxiety/panic attacks
+10875700450,Anxiety/panic attacks
+10875562577,Anxiety/panic attacks
+10875529110,Anxiety/panic attacks
+10875473988,Anxiety/panic attacks
+10875462742,Anxiety/panic attacks
+10874749577,Anxiety/panic attacks
+10872582813,Anxiety/panic attacks
+10870148985,Anxiety/panic attacks
+10868096498,Anxiety/panic attacks
+10867810520,Anxiety/panic attacks
+10856437127,Anxiety/panic attacks
+10836382971,Anxiety/panic attacks
+10833972658,Anxiety/panic attacks
+10830786742,Anxiety/panic attacks
+10822727213,Anxiety/panic attacks
+10802360410,Anxiety/panic attacks
+10800317244,Anxiety/panic attacks
+10764443236,Anxiety/panic attacks
+10762649964,Anxiety/panic attacks
+10758753382,Anxiety/panic attacks
+10749570344,Anxiety/panic attacks
+10716518478,Anxiety/panic attacks
+10685325930,Anxiety/panic attacks
+10677560387,Anxiety/panic attacks
+10669140575,Anxiety/panic attacks
+10668312322,Anxiety/panic attacks
+10667582585,Anxiety/panic attacks
+10667398958,Anxiety/panic attacks
+10667384979,Anxiety/panic attacks
+10667384024,Anxiety/panic attacks
+10665891738,Anxiety/panic attacks
+10660294275,Anxiety/panic attacks
+10659841121,Anxiety/panic attacks
+10658649988,Anxiety/panic attacks
+10658580372,Anxiety/panic attacks
+10658577550,Anxiety/panic attacks
+10658550964,Anxiety/panic attacks
+10626251939,Anxiety/panic attacks
+10622925288,Anxiety/panic attacks
+10602936383,Anxiety/panic attacks
+10598122285,Anxiety/panic attacks
+10585520406,Anxiety/panic attacks
+10583893598,Anxiety/panic attacks
+10581933788,Anxiety/panic attacks
+10576876213,Anxiety/panic attacks
+11186271761,Anxiety/panic attacks
+11072705197,Anxiety/panic attacks
+11037955315,Anxiety/panic attacks
+10978796014,Anxiety/panic attacks
+10974437681,Anxiety/panic attacks
+10868495105,Anxiety/panic attacks
+10760373939,Anxiety/panic attacks
+10716623034,Anxiety/panic attacks
+10659241585,Anxiety/panic attacks
+10607782752,Anxiety/panic attacks
+10575479401,Anxiety/panic attacks
+10684698263,Anxiety/panic attacks
+11250741921,Appetite/weight
+11215609540,Appetite/weight
+11208627585,Appetite/weight
+11166474867,Appetite/weight
+11135054998,Appetite/weight
+11064342543,Appetite/weight
+11062634752,Appetite/weight
+11061509902,Appetite/weight
+11057923056,Appetite/weight
+11027692007,Appetite/weight
+10878751296,Appetite/weight
+10878422887,Appetite/weight
+10875993925,Appetite/weight
+10875562577,Appetite/weight
+10875460020,Appetite/weight
+10870148985,Appetite/weight
+10867323115,Appetite/weight
+10836382971,Appetite/weight
+10802360410,Appetite/weight
+10669140575,Appetite/weight
+10668103394,Appetite/weight
+10658577550,Appetite/weight
+10624147163,Appetite/weight
+10585520406,Appetite/weight
+10581447651,Appetite/weight
+11212805644,Appetite/weight
+11072705197,Appetite/weight
+10956719648,Appetite/weight
+10868495105,Appetite/weight
+10684698263,Appetite/weight
+11250741921,Attention/concentration
+11246906361,Attention/concentration
+11215609540,Attention/concentration
+11208627585,Attention/concentration
+11166390085,Attention/concentration
+11137625236,Attention/concentration
+11091792560,Attention/concentration
+11061509902,Attention/concentration
+10893948558,Attention/concentration
+10882385979,Attention/concentration
+10878422887,Attention/concentration
+10877606410,Attention/concentration
+10875529110,Attention/concentration
+10870148985,Attention/concentration
+10802360410,Attention/concentration
+10800317244,Attention/concentration
+10762649964,Attention/concentration
+10675806972,Attention/concentration
+10667582585,Attention/concentration
+10667369837,Attention/concentration
+10624147163,Attention/concentration
+10622925288,Attention/concentration
+10605637047,Attention/concentration
+10597419828,Attention/concentration
+10585520406,Attention/concentration
+10583893598,Attention/concentration
+10576876213,Attention/concentration
+11186271761,Attention/concentration
+10767176517,Attention/concentration
+11250741921,Depression/mood
+11238077963,Depression/mood
+11222559871,Depression/mood
+11215609540,Depression/mood
+11208627585,Depression/mood
+11166535497,Depression/mood
+11156698544,Depression/mood
+11156548224,Depression/mood
+11149744263,Depression/mood
+11138930846,Depression/mood
+11138361963,Depression/mood
+11137652132,Depression/mood
+11137625236,Depression/mood
+11137541759,Depression/mood
+11135054998,Depression/mood
+11134769709,Depression/mood
+11131514317,Depression/mood
+11129003813,Depression/mood
+11064342543,Depression/mood
+11062634752,Depression/mood
+11061509902,Depression/mood
+11057923056,Depression/mood
+11033502369,Depression/mood
+10889700541,Depression/mood
+10888170961,Depression/mood
+10885759801,Depression/mood
+10883497633,Depression/mood
+10882385979,Depression/mood
+10879062209,Depression/mood
+10878751296,Depression/mood
+10877606410,Depression/mood
+10877375002,Depression/mood
+10876510380,Depression/mood
+10876100377,Depression/mood
+10875700450,Depression/mood
+10875562577,Depression/mood
+10875529110,Depression/mood
+10875511603,Depression/mood
+10875462742,Depression/mood
+10875460020,Depression/mood
+10874749577,Depression/mood
+10872582813,Depression/mood
+10870148985,Depression/mood
+10867812743,Depression/mood
+10867810520,Depression/mood
+10867323115,Depression/mood
+10860535252,Depression/mood
+10837914247,Depression/mood
+10830786742,Depression/mood
+10822727213,Depression/mood
+10802360410,Depression/mood
+10800317244,Depression/mood
+10762649964,Depression/mood
+10749570344,Depression/mood
+10716518478,Depression/mood
+10685325930,Depression/mood
+10682649508,Depression/mood
+10677560387,Depression/mood
+10675806972,Depression/mood
+10675303210,Depression/mood
+10671862630,Depression/mood
+10670361680,Depression/mood
+10669140575,Depression/mood
+10667582585,Depression/mood
+10667384979,Depression/mood
+10667369837,Depression/mood
+10662496256,Depression/mood
+10658774056,Depression/mood
+10658649988,Depression/mood
+10658580372,Depression/mood
+10658577550,Depression/mood
+10658550964,Depression/mood
+10626251939,Depression/mood
+10624147163,Depression/mood
+10622925288,Depression/mood
+10605637047,Depression/mood
+10598221024,Depression/mood
+10598122285,Depression/mood
+10585520406,Depression/mood
+10583893598,Depression/mood
+10581933788,Depression/mood
+11186271761,Depression/mood
+11170278059,Depression/mood
+11151215837,Depression/mood
+11072705197,Depression/mood
+10868495105,Depression/mood
+10767176517,Depression/mood
+10760373939,Depression/mood
+10758288741,Depression/mood
+10659241585,Depression/mood
+10607782752,Depression/mood
+11208627585,Drug withdrawal
+10658550964,Drug withdrawal
+11250741921,Headache
+11241251752,Headache
+11215609540,Headache
+11208627585,Headache
+11161813510,Headache
+11062634752,Headache
+10879062209,Headache
+10876100377,Headache
+10875993925,Headache
+10875700450,Headache
+10875529110,Headache
+10875503972,Headache
+10875462742,Headache
+10874749577,Headache
+10870148985,Headache
+10859949104,Headache
+10802360410,Headache
+10749570344,Headache
+10675097210,Headache
+10669140575,Headache
+10668597062,Headache
+10667582585,Headache
+10667384979,Headache
+10662496256,Headache
+10604065323,Headache
+10600857474,Headache
+10585520406,Headache
+10583893598,Headache
+11186271761,Headache
+10868495105,Headache
+10659241585,Headache
+10684698263,Headache
+11250741921,Inflammation
+11249871277,Inflammation
+11245529294,Inflammation
+11208627585,Inflammation
+11156548224,Inflammation
+11132638848,Inflammation
+11091792560,Inflammation
+11062634752,Inflammation
+11061509902,Inflammation
+10885759801,Inflammation
+10883497633,Inflammation
+10878751296,Inflammation
+10877565497,Inflammation
+10876510380,Inflammation
+10876100377,Inflammation
+10875993925,Inflammation
+10875529110,Inflammation
+10875503972,Inflammation
+10875458883,Inflammation
+10867323115,Inflammation
+10859949104,Inflammation
+10842274754,Inflammation
+10831158462,Inflammation
+10749570344,Inflammation
+10675806972,Inflammation
+10667907917,Inflammation
+10658580372,Inflammation
+10604065323,Inflammation
+10598255910,Inflammation
+10585520406,Inflammation
+10576876213,Inflammation
+10575849400,Inflammation
+11037955315,Inflammation
+10868495105,Inflammation
+10719755952,Inflammation
+11208627585,Mania/psychosis
+10879062209,Mania/psychosis
+11250741921,Nausea/vomiting
+11208627585,Nausea/vomiting
+11166535497,Nausea/vomiting
+11166474867,Nausea/vomiting
+11161813510,Nausea/vomiting
+11156698544,Nausea/vomiting
+11062634752,Nausea/vomiting
+10923325388,Nausea/vomiting
+10867323115,Nausea/vomiting
+10836382971,Nausea/vomiting
+10669140575,Nausea/vomiting
+10668361624,Nausea/vomiting
+10667384979,Nausea/vomiting
+10585520406,Nausea/vomiting
+10868495105,Nausea/vomiting
+11208627585,Ocular pressure
+11062634752,Ocular pressure
+10876100377,Ocular pressure
+10867323115,Ocular pressure
+10830786742,Ocular pressure
+10585520406,Ocular pressure
+10767176517,Ocular pressure
+11138930846,Other (please specify)
+11091792560,Other (please specify)
+11027692007,Other (please specify)
+10876392009,Other (please specify)
+10874749577,Other (please specify)
+10867615622,Other (please specify)
+10808168894,Other (please specify)
+10668103394,Other (please specify)
+10667369837,Other (please specify)
+10665891738,Other (please specify)
+10584760225,Other (please specify)
+10581447651,Other (please specify)
+10579927077,Other (please specify)
+10991821033,Other (please specify)
+10607782752,Other (please specify)
+11250741921,Pain
+11241251752,Pain
+11215609540,Pain
+11208627585,Pain
+11183903124,Pain
+11166535497,Pain
+11166390085,Pain
+11166384877,Pain
+11161813510,Pain
+11156698544,Pain
+11156548224,Pain
+11138400653,Pain
+11137541759,Pain
+11135054998,Pain
+11100035804,Pain
+11091792560,Pain
+11062634752,Pain
+11061509902,Pain
+11036310394,Pain
+11006369538,Pain
+10889700541,Pain
+10885759801,Pain
+10883497633,Pain
+10882385979,Pain
+10880798060,Pain
+10879062209,Pain
+10878751296,Pain
+10878422887,Pain
+10877788133,Pain
+10877606410,Pain
+10877565497,Pain
+10877416704,Pain
+10877194985,Pain
+10876876072,Pain
+10876510380,Pain
+10876100377,Pain
+10875993925,Pain
+10875562577,Pain
+10875529110,Pain
+10875526461,Pain
+10875503972,Pain
+10875467061,Pain
+10875460020,Pain
+10875458883,Pain
+10867812743,Pain
+10867810520,Pain
+10867615622,Pain
+10860535252,Pain
+10859949104,Pain
+10855896441,Pain
+10842274754,Pain
+10831158462,Pain
+10808168894,Pain
+10802360410,Pain
+10762649964,Pain
+10758753382,Pain
+10749570344,Pain
+10726117373,Pain
+10691181667,Pain
+10685325930,Pain
+10685117930,Pain
+10677653881,Pain
+10677560387,Pain
+10675806972,Pain
+10675303210,Pain
+10675097210,Pain
+10667907917,Pain
+10667582585,Pain
+10667384979,Pain
+10662496256,Pain
+10661330404,Pain
+10658741910,Pain
+10658649988,Pain
+10658580372,Pain
+10624147163,Pain
+10622925288,Pain
+10604065323,Pain
+10602936383,Pain
+10600857474,Pain
+10598255910,Pain
+10598122285,Pain
+10597419828,Pain
+10596131278,Pain
+10591451425,Pain
+10585520406,Pain
+10576876213,Pain
+10575849400,Pain
+11213907729,Pain
+11212805644,Pain
+11037955315,Pain
+10991821033,Pain
+10977935510,Pain
+10974437681,Pain
+10965547652,Pain
+10868495105,Pain
+10758288741,Pain
+10719755952,Pain
+10699810522,Pain
+10671009796,Pain
+10659241585,Pain
+10598306507,Pain
+10575479401,Pain
+11208627585,Respiratory
+11105188699,Respiratory
+11208627585,Seizures
+11062634752,Skin conditions
+10876100377,Skin conditions
+11037955315,Skin conditions
+11250741921,Sleep/insomnia
+11249871277,Sleep/insomnia
+11246906361,Sleep/insomnia
+11245529294,Sleep/insomnia
+11241251752,Sleep/insomnia
+11222559871,Sleep/insomnia
+11220644956,Sleep/insomnia
+11215609540,Sleep/insomnia
+11208627585,Sleep/insomnia
+11170108737,Sleep/insomnia
+11166997346,Sleep/insomnia
+11156698544,Sleep/insomnia
+11156548224,Sleep/insomnia
+11137625236,Sleep/insomnia
+11137541759,Sleep/insomnia
+11135054998,Sleep/insomnia
+11134769709,Sleep/insomnia
+11131514317,Sleep/insomnia
+11129003813,Sleep/insomnia
+11064342543,Sleep/insomnia
+11062634752,Sleep/insomnia
+11061509902,Sleep/insomnia
+11033502369,Sleep/insomnia
+11003496788,Sleep/insomnia
+10978063065,Sleep/insomnia
+10888170961,Sleep/insomnia
+10884768912,Sleep/insomnia
+10879062209,Sleep/insomnia
+10878751296,Sleep/insomnia
+10878422887,Sleep/insomnia
+10878214093,Sleep/insomnia
+10877788133,Sleep/insomnia
+10877606410,Sleep/insomnia
+10877565497,Sleep/insomnia
+10877375002,Sleep/insomnia
+10876392009,Sleep/insomnia
+10876100377,Sleep/insomnia
+10875993925,Sleep/insomnia
+10875700450,Sleep/insomnia
+10875617011,Sleep/insomnia
+10875530570,Sleep/insomnia
+10875529110,Sleep/insomnia
+10875526461,Sleep/insomnia
+10875507777,Sleep/insomnia
+10875503972,Sleep/insomnia
+10875462742,Sleep/insomnia
+10874749577,Sleep/insomnia
+10872582813,Sleep/insomnia
+10870148985,Sleep/insomnia
+10867812743,Sleep/insomnia
+10867323115,Sleep/insomnia
+10833972658,Sleep/insomnia
+10831929904,Sleep/insomnia
+10831158462,Sleep/insomnia
+10830786742,Sleep/insomnia
+10823088016,Sleep/insomnia
+10822727213,Sleep/insomnia
+10802360410,Sleep/insomnia
+10800317244,Sleep/insomnia
+10762649964,Sleep/insomnia
+10758753382,Sleep/insomnia
+10749570344,Sleep/insomnia
+10716518478,Sleep/insomnia
+10691181667,Sleep/insomnia
+10682649508,Sleep/insomnia
+10681003613,Sleep/insomnia
+10675806972,Sleep/insomnia
+10675303210,Sleep/insomnia
+10669140575,Sleep/insomnia
+10668597062,Sleep/insomnia
+10668361624,Sleep/insomnia
+10667582585,Sleep/insomnia
+10667425695,Sleep/insomnia
+10667384979,Sleep/insomnia
+10667384024,Sleep/insomnia
+10662496256,Sleep/insomnia
+10660833205,Sleep/insomnia
+10658580372,Sleep/insomnia
+10658577550,Sleep/insomnia
+10658550964,Sleep/insomnia
+10605637047,Sleep/insomnia
+10598255910,Sleep/insomnia
+10598122285,Sleep/insomnia
+10585520406,Sleep/insomnia
+10584760225,Sleep/insomnia
+10581933788,Sleep/insomnia
+10580913646,Sleep/insomnia
+10579927077,Sleep/insomnia
+10575849400,Sleep/insomnia
+11186271761,Sleep/insomnia
+11044680699,Sleep/insomnia
+10974437681,Sleep/insomnia
+10868495105,Sleep/insomnia
+10767176517,Sleep/insomnia
+10760373939,Sleep/insomnia
+10758288741,Sleep/insomnia
+10719755952,Sleep/insomnia
+10699810522,Sleep/insomnia
+10659241585,Sleep/insomnia
+10607782752,Sleep/insomnia
+10684698263,Sleep/insomnia
+11250741921,Spasms
+11249871277,Spasms
+11215609540,Spasms
+11208627585,Spasms
+11183903124,Spasms
+11166390085,Spasms
+11137541759,Spasms
+11132638848,Spasms
+11100035804,Spasms
+11062634752,Spasms
+11061509902,Spasms
+10923325388,Spasms
+10879062209,Spasms
+10876510380,Spasms
+10876100377,Spasms
+10875503972,Spasms
+10859949104,Spasms
+10685117930,Spasms
+10668361624,Spasms
+10667582585,Spasms
+10658580372,Spasms
+10624147163,Spasms
+10604065323,Spasms
+10575849400,Spasms
+10974437681,Spasms
+10868495105,Spasms

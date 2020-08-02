@@ -1,0 +1,8 @@
+"""Under what circumstances do you use cannabis? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+"Medically indicated, self-determined",120,59.70%
+"Medically indicated, recommended by a licensed clinical provider",100,49.75%
+Recreational user,84,41.79%
+Other (please specify),12,5.97%
+Religious,4,1.99%

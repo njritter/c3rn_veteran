@@ -1,0 +1,12 @@
+"""What is your current employment status?""",,
+,,
+response,count,percent_all
+Employed full time (40 or more hours per week),52,25.87%
+Retired,51,25.37%
+Unable to work,48,23.88%
+Employed part time (up to 39 hours per week),15,7.46%
+Unemployed and currently looking for work,13,6.47%
+Self-employed,10,4.98%
+Student,5,2.49%
+Unemployed and not currently looking for work,5,2.49%
+Homemaker,2,1.00%

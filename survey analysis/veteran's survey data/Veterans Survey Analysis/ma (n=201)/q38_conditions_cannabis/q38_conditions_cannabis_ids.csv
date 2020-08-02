@@ -1,0 +1,790 @@
+"""Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)""",
+,
+id,chosen
+10875507777,Allergies
+10831929904,Allergies
+10668312322,Allergies
+10622925288,Allergies
+11186271761,Allergies
+11037955315,Allergies
+10719755952,Allergies
+11250741921,Anxiety
+11245529294,Anxiety
+11222559871,Anxiety
+11220644956,Anxiety
+11215609540,Anxiety
+11208627585,Anxiety
+11170108737,Anxiety
+11166535497,Anxiety
+11166390085,Anxiety
+11161813510,Anxiety
+11156698544,Anxiety
+11149744263,Anxiety
+11138400653,Anxiety
+11138361963,Anxiety
+11137625236,Anxiety
+11134769709,Anxiety
+11132638848,Anxiety
+11131514317,Anxiety
+11129003813,Anxiety
+11105188699,Anxiety
+11062634752,Anxiety
+11061509902,Anxiety
+11057923056,Anxiety
+11033502369,Anxiety
+11006369538,Anxiety
+11003496788,Anxiety
+10978063065,Anxiety
+10893948558,Anxiety
+10889700541,Anxiety
+10888170961,Anxiety
+10885759801,Anxiety
+10884768912,Anxiety
+10883497633,Anxiety
+10882385979,Anxiety
+10879062209,Anxiety
+10878751296,Anxiety
+10878422887,Anxiety
+10878214093,Anxiety
+10877606410,Anxiety
+10877565497,Anxiety
+10877416704,Anxiety
+10877375002,Anxiety
+10877194985,Anxiety
+10876510380,Anxiety
+10875700450,Anxiety
+10875617011,Anxiety
+10875562577,Anxiety
+10875529110,Anxiety
+10875511603,Anxiety
+10875473988,Anxiety
+10875462742,Anxiety
+10875458883,Anxiety
+10874749577,Anxiety
+10872582813,Anxiety
+10870148985,Anxiety
+10868096498,Anxiety
+10867810520,Anxiety
+10867323115,Anxiety
+10837914247,Anxiety
+10831929904,Anxiety
+10830786742,Anxiety
+10822727213,Anxiety
+10802360410,Anxiety
+10800317244,Anxiety
+10764443236,Anxiety
+10762649964,Anxiety
+10758753382,Anxiety
+10749570344,Anxiety
+10716518478,Anxiety
+10691181667,Anxiety
+10685117930,Anxiety
+10681003613,Anxiety
+10677560387,Anxiety
+10671862630,Anxiety
+10670361680,Anxiety
+10669140575,Anxiety
+10668361624,Anxiety
+10668312322,Anxiety
+10667582585,Anxiety
+10667425695,Anxiety
+10667398958,Anxiety
+10667384979,Anxiety
+10667384024,Anxiety
+10667369837,Anxiety
+10661330404,Anxiety
+10660833205,Anxiety
+10660294275,Anxiety
+10659841121,Anxiety
+10658774056,Anxiety
+10658649988,Anxiety
+10658580372,Anxiety
+10658577550,Anxiety
+10658550964,Anxiety
+10626251939,Anxiety
+10624147163,Anxiety
+10622925288,Anxiety
+10605637047,Anxiety
+10602936383,Anxiety
+10598255910,Anxiety
+10598122285,Anxiety
+10597419828,Anxiety
+10596131278,Anxiety
+10595615049,Anxiety
+10585520406,Anxiety
+10583893598,Anxiety
+10581933788,Anxiety
+10581447651,Anxiety
+10580913646,Anxiety
+10576876213,Anxiety
+11186271761,Anxiety
+11170278059,Anxiety
+11151215837,Anxiety
+11072705197,Anxiety
+10991821033,Anxiety
+10978796014,Anxiety
+10977935510,Anxiety
+10974437681,Anxiety
+10868495105,Anxiety
+10767176517,Anxiety
+10760373939,Anxiety
+10758288741,Anxiety
+10719755952,Anxiety
+10659241585,Anxiety
+10607782752,Anxiety
+10575479401,Anxiety
+10684698263,Anxiety
+11250741921,Arthritis
+11241251752,Arthritis
+11238077963,Arthritis
+11208627585,Arthritis
+11166390085,Arthritis
+11161813510,Arthritis
+11156548224,Arthritis
+11138400653,Arthritis
+11137625236,Arthritis
+11132638848,Arthritis
+11105188699,Arthritis
+11100035804,Arthritis
+11091792560,Arthritis
+11062634752,Arthritis
+11061509902,Arthritis
+11027692007,Arthritis
+10923325388,Arthritis
+10889700541,Arthritis
+10885759801,Arthritis
+10883497633,Arthritis
+10879062209,Arthritis
+10878751296,Arthritis
+10878214093,Arthritis
+10877565497,Arthritis
+10877416704,Arthritis
+10877194985,Arthritis
+10876510380,Arthritis
+10876392009,Arthritis
+10876100377,Arthritis
+10875993925,Arthritis
+10875530570,Arthritis
+10875529110,Arthritis
+10875503972,Arthritis
+10875467061,Arthritis
+10875458883,Arthritis
+10867812743,Arthritis
+10867615622,Arthritis
+10867323115,Arthritis
+10831158462,Arthritis
+10823088016,Arthritis
+10822727213,Arthritis
+10800317244,Arthritis
+10726117373,Arthritis
+10691181667,Arthritis
+10685325930,Arthritis
+10685117930,Arthritis
+10668597062,Arthritis
+10667369837,Arthritis
+10659841121,Arthritis
+10658741910,Arthritis
+10658580372,Arthritis
+10658577550,Arthritis
+10626251939,Arthritis
+10624147163,Arthritis
+10622925288,Arthritis
+10604065323,Arthritis
+10602936383,Arthritis
+10598255910,Arthritis
+10591451425,Arthritis
+10585520406,Arthritis
+10576876213,Arthritis
+11213907729,Arthritis
+11151215837,Arthritis
+11037955315,Arthritis
+10758288741,Arthritis
+10659241585,Arthritis
+10598306507,Arthritis
+11208627585,Attention deficit/hyperactivity disorder (ADHD)
+11166390085,Attention deficit/hyperactivity disorder (ADHD)
+11137625236,Attention deficit/hyperactivity disorder (ADHD)
+11129003813,Attention deficit/hyperactivity disorder (ADHD)
+11105188699,Attention deficit/hyperactivity disorder (ADHD)
+11091792560,Attention deficit/hyperactivity disorder (ADHD)
+11061509902,Attention deficit/hyperactivity disorder (ADHD)
+11006369538,Attention deficit/hyperactivity disorder (ADHD)
+10893948558,Attention deficit/hyperactivity disorder (ADHD)
+10878214093,Attention deficit/hyperactivity disorder (ADHD)
+10876100377,Attention deficit/hyperactivity disorder (ADHD)
+10875617011,Attention deficit/hyperactivity disorder (ADHD)
+10875503972,Attention deficit/hyperactivity disorder (ADHD)
+10867812743,Attention deficit/hyperactivity disorder (ADHD)
+10860535252,Attention deficit/hyperactivity disorder (ADHD)
+10830786742,Attention deficit/hyperactivity disorder (ADHD)
+10762649964,Attention deficit/hyperactivity disorder (ADHD)
+10667582585,Attention deficit/hyperactivity disorder (ADHD)
+10667398958,Attention deficit/hyperactivity disorder (ADHD)
+10659841121,Attention deficit/hyperactivity disorder (ADHD)
+10658550964,Attention deficit/hyperactivity disorder (ADHD)
+10622925288,Attention deficit/hyperactivity disorder (ADHD)
+10604065323,Attention deficit/hyperactivity disorder (ADHD)
+10597419828,Attention deficit/hyperactivity disorder (ADHD)
+10576876213,Attention deficit/hyperactivity disorder (ADHD)
+10830786742,Autism
+11208627585,Bipolar/manic depression
+11166535497,Bipolar/manic depression
+11131514317,Bipolar/manic depression
+11036310394,Bipolar/manic depression
+10879062209,Bipolar/manic depression
+10675303210,Bipolar/manic depression
+10669140575,Bipolar/manic depression
+10660294275,Bipolar/manic depression
+10658774056,Bipolar/manic depression
+11186271761,Bipolar/manic depression
+10758288741,Bipolar/manic depression
+10659241585,Bipolar/manic depression
+11166474867,Cancer
+11105188699,Cancer
+10888170961,Cancer
+10877606410,Cancer
+10877375002,Cancer
+10867323115,Cancer
+10685117930,Cancer
+10677653881,Cancer
+10668312322,Cancer
+10667907917,Cancer
+10665891738,Cancer
+10661330404,Cancer
+10581447651,Cancer
+11212805644,Cancer
+10956719648,Cancer
+11149744263,Cardiovascular disease
+11105188699,Cardiovascular disease
+10659841121,Cardiovascular disease
+10622925288,Cardiovascular disease
+10598255910,Cardiovascular disease
+11250741921,Chronic pain
+11249871277,Chronic pain
+11245529294,Chronic pain
+11241251752,Chronic pain
+11208627585,Chronic pain
+11183903124,Chronic pain
+11166535497,Chronic pain
+11166390085,Chronic pain
+11166384877,Chronic pain
+11161813510,Chronic pain
+11156698544,Chronic pain
+11156548224,Chronic pain
+11138400653,Chronic pain
+11137625236,Chronic pain
+11137541759,Chronic pain
+11135054998,Chronic pain
+11129003813,Chronic pain
+11105188699,Chronic pain
+11100035804,Chronic pain
+11091792560,Chronic pain
+11062634752,Chronic pain
+11061509902,Chronic pain
+11036310394,Chronic pain
+11033502369,Chronic pain
+11006369538,Chronic pain
+11003496788,Chronic pain
+10923325388,Chronic pain
+10889700541,Chronic pain
+10885759801,Chronic pain
+10883497633,Chronic pain
+10882385979,Chronic pain
+10880798060,Chronic pain
+10879062209,Chronic pain
+10878422887,Chronic pain
+10878214093,Chronic pain
+10877788133,Chronic pain
+10877606410,Chronic pain
+10877565497,Chronic pain
+10877416704,Chronic pain
+10877375002,Chronic pain
+10877194985,Chronic pain
+10876876072,Chronic pain
+10876510380,Chronic pain
+10876100377,Chronic pain
+10875993925,Chronic pain
+10875700450,Chronic pain
+10875617011,Chronic pain
+10875562577,Chronic pain
+10875530570,Chronic pain
+10875529110,Chronic pain
+10875526461,Chronic pain
+10875503972,Chronic pain
+10875467061,Chronic pain
+10875460020,Chronic pain
+10875458883,Chronic pain
+10872582813,Chronic pain
+10870148985,Chronic pain
+10868096498,Chronic pain
+10867812743,Chronic pain
+10867810520,Chronic pain
+10867615622,Chronic pain
+10867323115,Chronic pain
+10860535252,Chronic pain
+10859949104,Chronic pain
+10855896441,Chronic pain
+10842274754,Chronic pain
+10833972658,Chronic pain
+10831158462,Chronic pain
+10802360410,Chronic pain
+10762649964,Chronic pain
+10758753382,Chronic pain
+10726117373,Chronic pain
+10691181667,Chronic pain
+10685117930,Chronic pain
+10682649508,Chronic pain
+10677560387,Chronic pain
+10675806972,Chronic pain
+10675303210,Chronic pain
+10675097210,Chronic pain
+10671862630,Chronic pain
+10668597062,Chronic pain
+10668361624,Chronic pain
+10668312322,Chronic pain
+10667907917,Chronic pain
+10667582585,Chronic pain
+10667384979,Chronic pain
+10667369837,Chronic pain
+10662496256,Chronic pain
+10661330404,Chronic pain
+10660833205,Chronic pain
+10660294275,Chronic pain
+10659841121,Chronic pain
+10658741910,Chronic pain
+10658649988,Chronic pain
+10658580372,Chronic pain
+10658577550,Chronic pain
+10626251939,Chronic pain
+10624147163,Chronic pain
+10622925288,Chronic pain
+10604065323,Chronic pain
+10602936383,Chronic pain
+10600857474,Chronic pain
+10598255910,Chronic pain
+10598122285,Chronic pain
+10597419828,Chronic pain
+10596131278,Chronic pain
+10595615049,Chronic pain
+10585520406,Chronic pain
+10579927077,Chronic pain
+10576876213,Chronic pain
+10575849400,Chronic pain
+11213907729,Chronic pain
+11186271761,Chronic pain
+11170278059,Chronic pain
+11037955315,Chronic pain
+10991821033,Chronic pain
+10977935510,Chronic pain
+10974437681,Chronic pain
+10868495105,Chronic pain
+10760373939,Chronic pain
+10758288741,Chronic pain
+10719755952,Chronic pain
+10716623034,Chronic pain
+10699810522,Chronic pain
+10671009796,Chronic pain
+10607782752,Chronic pain
+10598306507,Chronic pain
+10575479401,Chronic pain
+11250741921,Depression
+11238077963,Depression
+11222559871,Depression
+11215609540,Depression
+11208627585,Depression
+11170108737,Depression
+11166535497,Depression
+11161813510,Depression
+11156698544,Depression
+11156548224,Depression
+11138930846,Depression
+11138361963,Depression
+11137625236,Depression
+11135054998,Depression
+11134769709,Depression
+11131514317,Depression
+11129003813,Depression
+11105188699,Depression
+11064342543,Depression
+11062634752,Depression
+11061509902,Depression
+11057923056,Depression
+11033502369,Depression
+11006369538,Depression
+11003496788,Depression
+10889700541,Depression
+10885759801,Depression
+10883497633,Depression
+10882385979,Depression
+10879062209,Depression
+10878751296,Depression
+10878214093,Depression
+10877606410,Depression
+10877375002,Depression
+10877194985,Depression
+10876100377,Depression
+10875700450,Depression
+10875529110,Depression
+10875511603,Depression
+10875473988,Depression
+10875467061,Depression
+10875460020,Depression
+10875458883,Depression
+10874749577,Depression
+10872582813,Depression
+10870148985,Depression
+10868096498,Depression
+10867812743,Depression
+10867810520,Depression
+10867615622,Depression
+10867323115,Depression
+10860535252,Depression
+10837914247,Depression
+10836382971,Depression
+10831929904,Depression
+10830786742,Depression
+10822727213,Depression
+10808168894,Depression
+10802360410,Depression
+10762649964,Depression
+10749570344,Depression
+10716518478,Depression
+10691181667,Depression
+10685117930,Depression
+10682649508,Depression
+10677560387,Depression
+10675806972,Depression
+10671862630,Depression
+10670361680,Depression
+10669140575,Depression
+10668312322,Depression
+10667582585,Depression
+10667398958,Depression
+10667384979,Depression
+10667369837,Depression
+10662496256,Depression
+10661330404,Depression
+10660294275,Depression
+10658774056,Depression
+10658649988,Depression
+10658580372,Depression
+10658577550,Depression
+10658550964,Depression
+10626251939,Depression
+10624147163,Depression
+10622925288,Depression
+10605637047,Depression
+10604065323,Depression
+10598221024,Depression
+10598122285,Depression
+10597419828,Depression
+10585520406,Depression
+10583893598,Depression
+10581933788,Depression
+10581447651,Depression
+11213907729,Depression
+11186271761,Depression
+11151215837,Depression
+11072705197,Depression
+11042816472,Depression
+10991821033,Depression
+10978796014,Depression
+10974437681,Depression
+10868495105,Depression
+10767176517,Depression
+10760373939,Depression
+10758288741,Depression
+10659241585,Depression
+10684698263,Depression
+11250741921,Diabetes
+11166390085,Diabetes
+10878422887,Diabetes
+10877375002,Diabetes
+10876100377,Diabetes
+10875993925,Diabetes
+10699810522,Diabetes
+10598306507,Diabetes
+10831929904,Eczema
+10668312322,Eczema
+11208627585,Epilepsy
+10622925288,Epilepsy
+10868495105,Epilepsy
+11156698544,Fibromyalgia/myositis
+11105188699,Fibromyalgia/myositis
+11100035804,Fibromyalgia/myositis
+11062634752,Fibromyalgia/myositis
+10882385979,Fibromyalgia/myositis
+10877194985,Fibromyalgia/myositis
+10875530570,Fibromyalgia/myositis
+10668312322,Fibromyalgia/myositis
+10622925288,Fibromyalgia/myositis
+10868495105,Fibromyalgia/myositis
+11245529294,Gastrointestinal/digestive system disorders
+11241251752,Gastrointestinal/digestive system disorders
+11129003813,Gastrointestinal/digestive system disorders
+11062634752,Gastrointestinal/digestive system disorders
+11027692007,Gastrointestinal/digestive system disorders
+10878422887,Gastrointestinal/digestive system disorders
+10875530570,Gastrointestinal/digestive system disorders
+10875458883,Gastrointestinal/digestive system disorders
+10800317244,Gastrointestinal/digestive system disorders
+10758753382,Gastrointestinal/digestive system disorders
+10662496256,Gastrointestinal/digestive system disorders
+10604065323,Gastrointestinal/digestive system disorders
+10585520406,Gastrointestinal/digestive system disorders
+10581933788,Gastrointestinal/digestive system disorders
+11212805644,Gastrointestinal/digestive system disorders
+11186271761,Gastrointestinal/digestive system disorders
+11170278059,Gastrointestinal/digestive system disorders
+11037955315,Gastrointestinal/digestive system disorders
+11250741921,Hypertension
+11166390085,Hypertension
+11105188699,Hypertension
+10877375002,Hypertension
+10875507777,Hypertension
+10867323115,Hypertension
+10802360410,Hypertension
+10758753382,Hypertension
+10677560387,Hypertension
+10665891738,Hypertension
+10659841121,Hypertension
+10598122285,Hypertension
+10583893598,Hypertension
+10977935510,Hypertension
+10974437681,Hypertension
+10965547652,Hypertension
+10767176517,Hypertension
+10699810522,Hypertension
+11208627585,Inflammatory bowel disease (IBD)
+11138400653,Inflammatory bowel disease (IBD)
+11062634752,Inflammatory bowel disease (IBD)
+10604065323,Inflammatory bowel disease (IBD)
+10585520406,Inflammatory bowel disease (IBD)
+11042816472,Inflammatory bowel disease (IBD)
+11037955315,Inflammatory bowel disease (IBD)
+10868495105,Inflammatory bowel disease (IBD)
+11250741921,Insomnia
+11246906361,Insomnia
+11222559871,Insomnia
+11208627585,Insomnia
+11170108737,Insomnia
+11161813510,Insomnia
+11156548224,Insomnia
+11138361963,Insomnia
+11137625236,Insomnia
+11134769709,Insomnia
+11131514317,Insomnia
+11129003813,Insomnia
+11091792560,Insomnia
+11062634752,Insomnia
+11061509902,Insomnia
+11033502369,Insomnia
+10978063065,Insomnia
+10888170961,Insomnia
+10884768912,Insomnia
+10879062209,Insomnia
+10878214093,Insomnia
+10877565497,Insomnia
+10875993925,Insomnia
+10875700450,Insomnia
+10875530570,Insomnia
+10875529110,Insomnia
+10875526461,Insomnia
+10875507777,Insomnia
+10875462742,Insomnia
+10874749577,Insomnia
+10872582813,Insomnia
+10870148985,Insomnia
+10855896441,Insomnia
+10836382971,Insomnia
+10833972658,Insomnia
+10830786742,Insomnia
+10823088016,Insomnia
+10822727213,Insomnia
+10802360410,Insomnia
+10800317244,Insomnia
+10762649964,Insomnia
+10758753382,Insomnia
+10726117373,Insomnia
+10716518478,Insomnia
+10681003613,Insomnia
+10675303210,Insomnia
+10669140575,Insomnia
+10668361624,Insomnia
+10667384024,Insomnia
+10662496256,Insomnia
+10661330404,Insomnia
+10660833205,Insomnia
+10660294275,Insomnia
+10658580372,Insomnia
+10658577550,Insomnia
+10658550964,Insomnia
+10626251939,Insomnia
+10585520406,Insomnia
+10584760225,Insomnia
+10583893598,Insomnia
+10580913646,Insomnia
+11213907729,Insomnia
+11186271761,Insomnia
+11170278059,Insomnia
+10977935510,Insomnia
+10868495105,Insomnia
+10767176517,Insomnia
+10719755952,Insomnia
+10607782752,Insomnia
+10575479401,Insomnia
+10684698263,Insomnia
+11215609540,Multiple sclerosis
+10878751296,Obesity
+10875993925,Obesity
+10716623034,Obesity
+11250741921,Other (please specify)
+11138930846,Other (please specify)
+11036310394,Other (please specify)
+10876392009,Other (please specify)
+10875700450,Other (please specify)
+10874749577,Other (please specify)
+10868096498,Other (please specify)
+10867615622,Other (please specify)
+10867323115,Other (please specify)
+10859949104,Other (please specify)
+10833972658,Other (please specify)
+10831158462,Other (please specify)
+10808168894,Other (please specify)
+10667369837,Other (please specify)
+10658580372,Other (please specify)
+10624147163,Other (please specify)
+10584760225,Other (please specify)
+11037955315,Other (please specify)
+11250741921,Posttraumatic stress disorder (PTSD)
+11245529294,Posttraumatic stress disorder (PTSD)
+11238077963,Posttraumatic stress disorder (PTSD)
+11222559871,Posttraumatic stress disorder (PTSD)
+11215609540,Posttraumatic stress disorder (PTSD)
+11208627585,Posttraumatic stress disorder (PTSD)
+11166997346,Posttraumatic stress disorder (PTSD)
+11138361963,Posttraumatic stress disorder (PTSD)
+11137652132,Posttraumatic stress disorder (PTSD)
+11137625236,Posttraumatic stress disorder (PTSD)
+11134769709,Posttraumatic stress disorder (PTSD)
+11129003813,Posttraumatic stress disorder (PTSD)
+11064342543,Posttraumatic stress disorder (PTSD)
+11062634752,Posttraumatic stress disorder (PTSD)
+11061509902,Posttraumatic stress disorder (PTSD)
+11033502369,Posttraumatic stress disorder (PTSD)
+11006369538,Posttraumatic stress disorder (PTSD)
+11003496788,Posttraumatic stress disorder (PTSD)
+10978063065,Posttraumatic stress disorder (PTSD)
+10888170961,Posttraumatic stress disorder (PTSD)
+10885759801,Posttraumatic stress disorder (PTSD)
+10884768912,Posttraumatic stress disorder (PTSD)
+10883497633,Posttraumatic stress disorder (PTSD)
+10882385979,Posttraumatic stress disorder (PTSD)
+10879062209,Posttraumatic stress disorder (PTSD)
+10878214093,Posttraumatic stress disorder (PTSD)
+10877606410,Posttraumatic stress disorder (PTSD)
+10877375002,Posttraumatic stress disorder (PTSD)
+10877194985,Posttraumatic stress disorder (PTSD)
+10876510380,Posttraumatic stress disorder (PTSD)
+10876100377,Posttraumatic stress disorder (PTSD)
+10875700450,Posttraumatic stress disorder (PTSD)
+10875696093,Posttraumatic stress disorder (PTSD)
+10875530570,Posttraumatic stress disorder (PTSD)
+10875526461,Posttraumatic stress disorder (PTSD)
+10875511603,Posttraumatic stress disorder (PTSD)
+10875467061,Posttraumatic stress disorder (PTSD)
+10875462742,Posttraumatic stress disorder (PTSD)
+10875460020,Posttraumatic stress disorder (PTSD)
+10874749577,Posttraumatic stress disorder (PTSD)
+10872582813,Posttraumatic stress disorder (PTSD)
+10870148985,Posttraumatic stress disorder (PTSD)
+10868096498,Posttraumatic stress disorder (PTSD)
+10860535252,Posttraumatic stress disorder (PTSD)
+10856437127,Posttraumatic stress disorder (PTSD)
+10836382971,Posttraumatic stress disorder (PTSD)
+10833972658,Posttraumatic stress disorder (PTSD)
+10830786742,Posttraumatic stress disorder (PTSD)
+10822727213,Posttraumatic stress disorder (PTSD)
+10802360410,Posttraumatic stress disorder (PTSD)
+10800317244,Posttraumatic stress disorder (PTSD)
+10764443236,Posttraumatic stress disorder (PTSD)
+10762649964,Posttraumatic stress disorder (PTSD)
+10716518478,Posttraumatic stress disorder (PTSD)
+10691181667,Posttraumatic stress disorder (PTSD)
+10685325930,Posttraumatic stress disorder (PTSD)
+10681003613,Posttraumatic stress disorder (PTSD)
+10677560387,Posttraumatic stress disorder (PTSD)
+10671862630,Posttraumatic stress disorder (PTSD)
+10668361624,Posttraumatic stress disorder (PTSD)
+10668312322,Posttraumatic stress disorder (PTSD)
+10668103394,Posttraumatic stress disorder (PTSD)
+10667582585,Posttraumatic stress disorder (PTSD)
+10667369837,Posttraumatic stress disorder (PTSD)
+10662496256,Posttraumatic stress disorder (PTSD)
+10661330404,Posttraumatic stress disorder (PTSD)
+10660294275,Posttraumatic stress disorder (PTSD)
+10659841121,Posttraumatic stress disorder (PTSD)
+10658580372,Posttraumatic stress disorder (PTSD)
+10658577550,Posttraumatic stress disorder (PTSD)
+10658550964,Posttraumatic stress disorder (PTSD)
+10626251939,Posttraumatic stress disorder (PTSD)
+10605637047,Posttraumatic stress disorder (PTSD)
+10602936383,Posttraumatic stress disorder (PTSD)
+10598122285,Posttraumatic stress disorder (PTSD)
+10595615049,Posttraumatic stress disorder (PTSD)
+10585520406,Posttraumatic stress disorder (PTSD)
+10583893598,Posttraumatic stress disorder (PTSD)
+10581933788,Posttraumatic stress disorder (PTSD)
+10581447651,Posttraumatic stress disorder (PTSD)
+10579927077,Posttraumatic stress disorder (PTSD)
+11186271761,Posttraumatic stress disorder (PTSD)
+11151215837,Posttraumatic stress disorder (PTSD)
+11044680699,Posttraumatic stress disorder (PTSD)
+10991821033,Posttraumatic stress disorder (PTSD)
+10974437681,Posttraumatic stress disorder (PTSD)
+10868495105,Posttraumatic stress disorder (PTSD)
+10767176517,Posttraumatic stress disorder (PTSD)
+10760373939,Posttraumatic stress disorder (PTSD)
+10716623034,Posttraumatic stress disorder (PTSD)
+10607782752,Posttraumatic stress disorder (PTSD)
+10575479401,Posttraumatic stress disorder (PTSD)
+10684698263,Posttraumatic stress disorder (PTSD)
+11062634752,Reflux esophagitis
+10923325388,Reflux esophagitis
+10879062209,Reflux esophagitis
+10878422887,Reflux esophagitis
+10758753382,Reflux esophagitis
+10668361624,Reflux esophagitis
+10668312322,Reflux esophagitis
+11212805644,Reflux esophagitis
+11208627585,Respiratory problems
+11105188699,Respiratory problems
+10875993925,Respiratory problems
+10875530570,Respiratory problems
+10685117930,Respiratory problems
+10668312322,Respiratory problems
+11186271761,Respiratory problems
+11222559871,Substance abuse/addiction
+11208627585,Substance abuse/addiction
+11166535497,Substance abuse/addiction
+11105188699,Substance abuse/addiction
+11061509902,Substance abuse/addiction
+10882385979,Substance abuse/addiction
+10878751296,Substance abuse/addiction
+10877194985,Substance abuse/addiction
+10875462742,Substance abuse/addiction
+10870148985,Substance abuse/addiction
+10836382971,Substance abuse/addiction
+10716518478,Substance abuse/addiction
+10682649508,Substance abuse/addiction
+10675806972,Substance abuse/addiction
+10668361624,Substance abuse/addiction
+10667582585,Substance abuse/addiction
+10667398958,Substance abuse/addiction
+10667369837,Substance abuse/addiction
+10658550964,Substance abuse/addiction
+10605637047,Substance abuse/addiction
+10585520406,Substance abuse/addiction
+10581447651,Substance abuse/addiction
+11186271761,Substance abuse/addiction
+10767176517,Substance abuse/addiction

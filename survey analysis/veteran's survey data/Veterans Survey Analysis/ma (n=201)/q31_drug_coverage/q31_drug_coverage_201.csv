@@ -1,0 +1,5 @@
+"""Do you have prescription drug coverage?""",,
+,,
+response,count,percent_all
+Yes,176,87.56%
+No,25,12.44%

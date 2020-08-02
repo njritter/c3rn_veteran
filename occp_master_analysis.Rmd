@@ -14,14 +14,14 @@ source("helper.R")
 ```
 
 ```{r}
-raw_data_occp <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
 q4 <- "How.do.you.use.cannabis..Please.select.all.that.apply."
 q4_final_response <- "X.3"
 q4_t  <- "How do you use cannabis? Please select all that apply."
-q4_data <- get_choose_all(raw_data_occp, q.name = q4, f.response = q4_final_response) %>%
+q4_data <- get_choose_all(raw_data, q.name = q4, f.response = q4_final_response) %>%
   tidy_choose_all()
 q4_n <- length(unique(q4_data$id))
 q4_plot <- clean_choose_all(q4_data, q4_n)
@@ -45,7 +45,7 @@ write.csv(q4_data, 'output/q4_cannabis_use_type/q4_cannabis_use_type_ids.csv', r
 ```{r}
 q5 <- "WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one."
 q5_t <- "What is the primary health condition for which you find cannabis to be helpful or most impactful? Please select one."
-q5_data <- get_single_selection(data = raw_data_occp, q.name = q5)
+q5_data <- get_single_selection(data = raw_data, q.name = q5)
 q5_n <- length(unique(q5_data$id))
 q5_plot <- clean_single_select(q5_data)
 r5 <- plot_single_select(q5_plot, q5_t, q5_n)
@@ -68,7 +68,7 @@ write.csv(q5_plot2, paste0("output/q5_top_condition_cannabis/q5_top_condition_ca
 q6 <- 'What.symptoms.for.the.primary.condition.do.you.use.cannabis.to.treat..Please.select.all.that.apply.'
 q6_final_response <- "X.22"
 q6_t <- "What symptoms for the primary condition do you use cannabis to treat? Please select all that apply."
-q6_data <- get_choose_all(raw_data_occp, q.name = q6, f.response = q6_final_response) %>%
+q6_data <- get_choose_all(raw_data, q.name = q6, f.response = q6_final_response) %>%
   tidy_choose_all()
 q6_n <- length(unique(q6_data$id))
 q6_plot <- clean_choose_all(q6_data, q6_n)
@@ -93,7 +93,7 @@ write.csv(q6_data, 'output/q6_symptoms_cannabis_helps/q6_symptoms_cannabis_helps
 q7 <- "How.does.cannabis.help.your.daily.life...Please.select.all.that.apply."
 q7_final_response <- "X.31"
 q7_t <- "How does cannabis help your daily life? (Please select all that apply)"
-q7_data <- get_choose_all(raw_data_occp, q.name = q7, f.response = q7_final_response) %>%
+q7_data <- get_choose_all(raw_data, q.name = q7, f.response = q7_final_response) %>%
   tidy_choose_all()
 q7_n <- length(unique(q7_data$id))
 q7_plot <- clean_choose_all(q7_data, q7_n)
@@ -117,7 +117,7 @@ write.csv(q7_data, 'output/q7_cannabis_help_life/q7_cannabis_help_life_ids.csv',
 ```{r}
 q8 <- "In.general..to.what.extent.has.the.use.of.cannabis.positively.impacted.your.quality.of.life."
 q8_t <- "In general, to what extent has the use of cannabis positively impacted your quality of life?"
-q8_data <- get_single_selection(data = raw_data_occp, q.name = q8)
+q8_data <- get_single_selection(data = raw_data, q.name = q8)
 q8_n <- length(unique(q8_data$id))
 q8_plot <- clean_single_select(q8_data)
 r8 <- plot_single_select(q8_plot, q8_t, q8_n)
@@ -140,7 +140,7 @@ write.csv(q8_plot2, paste0("output/q8_cannabis_general/q8_cannabis_general_", q8
 q9 <- "Have.you.experienced.any.side.effects.from.using.cannabis..Please.select.all.that.apply."
 q9_final_response <- "X.54"
 q9_t  <- "Have you experienced any side effects from using cannabis? Please select all that apply"
-q9_data <- get_choose_all(raw_data_occp, q.name = q9, f.response = q9_final_response) %>%
+q9_data <- get_choose_all(raw_data, q.name = q9, f.response = q9_final_response) %>%
   tidy_choose_all()
 q9_n <- length(unique(q9_data$id))
 q9_plot <- clean_choose_all(q9_data, q9_n)
@@ -165,7 +165,7 @@ write.csv(q9_data, 'output/q9_cannabis_side_effects/q9_cannabis_side_effects_ids
 q10 <- "Are.you.actively.trying.to.reduce.your.prescription.medication.intake.using.cannabis..Please.select.all.that.apply."
 q10_final_response <- "X.66"
 q10_t  <- "Are you actively trying to reduce your prescription medication intake using cannabis? Please select all that apply."
-q10_data <- get_choose_all(raw_data_occp, q.name = q10, f.response = q10_final_response) %>%
+q10_data <- get_choose_all(raw_data, q.name = q10, f.response = q10_final_response) %>%
   tidy_choose_all()
 q10_n <- length(unique(q10_data$id))
 q10_plot <- clean_choose_all(q10_data, q10_n)
@@ -190,7 +190,7 @@ write.csv(q10_data, 'output/q10_prescriptions_reduced_cannabis/q10_prescriptions
 q11 <- "How.do.you.prefer.to.use.cannabis...Please.check.all.that.apply."
 q11_final_response <- "X.76"
 q11_t  <- "How do you prefer to use cannabis? Please select all that apply."
-q11_data <- get_choose_all(raw_data_occp, q.name = q11, f.response = q11_final_response) %>%
+q11_data <- get_choose_all(raw_data, q.name = q11, f.response = q11_final_response) %>%
   tidy_choose_all()
 q11_n <- length(unique(q11_data$id))
 q11_plot <- clean_choose_all(q11_data, q11_n)
@@ -214,7 +214,7 @@ write.csv(q11_data, 'output/q11_cannabis_method/q11_cannabis_method_ids.csv', ro
 ```{r}
 q12 <- "What.is.your.top.preferred.method..that.is..favorite..of.using.cannabis...Please.select.one."
 q12_t <- "What is your top preferred method (that is, favorite) of using cannabis? (Please select one)"
-q12_data <- get_single_selection(data = raw_data_occp, q.name = q12)
+q12_data <- get_single_selection(data = raw_data, q.name = q12)
 q12_n <- length(unique(q12_data$id))
 q12_plot <- clean_single_select(q12_data)
 r12 <- plot_single_select(q12_plot, q12_t, q12_n)
@@ -237,7 +237,7 @@ write.csv(q12_plot2, paste0("output/q12_top_method_cannabis/q12_top_method_canna
 q13 <- 'How.much.cannabis..in.grams.ounces..do.youÂ.use.in.a.week.'
 q13_final_response <- "X.88"
 q13_t <- "How much cannabis flower are you smoking or vaping per week (ie. grams, ounces, etc)?"
-q13_data <- get_choose_all(raw_data_occp, q.name = q13, f.response = q13_final_response)
+q13_data <- get_choose_all(raw_data, q.name = q13, f.response = q13_final_response)
 dir.create("output/q13_smoke_vape_wkly")
 ```
 
@@ -294,7 +294,7 @@ write.csv(q13_data3, paste0("output/q13_smoke_vape_wkly/concentrates_", q13_n3, 
 q14 <- 'How.manyÂ.mL.ofÂ.cannabisÂ.tincture..oil..alcohol..glycerine..etc..do.you.consume.a.week.'
 q14_final_response <- "X.98"
 q14_t <- "q14 'How many milliliters (mL) of tincture/oil/alcohol/glycerine etc. are you using per week? Note (30mL) = 1oz"
-q14_data <- get_choose_all(raw_data_occp, q.name = q14, f.response = q14_final_response)
+q14_data <- get_choose_all(raw_data, q.name = q14, f.response = q14_final_response)
 dir.create("output/q14_tinctures_wkly")
 ```
 
@@ -317,7 +317,7 @@ write.csv(q14_data1, paste0("output/q14_tinctures_wkly/q14_tinctures_wkly_", q14
 q15 <- 'How.manyÂ.mg.ofÂ.the.following.cannabis.products.do.youÂ.use.a.week.'
 q15_final_response <- "X.108"
 q15_t <- "How many milligrams of the following cannabis products do you use per week?"
-q15_data <- get_choose_all(raw_data_occp, q.name = q15, f.response = q15_final_response)
+q15_data <- get_choose_all(raw_data, q.name = q15, f.response = q15_final_response)
 dir.create("output/q15_mg_edibles_etc")
 ```
 
@@ -389,7 +389,7 @@ write.csv(q15_data4, paste0("output/q15_mg_edibles_etc/q15_capsules_", q15_n4, "
 q16 <- 'HowÂ.many.cannabis.vape.cartridges..assuming.a..5.mL.or.500.mg.vape.cartridge..do.you.consume.in.a.week.'
 q16_final_response <- "X.118"
 q16_t <- "How many cannabis vape cartidges (assuming a .5ml or 500mg vape cartridge) do you consume in a week?"
-q16_data <- get_choose_all(raw_data_occp, q.name = q16, f.response = q16_final_response)
+q16_data <- get_choose_all(raw_data, q.name = q16, f.response = q16_final_response)
 dir.create("output/q16_vape_carts_wkly")
 ```
 
@@ -412,7 +412,7 @@ write.csv(q16_data1, paste0("output/q16_vape_carts_wkly/q16_vape_carts_wkly_", q
 q17 <- 'How.many.times.per.week.do.you.use.salves.topicals.'
 q17_final_response <- "X.128"
 q17_t <- "How many times per week do you use salves/topicals?"
-q17_data <- get_choose_all(raw_data_occp, q.name = q17, f.response = q17_final_response)
+q17_data <- get_choose_all(raw_data, q.name = q17, f.response = q17_final_response)
 dir.create("output/q17_salves_topicals_wkly")
 ```
 
@@ -434,7 +434,7 @@ write.csv(q17_data1, paste0("output/q17_salves_topicals_wkly/q17_salves_topicals
 ```{r}
 q18 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
 q18_t <- "On average, how much do you spend (in US dollars) on consumable cannabis products each week?"
-q18_data <- get_single_selection_0(data = raw_data_occp, q.name = q18) %>%
+q18_data <- get_single_selection_0(data = raw_data, q.name = q18) %>%
   filter(response != "")
 q18_n <- length(unique(q18_data$id))
 q18_mean_data <- as.numeric(as.character(q18_data$response))
@@ -462,7 +462,7 @@ write.csv(q18_data, 'output/q18_cannabis_cost_wkly/q18_cannabis_cost_wkly_ids.cs
 ```{r}
 q19 <- "What.percent.of.your.monthly.cannabis.purchases.are.through.regulated.sources...dispensaries..caregivers..etc."
 q19_t <- "What percent of your monthly cannabis purchases are through regulated sources (dispensaries, caregivers, etc.)"
-q19_data <- get_single_selection_0(data = raw_data_occp, q.name = q19) %>%
+q19_data <- get_single_selection_0(data = raw_data, q.name = q19) %>%
   filter(response != "")
 q19_n <- length(unique(q19_data$id))
 q19_mean_data <- as.numeric(as.character(q19_data$response))
@@ -491,7 +491,7 @@ write.csv(q19_data, 'output/q19_regulated_purchases/q19_regulated_purchases_ids.
 q20 <- "What.are.your.three.favorite.cannabis.strains."
 q20_final_response <- "X.130"
 q20_t <- "What are your three favorite cannabis strains?"
-q20_data <- get_choose_all(raw_data_occp, q.name = q20, f.response = q20_final_response)
+q20_data <- get_choose_all(raw_data, q.name = q20, f.response = q20_final_response)
 dir.create("output/q20_top_3_strains")
 ```
 
@@ -547,7 +547,7 @@ write.csv(q20_data3, paste0("output/q20_top_3_strains/q20_third_most_important_"
 ```{r}
 q21 <- "What.products.strains.do.you.want.that.are.not.currently.availableÂ.in.your.local.dispensaries."
 q21_t <- "What products/strains do you want that are not currentlyt available in your local dispensaries?"
-q21_data <- get_single_selection(data = raw_data_occp, q.name = q21)
+q21_data <- get_single_selection(data = raw_data, q.name = q21)
 q21_n <- length(unique(q21_data$id))
 q21_plot <- clean_single_select(q21_data)
 r21 <- plot_single_select(q21_plot, q21_t, q21_n)
@@ -570,7 +570,7 @@ write.csv(q21_plot2, paste0("output/q21_products_not_available/q21_products_not_
 q22 <- "What.are.you.looking.for.in.cannabis.products..Please.select.all.that.apply."
 q22_final_response <- "X.139"
 q22_t  <- "What are you looking for in cannabis products? Please select all that apply. (Please select all that apply)"
-q22_data <- get_choose_all(raw_data_occp, q.name = q22, f.response = q22_final_response) %>%
+q22_data <- get_choose_all(raw_data, q.name = q22, f.response = q22_final_response) %>%
   tidy_choose_all()
 q22_n <- length(unique(q22_data$id))
 q22_plot <- clean_choose_all(q22_data, q22_n)
@@ -595,7 +595,7 @@ write.csv(q22_data, 'output/q22_seek_cannabis_aspect/q22_seek_cannabis_aspect_id
 q23 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
 q23_final_response <- "X.142"
 q23_t <- "What is your top 3 selection criteria for cannabis products?"
-q23_data <- get_choose_all(raw_data_occp, q.name = q23, f.response = q23_final_response)
+q23_data <- get_choose_all(raw_data, q.name = q23, f.response = q23_final_response)
 dir.create("output/q23_top_3_cannabis_aspect")
 ```
 
@@ -651,7 +651,7 @@ write.csv(q23_data3, paste0("output/q23_top_3_cannabis_aspect/q23_third_most_imp
 ```{r}
 q24 <- "How.many.days.do.you.use.cannabis.in.a.week..Please.select.one"
 q24_t <- "How many days do you use cannabis in a week? Please select one."
-q24_data <- get_single_selection(data = raw_data_occp, q.name = q24)
+q24_data <- get_single_selection(data = raw_data, q.name = q24)
 q24_n <- length(unique(q24_data$id))
 q24_plot <- clean_single_select(q24_data)
 r24 <- plot_single_select(q24_plot, q24_t, q24_n)
@@ -673,7 +673,7 @@ write.csv(q24_plot2, paste0("output/q24_cannabis_use_wkly_cannabis/q24_cannabis_
 ```{r}
 q25 <- "What.is.your.preferred.time.a.day.to.use.cannabis...please.select.one."
 q25_t <- "What is your preffered time a day to use cannabis? Please select one."
-q25_data <- get_single_selection(data = raw_data_occp, q.name = q25)
+q25_data <- get_single_selection(data = raw_data, q.name = q25)
 q25_n <- length(unique(q25_data$id))
 q25_plot <- clean_single_select(q25_data)
 r25 <- plot_single_select(q25_plot, q25_t, q25_n)
@@ -695,7 +695,7 @@ write.csv(q25_plot2, paste0("output/q25_preffered_use_time/q25_preffered_use_tim
 ```{r}
 q26 <- "On.days.you.regularly.use.cannabis..how.many.times.a.day.do.you.use.cannabis.Â."
 q26_t <- "On days you regularly use cannabis, how many times a day do you use cannabis?"
-q26_data <- get_single_selection(data = raw_data_occp, q.name = q26)
+q26_data <- get_single_selection(data = raw_data, q.name = q26)
 q26_n <- length(unique(q26_data$id))
 q26_plot <- clean_single_select(q26_data)
 r26 <- plot_single_select(q26_plot, q26_t, q26_n)
@@ -717,7 +717,7 @@ write.csv(q26_plot2, paste0("output/q26_uses_per_day/q26_uses_per_day_", q26_n,"
 ```{r}
 q27 <- "Are.you.concerned.about.your.family.members.or.loved.ones.knowing.about.your.cannabis.use."
 q27_t <- "Are you concerned about your family members or loved ones knowing about your cannabis use?"
-q27_data <- get_single_selection(data = raw_data_occp, q.name = q27)
+q27_data <- get_single_selection(data = raw_data, q.name = q27)
 q27_n <- length(unique(q27_data$id))
 q27_plot <- clean_single_select(q27_data)
 r27 <- plot_single_select(q27_plot, q27_t, q27_n)
@@ -739,7 +739,7 @@ write.csv(q27_plot2, paste0("output/q27_family_knowledge_concern/q27_family_know
 ```{r}
 q28 <- "Are.you.concerned.about.your.workplace.knowing.about.your.cannabis.use"
 q28_t <- "Are you concerned about your workplace knowing about your cannabis use?"
-q28_data <- get_single_selection(data = raw_data_occp, q.name = q28)
+q28_data <- get_single_selection(data = raw_data, q.name = q28)
 q28_n <- length(unique(q28_data$id))
 q28_plot <- clean_single_select(q28_data)
 r28 <- plot_single_select(q28_plot, q28_t, q28_n)
@@ -761,7 +761,7 @@ write.csv(q28_plot2, paste0("output/q28_workplace_knowledge_concern/q28_workplac
 ```{r}
 q29 <- "Are.you.concerned.that.your.workplace.will.test.you.for.cannabis.use."
 q29_t <- "Are you concerned that your workplace will test you for cannabis use?"
-q29_data <- get_single_selection(data = raw_data_occp, q.name = q29)
+q29_data <- get_single_selection(data = raw_data, q.name = q29)
 q29_n <- length(unique(q29_data$id))
 q29_plot <- clean_single_select(q29_data)
 r29 <- plot_single_select(q29_plot, q29_t, q29_n)
@@ -784,7 +784,7 @@ write.csv(q29_plot2, paste0("output/q29_workplace_testing_concern/q29_workplace_
 q30 <- "What.are.some.barriers.for.you.consuming.cannabis..Please.select.all.that.apply."
 q30_final_response <- "X.151"
 q30_t  <- "What are some barriers for you consuming cannabis? Please select all that apply."
-q30_data <- get_choose_all(raw_data_occp, q.name = q30, f.response = q30_final_response) %>%
+q30_data <- get_choose_all(raw_data, q.name = q30, f.response = q30_final_response) %>%
   tidy_choose_all()
 q30_n <- length(unique(q30_data$id))
 q30_plot <- clean_choose_all(q30_data, q30_n)
@@ -808,7 +808,7 @@ write.csv(q30_data, 'output/q30_barriers/q30_barriers_ids.csv', row.names = FALS
 ```{r}
 q31 <- "Do.you.grow.your.own.cannabis.at.home."
 q31_t <- "Do you grow your own cannabis at home?"
-q31_data <- get_single_selection(data = raw_data_occp, q.name = q31)
+q31_data <- get_single_selection(data = raw_data, q.name = q31)
 q31_n <- length(unique(q31_data$id))
 q31_plot <- clean_single_select(q31_data)
 r31 <- plot_single_select(q31_plot, q31_t, q31_n)
@@ -830,7 +830,7 @@ write.csv(q31_plot2, paste0("output/q31_home_grow/q31_home_grow_", q31_n,".csv")
 ```{r}
 q32 <- "How.important.is.the.recommendation.of.a.bud.tender.patient.advocate.when.making.your.cannabis.selection."
 q32_t <- "How important is the recommendation of a bud tender/patient advocate when making your cannabis selection?"
-q32_data <- get_single_selection(data = raw_data_occp, q.name = q32)
+q32_data <- get_single_selection(data = raw_data, q.name = q32)
 q32_n <- length(unique(q32_data$id))
 q32_plot <- clean_single_select(q32_data)
 r32 <- plot_single_select(q32_plot, q32_t, q32_n)
@@ -852,7 +852,7 @@ write.csv(q32_plot2, paste0("output/q32_budtender_advice_importance/q32_budtende
 ```{r}
 q33 <- "How.satisfied.are.you.with.a.budtenders.patient.advocates..ability.to.accurately.recommend.products.that.meet.your.needs."
 q33_t <- "How satisfied are you with a budtenders/patient advocates ability to accurately recommend products that meet your needs?"
-q33_data <- get_single_selection(data = raw_data_occp, q.name = q33)
+q33_data <- get_single_selection(data = raw_data, q.name = q33)
 q33_n <- length(unique(q33_data$id))
 q33_plot <- clean_single_select(q33_data)
 r33 <- plot_single_select(q33_plot, q33_t, q33_n)
@@ -874,7 +874,7 @@ write.csv(q33_plot2, paste0("output/q33_budtenders_advice_satisfaction/q33_budte
 ```{r}
 q34 <- "How.important.is.your.relationship.with.your.budtender.patient.advocate.in.determining.which.product.retail.establishment.or.dispensary.to.use."
 q34_t <- "How important is your relationship with your budtender/patient advocate in determining which product, retail establishment or dispensary to use?"
-q34_data <- get_single_selection(data = raw_data_occp, q.name = q34)
+q34_data <- get_single_selection(data = raw_data, q.name = q34)
 q34_n <- length(unique(q34_data$id))
 q34_plot <- clean_single_select(q34_data)
 r34 <- plot_single_select(q34_plot, q34_t, q34_n)
@@ -896,7 +896,7 @@ write.csv(q34_plot2, paste0("output/q34_budtender_relation_importance/q34_budten
 ```{r}
 q35 <- "How.important.to.you.is.the.brand.of.product.you.purchase..not.including.flower.bud.."
 q35_t <- "How important to you is the brand of product you purchase? (not including flower/bud..."
-q35_data <- get_single_selection(data = raw_data_occp, q.name = q35)
+q35_data <- get_single_selection(data = raw_data, q.name = q35)
 q35_n <- length(unique(q35_data$id))
 q35_plot <- clean_single_select(q35_data)
 r35 <- plot_single_select(q35_plot, q35_t, q35_n)
@@ -918,7 +918,7 @@ write.csv(q35_plot2, paste0("output/q35_brand_importance_cannabis/q35_brand_impo
 ```{r}
 q36 <- "What.is.your.level.of.confidence.in.the.accuracy.of.strain.information..strain.genetics..across.retail.establishments.Â."
 q36_t <- "What is your level of confidence in the accuracy of strain information (strain genetics) across retail establishments?"
-q36_data <- get_single_selection(data = raw_data_occp, q.name = q36)
+q36_data <- get_single_selection(data = raw_data, q.name = q36)
 q36_n <- length(unique(q36_data$id))
 q36_plot <- clean_single_select(q36_data)
 r36 <- plot_single_select(q36_plot, q36_t, q36_n)
@@ -940,7 +940,7 @@ write.csv(q36_plot2, paste0("output/q36_info_confidence/q36_info_confidence_", q
 ```{r}
 q37 <- "What.is.your.level.of.confidence.in.the.accuracy.of.levels.of.THC.CBD.stated.on.product.labels."
 q37_t <- "What is your level of confidence in the accuracy of levels of THC/CBD stated on product labels?"
-q37_data <- get_single_selection(data = raw_data_occp, q.name = q37)
+q37_data <- get_single_selection(data = raw_data, q.name = q37)
 q37_n <- length(unique(q37_data$id))
 q37_plot <- clean_single_select(q37_data)
 r37 <- plot_single_select(q37_plot, q37_t, q37_n)
@@ -963,7 +963,7 @@ write.csv(q37_plot2, paste0("output/q37_label_confidence/q37_label_confidence_",
 q38 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products..Please.check.all.that.apply."
 q38_final_response <- "X.159"
 q38_t  <- "Where do you get your information to make informed decisions about cannabis products? Please check all that apply."
-q38_data <- get_choose_all(raw_data_occp, q.name = q38, f.response = q38_final_response) %>%
+q38_data <- get_choose_all(raw_data, q.name = q38, f.response = q38_final_response) %>%
   tidy_choose_all()
 q38_n <- length(unique(q38_data$id))
 q38_plot <- clean_choose_all(q38_data, q38_n)
@@ -988,7 +988,7 @@ write.csv(q38_data, 'output/q38_info_sourcing/q38_info_sourcing_ids.csv', row.na
 q39 <- "Which.apps.websites.do.you.use.to.get.information.on.cannabis..Please.check.all.that.apply."
 q39_final_response <- "X.169"
 q39_t  <- "Which apps/websites do you use to get information on cannabis? Please check all that apply."
-q39_data <- get_choose_all(raw_data_occp, q.name = q39, f.response = q39_final_response) %>%
+q39_data <- get_choose_all(raw_data, q.name = q39, f.response = q39_final_response) %>%
   tidy_choose_all()
 q39_n <- length(unique(q39_data$id))
 q39_plot <- clean_choose_all(q39_data, q39_n)
@@ -1013,7 +1013,7 @@ write.csv(q39_data, 'output/q39_websites_apps/q39_websites_apps_ids.csv', row.na
 q40 <- "Which.of.the.apps.websites.is.your.primary.source.of.cannabis.information..PleaseÂ.select.one."
 q40_final_response <- "X.179"
 q40_t  <- "Which of the apps/websites is your primary source of cannabis information? Please select one."
-q40_data <- get_choose_all(raw_data_occp, q.name = q40, f.response = q40_final_response) %>%
+q40_data <- get_choose_all(raw_data, q.name = q40, f.response = q40_final_response) %>%
   tidy_choose_all()
 q40_n <- length(unique(q40_data$id))
 q40_plot <- clean_choose_all(q40_data, q40_n)
@@ -1037,7 +1037,7 @@ write.csv(q40_data, 'output/q40_top_website_app/q40_top_website_app_ids.csv', ro
 ```{r}
 q41 <- "What.features.are.missing.from.your.sources.of.information.that.you.would.like.to.see.included."
 q41_t <- "What features are missing from your sources of information that you would like to see included?"
-q41_data <- get_single_selection(data = raw_data_occp, q.name = q41)
+q41_data <- get_single_selection(data = raw_data, q.name = q41)
 q41_n <- length(unique(q41_data$id))
 q41_plot <- clean_single_select(q41_data)
 r41 <- plot_single_select(q41_plot, q41_t, q41_n)
@@ -1059,7 +1059,7 @@ write.csv(q41_plot2, paste0("output/q41_missing_info_feature/q41_missing_info_fe
 ```{r}
 q42 <- "How.important.is.it.to.you.that.the.cannabis.you.use.is.organically.grown.Â."
 q42_t <- "How important is it to you that the cannabis you use is organically grown?"
-q42_data <- get_single_selection(data = raw_data_occp, q.name = q42)
+q42_data <- get_single_selection(data = raw_data, q.name = q42)
 q42_n <- length(unique(q42_data$id))
 q42_plot <- clean_single_select(q42_data)
 r42 <- plot_single_select(q42_plot, q42_t, q42_n)
@@ -1081,7 +1081,7 @@ write.csv(q42_plot2, paste0("output/q42_organic_importance/q42_organic_importanc
 ```{r}
 q43 <- "How.aware.are.you.about.how.cannabis.is.cultivated..organically.or.with.synthetic.nutrients..at.your.local.dispensary.cultivator.etc."
 q43_t <- "How aware are you about how cannabis is cultivated organically or with synthetic nutrients at your local dispensary/cultivator etc.?"
-q43_data <- get_single_selection(data = raw_data_occp, q.name = q43)
+q43_data <- get_single_selection(data = raw_data, q.name = q43)
 q43_n <- length(unique(q43_data$id))
 q43_plot <- clean_single_select(q43_data)
 r43 <- plot_single_select(q43_plot, q43_t, q43_n)
@@ -1103,7 +1103,7 @@ write.csv(q43_plot2, paste0("output/q43_organic_awareness/q43_organic_awareness_
 ```{r}
 q44 <- "How.important.to.you.are.consumer.reviews.in.determining.which.retail.establishment.or.dispensary.to.use."
 q44_t <- "How important to you are consumer reviews in determining which retail establishments or dispensary to use?"
-q44_data <- get_single_selection(data = raw_data_occp, q.name = q44)
+q44_data <- get_single_selection(data = raw_data, q.name = q44)
 q44_n <- length(unique(q44_data$id))
 q44_plot <- clean_single_select(q44_data)
 r44 <- plot_single_select(q44_plot, q44_t, q44_n)
@@ -1125,7 +1125,7 @@ write.csv(q44_plot2, paste0("output/q44_consumer_review_importance/q44_consumer_
 ```{r}
 q45 <- "What.is.your.level.of.knowledge.related.to.cannabis.and.cannabinoid.profiles..i.e..how.knowledgeable.do.you.feel.about.cannabis."
 q45_t <- "What is your level of knowledge related to cannabis and cannabinoid profiles, i.e. how knowledgeable do you feel about cannabis?"
-q45_data <- get_single_selection(data = raw_data_occp, q.name = q45)
+q45_data <- get_single_selection(data = raw_data, q.name = q45)
 q45_n <- length(unique(q45_data$id))
 q45_plot <- clean_single_select(q45_data)
 r45 <- plot_single_select(q45_plot, q45_t, q45_n)
@@ -1148,7 +1148,7 @@ write.csv(q45_plot2, paste0("output/q45_cannabis_knowledge_level/q45_cannabis_kn
 q46 <- "What.information.would.you.like.to.know.related.to.cannabis.to.help.you.make.a.decision.about.what.cannabis.products.to.use..Please.select.all.that.apply."
 q46_final_response <- "X.186"
 q46_t  <- "What information would you like to know related to cannabis to help you make a decision about what cannabis products to use? Please select all that apply."
-q46_data <- get_choose_all(raw_data_occp, q.name = q46, f.response = q46_final_response) %>%
+q46_data <- get_choose_all(raw_data, q.name = q46, f.response = q46_final_response) %>%
   tidy_choose_all()
 q46_n <- length(unique(q46_data$id))
 q46_plot <- clean_choose_all(q46_data, q46_n)
@@ -1172,7 +1172,7 @@ write.csv(q46_data, 'output/q46_cannabis_info_desired/q46_cannabis_info_desired_
 ```{r}
 q47 <- "Do.you.use.a.cannabis.delivery.service."
 q47_t <- "Do you use a cannabis delivery service?"
-q47_data <- get_single_selection(data = raw_data_occp, q.name = q47)
+q47_data <- get_single_selection(data = raw_data, q.name = q47)
 q47_n <- length(unique(q47_data$id))
 q47_plot <- clean_single_select(q47_data)
 r47 <- plot_single_select(q47_plot, q47_t, q47_n)
@@ -1194,7 +1194,7 @@ write.csv(q47_plot2, paste0("output/q47_cannabis_delivery/q47_cannabis_delivery_
 ```{r}
 q48 <- "What.are.your.general.thoughts.regarding.the.legalization.of.cannabis."
 q48_t <- "What are your general thoughts regarding the legalization of cannabis?"
-q48_data <- get_single_selection(data = raw_data_occp, q.name = q48)
+q48_data <- get_single_selection(data = raw_data, q.name = q48)
 q48_n <- length(unique(q48_data$id))
 q48_plot <- clean_single_select(q48_data)
 r48 <- plot_single_select(q48_plot, q48_t, q48_n)
@@ -1216,7 +1216,7 @@ write.csv(q48_plot2, paste0("output/q48_legalization_thoughts/q48_legalization_t
 ```{r}
 q49 <- "What.impact.do.you.think.legalization.will.have.on.youth.consumption.of.cannabis."
 q49_t <- "What impact do you think legalization will have on youth consumption of cannabis?"
-q49_data <- get_single_selection(data = raw_data_occp, q.name = q49)
+q49_data <- get_single_selection(data = raw_data, q.name = q49)
 q49_n <- length(unique(q49_data$id))
 q49_plot <- clean_single_select(q49_data)
 r49 <- plot_single_select(q49_plot, q49_t, q49_n)
@@ -1238,7 +1238,7 @@ write.csv(q49_plot2, paste0("output/q49_legalization_youth_effect/q49_legalizati
 ```{r}
 q50 <- "In.the.last.30.days..how.often.have.you.seen.or.heard.advertising.for.cannabis.products.or.stores.in.your.community..include.TV..radio..signs..billboards..newspapers..pamphlets..or.street.side.marketing.."
 q50_t <- "In the last 30 days, how often have you seen or heard advertising for cannabis products or stores in your community, including TV, radio, signs, billboards, newspapers, pamphlets, or street side marketing?"
-q50_data <- get_single_selection(data = raw_data_occp, q.name = q50)
+q50_data <- get_single_selection(data = raw_data, q.name = q50)
 q50_n <- length(unique(q50_data$id))
 q50_plot <- clean_single_select(q50_data)
 r50 <- plot_single_select(q50_plot, q50_t, q50_n)
@@ -1261,7 +1261,7 @@ write.csv(q50_plot2, paste0("output/q50_advertising_last_30days/q50_advertising_
 q51 <- "What.type.of.cannabis.advertising.have.you.been.exposed.to.in.theÂ.past.30.days...Please.check.all.that.apply."
 q51_final_response <- "X.198"
 q51_t  <- "What type of cannabis advertising have you been exposed to in the past 30 days? Please check all that apply."
-q51_data <- get_choose_all(raw_data_occp, q.name = q51, f.response = q51_final_response) %>%
+q51_data <- get_choose_all(raw_data, q.name = q51, f.response = q51_final_response) %>%
   tidy_choose_all()
 q51_n <- length(unique(q51_data$id))
 q51_plot <- clean_choose_all(q51_data, q51_n)
@@ -1285,7 +1285,7 @@ write.csv(q51_data, 'output/q51_advertising_type/q51_advertising_type_ids.csv', 
 ```{r}
 q52 <- "What.questions.regarding.cannabis.did.we.not.ask.that.are.important.to.you."
 q52_t <- "What questions regarding cannabis did we not ask that are important to you?"
-q52_data <- get_single_selection(data = raw_data_occp, q.name = q52)
+q52_data <- get_single_selection(data = raw_data, q.name = q52)
 q52_n <- length(unique(q52_data$id))
 q52_plot <- clean_single_select(q52_data)
 r52 <- plot_single_select(q52_plot, q52_t, q52_n)
@@ -1307,7 +1307,7 @@ write.csv(q52_plot2, paste0("output/q52_unasked_questions/q52_unasked_questions_
 ```{r}
 q53 <- "How.long.have.you.been.using.cannabis.forÂ.recreational.purposes."
 q53_t <- "How long have you been using cannabis for recreational purposes?"
-q53_data <- get_single_selection(data = raw_data_occp, q.name = q53)
+q53_data <- get_single_selection(data = raw_data, q.name = q53)
 q53_n <- length(unique(q53_data$id))
 q53_plot <- clean_single_select(q53_data)
 r53 <- plot_single_select(q53_plot, q53_t, q53_n)
@@ -1329,7 +1329,7 @@ write.csv(q53_plot2, paste0("output/q53_rec_cannabis_duration/q53_rec_cannabis_d
 ```{r}
 q54 <- "How.long.have.you.been.using.cannabis.for.medical.purposes."
 q54_t <- "How long have you been using cannabis for medical purposes?"
-q54_data <- get_single_selection(data = raw_data_occp, q.name = q54)
+q54_data <- get_single_selection(data = raw_data, q.name = q54)
 q54_n <- length(unique(q54_data$id))
 q54_plot <- clean_single_select(q54_data)
 r54 <- plot_single_select(q54_plot, q54_t, q54_n)
@@ -1351,7 +1351,7 @@ write.csv(q54_plot2, paste0("output/q54_med_cannabis_duration/q54_med_cannabis_d
 ```{r}
 q55 <- "What.is.your.age..in.years..Â."
 q55_t <- "What is your age in years?"
-q55_data <- get_single_selection_0(data = raw_data_occp, q.name = q55) %>%
+q55_data <- get_single_selection_0(data = raw_data, q.name = q55) %>%
   filter(response != "")
 q55_n <- length(unique(q55_data$id))
 q55_mean_data <- as.numeric(as.character(q55_data$response))
@@ -1379,7 +1379,7 @@ write.csv(q55_data, 'output/q55_age/q55_age_ids.csv', row.names = FALSE)
 ```{r}
 q56 <- "To.which.gender.identity.do.you.most.identify."
 q56_t <- "To which gender identity do you most identify?"
-q56_data <- get_single_selection(data = raw_data_occp, q.name = q56)
+q56_data <- get_single_selection(data = raw_data, q.name = q56)
 q56_n <- length(unique(q56_data$id))
 q56_plot <- clean_single_select(q56_data)
 r56 <- plot_single_select(q56_plot, q56_t, q56_n)
@@ -1402,7 +1402,7 @@ write.csv(q56_plot2, paste0("output/q56_gender_identity/q56_gender_identity_", q
 q57 <- 'What.US.state.do.you.live.in.'
 q57_final_response <- "X.207"
 q57_t <- "What US state do you live in?"
-q57_data <- get_choose_all(raw_data_occp, q.name = q57, f.response = q57_final_response)
+q57_data <- get_choose_all(raw_data, q.name = q57, f.response = q57_final_response)
 dir.create("output/q57_state")
 ```
 
@@ -1425,7 +1425,7 @@ write.csv(q57_data1, paste0("output/q57_state/q57_state_", q57_n1, ".csv"), row.
 q58 <- 'What.country.do.you.live.in.Â.'
 q58_final_response <- "X.216"
 q58_t <- "What country do you live in?"
-q58_data <- get_choose_all(raw_data_occp, q.name = q58, f.response = q58_final_response)
+q58_data <- get_choose_all(raw_data, q.name = q58, f.response = q58_final_response)
 dir.create("output/q58_country")
 ```
 
@@ -1447,7 +1447,7 @@ write.csv(q58_data1, paste0("output/q58_country/q58_country_", q58_n1, ".csv"), 
 ```{r}
 q59 <- "What.is.the.University.or.College.closest.to.where.you.live."
 q59_t <- "What is the University or College closest to where you live?"
-q59_data <- get_single_selection(data = raw_data_occp, q.name = q59)
+q59_data <- get_single_selection(data = raw_data, q.name = q59)
 q59_n <- length(unique(q59_data$id))
 q59_plot <- clean_single_select(q59_data)
 r59 <- plot_single_select(q59_plot, q59_t, q59_n)
@@ -1469,7 +1469,7 @@ write.csv(q59_plot2, paste0("output/q59_nearest_college/q59_nearest_college_", q
 ```{r}
 q60 <- "What.is.your.annual.household.income.in....USD.."
 q60_t <- "What is your annual household income in $ (USD)?"
-q60_data <- get_single_selection_0(data = raw_data_occp, q.name = q60)
+q60_data <- get_single_selection_0(data = raw_data, q.name = q60)
 q60_n <- length(unique(q60_data$id))
 q60_plot <- clean_single_select(q60_data)
 r60 <- plot_single_select(q60_plot, q60_t, q60_n)
@@ -1491,7 +1491,7 @@ write.csv(q60_plot2, paste0("output/q60_income/q60_income_", q60_n,".csv"), row.
 ```{r}
 q61 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed..If.you.are.currently.enrolled.in.school..please.indicate.the.highest.degree.you.have.received."
 q61_t <- "What is the highest degree or level of school you have completed? If you are currently enrolled in school, please indicate the highest degree you have recieved."
-q61_data <- get_single_selection(data = raw_data_occp, q.name = q61)
+q61_data <- get_single_selection(data = raw_data, q.name = q61)
 q61_n <- length(unique(q61_data$id))
 q61_plot <- clean_single_select(q61_data)
 r61 <- plot_single_select(q61_plot, q61_t, q61_n)
@@ -1513,7 +1513,7 @@ write.csv(q61_plot2, paste0("output/q61_highest_degree/q61_highest_degree_", q61
 ```{r}
 q62 <- "What.is.your.marital.status."
 q62_t <- "What is your marital status?"
-q62_data <- get_single_selection(data = raw_data_occp, q.name = q62)
+q62_data <- get_single_selection(data = raw_data, q.name = q62)
 q62_n <- length(unique(q62_data$id))
 q62_plot <- clean_single_select(q62_data)
 r62 <- plot_single_select(q62_plot, q62_t, q62_n)
@@ -1535,7 +1535,7 @@ write.csv(q62_plot2, paste0("output/q62_marital_status/q62_marital_status_", q62
 ```{r}
 q63 <- "What.is.your.current.employment.status."
 q63_t <- "What is your current employment status?"
-q63_data <- get_single_selection(data = raw_data_occp, q.name = q63)
+q63_data <- get_single_selection(data = raw_data, q.name = q63)
 q63_n <- length(unique(q63_data$id))
 q63_plot <- clean_single_select(q63_data)
 r63 <- plot_single_select(q63_plot, q63_t, q63_n)
@@ -1557,7 +1557,7 @@ write.csv(q63_plot2, paste0("output/q63_employment/q63_employment_", q63_n,".csv
 ```{r}
 q64 <- "Do.you.consider.yourself.to.be."
 q64_t <- "Do you consider youself to be...? (Sexuality)"
-q64_data <- get_single_selection(data = raw_data_occp, q.name = q64)
+q64_data <- get_single_selection(data = raw_data, q.name = q64)
 q64_n <- length(unique(q64_data$id))
 q64_plot <- clean_single_select(q64_data)
 r64 <- plot_single_select(q64_plot, q64_t, q64_n)
@@ -1579,7 +1579,7 @@ write.csv(q64_plot2, paste0("output/q64_sexuality/q64_sexuality_", q64_n,".csv")
 ```{r}
 q65 <- "Which.of.the.following.best.represents.your.ethnic.heritage."
 q65_t <- "Which of the following best represents your ethnic heritage?"
-q65_data <- get_single_selection(data = raw_data_occp, q.name = q65)
+q65_data <- get_single_selection(data = raw_data, q.name = q65)
 q65_n <- length(unique(q65_data$id))
 q65_plot <- clean_single_select(q65_data)
 r65 <- plot_single_select(q65_plot, q65_t, q65_n)
@@ -1601,7 +1601,7 @@ write.csv(q65_plot2, paste0("output/q65_race/q65_race_", q65_n,".csv"), row.name
 ```{r}
 q66 <- "Would.you.be.willing.to.let.your.anonymous.responses.submitted.here.be.made.available.to.other.researchers.for.further.inquiry."
 q66_t <- "Would you be willing to let your anonymous responses submitted here be made available to other researchers for further inquiry?"
-q66_data <- get_single_selection(data = raw_data_occp, q.name = q66)
+q66_data <- get_single_selection(data = raw_data, q.name = q66)
 q66_n <- length(unique(q66_data$id))
 q66_plot <- clean_single_select(q66_data)
 r66 <- plot_single_select(q66_plot, q66_t, q66_n)
@@ -1623,7 +1623,7 @@ write.csv(q66_plot2, paste0("output/q66_make_data_public/q66_make_data_public_",
 ```{r}
 q67 <- "Would.you.like.to.receive.a.discount.at.a.local.Massachusetts.registered.medical.cannabis.dispensary.for.completing.this.survey."
 q67_t <- "Would you like to recieve a discount at a local Massachusetts registered medical cannabis dispensary for completing this survey?"
-q67_data <- get_single_selection(data = raw_data_occp, q.name = q67)
+q67_data <- get_single_selection(data = raw_data, q.name = q67)
 q67_n <- length(unique(q67_data$id))
 q67_plot <- clean_single_select(q67_data)
 r67 <- plot_single_select(q67_plot, q67_t, q67_n)
@@ -1646,7 +1646,7 @@ write.csv(q67_plot2, paste0("output/q67_cannabis_discount/q67_cannabis_discount_
 q68 <- "Which.Registered.Medical.Cannabis.Dispensary.in.Massachusetts.would.you.like.a.discount.to.for.future.purchases..Please.select.all.that.you.would.like."
 q68_final_response <- "X.220"
 q68_t  <- "Which Registered Medical Cannabis Dispensary in Massachusetts would you like a discount to for future purchases? Please select all that you would like."
-q68_data <- get_choose_all(raw_data_occp, q.name = q68, f.response = q68_final_response) %>%
+q68_data <- get_choose_all(raw_data, q.name = q68, f.response = q68_final_response) %>%
   tidy_choose_all()
 q68_n <- length(unique(q68_data$id))
 q68_plot <- clean_choose_all(q68_data, q68_n)
@@ -1670,7 +1670,7 @@ write.csv(q68_data, 'output/q68_preferred_dispensary/q68_preferred_dispensary_id
 ```{r}
 q70 <- "Do.you.want.share.your.email..no.other.information..to.receive.the.copy.of.the.study.results..join.a.list.serve.for.future.cannabis.research.studies..be.entered.in.a.lottery.for.a.Samsung.tablet..or.share.your.cannabis.patient.story.at.a.C3RN.event."
 q70_t <- "Do you want share your email (no other information) to receive the copy of the study results/join a list serve for future cannabis research studies/be entered in a lottery for a Samsung tablet/ or share your cannabis patient story at a C3RN event?"
-q70_data <- get_single_selection(data = raw_data_occp, q.name = q70)
+q70_data <- get_single_selection(data = raw_data, q.name = q70)
 q70_n <- length(unique(q70_data$id))
 q70_plot <- clean_single_select(q70_data)
 r70 <- plot_single_select(q70_plot, q70_t, q70_n)

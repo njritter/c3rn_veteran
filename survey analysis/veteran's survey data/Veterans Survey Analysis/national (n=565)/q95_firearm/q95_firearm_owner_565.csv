@@ -1,0 +1,6 @@
+"""Do you own a firearm?""",,
+,,
+response,count,percent_all
+No,324,57.35%
+Yes,169,29.91%
+Prefer not to answer,72,12.74%

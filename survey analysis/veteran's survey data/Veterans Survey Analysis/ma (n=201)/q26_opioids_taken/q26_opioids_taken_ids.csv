@@ -1,0 +1,18 @@
+"""Have you ever taken any of the following opioids? (Please select all that apply)""",
+,
+id,chosen
+10870148985,Buprenorphine
+10875526461,Heroin
+10870148985,Heroin
+10875526461,Methadone
+10875526461,Morphine
+10604065323,Morphine
+10604065323,MS Contin
+10870148985,Other (please specify)
+10875526461,"Other opioid analgesics (eg. Vicodin, Daravocet, etc)"
+10604065323,"Other opioid analgesics (eg. Vicodin, Daravocet, etc)"
+10875526461,Oxycodone
+10870148985,Oxycodone
+10604065323,Oxycodone
+10870148985,Oxycontin
+10604065323,Oxycontin

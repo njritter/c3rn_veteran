@@ -1,0 +1,8 @@
+"""What is your preferred time of day to use cannabis? (Please select one)""",,
+,,
+response,count,percent_all
+Morning,24,11.94%
+Noon,6,2.99%
+Evening,62,30.85%
+Before bed,35,17.41%
+Throughout the day,74,36.82%

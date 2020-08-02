@@ -1,0 +1,21 @@
+"""What symptoms do you find medical cannabis is most helpful in treating/alleviating? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Pain,102,50.75%
+Sleep/insomnia,101,50.25%
+Depression/mood,91,45.27%
+Anxiety/panic attacks,83,41.29%
+Aggression,48,23.88%
+Inflammation,35,17.41%
+Headache,32,15.92%
+Appetite/weight,30,14.93%
+Attention/concentration,29,14.43%
+Spasms,26,12.94%
+Nausea/vomiting,15,7.46%
+Other (please specify),15,7.46%
+Ocular pressure,7,3.48%
+Skin conditions,3,1.49%
+Drug withdrawal,2,1.00%
+Mania/psychosis,2,1.00%
+Respiratory,2,1.00%
+Seizures,1,0.50%

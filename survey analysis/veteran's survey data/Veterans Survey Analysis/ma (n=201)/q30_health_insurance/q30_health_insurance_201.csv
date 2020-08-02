@@ -1,0 +1,9 @@
+Q#30,Do you currently have health insurance? (Please select one),
+,,
+response,count,percent_all
+"Yes, I have VA provided Tricare",59,29.35%
+"Yes, I have private health insurance",55,27.36%
+"Yes, I have Medicare",52,25.87%
+"No, I do not have health insurance",22,10.95%
+"Yes, I have Medicaid",8,3.98%
+"Medicare advantage or Part A, B, C, D",5,2.49%

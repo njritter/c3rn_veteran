@@ -1,0 +1,10 @@
+"""How would you rate your quality of health today?""",,
+,,
+response,count,percent_all
+Fair,69,34.33%
+Good,69,34.33%
+Very Good,31,15.42%
+Poor,25,12.44%
+Excellent,5,2.49%
+Don't know,1,0.50%
+Refused,1,0.50%

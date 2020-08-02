@@ -1,0 +1,19 @@
+"""What are the effects of your pain? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Physical activity,190,87.56%
+Enjoyment of life,187,86.18%
+Energy level,168,77.42%
+Sleep,163,75.12%
+Mobility,157,72.35%
+Mood,148,68.20%
+Household chores,138,63.59%
+Depression,137,63.13%
+Concentration,116,53.46%
+Relationships with others,116,53.46%
+Anxiety,110,50.69%
+Sexual functioning,106,48.85%
+Self esteem,97,44.70%
+Memory,73,33.64%
+Personal care,67,30.88%
+Appetite,52,23.96%

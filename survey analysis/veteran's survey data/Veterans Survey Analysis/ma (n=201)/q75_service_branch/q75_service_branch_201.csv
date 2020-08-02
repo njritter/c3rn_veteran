@@ -1,0 +1,9 @@
+“Which branch of the armed services did you serve in? (Please select all that apply)”,,
+,,
+chosen,count,percent_responded
+Army,108,53.73%
+Marines,38,18.91%
+Navy,38,18.91%
+Air Force,24,11.94%
+Coast Guard,2,1.00%
+Other (please specify),2,1.00%

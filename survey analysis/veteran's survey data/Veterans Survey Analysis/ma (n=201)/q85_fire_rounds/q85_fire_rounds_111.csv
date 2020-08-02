@@ -1,0 +1,8 @@
+"""How often did you fire rounds at the enemy?""",,
+,,
+response,count,percent_all
+Never,49,44.14%
+3-12 times,17,15.32%
+51 or more,17,15.32%
+1-2 times,14,12.61%
+13-50 times,14,12.61%

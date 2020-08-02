@@ -1,0 +1,21 @@
+"""Which is the primary health condition that causes you the most distress? (Please select one)""",,
+,,
+response,count,percent_all
+Chronic pain,75,37.31%
+Posttraumatic stress disorder (PTSD),49,24.38%
+Anxiety,20,9.95%
+Depression,11,5.47%
+Cancer,9,4.48%
+Insomnia,8,3.98%
+Arthritis,5,2.49%
+Bipolar/manic depression,5,2.49%
+Cardiovascular disease,4,1.99%
+Substance abuse/addiction,3,1.49%
+Diabetes,2,1.00%
+Fibromyalgia/myositis,2,1.00%
+Hypertension,2,1.00%
+Respiratory problems,2,1.00%
+Gastrointestinal/digestive system disorders,1,0.50%
+Multiple sclerosis,1,0.50%
+Obesity,1,0.50%
+Reflux esophagitis,1,0.50%

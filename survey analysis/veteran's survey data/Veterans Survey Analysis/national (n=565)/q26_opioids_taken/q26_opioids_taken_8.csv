@@ -1,0 +1,12 @@
+"""Have you ever taken any of the following opioids? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Heroin,5,62.50%
+Oxycodone,5,62.50%
+Buprenorphine,4,50.00%
+Morphine,4,50.00%
+"Other opioid analgesics (eg. Vicodin, Daravocet, etc)",4,50.00%
+Oxycontin,4,50.00%
+Methadone,3,37.50%
+MS Contin,3,37.50%
+Other (please specify),1,12.50%

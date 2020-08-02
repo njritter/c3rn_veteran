@@ -1,0 +1,21 @@
+"""Which of the following symptoms are most commonly associated with your primary health condition or underlying health conditions? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Depression/mood,124,61.69%
+Sleep/insomnia,122,60.70%
+Pain,114,56.72%
+Anxiety/panic attacks,101,50.25%
+Appetite/weight,66,32.84%
+Attention/concentration,62,30.85%
+Aggression,54,26.87%
+Headache,50,24.88%
+Inflammation,49,24.38%
+Spasms,35,17.41%
+Nausea/vomiting,22,10.95%
+Skin conditions,19,9.45%
+Other (please specify),13,6.47%
+Ocular pressure,12,5.97%
+Respiratory,11,5.47%
+Drug withdrawal,5,2.49%
+Mania/psychosis,2,1.00%
+Seizures,2,1.00%

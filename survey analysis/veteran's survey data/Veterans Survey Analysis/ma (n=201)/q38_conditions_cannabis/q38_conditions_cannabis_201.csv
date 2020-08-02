@@ -1,0 +1,28 @@
+"""Which health conditions do you find cannabis to be helpful in treating? (Please select all that apply)""",,
+,,
+chosen,count,percent_responded
+Chronic pain,128,63.68%
+Anxiety,126,62.69%
+Depression,109,54.23%
+Posttraumatic stress disorder (PTSD),93,46.27%
+Insomnia,71,35.32%
+Arthritis,67,33.33%
+Attention deficit/hyperactivity disorder (ADHD),25,12.44%
+Substance abuse/addiction,24,11.94%
+Gastrointestinal/digestive system disorders,18,8.96%
+Hypertension,18,8.96%
+Other (please specify),18,8.96%
+Cancer,15,7.46%
+Bipolar/manic depression,12,5.97%
+Fibromyalgia/myositis,10,4.98%
+Diabetes,8,3.98%
+Inflammatory bowel disease (IBD),8,3.98%
+Reflux esophagitis,8,3.98%
+Allergies,7,3.48%
+Respiratory problems,7,3.48%
+Cardiovascular disease,5,2.49%
+Epilepsy,3,1.49%
+Obesity,3,1.49%
+Eczema,2,1.00%
+Autism,1,0.50%
+Multiple sclerosis,1,0.50%

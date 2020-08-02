@@ -1,0 +1,8 @@
+"""What percentage of the soldiers in your unit were killed (KIA), wounded or missing in action (MIA)?""",,
+,,
+response,count,percent_all
+None,34,30.63%
+1-25%,69,62.16%
+26-50%,4,3.60%
+51-75%,3,2.70%
+76% or more,1,0.90%

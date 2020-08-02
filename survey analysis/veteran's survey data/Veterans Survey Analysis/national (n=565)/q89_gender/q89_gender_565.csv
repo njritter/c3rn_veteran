@@ -1,0 +1,7 @@
+"""To which gender do you most identify?""",,
+,,
+response,count,percent_all
+Male,469,83.01%
+Female,87,15.40%
+Prefer not to answer,6,1.06%
+Prefer to self-describe,3,0.53%

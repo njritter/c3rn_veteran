@@ -1,0 +1,19 @@
+"""What is the primary health condition for which you find cannabis to be helpful? (Please select one)""",,
+,,
+response,count,percent_all
+Chronic pain,73,36.32%
+Posttraumatic stress disorder (PTSD),49,24.38%
+Anxiety,23,11.44%
+Depression,13,6.47%
+Insomnia,12,5.97%
+Arthritis,8,3.98%
+Cancer,8,3.98%
+Bipolar/manic depression,4,1.99%
+Substance abuse/addiction,3,1.49%
+Gastrointestinal/digestive system disorders,2,1.00%
+Attention deficit/hyperactivity disorder (ADHD),1,0.50%
+Cardiovascular disease,1,0.50%
+Diabetes,1,0.50%
+Fibromyalgia/myositis,1,0.50%
+Hypertension,1,0.50%
+Multiple sclerosis,1,0.50%

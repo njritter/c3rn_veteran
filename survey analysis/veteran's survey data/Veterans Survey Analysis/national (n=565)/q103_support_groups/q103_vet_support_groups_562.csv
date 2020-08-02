@@ -1,0 +1,10 @@
+"""Do you belong to any of the following veterans support organizations? (Please select all that apply)""",,,
+,,,
+chosen,count,percent_all,percent_responded
+Disabled American Veterans (DAV),228,26.64%,40.57%
+Other (please specify),208,24.30%,37.01%
+VFW,140,16.36%,24.91%
+American Legion,129,15.07%,22.95%
+Wounded Warrior Project,61,7.13%,10.85%
+Iraq and Afghanistan Veterans of America (IAVA),58,6.78%,10.32%
+AMVETS,32,3.74%,5.69%

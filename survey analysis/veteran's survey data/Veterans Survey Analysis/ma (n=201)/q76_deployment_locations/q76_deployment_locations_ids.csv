@@ -1,0 +1,390 @@
+"""Where were you deployed/stationed? (Please select all that apply)""",
+,
+id,chosen
+11222559871,Afghanistan
+11215609540,Afghanistan
+11208627585,Afghanistan
+11137625236,Afghanistan
+11129003813,Afghanistan
+11064342543,Afghanistan
+11006369538,Afghanistan
+10978063065,Afghanistan
+10875473988,Afghanistan
+10875462742,Afghanistan
+10837914247,Afghanistan
+10836382971,Afghanistan
+10822727213,Afghanistan
+10691181667,Afghanistan
+10667398958,Afghanistan
+10658577550,Afghanistan
+10595615049,Afghanistan
+10576876213,Afghanistan
+11072705197,Afghanistan
+11044680699,Afghanistan
+10868495105,Afghanistan
+10767176517,Afghanistan
+10716623034,Afghanistan
+10575479401,Afghanistan
+10684698263,Afghanistan
+11186271761,Albania
+10876876072,Djibouti
+10833972658,Djibouti
+11208627585,Iraq
+11137652132,Iraq
+11137625236,Iraq
+11132638848,Iraq
+11033502369,Iraq
+11027692007,Iraq
+11003496788,Iraq
+10978063065,Iraq
+10923325388,Iraq
+10893948558,Iraq
+10882385979,Iraq
+10880798060,Iraq
+10878751296,Iraq
+10875993925,Iraq
+10875473988,Iraq
+10875462742,Iraq
+10874749577,Iraq
+10872582813,Iraq
+10870148985,Iraq
+10868096498,Iraq
+10836382971,Iraq
+10822727213,Iraq
+10802360410,Iraq
+10716518478,Iraq
+10691181667,Iraq
+10681003613,Iraq
+10675806972,Iraq
+10667398958,Iraq
+10658577550,Iraq
+10658550964,Iraq
+10626251939,Iraq
+10600857474,Iraq
+10595615049,Iraq
+10585520406,Iraq
+10581933788,Iraq
+10576876213,Iraq
+11170278059,Iraq
+11151215837,Iraq
+11044680699,Iraq
+11042816472,Iraq
+10575479401,Iraq
+10684698263,Iraq
+11208627585,Jordan
+11062634752,Jordan
+10658580372,Jordan
+11208627585,Kosovo
+10691181667,Kosovo
+11186271761,Kosovo
+11044680699,Kosovo
+11249871277,Kuwait
+11208627585,Kuwait
+11138400653,Kuwait
+11132638848,Kuwait
+11027692007,Kuwait
+10978063065,Kuwait
+10923325388,Kuwait
+10893948558,Kuwait
+10875473988,Kuwait
+10875462742,Kuwait
+10875460020,Kuwait
+10872582813,Kuwait
+10870148985,Kuwait
+10868096498,Kuwait
+10836382971,Kuwait
+10802360410,Kuwait
+10716518478,Kuwait
+10602936383,Kuwait
+10600857474,Kuwait
+10585520406,Kuwait
+11151215837,Kuwait
+11072705197,Kuwait
+10719755952,Kuwait
+11222559871,Kyrgyzstan
+11064342543,Kyrgyzstan
+10884768912,Kyrgyzstan
+11072705197,Kyrgyzstan
+11249871277,Oman Bahrain
+10875700450,Oman Bahrain
+10875460020,Oman Bahrain
+10833972658,Oman Bahrain
+10667384979,Oman Bahrain
+10600857474,Oman Bahrain
+11246906361,Other (please specify)
+11238077963,Other (please specify)
+11222559871,Other (please specify)
+11215609540,Other (please specify)
+11166997346,Other (please specify)
+11156548224,Other (please specify)
+11138930846,Other (please specify)
+11137652132,Other (please specify)
+11132638848,Other (please specify)
+11105188699,Other (please specify)
+10888170961,Other (please specify)
+10885759801,Other (please specify)
+10883497633,Other (please specify)
+10882385979,Other (please specify)
+10879062209,Other (please specify)
+10878422887,Other (please specify)
+10877788133,Other (please specify)
+10877606410,Other (please specify)
+10877565497,Other (please specify)
+10877375002,Other (please specify)
+10877194985,Other (please specify)
+10876510380,Other (please specify)
+10875696093,Other (please specify)
+10875617011,Other (please specify)
+10875526461,Other (please specify)
+10875511603,Other (please specify)
+10875507777,Other (please specify)
+10875467061,Other (please specify)
+10867812743,Other (please specify)
+10867810520,Other (please specify)
+10867615622,Other (please specify)
+10859949104,Other (please specify)
+10856437127,Other (please specify)
+10855896441,Other (please specify)
+10836382971,Other (please specify)
+10833972658,Other (please specify)
+10831929904,Other (please specify)
+10830786742,Other (please specify)
+10726117373,Other (please specify)
+10685325930,Other (please specify)
+10685117930,Other (please specify)
+10677560387,Other (please specify)
+10675303210,Other (please specify)
+10671862630,Other (please specify)
+10669140575,Other (please specify)
+10668361624,Other (please specify)
+10667907917,Other (please specify)
+10667582585,Other (please specify)
+10667425695,Other (please specify)
+10667369837,Other (please specify)
+10665891738,Other (please specify)
+10659841121,Other (please specify)
+10658774056,Other (please specify)
+10658741910,Other (please specify)
+10626251939,Other (please specify)
+10622925288,Other (please specify)
+10605637047,Other (please specify)
+10602936383,Other (please specify)
+10598255910,Other (please specify)
+10598122285,Other (please specify)
+10597419828,Other (please specify)
+10595615049,Other (please specify)
+10591451425,Other (please specify)
+10583893598,Other (please specify)
+10581447651,Other (please specify)
+10579927077,Other (please specify)
+10576876213,Other (please specify)
+11213907729,Other (please specify)
+11212805644,Other (please specify)
+11186271761,Other (please specify)
+10978796014,Other (please specify)
+10974437681,Other (please specify)
+10956719648,Other (please specify)
+10767176517,Other (please specify)
+10607782752,Other (please specify)
+11208627585,Pakistan
+10875462742,Pakistan
+11250741921,Philippines
+11245529294,Philippines
+11166474867,Philippines
+10885759801,Philippines
+10808168894,Philippines
+10726117373,Philippines
+10691181667,Philippines
+10668103394,Philippines
+10665891738,Philippines
+11212805644,Philippines
+10659241585,Philippines
+11249871277,Qatar
+11208627585,Qatar
+10876876072,Qatar
+10833972658,Qatar
+10661330404,Qatar
+10584760225,Qatar
+11249871277,Saudi Arabia
+11166535497,Saudi Arabia
+11062634752,Saudi Arabia
+11036310394,Saudi Arabia
+11027692007,Saudi Arabia
+10882385979,Saudi Arabia
+10875460020,Saudi Arabia
+10716518478,Saudi Arabia
+10661330404,Saudi Arabia
+11208627585,Sinai Peninsula
+11208627585,Somalia
+11134769709,Somalia
+10878214093,Somalia
+10877416704,Somalia
+10691181667,Somalia
+10600857474,Somalia
+11170108737,South Korea
+11166474867,South Korea
+11166384877,South Korea
+11132638848,South Korea
+10875993925,South Korea
+10875700450,South Korea
+10867615622,South Korea
+10867323115,South Korea
+10836382971,South Korea
+10749570344,South Korea
+10691181667,South Korea
+10675097210,South Korea
+10670361680,South Korea
+10668597062,South Korea
+10660833205,South Korea
+10660294275,South Korea
+10584760225,South Korea
+10581933788,South Korea
+10580913646,South Korea
+10575849400,South Korea
+10667384979,Syria
+11208627585,Tajikistan
+11208627585,The Adriatic Sea
+11166390085,The Adriatic Sea
+11222559871,The Federal Republic of Yugoslavia (Serbia/Montenegro)
+10884768912,The Federal Republic of Yugoslavia (Serbia/Montenegro)
+10800317244,The Federal Republic of Yugoslavia (Serbia/Montenegro)
+10691181667,The Federal Republic of Yugoslavia (Serbia/Montenegro)
+11166390085,The Lonian Sea - north of the 39th parallel
+11249871277,The United Arab Emirates
+11208627585,The United Arab Emirates
+11134769709,The United Arab Emirates
+10875460020,The United Arab Emirates
+10833972658,The United Arab Emirates
+10661330404,The United Arab Emirates
+10624147163,The United Arab Emirates
+10600857474,The United Arab Emirates
+11245529294,United States
+11241251752,United States
+11222559871,United States
+11220644956,United States
+11215609540,United States
+11208627585,United States
+11183903124,United States
+11170108737,United States
+11166535497,United States
+11166474867,United States
+11166390085,United States
+11166384877,United States
+11161813510,United States
+11156698544,United States
+11156548224,United States
+11149744263,United States
+11138361963,United States
+11137652132,United States
+11137541759,United States
+11135054998,United States
+11134769709,United States
+11132638848,United States
+11131514317,United States
+11129003813,United States
+11105188699,United States
+11100035804,United States
+11091792560,United States
+11062634752,United States
+11061509902,United States
+11057923056,United States
+10923325388,United States
+10893948558,United States
+10889700541,United States
+10884768912,United States
+10883497633,United States
+10882385979,United States
+10878751296,United States
+10878422887,United States
+10878214093,United States
+10877788133,United States
+10877375002,United States
+10877194985,United States
+10876876072,United States
+10876510380,United States
+10876392009,United States
+10876100377,United States
+10875993925,United States
+10875700450,United States
+10875617011,United States
+10875562577,United States
+10875530570,United States
+10875529110,United States
+10875507777,United States
+10875503972,United States
+10875473988,United States
+10875462742,United States
+10875458883,United States
+10872582813,United States
+10867812743,United States
+10867615622,United States
+10860535252,United States
+10859949104,United States
+10856437127,United States
+10842274754,United States
+10833972658,United States
+10831158462,United States
+10830786742,United States
+10823088016,United States
+10808168894,United States
+10802360410,United States
+10764443236,United States
+10762649964,United States
+10758753382,United States
+10749570344,United States
+10726117373,United States
+10716518478,United States
+10691181667,United States
+10685325930,United States
+10685117930,United States
+10682649508,United States
+10677653881,United States
+10671862630,United States
+10668597062,United States
+10668361624,United States
+10668312322,United States
+10668103394,United States
+10667582585,United States
+10667398958,United States
+10667384979,United States
+10667384024,United States
+10667369837,United States
+10665891738,United States
+10662496256,United States
+10661330404,United States
+10658774056,United States
+10658741910,United States
+10658649988,United States
+10658580372,United States
+10626251939,United States
+10604065323,United States
+10600857474,United States
+10598221024,United States
+10596131278,United States
+10585520406,United States
+10584760225,United States
+10581933788,United States
+10580913646,United States
+10576876213,United States
+10575849400,United States
+11186271761,United States
+11072705197,United States
+11044680699,United States
+11037955315,United States
+10991821033,United States
+10977935510,United States
+10974437681,United States
+10965547652,United States
+10956719648,United States
+10767176517,United States
+10760373939,United States
+10758288741,United States
+10719755952,United States
+10699810522,United States
+10671009796,United States
+10659241585,United States
+10598306507,United States
+10684698263,United States
+11208627585,Uzbekistan
+10875462742,Uzbekistan
+11208627585,Yemen
