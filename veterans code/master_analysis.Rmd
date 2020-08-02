@@ -14,7 +14,8 @@ source("helper.R")
 ```
 
 ```{r}
-#Use if not filtering
+#use only this out of first chunks before q4 if not filtering.
+#block this chunk out and determine appropriate subsequent chunk to run depending on question type.
 raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
