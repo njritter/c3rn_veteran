@@ -15,20 +15,20 @@ source("helper.R")
 
 ```{r}
 #use only this out of first chunks before q4 if not filtering.
-#block this chunk out and run next chunk
-#raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+#block this chunk out and run next chunk if filtering
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
 #run this then determine appropriate subsequent chunk to run depending on question type. then run remainder of document.
-master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
-headers <- master[c(1), ]
+#master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+#headers <- master[c(1), ]
 ```
 
 ```{r}
 #Filtering for single select questions
-filtered_data <- filter(master, master$WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one. == "Chronic pain")
-raw_data <- rbind(headers, filtered_data)
+#filtered_data <- filter(master, #master$WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be#.helpful.or.most.impactful..Please.select.one. == "Chronic pain")
+#raw_data <- rbind(headers, filtered_data)
 ```
 
 ```{r}
