@@ -1,0 +1,43 @@
+---
+title: 'q35 covid survey: Are you currently observing state mandated stay at home advisories?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q35 <- "Are.you.currently.observing.state.mandated.stay.at.home.advisories."
+q35_t <- "Are you currently observing state mandated stay at home advisories?"
+q35_data <- get_single_selection(data = raw_data, q.name = q35)
+q35_n <- length(unique(q35_data$id))
+q35_plot <- clean_single_select(q35_data)
+r35 <- plot_single_select(q35_plot, q35_t, q35_n)
+r35
+```
+
+```{r}
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n))
+```
+
+```{r}
+dir.create("output/q35_stay_at_home_advisory")
+ggsave(filename = 'output/q35_stay_at_home_advisory/q35_stay_at_home_advisory.png', plot = r35, device = 'png')
+write.csv(q35_plot2, paste0("output/q35_stay_at_home_advisory/q35_stay_at_home_advisory_", q35_n,".csv"), row.names=F)
+```
+
+
+

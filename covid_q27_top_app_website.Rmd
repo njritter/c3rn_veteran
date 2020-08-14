@@ -1,0 +1,44 @@
+---
+title: 'q27 covid survey: Which of the apps/websites is your primary source of cannabis information? Please select one.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q27 <- "Which.of.the.apps.websites.is.your.primary.source.of.cannabis.information..PleaseÂ.select.one."
+q27_t <- "Which of the apps/websites is your primary source 
+of cannabis information? Please select one."
+q27_data <- get_single_selection(data = raw_data, q.name = q27)
+q27_n <- length(unique(q27_data$id))
+q27_plot <- clean_single_select(q27_data)
+r27 <- plot_single_select(q27_plot, q27_t, q27_n)
+r27
+```
+
+```{r}
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
+dir.create("output/q27_top_app_website")
+ggsave(filename = 'output/q27_top_app_website/q27_top_app_website.png', plot = r27, device = 'png')
+write.csv(q27_plot2, paste0("output/q27_top_app_website/q27_top_app_website_", q27_n,".csv"), row.names=F)
+```
+
+
+

@@ -1,0 +1,43 @@
+---
+title: 'q19 covid survey: How many days do you use cannabis in a week? Please select one.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q19 <- "How.many.days.do.you.use.cannabis.in.a.week..Please.select.one"
+q19_t <- "How many days do you use cannabis in a week? Please select one."
+q19_data <- get_single_selection(data = raw_data, q.name = q19)
+q19_n <- length(unique(q19_data$id))
+q19_plot <- clean_single_select(q19_data)
+r19 <- plot_single_select(q19_plot, q19_t, q19_n)
+r19
+```
+
+```{r}
+row3 <- colnames(q19_plot)
+q19_plot2 <- rbind(row3, q19_plot)
+names(q19_plot2) <- c("q19", q19_t, paste("n = ", q19_n))
+```
+
+```{r}
+dir.create("output/q19_cannabis_days_per_wk")
+ggsave(filename = 'output/q19_cannabis_days_per_wk/q19_cannabis_days_per_wk.png', plot = r19, device = 'png')
+write.csv(q19_plot2, paste0("output/q19_cannabis_days_per_wk/q19_cannabis_days_per_wk_", q19_n,".csv"), row.names=F)
+```
+
+
+

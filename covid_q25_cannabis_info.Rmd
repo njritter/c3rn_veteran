@@ -1,0 +1,44 @@
+---
+title: "q25 covid survey: Where do you get your information to make informed decisions about cannabis products? Please check all that apply."
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q25 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products..Please.check.all.that.apply."
+q25_final_response <- "X.129"
+q25_t  <- "Where do you get your information to make informed decisions
+about cannabis products? Please check all that apply."
+q25_data <- get_choose_all(raw_data, q.name = q25, f.response = q25_final_response) %>%
+  tidy_choose_all()
+q25_n <- length(unique(q25_data$id))
+q25_plot <- clean_choose_all(q25_data, q25_n)
+r25 <- plot_choose_all(q25_plot, q25_t, q25_n)
+r25
+```
+
+```{r}
+row3 <- colnames(q25_plot)
+q25_plot2 <- rbind(row3, q25_plot)
+names(q25_plot2) <- c("q25", q25_t, paste("n = ", q25_n))
+```
+
+```{r}
+dir.create("output/q25_cannabis_info")
+ggsave(filename = 'output/q25_cannabis_info/q25_cannabis_info.png', plot = r25, device = 'png')
+write.csv(q25_plot2, paste0("output/q25_cannabis_info/q25_cannabis_info_", q25_n,".csv"), row.names=F)
+write.csv(q25_data, 'output/q25_cannabis_info/q25_cannabis_info_ids.csv', row.names = FALSE)
+```

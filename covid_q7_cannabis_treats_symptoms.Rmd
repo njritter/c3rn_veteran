@@ -1,0 +1,44 @@
+---
+title: 'q7 covid survey: What symptoms for the primary condition do you use cannabis to treat? Please select all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q7 <- "What.symptoms.for.the.primary.condition.do.you.use.cannabis.to.treat..Please.select.all.that.apply."
+q7_final_response <- "X.50"
+q7_t  <- "What symptoms for the primary condition do you use 
+cannabis to treat? Please select all that apply."
+q7_data <- get_choose_all(raw_data, q.name = q7, f.response = q7_final_response) %>%
+  tidy_choose_all()
+q7_n <- length(unique(q7_data$id))
+q7_plot <- clean_choose_all(q7_data, q7_n)
+r7 <- plot_choose_all(q7_plot, q7_t, q7_n)
+r7
+```
+
+```{r}
+row3 <- colnames(q7_plot)
+q7_plot2 <- rbind(row3, q7_plot)
+names(q7_plot2) <- c("q7", q7_t, paste("n = ", q7_n))
+```
+
+```{r}
+dir.create("output/q7_cannabis_treats_symptoms")
+ggsave(filename = 'output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms.png', plot = r7, device = 'png')
+write.csv(q7_plot2, paste0("output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms_", q7_n,".csv"), row.names=F)
+write.csv(q7_data, 'output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms_ids.csv', row.names = FALSE)
+```

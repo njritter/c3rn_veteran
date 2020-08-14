@@ -1,0 +1,44 @@
+---
+title: "q17 covid survey: What are you looking for in cannabis products? Please select all that apply."
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q17 <- "What.are.you.looking.for.in.cannabis.products..Please.select.all.that.apply."
+q17_final_response <- "X.120"
+q17_t  <- "What are you looking for in cannabis products? 
+Please select all that apply."
+q17_data <- get_choose_all(raw_data, q.name = q17, f.response = q17_final_response) %>%
+  tidy_choose_all()
+q17_n <- length(unique(q17_data$id))
+q17_plot <- clean_choose_all(q17_data, q17_n)
+r17 <- plot_choose_all(q17_plot, q17_t, q17_n)
+r17
+```
+
+```{r}
+row3 <- colnames(q17_plot)
+q17_plot2 <- rbind(row3, q17_plot)
+names(q17_plot2) <- c("q17", q17_t, paste("n = ", q17_n))
+```
+
+```{r}
+dir.create("output/q17_cannabis_aspects")
+ggsave(filename = 'output/q17_cannabis_aspects/q17_cannabis_aspects.png', plot = r17, device = 'png')
+write.csv(q17_plot2, paste0("output/q17_cannabis_aspects/q17_cannabis_aspects_", q17_n,".csv"), row.names=F)
+write.csv(q17_data, 'output/q17_cannabis_aspects/q17_cannabis_aspects_ids.csv', row.names = FALSE)
+```

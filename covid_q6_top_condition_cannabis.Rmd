@@ -1,0 +1,45 @@
+---
+title: 'q6 covid survey: What is the TOP health condition do you find cannabis to be helpful or most impactful? Please select one.'
+author: "David Ritter"
+date: "8/16/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q6 <- "What.is.the.TOPÂ.health.condition.do.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one"
+q6_t <- "What is the TOP health condition do you find
+cannabis to be helpful or most impactful? 
+Please select one."
+q6_data <- get_single_selection(data = raw_data, q.name = q6)
+q6_n <- length(unique(q6_data$id))
+q6_plot <- clean_single_select(q6_data)
+r6 <- plot_single_select(q6_plot, q6_t, q6_n)
+r6
+```
+
+```{r}
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
+dir.create("output/q6_top_condition_cannabis")
+ggsave(filename = 'output/q6_top_condition_cannabis/q6_top_condition_cannabis.png', plot = r6, device = 'png')
+write.csv(q6_plot2, paste0("output/q6_top_condition_cannabis/q6_top_condition_cannabis_", q6_n,".csv"), row.names=F)
+```
+
+
+

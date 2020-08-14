@@ -1,0 +1,44 @@
+---
+title: 'q12 covid study: How do you prefer to use cannabis? Please check all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q12 <- "How.do.you.prefer.to.use.cannabis...Please.check.all.that.apply."
+q12_final_response <- "X.108"
+q12_t  <- "How do you prefer to use cannabis? 
+Please check all that apply."
+q12_data <- get_choose_all(raw_data, q.name = q12, f.response = q12_final_response) %>%
+  tidy_choose_all()
+q12_n <- length(unique(q12_data$id))
+q12_plot <- clean_choose_all(q12_data, q12_n)
+r12 <- plot_choose_all(q12_plot, q12_t, q12_n)
+r12
+```
+
+```{r}
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n))
+```
+
+```{r}
+dir.create("output/q12_cannabis_methods")
+ggsave(filename = 'output/q12_cannabis_methods/q12_cannabis_methods.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_cannabis_methods/q12_cannabis_methods_", q12_n,".csv"), row.names=F)
+write.csv(q12_data, 'output/q12_cannabis_methods/q12_cannabis_methods_ids.csv', row.names = FALSE)
+```

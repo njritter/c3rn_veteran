@@ -1,0 +1,43 @@
+---
+title: 'q36 covid study: Are you classified as an essential worker in your state?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q36 <- "Are.you.classified.as.an.essential.worker.in.your.state."
+q36_t <- "Are you classified as an essential worker in your state?"
+q36_data <- get_single_selection(data = raw_data, q.name = q36)
+q36_n <- length(unique(q36_data$id))
+q36_plot <- clean_single_select(q36_data)
+r36 <- plot_single_select(q36_plot, q36_t, q36_n)
+r36
+```
+
+```{r}
+row3 <- colnames(q36_plot)
+q36_plot2 <- rbind(row3, q36_plot)
+names(q36_plot2) <- c("q36", q36_t, paste("n = ", q36_n))
+```
+
+```{r}
+dir.create("output/q36_essential_workers")
+ggsave(filename = 'output/q36_essential_workers/q36_essential_workers.png', plot = r36, device = 'png')
+write.csv(q36_plot2, paste0("output/q36_essential_workers/q36_essential_workers_", q36_n,".csv"), row.names=F)
+```
+
+
+

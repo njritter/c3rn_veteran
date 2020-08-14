@@ -1,0 +1,44 @@
+---
+title: 'q29 covid survey: Do you currently have any symptoms of COVID-19? Please check all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q29 <- "Do.you.currently.have.any.symptoms.of.COVID.19..Please.check.all.that.apply"
+q29_final_response <- "X.167"
+q29_t  <- "Do you currently have any symptoms of COVID-19? 
+Please check all that apply."
+q29_data <- get_choose_all(raw_data, q.name = q29, f.response = q29_final_response) %>%
+  tidy_choose_all()
+q29_n <- length(unique(q29_data$id))
+q29_plot <- clean_choose_all(q29_data, q29_n)
+r29 <- plot_choose_all(q29_plot, q29_t, q29_n)
+r29
+```
+
+```{r}
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n))
+```
+
+```{r}
+dir.create("output/q29_covid_symptoms")
+ggsave(filename = 'output/q29_covid_symptoms/q29_covid_symptoms.png', plot = r29, device = 'png')
+write.csv(q29_plot2, paste0("output/q29_covid_symptoms/q29_covid_symptoms_", q29_n,".csv"), row.names=F)
+write.csv(q29_data, 'output/q29_covid_symptoms/q29_covid_symptoms_ids.csv', row.names = FALSE)
+```

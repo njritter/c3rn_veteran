@@ -1,0 +1,44 @@
+---
+title: 'q26 covid survey: Which apps/websites do you use to get information on cannabis? Please check all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q26 <- "Which.apps.websites.do.you.use.to.get.information.on.cannabis..Please.check.all.that.apply."
+q26_final_response <- "X.139"
+q26_t  <- "Which apps/websites do you use to get information on cannabis? 
+Please check all that apply."
+q26_data <- get_choose_all(raw_data, q.name = q26, f.response = q26_final_response) %>%
+  tidy_choose_all()
+q26_n <- length(unique(q26_data$id))
+q26_plot <- clean_choose_all(q26_data, q26_n)
+r26 <- plot_choose_all(q26_plot, q26_t, q26_n)
+r26
+```
+
+```{r}
+row3 <- colnames(q26_plot)
+q26_plot2 <- rbind(row3, q26_plot)
+names(q26_plot2) <- c("q26", q26_t, paste("n = ", q26_n))
+```
+
+```{r}
+dir.create("output/q26_apps_websites")
+ggsave(filename = 'output/q26_apps_websites/q26_apps_websites.png', plot = r26, device = 'png')
+write.csv(q26_plot2, paste0("output/q26_apps_websites/q26_apps_websites_", q26_n,".csv"), row.names=F)
+write.csv(q26_data, 'output/q26_apps_websites/q26_apps_websites_ids.csv', row.names = FALSE)
+```

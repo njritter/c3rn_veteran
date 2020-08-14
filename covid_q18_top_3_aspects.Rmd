@@ -1,0 +1,75 @@
+---
+title: 'q18 covid survey: What is youre top three selection criteria for cannabis products?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q18 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
+q18_final_response <- "X.122"
+q18_t <- "What is your top 3 selection criteria for cannabis products?"
+q18_data <- get_choose_all(raw_data, q.name = q18, f.response = q18_final_response)
+dir.create("output/q18_top_3_cannabis_aspect")
+```
+
+```{r}
+write.csv(q18_data, 'output/q18_top_3_cannabis_aspect/q18_top_3_cannabis_aspect_data.csv', row.names = FALSE)
+```
+
+```{r}
+q18_data1 <- get_single_selection_3(q18_data, "Most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n1 <- tally(q18_data1, count)
+q18_t1 <- "Most important cannabis aspect"
+q18_r1 <- plot_single_select(q18_data1, q18_t1, q18_n1)
+q18_r1
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_most_important.png", plot = q18_r1, device = 'png')
+write.csv(q18_data1, paste0("output/q18_top_3_cannabis_aspect/q18_most_important_", q18_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q18_data2 <- get_single_selection_3(q18_data, "Second most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n2 <- tally(q18_data2, count)
+q18_t2 <- "Second most important cannabis aspect"
+q18_r2 <- plot_single_select(q18_data2, q18_t2, q18_n2)
+q18_r2
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_second_most_important.png", plot = q18_r2, device = 'png')
+write.csv(q18_data2, paste0("output/q18_top_3_cannabis_aspect/q18_second_most_important_", q18_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q18_data3 <- get_single_selection_3(q18_data, "Third most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n3 <- tally(q18_data3, count)
+q18_t3 <- "Third most important cannabis aspect"
+q18_r3 <- plot_single_select(q18_data3, q18_t3, q18_n3)
+q18_r3
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_third_most_important.png", plot = q18_r3, device = 'png')
+write.csv(q18_data3, paste0("output/q18_top_3_cannabis_aspect/q18_third_most_important_", q18_n3, ".csv"), row.names = FALSE)
+```

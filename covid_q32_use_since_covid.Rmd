@@ -1,0 +1,45 @@
+---
+title: 'q32 covid survey: Has your cannabis use changed since the COVID-19 pandemic in any of the following ways? Please select all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q32 <- "Has.your.cannabis.use.changed.since.the.COVID.19.pandemic.in.any.of.the.following.ways...Please.select.all.that.apply."
+q32_final_response <- "X.176"
+q32_t  <- "Has your cannabis use changed since the 
+COVID-19 pandemic in any of the following
+ways? Please select all that apply."
+q32_data <- get_choose_all(raw_data, q.name = q32, f.response = q32_final_response) %>%
+  tidy_choose_all()
+q32_n <- length(unique(q32_data$id))
+q32_plot <- clean_choose_all(q32_data, q32_n)
+r32 <- plot_choose_all(q32_plot, q32_t, q32_n)
+r32
+```
+
+```{r}
+row3 <- colnames(q32_plot)
+q32_plot2 <- rbind(row3, q32_plot)
+names(q32_plot2) <- c("q32", q32_t, paste("n = ", q32_n))
+```
+
+```{r}
+dir.create("output/q32_use_since_covid")
+ggsave(filename = 'output/q32_use_since_covid/q32_use_since_covid.png', plot = r32, device = 'png')
+write.csv(q32_plot2, paste0("output/q32_use_since_covid/q32_use_since_covid_", q32_n,".csv"), row.names=F)
+write.csv(q32_data, 'output/q32_use_since_covid/q32_use_since_covid_ids.csv', row.names = FALSE)
+```

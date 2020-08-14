@@ -1,0 +1,45 @@
+---
+title: 'q20 covid survey: On days you regularly use cannabis, how many times a day do you use cannabis?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q20 <- "On.days.you.regularly.use.cannabis..how.many.times.a.day.do.you.use.cannabis."
+q20_t <- "On days you regularly use cannabis, how 
+many times a day do you use cannabis?"
+q20_data <- get_single_selection(data = raw_data, q.name = q20)
+q20_n <- length(unique(q20_data$id))
+q20_plot <- clean_single_select(q20_data)
+r20 <- plot_single_select(q20_plot, q20_t, q20_n)
+r20
+```
+
+```{r}
+row3 <- colnames(q20_plot)
+q20_plot2 <- rbind(row3, q20_plot)
+names(q20_plot2) <- c("q20", q20_t, paste("n = ", q20_n))
+```
+
+```{r}
+dir.create("output/q20_uses_per_day")
+ggsave(filename = 'output/q20_uses_per_day/q20_uses_per_day.png', plot = r20, device = 'png')
+write.csv(q20_plot2, paste0("output/q20_uses_per_day/q20_uses_per_day_", q20_n,".csv"), row.names=F)
+```
+
+
+

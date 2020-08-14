@@ -1,0 +1,45 @@
+---
+title: 'q34 covid survey: Has COVID-19 impacted any of the following for you personally? Please select all that apply.'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q34 <- "Has.COVID.19.impacted.any.of.the.following.for.you.personally...please.select.all.that.apply."
+q34_final_response <- "X.192"
+q34_t  <- "Has COVID-19 impacted any of the following 
+for you personally? Please select all 
+that apply."
+q34_data <- get_choose_all(raw_data, q.name = q34, f.response = q34_final_response) %>%
+  tidy_choose_all()
+q34_n <- length(unique(q34_data$id))
+q34_plot <- clean_choose_all(q34_data, q34_n)
+r34 <- plot_choose_all(q34_plot, q34_t, q34_n)
+r34
+```
+
+```{r}
+row3 <- colnames(q34_plot)
+q34_plot2 <- rbind(row3, q34_plot)
+names(q34_plot2) <- c("q34", q34_t, paste("n = ", q34_n))
+```
+
+```{r}
+dir.create("output/q34_covid_impact_personal")
+ggsave(filename = 'output/q34_covid_impact_personal/q34_covid_impact_personal.png', plot = r34, device = 'png')
+write.csv(q34_plot2, paste0("output/q34_covid_impact_personal/q34_covid_impact_personal_", q34_n,".csv"), row.names=F)
+write.csv(q34_data, 'output/q34_covid_impact_personal/q34_covid_impact_personal_ids.csv', row.names = FALSE)
+```

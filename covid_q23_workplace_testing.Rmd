@@ -1,0 +1,44 @@
+---
+title: 'q23 covid study: Are you concerned that your workplace will test you for cannabis use?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q23 <- "Are.you.concerned.that.your.workplace.will.test.you.for.cannabis.use."
+q23_t <- "Are you concerned that your workplace
+will test you for cannabis use?"
+q23_data <- get_single_selection(data = raw_data, q.name = q23)
+q23_n <- length(unique(q23_data$id))
+q23_plot <- clean_single_select(q23_data)
+r23 <- plot_single_select(q23_plot, q23_t, q23_n)
+r23
+```
+
+```{r}
+row3 <- colnames(q23_plot)
+q23_plot2 <- rbind(row3, q23_plot)
+names(q23_plot2) <- c("q23", q23_t, paste("n = ", q23_n))
+```
+
+```{r}
+dir.create("output/q23_workplace_testing")
+ggsave(filename = 'output/q23_workplace_testing/q23_workplace_testing.png', plot = r23, device = 'png')
+write.csv(q23_plot2, paste0("output/q23_workplace_testing/q23_workplace_testing_", q23_n,".csv"), row.names=F)
+```
+
+
+

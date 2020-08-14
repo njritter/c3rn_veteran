@@ -1,0 +1,43 @@
+---
+title: 'q9 covid survey: In general, to what extent has the use of cannabis positively impacted your quality of life?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q9 <- "In.general..to.what.extent.has.the.use.of.cannabis.positively.impacted.your.quality.of.life."
+q9_t <- "In general, to what extent has the use of cannabis
+positively impacted your quality of life?"
+q9_data <- get_single_selection(data = raw_data, q.name = q9)
+q9_n <- length(unique(q9_data$id))
+q9_plot <- clean_single_select(q9_data)
+r9 <- plot_single_select(q9_plot, q9_t, q9_n)
+r9
+```
+
+```{r}
+row3 <- colnames(q9_plot)
+q9_plot2 <- rbind(row3, q9_plot)
+names(q9_plot2) <- c("q9", q9_t, paste("n = ", q9_n))
+```
+
+```{r}
+dir.create("output/q9_general_qol_impact")
+ggsave(filename = 'output/q9_general_qol_impact/q9_general_qol_impact.png', plot = r9, device = 'png')
+write.csv(q9_plot2, paste0("output/q9_general_qol_impact/q9_general_qol_impact_", q9_n,".csv"), row.names=F)
+```
+
+

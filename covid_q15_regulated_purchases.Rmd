@@ -1,0 +1,47 @@
+---
+title: 'q15 covid survey: Prior to COVID-19, what percent of your monthly cannabis purchases are through regulated sources? (Dispensaries, caregivers, etc.)'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q15 <- "Prior.to.COVID.19..what.percent.of.your.monthly.cannabis.purchases.are.through.regulated.sources...dispensaries..caregivers..etc."
+q15_t <- "Prior to COVID-19, what percent of your monthly cannabis purchases are through 
+regulated sources? (Dispensaries, caregivers, etc.)"
+q15_data <- get_single_selection_0(data = raw_data, q.name = q15) %>%
+  filter(response != "")
+q15_n <- length(unique(q15_data$id))
+q15_mean_data <- as.numeric(as.character(q15_data$response))
+q15_mean <- mean(q15_mean_data) %>%
+  round(3) %>%
+  print()
+q15_plot<- clean_single_select(q15_data)
+r15 <- plot_single_select_0(q15_plot, q15_t, q15_n, q15_mean)
+r15
+```
+
+```{r}
+row3 <- colnames(q15_plot)
+q15_plot2 <- rbind(row3, q15_plot)
+names(q15_plot2) <- c("q15", q15_t, paste("n = ", q15_n, paste(" avg = ", q15_mean)))
+```
+
+```{r}
+dir.create("output/q15_regulated_purchases")
+ggsave(filename = 'output/q15_regulated_purchases/q15_regulated_purchases.png', plot = r15, device = 'png')
+write.csv(q15_plot2, paste0("output/q15_regulated_purchases/q15_regulated_purchases_", q15_n,".csv"), row.names=F)
+write.csv(q15_data, 'output/q15_regulated_purchases/q15_regulated_purchases_ids.csv', row.names = FALSE)
+```

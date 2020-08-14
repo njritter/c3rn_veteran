@@ -1,0 +1,44 @@
+---
+title: 'q31 covid survey: Do you think you have or have had COVID 19 but been unable to access testing?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q31 <- "Do.you.think.you.have.or.have.had.COVID.19.but.been.unable.to.access.testing."
+q31_t <- "Do you think you have or have had COVID 19 
+but been unable to access testing?"
+q31_data <- get_single_selection(data = raw_data, q.name = q31)
+q31_n <- length(unique(q31_data$id))
+q31_plot <- clean_single_select(q31_data)
+r31 <- plot_single_select(q31_plot, q31_t, q31_n)
+r31
+```
+
+```{r}
+row3 <- colnames(q31_plot)
+q31_plot2 <- rbind(row3, q31_plot)
+names(q31_plot2) <- c("q31", q31_t, paste("n = ", q31_n))
+```
+
+```{r}
+dir.create("output/q31_testing_access")
+ggsave(filename = 'output/q31_testing_access/q31_testing_access.png', plot = r31, device = 'png')
+write.csv(q31_plot2, paste0("output/q31_testing_access/q31_testing_access_", q31_n,".csv"), row.names=F)
+```
+
+
+

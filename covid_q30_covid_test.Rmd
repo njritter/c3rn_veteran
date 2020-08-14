@@ -1,0 +1,44 @@
+---
+title: 'q30 covid survey: Do you know if you have been infected with COVID-19 and received test results confirming COVID-19 infection?'
+author: "David Ritter"
+date: "8/14/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q30 <- "Do.you.know.if.you.have.been.infected.with.COVID.19.and.received.test.results.confirming.COVID.19.infection."
+q30_t <- "Do you know if you have been infected with COVID-19 and 
+received test results confirming COVID-19 infection?"
+q30_data <- get_single_selection(data = raw_data, q.name = q30)
+q30_n <- length(unique(q30_data$id))
+q30_plot <- clean_single_select(q30_data)
+r30 <- plot_single_select(q30_plot, q30_t, q30_n)
+r30
+```
+
+```{r}
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
+dir.create("output/q30_covid_test")
+ggsave(filename = 'output/q30_covid_test/q30_covid_test.png', plot = r30, device = 'png')
+write.csv(q30_plot2, paste0("output/q30_covid_test/q30_covid_test_", q30_n,".csv"), row.names=F)
+```
+
+
+
