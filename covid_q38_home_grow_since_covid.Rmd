@@ -1,0 +1,43 @@
+---
+title: 'q38 covid survey: Since COVID-19 started, have you started growing cannabis at home?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q38 <- "Since.COVID.19.started..have.you.started.growing.cannabis.at.home."
+q38_t <- "Since COVID-19 started, have you started growing cannabis at home?"
+q38_data <- get_single_selection(data = raw_data, q.name = q38)
+q38_n <- length(unique(q38_data$id))
+q38_plot <- clean_single_select(q38_data)
+r38 <- plot_single_select(q38_plot, q38_t, q38_n)
+r38
+```
+
+```{r}
+row3 <- colnames(q38_plot)
+q38_plot2 <- rbind(row3, q38_plot)
+names(q38_plot2) <- c("q38", q38_t, paste("n = ", q38_n))
+```
+
+```{r}
+dir.create("output/q38_home_grow_since_covid")
+ggsave(filename = 'output/q38_home_grow_since_covid/q38_home_grow_since_covid.png', plot = r38, device = 'png')
+write.csv(q38_plot2, paste0("output/q38_home_grow_since_covid/q38_home_grow_since_covid_", q38_n,".csv"), row.names=F)
+```
+
+
+

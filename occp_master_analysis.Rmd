@@ -27,7 +27,7 @@ headers <- master[c(1), ]
 
 ```{r}
 #Filtering for single select questions
-filtered_data <- filter(master, master$WhatÂ.is.the.primary.health.condition.for.which.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one. == "Insomnia")
+filtered_data <- filter(master, master$How.do.you.use.cannabis..Please.select.all.that.apply. == "Medically indicated, recommended by a licensed clinical provider")
 raw_data <- rbind(headers, filtered_data)
 ```
 

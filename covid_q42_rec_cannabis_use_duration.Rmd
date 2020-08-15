@@ -1,0 +1,44 @@
+---
+title: 'q42 covid survey: How long have you been using cannabis for recreational purposes?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q42 <- "How.long.have.you.been.using.cannabis.forÂ.recreational.purposes."
+q42_t <- "How long have you been using cannabis for 
+recreational purposes?"
+q42_data <- get_single_selection(data = raw_data, q.name = q42)
+q42_n <- length(unique(q42_data$id))
+q42_plot <- clean_single_select(q42_data)
+r42 <- plot_single_select(q42_plot, q42_t, q42_n)
+r42
+```
+
+```{r}
+row3 <- colnames(q42_plot)
+q42_plot2 <- rbind(row3, q42_plot)
+names(q42_plot2) <- c("q42", q42_t, paste("n = ", q42_n))
+```
+
+```{r}
+dir.create("output/q42_rec_cannabis_use_duration")
+ggsave(filename = 'output/q42_rec_cannabis_use_duration/q42_rec_cannabis_use_duration.png', plot = r42, device = 'png')
+write.csv(q42_plot2, paste0("output/q42_rec_cannabis_use_duration/q42_rec_cannabis_use_duration_", q42_n,".csv"), row.names=F)
+```
+
+
+

@@ -1,0 +1,44 @@
+---
+title: 'q40 covid survey: After the start of COVID-19, what are current barriers for you consuming cannabis? Please select all that apply.'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q40 <- "After.the.start.of.COVID.19..whatÂ.areÂ.currentÂ.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
+q40_final_response <- "X.213"
+q40_t  <- "After the start of COVID-19, what are current barriers for you 
+consuming cannabis? Please select all that apply."
+q40_data <- get_choose_all(raw_data, q.name = q40, f.response = q40_final_response) %>%
+  tidy_choose_all()
+q40_n <- length(unique(q40_data$id))
+q40_plot <- clean_choose_all(q40_data, q40_n)
+r40 <- plot_choose_all(q40_plot, q40_t, q40_n)
+r40
+```
+
+```{r}
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
+dir.create("output/q40_barriers_post_covid")
+ggsave(filename = 'output/q40_barriers_post_covid/q40_barriers_post_covid.png', plot = r40, device = 'png')
+write.csv(q40_plot2, paste0("output/q40_barriers_post_covid/q40_barriers_post_covid_", q40_n,".csv"), row.names=F)
+write.csv(q40_data, 'output/q40_barriers_post_covid/q40_barriers_post_covid_ids.csv', row.names = FALSE)
+```

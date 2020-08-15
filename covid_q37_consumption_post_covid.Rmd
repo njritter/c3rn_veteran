@@ -1,0 +1,45 @@
+---
+title: 'q37 covid survey: After the start of COVID-19 have you changed the way you consume cannabis with others?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q37 <- "After.the.start.of.COVID.19..have.you.changed.the.way.you.consume.cannabis.with.others."
+q37_t <- "After the start of COVID-19 have 
+you changed the way you 
+consume cannabis with others?"
+q37_data <- get_single_selection(data = raw_data, q.name = q37)
+q37_n <- length(unique(q37_data$id))
+q37_plot <- clean_single_select(q37_data)
+r37 <- plot_single_select(q37_plot, q37_t, q37_n)
+r37
+```
+
+```{r}
+row3 <- colnames(q37_plot)
+q37_plot2 <- rbind(row3, q37_plot)
+names(q37_plot2) <- c("q37", q37_t, paste("n = ", q37_n))
+```
+
+```{r}
+dir.create("output/q37_consumption_post_covid")
+ggsave(filename = 'output/q37_consumption_post_covid/q37_consumption_post_covid.png', plot = r37, device = 'png')
+write.csv(q37_plot2, paste0("output/q37_consumption_post_covid/q37_consumption_post_covid_", q37_n,".csv"), row.names=F)
+```
+
+
+
