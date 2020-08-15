@@ -1,0 +1,45 @@
+---
+title: 'q48 covid survey: What is the highest degree or level of school you have completed? If you are currently enrolled in school, please indicate the highest degree you have recieved.'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q48 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed..If.you.are.currently.enrolled.in.school..please.indicate.the.highest.degree.you.have.received."
+q48_t <- "What is the highest degree or level of school you have 
+completed? If you are currently enrolled in school, please 
+indicate the highest degree you have recieved."
+q48_data <- get_single_selection(data = raw_data, q.name = q48)
+q48_n <- length(unique(q48_data$id))
+q48_plot <- clean_single_select(q48_data)
+r48 <- plot_single_select(q48_plot, q48_t, q48_n)
+r48
+```
+
+```{r}
+row3 <- colnames(q48_plot)
+q48_plot2 <- rbind(row3, q48_plot)
+names(q48_plot2) <- c("q48", q48_t, paste("n = ", q48_n))
+```
+
+```{r}
+dir.create("output/q48_degree")
+ggsave(filename = 'output/q48_degree/q48_degree.png', plot = r48, device = 'png')
+write.csv(q48_plot2, paste0("output/q48_degree/q48_degree_", q48_n,".csv"), row.names=F)
+```
+
+
+

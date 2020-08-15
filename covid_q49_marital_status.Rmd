@@ -1,0 +1,43 @@
+---
+title: 'q49 covid survey: What is your marital status?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q49 <- "What.is.your.marital.status."
+q49_t <- "What is your marital status?"
+q49_data <- get_single_selection(data = raw_data, q.name = q49)
+q49_n <- length(unique(q49_data$id))
+q49_plot <- clean_single_select(q49_data)
+r49 <- plot_single_select(q49_plot, q49_t, q49_n)
+r49
+```
+
+```{r}
+row3 <- colnames(q49_plot)
+q49_plot2 <- rbind(row3, q49_plot)
+names(q49_plot2) <- c("q49", q49_t, paste("n = ", q49_n))
+```
+
+```{r}
+dir.create("output/q49_marital_status")
+ggsave(filename = 'output/q49_marital_status/q49_marital_status.png', plot = r49, device = 'png')
+write.csv(q49_plot2, paste0("output/q49_marital_status/q49_marital_status_", q49_n,".csv"), row.names=F)
+```
+
+
+

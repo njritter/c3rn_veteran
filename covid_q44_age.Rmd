@@ -1,0 +1,47 @@
+---
+title: 'q44 covid survey: What is your age? (in years)'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q44 <- "What.is.your.age..in.years..Â."
+q44_t <- "What is your age? (in years)"
+q44_data <- get_single_selection_0(data = raw_data, q.name = q44) %>%
+  filter(response != "")
+q44_n <- length(unique(q44_data$id))
+q44_mean_data <- as.numeric(as.character(q44_data$response))
+q44_mean <- mean(q44_mean_data) %>%
+  round(3) %>%
+  print()
+q44_plot <- clean_single_select(q44_data)
+r44 <- plot_single_select_0(q44_plot, q44_t, q44_n, q44_mean)
+r44
+```
+
+```{r}
+row3 <- colnames(q44_plot)
+q44_plot2 <- rbind(row3, q44_plot)
+names(q44_plot2) <- c("q44", q44_t, paste("n = ", q44_n, paste(" avg = ", q44_mean)))
+```
+
+```{r}
+dir.create("output/q44_age")
+ggsave(filename = 'output/q44_age/q44_age.png', plot = r44, device = 'png')
+write.csv(q44_plot2, paste0("output/q44_age/q44_age_", q44_n,".csv"), row.names=F)
+write.csv(q44_data, 'output/q44_age/q44_age_ids.csv', row.names = FALSE)
+```
+

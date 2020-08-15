@@ -1,0 +1,43 @@
+---
+title: 'q47 covid survey: What is your annual household income (in USD)'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q47 <- "What.is.your.annual.household.income.in....USD.."
+q47_t <- "What is your annual household income in $ (USD)?"
+q47_data <- get_single_selection_0(data = raw_data, q.name = q47)
+q47_n <- length(unique(q47_data$id))
+q47_plot <- clean_single_select(q47_data)
+r47 <- plot_single_select(q47_plot, q47_t, q47_n)
+r47
+```
+
+```{r}
+row3 <- colnames(q47_plot)
+q47_plot2 <- rbind(row3, q47_plot)
+names(q47_plot2) <- c("q47", q47_t, paste("n = ", q47_n))
+```
+
+```{r}
+dir.create("output/q47_income")
+ggsave(filename = 'output/q47_income/q47_income.png', plot = r47, device = 'png')
+write.csv(q47_plot2, paste0("output/q47_income/q47_income_", q47_n,".csv"), row.names=F)
+```
+
+
+

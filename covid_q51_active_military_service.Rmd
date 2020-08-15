@@ -1,0 +1,42 @@
+---
+title: 'q51 covid survey: Are you an active service member of the US military?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q51 <- "Are.you.an.active.service.member.of.the.US.military."
+q51_t <- "Are you an active service member of the US military?"
+q51_data <- get_single_selection(data = raw_data, q.name = q51)
+q51_n <- length(unique(q51_data$id))
+q51_plot <- clean_single_select(q51_data)
+r51 <- plot_single_select(q51_plot, q51_t, q51_n)
+r51
+```
+
+```{r}
+row3 <- colnames(q51_plot)
+q51_plot2 <- rbind(row3, q51_plot)
+names(q51_plot2) <- c("q51", q51_t, paste("n = ", q51_n))
+```
+
+```{r}
+dir.create("output/q51_active_military_service")
+ggsave(filename = 'output/q51_active_military_service/q51_active_military_service.png', plot = r51, device = 'png')
+write.csv(q51_plot2, paste0("output/q51_active_military_service/q51_active_military_service_", q51_n,".csv"), row.names=F)
+```
+
+
+

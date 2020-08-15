@@ -1,0 +1,43 @@
+---
+title: 'q46 covid survey: What country do you live in?'
+author: "David Ritter"
+date: "8/15/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q46 <- 'What.country.do.you.live.in.Â.'
+q46_final_response <- "X.229"
+q46_t <- "What country do you live in?"
+q46_data <- get_choose_all(raw_data, q.name = q46, f.response = q46_final_response)
+dir.create("output/q46_country")
+```
+
+```{r}
+q46_data1 <- get_single_selection_3(q46_data, "Country") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q46_n1 <- tally(q46_data1, count)
+q46_t1 <- "Country"
+q46_r1 <- plot_single_select(q46_data1, q46_t1, q46_n1)
+q46_r1
+```
+
+```{r}
+ggsave(filename = "output/q46_country/q46_country.png", plot = q46_r1, device = 'png')
+write.csv(q46_data1, paste0("output/q46_country/q46_country_", q46_n1, ".csv"), row.names = FALSE)
+```
+
+
