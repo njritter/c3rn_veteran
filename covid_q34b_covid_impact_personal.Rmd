@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q34 <- "Has.COVID.19.impacted.any.of.the.following.for.you.personally...please.select.all.that.apply."
-q34_final_response <- "X.192"
+q34_final_response <- "X.193"
 q34_t  <- "Has COVID-19 impacted any of the following 
 for you personally? Please select all 
 that apply."

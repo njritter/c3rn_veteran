@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q39 <- "PRIOR.to.COVID.19..what.were.some.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
-q39_final_response <- "X.204"
+q39_final_response <- "X.205"
 q39_t  <- "PRIOR to COVID-19, what were some barriers for you 
 consuming cannabis? Please select all that apply."
 q39_data <- get_choose_all(raw_data, q.name = q39, f.response = q39_final_response) %>%

@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q18 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
-q18_final_response <- "X.122"
+q18_final_response <- "X.121"
 q18_t <- "What is your top 3 selection criteria for cannabis products?"
 q18_data <- get_choose_all(raw_data, q.name = q18, f.response = q18_final_response)
 dir.create("output/q18_top_3_cannabis_aspect")

@@ -1,0 +1,1332 @@
+---
+title: "covid_master_analysis"
+author: "David Ritter"
+date: "9/8/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+#use only this out of first chunks before q4 if not filtering.
+#block this chunk out and run next chunk if filtering
+raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+#run this then determine appropriate subsequent chunk to run depending on question type. then run remainder of document.
+#master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+#headers <- master[c(1), ]
+```
+
+```{r}
+#Filtering for single select questions
+#filtered_data <- filter(master, master$How.do.you.use.cannabis..Please.select.all.that.apply. == "Medically indicated, recommended by a licensed clinical provider")
+#raw_data <- rbind(headers, filtered_data)
+```
+
+```{r}
+#Filtering for choose all questions
+#raw_data <- filter(master, master$X.58 == "Sedatives/hypnotics")
+```
+
+```{r}
+#Filtering for choose all questions
+#raw_data <- filter(master, master$X.7 == "Depression")
+```
+
+```{r}
+q4 <- "How.do.you.currently.use.cannabis."
+q4_t <- "How do you currently use cannabis?"
+q4_data <- get_single_selection(data = raw_data, q.name = q4)
+q4_n <- length(unique(q4_data$id))
+q4_plot <- clean_single_select(q4_data)
+r4 <- plot_single_select(q4_plot, q4_t, q4_n)
+r4
+```
+
+```{r}
+row3 <- colnames(q4_plot)
+q4_plot2 <- rbind(row3, q4_plot)
+names(q4_plot2) <- c("q4", q4_t, paste("n = ", q4_n))
+```
+
+```{r}
+dir.create("output/q4_use_type")
+ggsave(filename = 'output/q4_use_type/q4_use_type.png', plot = r4, device = 'png')
+write.csv(q4_plot2, paste0("output/q4_use_type/q4_use_type_", q4_n,".csv"), row.names=F)
+```
+
+```{r}
+q5 <- "Which.of.the.following.health.conditions.do.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.all.that.apply."
+q5_final_response <- "X.31"
+q5_t  <- "Which of the following health conditions do
+you find cannabis to be helpful or most
+impactful? Please select all that apply."
+q5_data <- get_choose_all(raw_data, q.name = q5, f.response = q5_final_response) %>%
+  tidy_choose_all()
+q5_n <- length(unique(q5_data$id))
+q5_plot <- clean_choose_all(q5_data, q5_n)
+r5 <- plot_choose_all(q5_plot, q5_t, q5_n)
+r5
+```
+
+```{r}
+row3 <- colnames(q5_plot)
+q5_plot2 <- rbind(row3, q5_plot)
+names(q5_plot2) <- c("q5", q5_t, paste("n = ", q5_n))
+```
+
+```{r}
+dir.create("output/q5_conditions_cannabis")
+ggsave(filename = 'output/q5_conditions_cannabis/q5_conditions_cannabis.png', plot = r5, device = 'png')
+write.csv(q5_plot2, paste0("output/q5_conditions_cannabis/q5_conditions_cannabis_", q5_n,".csv"), row.names=F)
+write.csv(q5_data, 'output/q5_conditions_cannabis/q5_conditions_cannabis_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q6 <- "What.is.the.TOPÂ.health.condition.do.you.find.cannabis.to.be.helpful.or.most.impactful..Please.select.one"
+q6_t <- "What is the TOP health condition do you find
+cannabis to be helpful or most impactful? 
+Please select one."
+q6_data <- get_single_selection(data = raw_data, q.name = q6)
+q6_n <- length(unique(q6_data$id))
+q6_plot <- clean_single_select(q6_data)
+r6 <- plot_single_select(q6_plot, q6_t, q6_n)
+r6
+```
+
+```{r}
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
+dir.create("output/q6_top_condition_cannabis")
+ggsave(filename = 'output/q6_top_condition_cannabis/q6_top_condition_cannabis.png', plot = r6, device = 'png')
+write.csv(q6_plot2, paste0("output/q6_top_condition_cannabis/q6_top_condition_cannabis_", q6_n,".csv"), row.names=F)
+```
+
+
+```{r}
+q7 <- "What.symptoms.for.the.primary.condition.do.you.use.cannabis.to.treat..Please.select.all.that.apply."
+q7_final_response <- "X.50"
+q7_t  <- "What symptoms for the primary condition do you use 
+cannabis to treat? Please select all that apply."
+q7_data <- get_choose_all(raw_data, q.name = q7, f.response = q7_final_response) %>%
+  tidy_choose_all()
+q7_n <- length(unique(q7_data$id))
+q7_plot <- clean_choose_all(q7_data, q7_n)
+r7 <- plot_choose_all(q7_plot, q7_t, q7_n)
+r7
+```
+
+```{r}
+row3 <- colnames(q7_plot)
+q7_plot2 <- rbind(row3, q7_plot)
+names(q7_plot2) <- c("q7", q7_t, paste("n = ", q7_n))
+```
+
+```{r}
+dir.create("output/q7_cannabis_treats_symptoms")
+ggsave(filename = 'output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms.png', plot = r7, device = 'png')
+write.csv(q7_plot2, paste0("output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms_", q7_n,".csv"), row.names=F)
+write.csv(q7_data, 'output/q7_cannabis_treats_symptoms/q7_cannabis_treats_symptoms_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q8 <- "How.does.cannabis.help.your.daily.life...Please.select.all.that.apply."
+q8_final_response <- "X.61"
+q8_t  <- "How does cannabis 
+help your daily life? 
+Please select all that 
+apply."
+q8_data <- get_choose_all(raw_data, q.name = q8, f.response = q8_final_response) %>%
+  tidy_choose_all()
+q8_n <- length(unique(q8_data$id))
+q8_plot <- clean_choose_all(q8_data, q8_n)
+r8 <- plot_choose_all(q8_plot, q8_t, q8_n)
+r8
+```
+
+```{r}
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n))
+```
+
+```{r}
+dir.create("output/q8_cannabis_qol")
+ggsave(filename = 'output/q8_cannabis_qol/q8_cannabis_qol.png', plot = r8, device = 'png')
+write.csv(q8_plot2, paste0("output/q8_cannabis_qol/q8_cannabis_qol_", q8_n,".csv"), row.names=F)
+write.csv(q8_data, 'output/q8_cannabis_qol/q8_cannabis_qol_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q9 <- "In.general..to.what.extent.has.the.use.of.cannabis.positively.impacted.your.quality.of.life."
+q9_t <- "In general, to what extent has the use of cannabis
+positively impacted your quality of life?"
+q9_data <- get_single_selection(data = raw_data, q.name = q9)
+q9_n <- length(unique(q9_data$id))
+q9_plot <- clean_single_select(q9_data)
+r9 <- plot_single_select(q9_plot, q9_t, q9_n)
+r9
+```
+
+```{r}
+row3 <- colnames(q9_plot)
+q9_plot2 <- rbind(row3, q9_plot)
+names(q9_plot2) <- c("q9", q9_t, paste("n = ", q9_n))
+```
+
+```{r}
+dir.create("output/q9_general_qol_impact")
+ggsave(filename = 'output/q9_general_qol_impact/q9_general_qol_impact.png', plot = r9, device = 'png')
+write.csv(q9_plot2, paste0("output/q9_general_qol_impact/q9_general_qol_impact_", q9_n,".csv"), row.names=F)
+```
+
+```{r}
+q10 <- "Have.you.experienced.any.side.effects.from.using.cannabis..Please.select.all.that.apply."
+q10_final_response <- "X.84"
+q10_t  <- "Have you experienced any side
+effects from using cannabis? 
+Please select all that apply."
+q10_data <- get_choose_all(raw_data, q.name = q10, f.response = q10_final_response) %>%
+  tidy_choose_all()
+q10_n <- length(unique(q10_data$id))
+q10_plot <- clean_choose_all(q10_data, q10_n)
+r10 <- plot_choose_all(q10_plot, q10_t, q10_n)
+r10
+```
+
+```{r}
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n))
+```
+
+```{r}
+dir.create("output/q10_cannabis_side_effects")
+ggsave(filename = 'output/q10_cannabis_side_effects/q10_cannabis_side_effects.png', plot = r10, device = 'png')
+write.csv(q10_plot2, paste0("output/q10_cannabis_side_effects/q10_cannabis_side_effects_", q10_n,".csv"), row.names=F)
+write.csv(q10_data, 'output/q10_cannabis_side_effects/q10_cannabis_side_effects_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q11 <- "Are.you.actively.trying.to.reduce.your.prescription.medication.intake.using.cannabis..Please.select.all.that.apply."
+q11_final_response <- "X.98"
+q11_t  <- "Are you actively trying to reduce your prescription 
+medication intake using cannabis? 
+Please select all that apply."
+q11_data <- get_choose_all(raw_data, q.name = q11, f.response = q11_final_response) %>%
+  tidy_choose_all()
+q11_n <- length(unique(q11_data$id))
+q11_plot <- clean_choose_all(q11_data, q11_n)
+r11 <- plot_choose_all(q11_plot, q11_t, q11_n)
+r11
+```
+
+```{r}
+row3 <- colnames(q11_plot)
+q11_plot2 <- rbind(row3, q11_plot)
+names(q11_plot2) <- c("q11", q11_t, paste("n = ", q11_n))
+```
+
+```{r}
+dir.create("output/q11_meds_reduced_cannabis")
+ggsave(filename = 'output/q11_meds_reduced_cannabis/q11_meds_reduced_cannabis.png', plot = r11, device = 'png')
+write.csv(q11_plot2, paste0("output/q11_meds_reduced_cannabis/q11_meds_reduced_cannabis_", q11_n,".csv"), row.names=F)
+write.csv(q11_data, 'output/q11_meds_reduced_cannabis/q11_meds_reduced_cannabis_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q12 <- "How.do.you.prefer.to.use.cannabis...Please.check.all.that.apply."
+q12_final_response <- "X.108"
+q12_t  <- "How do you prefer to use cannabis? 
+Please check all that apply."
+q12_data <- get_choose_all(raw_data, q.name = q12, f.response = q12_final_response) %>%
+  tidy_choose_all()
+q12_n <- length(unique(q12_data$id))
+q12_plot <- clean_choose_all(q12_data, q12_n)
+r12 <- plot_choose_all(q12_plot, q12_t, q12_n)
+r12
+```
+
+```{r}
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n))
+```
+
+```{r}
+dir.create("output/q12_cannabis_methods")
+ggsave(filename = 'output/q12_cannabis_methods/q12_cannabis_methods.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_cannabis_methods/q12_cannabis_methods_", q12_n,".csv"), row.names=F)
+write.csv(q12_data, 'output/q12_cannabis_methods/q12_cannabis_methods_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q13 <- "What.is.your.top.preferred.method..that.is..favorite..of.using.cannabis...Please.select.one."
+q13_t <- "What is your top preferred method 
+(that is, favorite) of using cannabis?
+Please select one."
+q13_data <- get_single_selection(data = raw_data, q.name = q13)
+q13_n <- length(unique(q13_data$id))
+q13_plot <- clean_single_select(q13_data)
+r13 <- plot_single_select(q13_plot, q13_t, q13_n)
+r13
+```
+
+```{r}
+row3 <- colnames(q13_plot)
+q13_plot2 <- rbind(row3, q13_plot)
+names(q13_plot2) <- c("q13", q13_t, paste("n = ", q13_n))
+```
+
+```{r}
+dir.create("output/q13_top_cannabis_method")
+ggsave(filename = 'output/q13_top_cannabis_method/q13_top_cannabis_method.png', plot = r13, device = 'png')
+write.csv(q13_plot2, paste0("output/q13_top_cannabis_method/q13_top_cannabis_method_", q13_n,".csv"), row.names=F)
+```
+
+```{r}
+q14 <- "On.average..how.much.do.you.spend..in.US.dollar..on.consumable.cannabis.products.each.week."
+q14_t <- "On average, how much do you spend in US dollar on consumable 
+cannabis products each week?"
+q14_data <- get_single_selection_0(data = raw_data, q.name = q14) %>%
+  filter(response != "")
+q14_n <- length(unique(q14_data$id))
+q14_mean_data <- as.numeric(as.character(q14_data$response))
+q14_mean <- mean(q14_mean_data) %>%
+  round(3) %>%
+  print()
+q14_plot<- clean_single_select(q14_data)
+r14 <- plot_single_select_0(q14_plot, q14_t, q14_n, q14_mean)
+r14
+```
+
+```{r}
+row3 <- colnames(q14_plot)
+q14_plot2 <- rbind(row3, q14_plot)
+names(q14_plot2) <- c("q14", q14_t, paste("n = ", q14_n, paste(" avg = ", q14_mean)))
+```
+
+```{r}
+dir.create("output/q14_cannabis_cost_wkly")
+ggsave(filename = 'output/q14_cannabis_cost_wkly/q14_cannabis_cost_wkly.png', plot = r14, device = 'png')
+write.csv(q14_plot2, paste0("output/q14_cannabis_cost_wkly/q14_cannabis_cost_wkly_", q14_n,".csv"), row.names=F)
+write.csv(q14_data, 'output/q14_cannabis_cost_wkly/q14_cannabis_cost_wkly_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q15 <- "Prior.to.COVID.19..what.percent.of.your.monthly.cannabis.purchases.are.through.regulated.sources...dispensaries..caregivers..etc."
+q15_t <- "Prior to COVID-19, what percent of your monthly cannabis purchases are through 
+regulated sources? (Dispensaries, caregivers, etc.)"
+q15_data <- get_single_selection_0(data = raw_data, q.name = q15) %>%
+  filter(response != "")
+q15_n <- length(unique(q15_data$id))
+q15_mean_data <- as.numeric(as.character(q15_data$response))
+q15_mean <- mean(q15_mean_data) %>%
+  round(3) %>%
+  print()
+q15_plot<- clean_single_select(q15_data)
+r15 <- plot_single_select_0(q15_plot, q15_t, q15_n, q15_mean)
+r15
+```
+
+```{r}
+row3 <- colnames(q15_plot)
+q15_plot2 <- rbind(row3, q15_plot)
+names(q15_plot2) <- c("q15", q15_t, paste("n = ", q15_n, paste(" avg = ", q15_mean)))
+```
+
+```{r}
+dir.create("output/q15_regulated_purchases")
+ggsave(filename = 'output/q15_regulated_purchases/q15_regulated_purchases.png', plot = r15, device = 'png')
+write.csv(q15_plot2, paste0("output/q15_regulated_purchases/q15_regulated_purchases_", q15_n,".csv"), row.names=F)
+write.csv(q15_data, 'output/q15_regulated_purchases/q15_regulated_purchases_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q16 <- "Do.you.use.a.regulated.cannabis.delivery.service."
+q16_t <- "Do you use a regulated cannabis delivery service?"
+q16_data <- get_single_selection(data = raw_data, q.name = q16)
+q16_n <- length(unique(q16_data$id))
+q16_plot <- clean_single_select(q16_data)
+r16 <- plot_single_select(q16_plot, q16_t, q16_n)
+r16
+```
+
+```{r}
+row3 <- colnames(q16_plot)
+q16_plot2 <- rbind(row3, q16_plot)
+names(q16_plot2) <- c("q16", q16_t, paste("n = ", q16_n))
+```
+
+```{r}
+dir.create("output/q16_cannabis_delivery")
+ggsave(filename = 'output/q16_cannabis_delivery/q16_cannabis_delivery.png', plot = r16, device = 'png')
+write.csv(q16_plot2, paste0("output/q16_cannabis_delivery/q16_cannabis_delivery_", q16_n,".csv"), row.names=F)
+```
+
+```{r}
+q17 <- "What.are.you.looking.for.in.cannabis.products..Please.select.all.that.apply."
+q17_final_response <- "X.120"
+q17_t  <- "What are you looking for in cannabis products? 
+Please select all that apply."
+q17_data <- get_choose_all(raw_data, q.name = q17, f.response = q17_final_response) %>%
+  tidy_choose_all()
+q17_n <- length(unique(q17_data$id))
+q17_plot <- clean_choose_all(q17_data, q17_n)
+r17 <- plot_choose_all(q17_plot, q17_t, q17_n)
+r17
+```
+
+```{r}
+row3 <- colnames(q17_plot)
+q17_plot2 <- rbind(row3, q17_plot)
+names(q17_plot2) <- c("q17", q17_t, paste("n = ", q17_n))
+```
+
+```{r}
+dir.create("output/q17_cannabis_aspects")
+ggsave(filename = 'output/q17_cannabis_aspects/q17_cannabis_aspects.png', plot = r17, device = 'png')
+write.csv(q17_plot2, paste0("output/q17_cannabis_aspects/q17_cannabis_aspects_", q17_n,".csv"), row.names=F)
+write.csv(q17_data, 'output/q17_cannabis_aspects/q17_cannabis_aspects_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q18 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
+q18_final_response <- "X.121"
+q18_t <- "What is your top 3 selection criteria for cannabis products?"
+q18_data <- get_choose_all(raw_data, q.name = q18, f.response = q18_final_response)
+dir.create("output/q18_top_3_cannabis_aspect")
+```
+
+```{r}
+write.csv(q18_data, 'output/q18_top_3_cannabis_aspect/q18_top_3_cannabis_aspect_data.csv', row.names = FALSE)
+```
+
+```{r}
+q18_data1 <- get_single_selection_3(q18_data, "Most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n1 <- tally(q18_data1, count)
+q18_t1 <- "Most important cannabis aspect"
+q18_r1 <- plot_single_select(q18_data1, q18_t1, q18_n1)
+q18_r1
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_most_important.png", plot = q18_r1, device = 'png')
+write.csv(q18_data1, paste0("output/q18_top_3_cannabis_aspect/q18_most_important_", q18_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q18_data2 <- get_single_selection_3(q18_data, "Second most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n2 <- tally(q18_data2, count)
+q18_t2 <- "Second most important cannabis aspect"
+q18_r2 <- plot_single_select(q18_data2, q18_t2, q18_n2)
+q18_r2
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_second_most_important.png", plot = q18_r2, device = 'png')
+write.csv(q18_data2, paste0("output/q18_top_3_cannabis_aspect/q18_second_most_important_", q18_n2, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q18_data3 <- get_single_selection_3(q18_data, "Third most important selection criteria - Criteria") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q18_n3 <- tally(q18_data3, count)
+q18_t3 <- "Third most important cannabis aspect"
+q18_r3 <- plot_single_select(q18_data3, q18_t3, q18_n3)
+q18_r3
+```
+
+```{r}
+ggsave(filename = "output/q18_top_3_cannabis_aspect/q18_third_most_important.png", plot = q18_r3, device = 'png')
+write.csv(q18_data3, paste0("output/q18_top_3_cannabis_aspect/q18_third_most_important_", q18_n3, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q19 <- "How.many.days.do.you.use.cannabis.in.a.week..Please.select.one"
+q19_t <- "How many days do you use cannabis in a week? Please select one."
+q19_data <- get_single_selection(data = raw_data, q.name = q19)
+q19_n <- length(unique(q19_data$id))
+q19_plot <- clean_single_select(q19_data)
+r19 <- plot_single_select(q19_plot, q19_t, q19_n)
+r19
+```
+
+```{r}
+row3 <- colnames(q19_plot)
+q19_plot2 <- rbind(row3, q19_plot)
+names(q19_plot2) <- c("q19", q19_t, paste("n = ", q19_n))
+```
+
+```{r}
+dir.create("output/q19_cannabis_days_per_wk")
+ggsave(filename = 'output/q19_cannabis_days_per_wk/q19_cannabis_days_per_wk.png', plot = r19, device = 'png')
+write.csv(q19_plot2, paste0("output/q19_cannabis_days_per_wk/q19_cannabis_days_per_wk_", q19_n,".csv"), row.names=F)
+```
+
+```{r}
+q20 <- "On.days.you.regularly.use.cannabis..how.many.times.a.day.do.you.use.cannabis."
+q20_t <- "On days you regularly use cannabis, how 
+many times a day do you use cannabis?"
+q20_data <- get_single_selection(data = raw_data, q.name = q20)
+q20_n <- length(unique(q20_data$id))
+q20_plot <- clean_single_select(q20_data)
+r20 <- plot_single_select(q20_plot, q20_t, q20_n)
+r20
+```
+
+```{r}
+row3 <- colnames(q20_plot)
+q20_plot2 <- rbind(row3, q20_plot)
+names(q20_plot2) <- c("q20", q20_t, paste("n = ", q20_n))
+```
+
+```{r}
+dir.create("output/q20_uses_per_day")
+ggsave(filename = 'output/q20_uses_per_day/q20_uses_per_day.png', plot = r20, device = 'png')
+write.csv(q20_plot2, paste0("output/q20_uses_per_day/q20_uses_per_day_", q20_n,".csv"), row.names=F)
+```
+
+```{r}
+q21 <- "Are.you.concerned.about.your.family.members.or.loved.ones.knowing.about.your.cannabis.use."
+q21_t <- "Are you concerned about your family members or 
+loved ones knowing about your cannabis use?"
+q21_data <- get_single_selection(data = raw_data, q.name = q21)
+q21_n <- length(unique(q21_data$id))
+q21_plot <- clean_single_select(q21_data)
+r21 <- plot_single_select(q21_plot, q21_t, q21_n)
+r21
+```
+
+```{r}
+row3 <- colnames(q21_plot)
+q21_plot2 <- rbind(row3, q21_plot)
+names(q21_plot2) <- c("q21", q21_t, paste("n = ", q21_n))
+```
+
+```{r}
+dir.create("output/q21_family_knowledge")
+ggsave(filename = 'output/q21_family_knowledge/q21_family_knowledge.png', plot = r21, device = 'png')
+write.csv(q21_plot2, paste0("output/q21_family_knowledge/q21_family_knowledge_", q21_n,".csv"), row.names=F)
+```
+
+```{r}
+q22 <- "Are.you.concerned.about.your.workplace.knowing.about.your.cannabis.use."
+q22_t <- "Are you concerned about your workplace 
+knowing about your cannabis use?"
+q22_data <- get_single_selection(data = raw_data, q.name = q22)
+q22_n <- length(unique(q22_data$id))
+q22_plot <- clean_single_select(q22_data)
+r22 <- plot_single_select(q22_plot, q22_t, q22_n)
+r22
+```
+
+```{r}
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
+dir.create("output/q22_workplace_knowledge")
+ggsave(filename = 'output/q22_workplace_knowledge/q22_workplace_knowledge.png', plot = r22, device = 'png')
+write.csv(q22_plot2, paste0("output/q22_workplace_knowledge/q22_workplace_knowledge_", q22_n,".csv"), row.names=F)
+```
+
+```{r}
+q23 <- "Are.you.concerned.that.your.workplace.will.test.you.for.cannabis.use."
+q23_t <- "Are you concerned that your workplace
+will test you for cannabis use?"
+q23_data <- get_single_selection(data = raw_data, q.name = q23)
+q23_n <- length(unique(q23_data$id))
+q23_plot <- clean_single_select(q23_data)
+r23 <- plot_single_select(q23_plot, q23_t, q23_n)
+r23
+```
+
+```{r}
+row3 <- colnames(q23_plot)
+q23_plot2 <- rbind(row3, q23_plot)
+names(q23_plot2) <- c("q23", q23_t, paste("n = ", q23_n))
+```
+
+```{r}
+dir.create("output/q23_workplace_testing")
+ggsave(filename = 'output/q23_workplace_testing/q23_workplace_testing.png', plot = r23, device = 'png')
+write.csv(q23_plot2, paste0("output/q23_workplace_testing/q23_workplace_testing_", q23_n,".csv"), row.names=F)
+```
+
+```{r}
+q24 <- "Do.you.grow.your.own.cannabis.at.home."
+q24_t <- "Do you grow your own cannabis at home?"
+q24_data <- get_single_selection(data = raw_data, q.name = q24)
+q24_n <- length(unique(q24_data$id))
+q24_plot <- clean_single_select(q24_data)
+r24 <- plot_single_select(q24_plot, q24_t, q24_n)
+r24
+```
+
+```{r}
+row3 <- colnames(q24_plot)
+q24_plot2 <- rbind(row3, q24_plot)
+names(q24_plot2) <- c("q24", q24_t, paste("n = ", q24_n))
+```
+
+```{r}
+dir.create("output/q24_home_grow")
+ggsave(filename = 'output/q24_home_grow/q24_home_grow.png', plot = r24, device = 'png')
+write.csv(q24_plot2, paste0("output/q24_home_grow/q24_home_grow_", q24_n,".csv"), row.names=F)
+```
+
+```{r}
+q25 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products..Please.check.all.that.apply."
+q25_final_response <- "X.128"
+q25_t  <- "Where do you get your information to make informed decisions
+about cannabis products? Please check all that apply."
+q25_data <- get_choose_all(raw_data, q.name = q25, f.response = q25_final_response) %>%
+  tidy_choose_all()
+q25_n <- length(unique(q25_data$id))
+q25_plot <- clean_choose_all(q25_data, q25_n)
+r25 <- plot_choose_all(q25_plot, q25_t, q25_n)
+r25
+```
+
+```{r}
+row3 <- colnames(q25_plot)
+q25_plot2 <- rbind(row3, q25_plot)
+names(q25_plot2) <- c("q25", q25_t, paste("n = ", q25_n))
+```
+
+```{r}
+dir.create("output/q25_cannabis_info")
+ggsave(filename = 'output/q25_cannabis_info/q25_cannabis_info.png', plot = r25, device = 'png')
+write.csv(q25_plot2, paste0("output/q25_cannabis_info/q25_cannabis_info_", q25_n,".csv"), row.names=F)
+write.csv(q25_data, 'output/q25_cannabis_info/q25_cannabis_info_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q26 <- "Which.apps.websites.do.you.use.to.get.information.on.cannabis..Please.check.all.that.apply."
+q26_final_response <- "X.137"
+q26_t  <- "Which apps/websites do you use to get information on cannabis? 
+Please check all that apply."
+q26_data <- get_choose_all(raw_data, q.name = q26, f.response = q26_final_response) %>%
+  tidy_choose_all()
+q26_n <- length(unique(q26_data$id))
+q26_plot <- clean_choose_all(q26_data, q26_n)
+r26 <- plot_choose_all(q26_plot, q26_t, q26_n)
+r26
+```
+
+```{r}
+row3 <- colnames(q26_plot)
+q26_plot2 <- rbind(row3, q26_plot)
+names(q26_plot2) <- c("q26", q26_t, paste("n = ", q26_n))
+```
+
+```{r}
+dir.create("output/q26_apps_websites")
+ggsave(filename = 'output/q26_apps_websites/q26_apps_websites.png', plot = r26, device = 'png')
+write.csv(q26_plot2, paste0("output/q26_apps_websites/q26_apps_websites_", q26_n,".csv"), row.names=F)
+write.csv(q26_data, 'output/q26_apps_websites/q26_apps_websites_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q27 <- "Which.of.the.apps.websites.is.your.primary.source.of.cannabis.information..PleaseÂ.select.one."
+q27_t <- "Which of the apps/websites is your primary source 
+of cannabis information? Please select one."
+q27_data <- get_single_selection(data = raw_data, q.name = q27)
+q27_n <- length(unique(q27_data$id))
+q27_plot <- clean_single_select(q27_data)
+r27 <- plot_single_select(q27_plot, q27_t, q27_n)
+r27
+```
+
+```{r}
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
+dir.create("output/q27_top_app_website")
+ggsave(filename = 'output/q27_top_app_website/q27_top_app_website.png', plot = r27, device = 'png')
+write.csv(q27_plot2, paste0("output/q27_top_app_website/q27_top_app_website_", q27_n,".csv"), row.names=F)
+```
+
+```{r}
+q28 <- "Since.the.COVID.19.pandemic.started..has.any.of.the.following.impacted.your.life...check.all.that.apply."
+q28_final_response <- "X.155"
+q28_t  <- "Since the COVID-19 pandemic started, has 
+any of the following impacted your life? 
+Check all that apply."
+q28_data <- get_choose_all(raw_data, q.name = q28, f.response = q28_final_response) %>%
+  tidy_choose_all()
+q28_n <- length(unique(q28_data$id))
+q28_plot <- clean_choose_all(q28_data, q28_n)
+r28 <- plot_choose_all(q28_plot, q28_t, q28_n)
+r28
+```
+
+```{r}
+row3 <- colnames(q28_plot)
+q28_plot2 <- rbind(row3, q28_plot)
+names(q28_plot2) <- c("q28", q28_t, paste("n = ", q28_n))
+```
+
+```{r}
+dir.create("output/q28_covid_impact")
+ggsave(filename = 'output/q28_covid_impact/q28_covid_impact.png', plot = r28, device = 'png')
+write.csv(q28_plot2, paste0("output/q28_covid_impact/q28_covid_impact_", q28_n,".csv"), row.names=F)
+write.csv(q28_data, 'output/q28_covid_impact/q28_covid_impact_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q29 <- "Do.you.currently.have.any.symptoms.of.COVID.19..Please.check.all.that.apply"
+q29_final_response <- "X.164"
+q29_t  <- "Do you currently have any symptoms of COVID-19? 
+Please check all that apply."
+q29_data <- get_choose_all(raw_data, q.name = q29, f.response = q29_final_response) %>%
+  tidy_choose_all()
+q29_n <- length(unique(q29_data$id))
+q29_plot <- clean_choose_all(q29_data, q29_n)
+r29 <- plot_choose_all(q29_plot, q29_t, q29_n)
+r29
+```
+
+```{r}
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n))
+```
+
+```{r}
+dir.create("output/q29_covid_symptoms")
+ggsave(filename = 'output/q29_covid_symptoms/q29_covid_symptoms.png', plot = r29, device = 'png')
+write.csv(q29_plot2, paste0("output/q29_covid_symptoms/q29_covid_symptoms_", q29_n,".csv"), row.names=F)
+write.csv(q29_data, 'output/q29_covid_symptoms/q29_covid_symptoms_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q30 <- "Do.you.know.if.you.have.been.infected.with.COVID.19.and.received.test.results.confirming.COVID.19.infection."
+q30_t <- "Do you know if you have been infected with COVID-19 and 
+received test results confirming COVID-19 infection?"
+q30_data <- get_single_selection(data = raw_data, q.name = q30)
+q30_n <- length(unique(q30_data$id))
+q30_plot <- clean_single_select(q30_data)
+r30 <- plot_single_select(q30_plot, q30_t, q30_n)
+r30
+```
+
+```{r}
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
+dir.create("output/q30_covid_test")
+ggsave(filename = 'output/q30_covid_test/q30_covid_test.png', plot = r30, device = 'png')
+write.csv(q30_plot2, paste0("output/q30_covid_test/q30_covid_test_", q30_n,".csv"), row.names=F)
+```
+
+```{r}
+q31 <- "Do.you.think.you.have.or.have.had.COVID.19.but.been.unable.to.access.testing."
+q31_t <- "Do you think you have or have had COVID 19 
+but been unable to access testing?"
+q31_data <- get_single_selection(data = raw_data, q.name = q31)
+q31_n <- length(unique(q31_data$id))
+q31_plot <- clean_single_select(q31_data)
+r31 <- plot_single_select(q31_plot, q31_t, q31_n)
+r31
+```
+
+```{r}
+row3 <- colnames(q31_plot)
+q31_plot2 <- rbind(row3, q31_plot)
+names(q31_plot2) <- c("q31", q31_t, paste("n = ", q31_n))
+```
+
+```{r}
+dir.create("output/q31_testing_access")
+ggsave(filename = 'output/q31_testing_access/q31_testing_access.png', plot = r31, device = 'png')
+write.csv(q31_plot2, paste0("output/q31_testing_access/q31_testing_access_", q31_n,".csv"), row.names=F)
+```
+
+```{r}
+q32 <- "Has.your.cannabis.use.changed.since.the.COVID.19.pandemic.in.any.of.the.following.ways...Please.select.all.that.apply."
+q32_final_response <- "X.173"
+q32_t  <- "Has your cannabis use changed since the 
+COVID-19 pandemic in any of the following
+ways? Please select all that apply."
+q32_data <- get_choose_all(raw_data, q.name = q32, f.response = q32_final_response) %>%
+  tidy_choose_all()
+q32_n <- length(unique(q32_data$id))
+q32_plot <- clean_choose_all(q32_data, q32_n)
+r32 <- plot_choose_all(q32_plot, q32_t, q32_n)
+r32
+```
+
+```{r}
+row3 <- colnames(q32_plot)
+q32_plot2 <- rbind(row3, q32_plot)
+names(q32_plot2) <- c("q32", q32_t, paste("n = ", q32_n))
+```
+
+```{r}
+dir.create("output/q32_use_since_covid")
+ggsave(filename = 'output/q32_use_since_covid/q32_use_since_covid.png', plot = r32, device = 'png')
+write.csv(q32_plot2, paste0("output/q32_use_since_covid/q32_use_since_covid_", q32_n,".csv"), row.names=F)
+write.csv(q32_data, 'output/q32_use_since_covid/q32_use_since_covid_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q33 <- "Has.COVID.19.impacted.how.you.purchase.cannabis...please.select.all.that.apply."
+q33_final_response <- "X.182"
+q33_t  <- "Has 
+COVID-19 
+impacted 
+how you 
+purchase 
+cannabis? please select all that apply."
+q33_data <- get_choose_all(raw_data, q.name = q33, f.response = q33_final_response) %>%
+  tidy_choose_all()
+q33_n <- length(unique(q33_data$id))
+q33_plot <- clean_choose_all(q33_data, q33_n)
+r33 <- plot_choose_all(q33_plot, q33_t, q33_n)
+r33
+```
+
+```{r}
+row3 <- colnames(q33_plot)
+q33_plot2 <- rbind(row3, q33_plot)
+names(q33_plot2) <- c("q33", q33_t, paste("n = ", q33_n))
+```
+
+```{r}
+dir.create("output/q33_purchases_since_covid")
+ggsave(filename = 'output/q33_purchases_since_covid/q33_purchases_since_covid.png', plot = r33, device = 'png')
+write.csv(q33_plot2, paste0("output/q33_purchases_since_covid/q33_purchases_since_covid_", q33_n,".csv"), row.names=F)
+write.csv(q33_data, 'output/q33_purchases_since_covid/q33_purchases_since_covid_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q34 <- "Has.COVID.19.impacted.any.of.the.following.for.you.personally...please.select.all.that.apply."
+q34_final_response <- "X.193"
+q34_t  <- "Has COVID-19 impacted any of the following 
+for you personally? Please select all 
+that apply."
+q34_data <- get_choose_all(raw_data, q.name = q34, f.response = q34_final_response) %>%
+  tidy_choose_all()
+q34_n <- length(unique(q34_data$id))
+q34_plot <- clean_choose_all(q34_data, q34_n)
+r34 <- plot_choose_all(q34_plot, q34_t, q34_n)
+r34
+```
+
+```{r}
+row3 <- colnames(q34_plot)
+q34_plot2 <- rbind(row3, q34_plot)
+names(q34_plot2) <- c("q34", q34_t, paste("n = ", q34_n))
+```
+
+```{r}
+dir.create("output/q34_covid_impact_personal")
+ggsave(filename = 'output/q34_covid_impact_personal/q34_covid_impact_personal.png', plot = r34, device = 'png')
+write.csv(q34_plot2, paste0("output/q34_covid_impact_personal/q34_covid_impact_personal_", q34_n,".csv"), row.names=F)
+write.csv(q34_data, 'output/q34_covid_impact_personal/q34_covid_impact_personal_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q35 <- "Are.you.currently.observing.state.mandated.stay.at.home.advisories."
+q35_t <- "Are you currently observing state mandated stay at home advisories?"
+q35_data <- get_single_selection(data = raw_data, q.name = q35)
+q35_n <- length(unique(q35_data$id))
+q35_plot <- clean_single_select(q35_data)
+r35 <- plot_single_select(q35_plot, q35_t, q35_n)
+r35
+```
+
+```{r}
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n))
+```
+
+```{r}
+dir.create("output/q35_stay_at_home_advisory")
+ggsave(filename = 'output/q35_stay_at_home_advisory/q35_stay_at_home_advisory.png', plot = r35, device = 'png')
+write.csv(q35_plot2, paste0("output/q35_stay_at_home_advisory/q35_stay_at_home_advisory_", q35_n,".csv"), row.names=F)
+```
+
+```{r}
+q36 <- "Are.you.classified.as.an.essential.worker.in.your.state."
+q36_t <- "Are you classified as an essential worker in your state?"
+q36_data <- get_single_selection(data = raw_data, q.name = q36)
+q36_n <- length(unique(q36_data$id))
+q36_plot <- clean_single_select(q36_data)
+r36 <- plot_single_select(q36_plot, q36_t, q36_n)
+r36
+```
+
+```{r}
+row3 <- colnames(q36_plot)
+q36_plot2 <- rbind(row3, q36_plot)
+names(q36_plot2) <- c("q36", q36_t, paste("n = ", q36_n))
+```
+
+```{r}
+dir.create("output/q36_essential_workers")
+ggsave(filename = 'output/q36_essential_workers/q36_essential_workers.png', plot = r36, device = 'png')
+write.csv(q36_plot2, paste0("output/q36_essential_workers/q36_essential_workers_", q36_n,".csv"), row.names=F)
+```
+
+```{r}
+q37 <- "After.the.start.of.COVID.19..have.you.changed.the.way.you.consume.cannabis.with.others."
+q37_t <- "After the start of COVID-19 have 
+you changed the way you 
+consume cannabis with others?"
+q37_data <- get_single_selection(data = raw_data, q.name = q37)
+q37_n <- length(unique(q37_data$id))
+q37_plot <- clean_single_select(q37_data)
+r37 <- plot_single_select(q37_plot, q37_t, q37_n)
+r37
+```
+
+```{r}
+row3 <- colnames(q37_plot)
+q37_plot2 <- rbind(row3, q37_plot)
+names(q37_plot2) <- c("q37", q37_t, paste("n = ", q37_n))
+```
+
+```{r}
+dir.create("output/q37_consumption_post_covid")
+ggsave(filename = 'output/q37_consumption_post_covid/q37_consumption_post_covid.png', plot = r37, device = 'png')
+write.csv(q37_plot2, paste0("output/q37_consumption_post_covid/q37_consumption_post_covid_", q37_n,".csv"), row.names=F)
+```
+
+```{r}
+q38 <- "Since.COVID.19.started..have.you.started.growing.cannabis.at.home."
+q38_t <- "Since COVID-19 started, have you started growing cannabis at home?"
+q38_data <- get_single_selection(data = raw_data, q.name = q38)
+q38_n <- length(unique(q38_data$id))
+q38_plot <- clean_single_select(q38_data)
+r38 <- plot_single_select(q38_plot, q38_t, q38_n)
+r38
+```
+
+```{r}
+row3 <- colnames(q38_plot)
+q38_plot2 <- rbind(row3, q38_plot)
+names(q38_plot2) <- c("q38", q38_t, paste("n = ", q38_n))
+```
+
+```{r}
+dir.create("output/q38_home_grow_since_covid")
+ggsave(filename = 'output/q38_home_grow_since_covid/q38_home_grow_since_covid.png', plot = r38, device = 'png')
+write.csv(q38_plot2, paste0("output/q38_home_grow_since_covid/q38_home_grow_since_covid_", q38_n,".csv"), row.names=F)
+```
+
+```{r}
+q39 <- "PRIOR.to.COVID.19..what.were.some.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
+q39_final_response <- "X.205"
+q39_t  <- "PRIOR to COVID-19, what were some barriers for you 
+consuming cannabis? Please select all that apply."
+q39_data <- get_choose_all(raw_data, q.name = q39, f.response = q39_final_response) %>%
+  tidy_choose_all()
+q39_n <- length(unique(q39_data$id))
+q39_plot <- clean_choose_all(q39_data, q39_n)
+r39 <- plot_choose_all(q39_plot, q39_t, q39_n)
+r39
+```
+
+```{r}
+row3 <- colnames(q39_plot)
+q39_plot2 <- rbind(row3, q39_plot)
+names(q39_plot2) <- c("q39", q39_t, paste("n = ", q39_n))
+```
+
+```{r}
+dir.create("output/q39_barriers_prior_covid")
+ggsave(filename = 'output/q39_barriers_prior_covid/q39_barriers_prior_covid.png', plot = r39, device = 'png')
+write.csv(q39_plot2, paste0("output/q39_barriers_prior_covid/q39_barriers_prior_covid_", q39_n,".csv"), row.names=F)
+write.csv(q39_data, 'output/q39_barriers_prior_covid/q39_barriers_prior_covid_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q40 <- "After.the.start.of.COVID.19..whatÂ.areÂ.currentÂ.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
+q40_final_response <- "X.214"
+q40_t  <- "After the start of COVID-19, what are current barriers for you 
+consuming cannabis? Please select all that apply."
+q40_data <- get_choose_all(raw_data, q.name = q40, f.response = q40_final_response) %>%
+  tidy_choose_all()
+q40_n <- length(unique(q40_data$id))
+q40_plot <- clean_choose_all(q40_data, q40_n)
+r40 <- plot_choose_all(q40_plot, q40_t, q40_n)
+r40
+```
+
+```{r}
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
+dir.create("output/q40_barriers_post_covid")
+ggsave(filename = 'output/q40_barriers_post_covid/q40_barriers_post_covid.png', plot = r40, device = 'png')
+write.csv(q40_plot2, paste0("output/q40_barriers_post_covid/q40_barriers_post_covid_", q40_n,".csv"), row.names=F)
+write.csv(q40_data, 'output/q40_barriers_post_covid/q40_barriers_post_covid_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q41 <- "Do.you.think.that.cannabis.should.be.covered.by.health.insurance."
+q41_t <- "Do you think that cannabis should be covered by health insurance?"
+q41_data <- get_single_selection(data = raw_data, q.name = q41)
+q41_n <- length(unique(q41_data$id))
+q41_plot <- clean_single_select(q41_data)
+r41 <- plot_single_select(q41_plot, q41_t, q41_n)
+r41
+```
+
+```{r}
+row3 <- colnames(q41_plot)
+q41_plot2 <- rbind(row3, q41_plot)
+names(q41_plot2) <- c("q41", q41_t, paste("n = ", q41_n))
+```
+
+```{r}
+dir.create("output/q41_cannabis_covered_insurance")
+ggsave(filename = 'output/q41_cannabis_covered_insurance/q41_cannabis_covered_insurance.png', plot = r41, device = 'png')
+write.csv(q41_plot2, paste0("output/q41_cannabis_covered_insurance/q41_cannabis_covered_insurance_", q41_n,".csv"), row.names=F)
+```
+
+```{r}
+q42 <- "How.long.have.you.been.using.cannabis.forÂ.recreational.purposes."
+q42_t <- "How long have you been using cannabis for 
+recreational purposes?"
+q42_data <- get_single_selection(data = raw_data, q.name = q42)
+q42_n <- length(unique(q42_data$id))
+q42_plot <- clean_single_select(q42_data)
+r42 <- plot_single_select(q42_plot, q42_t, q42_n)
+r42
+```
+
+```{r}
+row3 <- colnames(q42_plot)
+q42_plot2 <- rbind(row3, q42_plot)
+names(q42_plot2) <- c("q42", q42_t, paste("n = ", q42_n))
+```
+
+```{r}
+dir.create("output/q42_rec_cannabis_use_duration")
+ggsave(filename = 'output/q42_rec_cannabis_use_duration/q42_rec_cannabis_use_duration.png', plot = r42, device = 'png')
+write.csv(q42_plot2, paste0("output/q42_rec_cannabis_use_duration/q42_rec_cannabis_use_duration_", q42_n,".csv"), row.names=F)
+```
+
+```{r}
+q43 <- "How.long.have.you.been.using.cannabis.for.medical.purposes."
+q43_t <- "How long have you been using cannabis for 
+medical purposes?"
+q43_data <- get_single_selection(data = raw_data, q.name = q43)
+q43_n <- length(unique(q43_data$id))
+q43_plot <- clean_single_select(q43_data)
+r43 <- plot_single_select(q43_plot, q43_t, q43_n)
+r43
+```
+
+```{r}
+row3 <- colnames(q43_plot)
+q43_plot2 <- rbind(row3, q43_plot)
+names(q43_plot2) <- c("q43", q43_t, paste("n = ", q43_n))
+```
+
+```{r}
+dir.create("output/q43_med_cannabis_use_duration")
+ggsave(filename = 'output/q43_med_cannabis_use_duration/q43_med_cannabis_use_duration.png', plot = r43, device = 'png')
+write.csv(q43_plot2, paste0("output/q43_med_cannabis_use_duration/q43_med_cannabis_use_duration_", q43_n,".csv"), row.names=F)
+```
+
+```{r}
+q44 <- "What.is.your.age..in.years..Â."
+q44_t <- "What is your age? (in years)"
+q44_data <- get_single_selection_0(data = raw_data, q.name = q44) %>%
+  filter(response != "")
+q44_n <- length(unique(q44_data$id))
+q44_mean_data <- as.numeric(as.character(q44_data$response))
+q44_mean <- mean(q44_mean_data) %>%
+  round(3) %>%
+  print()
+q44_plot <- clean_single_select(q44_data)
+r44 <- plot_single_select_0(q44_plot, q44_t, q44_n, q44_mean)
+r44
+```
+
+```{r}
+row3 <- colnames(q44_plot)
+q44_plot2 <- rbind(row3, q44_plot)
+names(q44_plot2) <- c("q44", q44_t, paste("n = ", q44_n, paste(" avg = ", q44_mean)))
+```
+
+```{r}
+dir.create("output/q44_age")
+ggsave(filename = 'output/q44_age/q44_age.png', plot = r44, device = 'png')
+write.csv(q44_plot2, paste0("output/q44_age/q44_age_", q44_n,".csv"), row.names=F)
+write.csv(q44_data, 'output/q44_age/q44_age_ids.csv', row.names = FALSE)
+```
+
+```{r}
+q45 <- 'What.US.state.do.you.live.in.'
+q45_final_response <- "X.219"
+q45_t <- "What US state do you live in?"
+q45_data <- get_choose_all(raw_data, q.name = q45, f.response = q45_final_response)
+dir.create("output/q45_state")
+```
+
+```{r}
+q45_data1 <- get_single_selection_3(q45_data, "State/Province") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q45_n1 <- tally(q45_data1, count)
+q45_t1 <- "State"
+q45_r1 <- plot_single_select(q45_data1, q45_t1, q45_n1)
+q45_r1
+```
+
+```{r}
+ggsave(filename = "output/q45_state/q45_state.png", plot = q45_r1, device = 'png')
+write.csv(q45_data1, paste0("output/q45_state/q45_state_", q45_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q46 <- 'What.country.do.you.live.in.Â.'
+q46_final_response <- "X.230"
+q46_t <- "What country do you live in?"
+q46_data <- get_choose_all(raw_data, q.name = q46, f.response = q46_final_response)
+dir.create("output/q46_country")
+```
+
+```{r}
+q46_data1 <- get_single_selection_3(q46_data, "Country") %>%
+  filter(response != "") %>%
+  clean_single_select()
+q46_n1 <- tally(q46_data1, count)
+q46_t1 <- "Country"
+q46_r1 <- plot_single_select(q46_data1, q46_t1, q46_n1)
+q46_r1
+```
+
+```{r}
+ggsave(filename = "output/q46_country/q46_country.png", plot = q46_r1, device = 'png')
+write.csv(q46_data1, paste0("output/q46_country/q46_country_", q46_n1, ".csv"), row.names = FALSE)
+```
+
+```{r}
+q47 <- "What.is.your.annual.household.income.in....USD.."
+q47_t <- "What is your annual household income in $ (USD)?"
+q47_data <- get_single_selection_0(data = raw_data, q.name = q47)
+q47_n <- length(unique(q47_data$id))
+q47_plot <- clean_single_select(q47_data)
+r47 <- plot_single_select(q47_plot, q47_t, q47_n)
+r47
+```
+
+```{r}
+row3 <- colnames(q47_plot)
+q47_plot2 <- rbind(row3, q47_plot)
+names(q47_plot2) <- c("q47", q47_t, paste("n = ", q47_n))
+```
+
+```{r}
+dir.create("output/q47_income")
+ggsave(filename = 'output/q47_income/q47_income.png', plot = r47, device = 'png')
+write.csv(q47_plot2, paste0("output/q47_income/q47_income_", q47_n,".csv"), row.names=F)
+```
+
+```{r}
+q48 <- "What.is.the.highest.degree.or.level.of.school.you.have.completed..If.you.are.currently.enrolled.in.school..please.indicate.the.highest.degree.you.have.received."
+q48_t <- "What is the highest degree or level of school you have 
+completed? If you are currently enrolled in school, please 
+indicate the highest degree you have recieved."
+q48_data <- get_single_selection(data = raw_data, q.name = q48)
+q48_n <- length(unique(q48_data$id))
+q48_plot <- clean_single_select(q48_data)
+r48 <- plot_single_select(q48_plot, q48_t, q48_n)
+r48
+```
+
+```{r}
+row3 <- colnames(q48_plot)
+q48_plot2 <- rbind(row3, q48_plot)
+names(q48_plot2) <- c("q48", q48_t, paste("n = ", q48_n))
+```
+
+```{r}
+dir.create("output/q48_degree")
+ggsave(filename = 'output/q48_degree/q48_degree.png', plot = r48, device = 'png')
+write.csv(q48_plot2, paste0("output/q48_degree/q48_degree_", q48_n,".csv"), row.names=F)
+```
+
+```{r}
+q49 <- "What.is.your.marital.status."
+q49_t <- "What is your marital status?"
+q49_data <- get_single_selection(data = raw_data, q.name = q49)
+q49_n <- length(unique(q49_data$id))
+q49_plot <- clean_single_select(q49_data)
+r49 <- plot_single_select(q49_plot, q49_t, q49_n)
+r49
+```
+
+```{r}
+row3 <- colnames(q49_plot)
+q49_plot2 <- rbind(row3, q49_plot)
+names(q49_plot2) <- c("q49", q49_t, paste("n = ", q49_n))
+```
+
+```{r}
+dir.create("output/q49_marital_status")
+ggsave(filename = 'output/q49_marital_status/q49_marital_status.png', plot = r49, device = 'png')
+write.csv(q49_plot2, paste0("output/q49_marital_status/q49_marital_status_", q49_n,".csv"), row.names=F)
+```
+
+```{r}
+q50 <- "Do.you.consider.yourself.disabled."
+q50_t <- "Do you consider yourself disabled?"
+q50_data <- get_single_selection(data = raw_data, q.name = q50)
+q50_n <- length(unique(q50_data$id))
+q50_plot <- clean_single_select(q50_data)
+r50 <- plot_single_select(q50_plot, q50_t, q50_n)
+r50
+```
+
+```{r}
+row3 <- colnames(q50_plot)
+q50_plot2 <- rbind(row3, q50_plot)
+names(q50_plot2) <- c("q50", q50_t, paste("n = ", q50_n))
+```
+
+```{r}
+dir.create("output/q50_disability")
+ggsave(filename = 'output/q50_disability/q50_disability.png', plot = r50, device = 'png')
+write.csv(q50_plot2, paste0("output/q50_disability/q50_disability_", q50_n,".csv"), row.names=F)
+```
+
+```{r}
+q51 <- "Are.you.an.active.service.member.of.the.US.military."
+q51_t <- "Are you an active service member of the US military?"
+q51_data <- get_single_selection(data = raw_data, q.name = q51)
+q51_n <- length(unique(q51_data$id))
+q51_plot <- clean_single_select(q51_data)
+r51 <- plot_single_select(q51_plot, q51_t, q51_n)
+r51
+```
+
+```{r}
+row3 <- colnames(q51_plot)
+q51_plot2 <- rbind(row3, q51_plot)
+names(q51_plot2) <- c("q51", q51_t, paste("n = ", q51_n))
+```
+
+```{r}
+dir.create("output/q51_active_military_service")
+ggsave(filename = 'output/q51_active_military_service/q51_active_military_service.png', plot = r51, device = 'png')
+write.csv(q51_plot2, paste0("output/q51_active_military_service/q51_active_military_service_", q51_n,".csv"), row.names=F)
+```
+
+```{r}
+q52 <- "Are.you.a.US.Military.veteran.Â."
+q52_t <- "Are you a US Military veteran?"
+q52_data <- get_single_selection(data = raw_data, q.name = q52)
+q52_n <- length(unique(q52_data$id))
+q52_plot <- clean_single_select(q52_data)
+r52 <- plot_single_select(q52_plot, q52_t, q52_n)
+r52
+```
+
+```{r}
+row3 <- colnames(q52_plot)
+q52_plot2 <- rbind(row3, q52_plot)
+names(q52_plot2) <- c("q52", q52_t, paste("n = ", q52_n))
+```
+
+```{r}
+dir.create("output/q52_veteran")
+ggsave(filename = 'output/q52_veteran/q52_veteran.png', plot = r52, device = 'png')
+write.csv(q52_plot2, paste0("output/q52_veteran/q52_veteran_", q52_n,".csv"), row.names=F)
+```
+
+```{r}
+q53 <- "What.is.your.current.employment.status."
+q53_t <- "What is your current employment status?"
+q53_data <- get_single_selection(data = raw_data, q.name = q53)
+q53_n <- length(unique(q53_data$id))
+q53_plot <- clean_single_select(q53_data)
+r53 <- plot_single_select(q53_plot, q53_t, q53_n)
+r53
+```
+
+```{r}
+row3 <- colnames(q53_plot)
+q53_plot2 <- rbind(row3, q53_plot)
+names(q53_plot2) <- c("q53", q53_t, paste("n = ", q53_n))
+```
+
+```{r}
+dir.create("output/q53_employment")
+ggsave(filename = 'output/q53_employment/q53_employment.png', plot = r53, device = 'png')
+write.csv(q53_plot2, paste0("output/q53_employment/q53_employment_", q53_n,".csv"), row.names=F)
+```
+
+```{r}
+q54 <- "Which.of.the.following.best.represents.your.ethnic.heritage."
+q54_t <- "Which of the following best represents 
+your ethnic heritage?"
+q54_data <- get_single_selection(data = raw_data, q.name = q54)
+q54_n <- length(unique(q54_data$id))
+q54_plot <- clean_single_select(q54_data)
+r54 <- plot_single_select(q54_plot, q54_t, q54_n)
+r54
+```
+
+```{r}
+row3 <- colnames(q54_plot)
+q54_plot2 <- rbind(row3, q54_plot)
+names(q54_plot2) <- c("q54", q54_t, paste("n = ", q54_n))
+```
+
+```{r}
+dir.create("output/q54_ethnic_heritage")
+ggsave(filename = 'output/q54_ethnic_heritage/q54_ethnic_heritage.png', plot = r54, device = 'png')
+write.csv(q54_plot2, paste0("output/q54_ethnic_heritage/q54_ethnic_heritage_", q54_n,".csv"), row.names=F)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q32 <- "Has.your.cannabis.use.changed.since.the.COVID.19.pandemic.in.any.of.the.following.ways...Please.select.all.that.apply."
-q32_final_response <- "X.176"
+q32_final_response <- "X.173"
 q32_t  <- "Has your cannabis use changed since the 
 COVID-19 pandemic in any of the following
 ways? Please select all that apply."

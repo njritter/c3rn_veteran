@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q26 <- "Which.apps.websites.do.you.use.to.get.information.on.cannabis..Please.check.all.that.apply."
-q26_final_response <- "X.139"
+q26_final_response <- "X.137"
 q26_t  <- "Which apps/websites do you use to get information on cannabis? 
 Please check all that apply."
 q26_data <- get_choose_all(raw_data, q.name = q26, f.response = q26_final_response) %>%

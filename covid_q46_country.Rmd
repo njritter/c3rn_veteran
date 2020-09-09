@@ -19,7 +19,7 @@ raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 
 ```{r}
 q46 <- 'What.country.do.you.live.in.Â.'
-q46_final_response <- "X.229"
+q46_final_response <- "X.230"
 q46_t <- "What country do you live in?"
 q46_data <- get_choose_all(raw_data, q.name = q46, f.response = q46_final_response)
 dir.create("output/q46_country")
