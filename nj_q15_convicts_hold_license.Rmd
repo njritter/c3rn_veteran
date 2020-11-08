@@ -1,0 +1,42 @@
+---
+title: "q15 'Those previously convicted of cannabis crimes should not be able to participate in the legal cannabis industry as business owners and license holders.'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q15 <- "Those.previously.convicted.of.cannabis.crimes.should.not.be.able.to.participate.in.the.legal.cannabis.industry.as.business.owners.and.license.holders."
+q15_t <- "Those previously convicted of cannabis crimes should not be
+able to participate in the legal cannabis industry as business 
+owners and license holders."
+q15_data <- get_single_selection(data = raw_data, q.name = q15)
+q15_n <- length(unique(q15_data$id))
+q15_plot <- clean_single_select(q15_data)
+r15 <- plot_single_select(q15_plot, q15_t, q15_n)
+r15
+```
+
+```{r}
+row3 <- colnames(q15_plot)
+q15_plot2 <- rbind(row3, q15_plot)
+names(q15_plot2) <- c("q15", q15_t, paste("n = ", q15_n))
+```
+
+```{r}
+dir.create("output/q15_convicts_hold_license")
+ggsave(filename = 'output/q15_convicts_hold_license/q15_convicts_hold_license.png', plot = r15, device = 'png')
+write.csv(q15_plot2, paste0("output/q15_convicts_hold_license/q15_convicts_hold_license_", q15_n,".csv"), row.names=F)
+```

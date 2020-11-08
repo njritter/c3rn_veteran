@@ -1,0 +1,42 @@
+---
+title: "q14 'Those previously convicted of cannabis crimes should not be able to participate in the legal cannabis industry as part of the workforce.' "
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q14 <- "Those.previously.convicted.of.cannabis.crimes.should.not.be.able.to.participate.in.the.legal.cannabis.industry.as.part.of.the.workforce."
+q14_t <- "Those previously convicted of cannabis crimes should not be 
+able to participate in the legal cannabis industry as part of the 
+workforce."
+q14_data <- get_single_selection(data = raw_data, q.name = q14)
+q14_n <- length(unique(q14_data$id))
+q14_plot <- clean_single_select(q14_data)
+r14 <- plot_single_select(q14_plot, q14_t, q14_n)
+r14
+```
+
+```{r}
+row3 <- colnames(q14_plot)
+q14_plot2 <- rbind(row3, q14_plot)
+names(q14_plot2) <- c("q14", q14_t, paste("n = ", q14_n))
+```
+
+```{r}
+dir.create("output/q14_cannabis_convicts_in_industry")
+ggsave(filename = 'output/q14_cannabis_convicts_in_industry/q14_cannabis_convicts_in_industry.png', plot = r14, device = 'png')
+write.csv(q14_plot2, paste0("output/q14_cannabis_convicts_in_industry/q14_cannabis_convicts_in_industry_", q14_n,".csv"), row.names=F)
+```

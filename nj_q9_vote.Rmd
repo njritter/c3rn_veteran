@@ -1,0 +1,40 @@
+---
+title: "q9 'How will you be voting on the upcoming ballot question in November? Please select one."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q9 <- "How.will.you.be.voting.on.the.upcoming.ballot.question.in.November..Please.select.one."
+q9_t <- "How will you be voting on the upcoming ballot question in November? Please select one."
+q9_data <- get_single_selection(data = raw_data, q.name = q9)
+q9_n <- length(unique(q9_data$id))
+q9_plot <- clean_single_select(q9_data)
+r9 <- plot_single_select(q9_plot, q9_t, q9_n)
+r9
+```
+
+```{r}
+row3 <- colnames(q9_plot)
+q9_plot2 <- rbind(row3, q9_plot)
+names(q9_plot2) <- c("q9", q9_t, paste("n = ", q9_n))
+```
+
+```{r}
+dir.create("output/q9_vote")
+ggsave(filename = 'output/q9_vote/q9_vote.png', plot = r9, device = 'png')
+write.csv(q9_plot2, paste0("output/q9_vote/q9_vote_", q9_n,".csv"), row.names=F)
+```

@@ -1,0 +1,41 @@
+---
+title: "q17 'New Jersey should prioritize expungement of prior cannabis convictions."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q17 <- "New.Jersey.should.prioritize.expungement.of.prior.cannabis.convictions."
+q17_t <- "New Jersey should prioritize expungement of prior 
+cannabis convictions."
+q17_data <- get_single_selection(data = raw_data, q.name = q17)
+q17_n <- length(unique(q17_data$id))
+q17_plot <- clean_single_select(q17_data)
+r17 <- plot_single_select(q17_plot, q17_t, q17_n)
+r17
+```
+
+```{r}
+row3 <- colnames(q17_plot)
+q17_plot2 <- rbind(row3, q17_plot)
+names(q17_plot2) <- c("q17", q17_t, paste("n = ", q17_n))
+```
+
+```{r}
+dir.create("output/q17_expunge_cannabis_convictions")
+ggsave(filename = 'output/q17_expunge_cannabis_convictions/q17_expunge_cannabis_convictions.png', plot = r17, device = 'png')
+write.csv(q17_plot2, paste0("output/q17_expunge_cannabis_convictions/q17_expunge_cannabis_convictions_", q17_n,".csv"), row.names=F)
+```

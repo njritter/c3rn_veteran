@@ -1,0 +1,41 @@
+---
+title: "Q6: 'How do you think legalizing cannabis will change/affect racial and ethnic disparities in the criminal justice system in New Jersey?"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q6 <- "How.do.you.think.legalizing.cannabis.will.change.affect.racial.and.ethnic.disparities.in.the.criminal.justice.system.in.New.Jersey."
+q6_t <- "How do you think legalizing cannabis will change/affect racial and ethnic
+disparities in the criminal justice system in New Jersey?"
+q6_data <- get_single_selection(data = raw_data, q.name = q6)
+q6_n <- length(unique(q6_data$id))
+q6_plot <- clean_single_select(q6_data)
+r6 <- plot_single_select(q6_plot, q6_t, q6_n)
+r6
+```
+
+```{r}
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
+dir.create("output/q6_affect_race")
+ggsave(filename = 'output/q6_affect_race/q6_affect_race.png', plot = r6, device = 'png')
+write.csv(q6_plot2, paste0("output/q6_affect_race/q6_affect_race_", q6_n,".csv"), row.names=F)
+```

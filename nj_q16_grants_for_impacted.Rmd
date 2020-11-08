@@ -1,0 +1,43 @@
+---
+title: "q16 'New Jersey should implement a loan or grant fund to support those negatively impacted by the drug war for non felony related cannabis convictions to have access to capital to enter the industry.'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q16 <- "New.Jersey.should.implement.a.loan.or.grant.fund.to.support.those.negatively.impacted.by.the.drug.war.for.non.felony.related.cannabis.convictions.to.have.access.to.capital.to.enter.the.industry."
+q16_t <- "New Jersey should implement a loan or grant fund to support
+those negatively impacted by the drug war for non felony related
+cannabis convictions to have access to capital to enter 
+the industry."
+q16_data <- get_single_selection(data = raw_data, q.name = q16)
+q16_n <- length(unique(q16_data$id))
+q16_plot <- clean_single_select(q16_data)
+r16 <- plot_single_select(q16_plot, q16_t, q16_n)
+r16
+```
+
+```{r}
+row3 <- colnames(q16_plot)
+q16_plot2 <- rbind(row3, q16_plot)
+names(q16_plot2) <- c("q16", q16_t, paste("n = ", q16_n))
+```
+
+```{r}
+dir.create("output/q16_grants_for_impacted")
+ggsave(filename = 'output/q16_grants_for_impacted/q16_grants_for_impacted.png', plot = r16, device = 'png')
+write.csv(q16_plot2, paste0("output/q16_grants_for_impacted/q16_grants_for_impacted_", q16_n,".csv"), row.names=F)
+```

@@ -1,0 +1,41 @@
+---
+title: "q21 'Legalization will not alleviate the societal impacts created by the War on Drugs.'"
+author: "David Ritter"
+date: "11/7/2121"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q21 <- "Legalization.will.not.alleviate.the.societal.impacts.created.by.the.War.on.Drugs."
+q21_t <- "Legalization will not alleviate the societal impacts created
+by the War on Drugs."
+q21_data <- get_single_selection(data = raw_data, q.name = q21)
+q21_n <- length(unique(q21_data$id))
+q21_plot <- clean_single_select(q21_data)
+r21 <- plot_single_select(q21_plot, q21_t, q21_n)
+r21
+```
+
+```{r}
+row3 <- colnames(q21_plot)
+q21_plot2 <- rbind(row3, q21_plot)
+names(q21_plot2) <- c("q21", q21_t, paste("n = ", q21_n))
+```
+
+```{r}
+dir.create("output/q21_legalization_impact_drug_war")
+ggsave(filename = 'output/q21_legalization_impact_drug_war/q21_legalization_impact_drug_war.png', plot = r21, device = 'png')
+write.csv(q21_plot2, paste0("output/q21_legalization_impact_drug_war/q21_legalization_impact_drug_war_", q21_n,".csv"), row.names=F)
+```

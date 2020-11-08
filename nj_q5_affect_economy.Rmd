@@ -1,0 +1,41 @@
+---
+title: "Q5 Economic affect: 'How do you think legalizing cannabis would affect the economic conditions of New Jersey?'"
+author: "David Ritter"
+date: "10/22/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q5 <- "How.do.you.think.legalizing.cannabis.would.affect.the.economic.conditions.of.New.Jersey."
+q5_t <- "How do you think legalizing cannabis would affect the economic
+conditions of New Jersey?"
+q5_data <- get_single_selection(data = raw_data, q.name = q5)
+q5_n <- length(unique(q5_data$id))
+q5_plot <- clean_single_select(q5_data)
+r5 <- plot_single_select(q5_plot, q5_t, q5_n)
+r5
+```
+
+```{r}
+row3 <- colnames(q5_plot)
+q5_plot2 <- rbind(row3, q5_plot)
+names(q5_plot2) <- c("q5", q5_t, paste("n = ", q5_n))
+```
+
+```{r}
+dir.create("output/q5_affect_economy")
+ggsave(filename = 'output/q5_affect_economy/q5_affect_economy.png', plot = r5, device = 'png')
+write.csv(q5_plot2, paste0("output/q5_affect_economy/q5_affect_economy_", q5_n,".csv"), row.names=F)
+```

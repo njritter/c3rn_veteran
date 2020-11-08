@@ -1,0 +1,41 @@
+---
+title: "q13 'New Jersey should include a strong social equity program if cannabis is legalized for adult use.' "
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q13 <- "New.Jersey.should.include.a.strong.social.equity.program.if.cannabis.is.legalized.for.adult.use."
+q13_t <- "New Jersey should include a strong social equity program 
+if cannabis is legalized for adult use."
+q13_data <- get_single_selection(data = raw_data, q.name = q13)
+q13_n <- length(unique(q13_data$id))
+q13_plot <- clean_single_select(q13_data)
+r13 <- plot_single_select(q13_plot, q13_t, q13_n)
+r13
+```
+
+```{r}
+row3 <- colnames(q13_plot)
+q13_plot2 <- rbind(row3, q13_plot)
+names(q13_plot2) <- c("q13", q13_t, paste("n = ", q13_n))
+```
+
+```{r}
+dir.create("output/q13_social_equity_cannabis_program")
+ggsave(filename = 'output/q13_social_equity_cannabis_program/q13_social_equity_cannabis_program.png', plot = r13, device = 'png')
+write.csv(q13_plot2, paste0("output/q13_social_equity_cannabis_program/q13_social_equity_cannabis_program_", q13_n,".csv"), row.names=F)
+```

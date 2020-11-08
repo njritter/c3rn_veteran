@@ -1,0 +1,39 @@
+---
+title: "q10 'In your own words, why are you voting for or against adult use cannabis legalization?'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q10 <- "In.your.own.words..why.are.you.voting.for.or.against.adult.use.cannabis.legalization."
+q10_t <- "In your own words, why are you voting for or against adult use cannabis legalization?"
+q10_data <- get_single_selection(data = raw_data, q.name = q10)
+q10_n <- length(unique(q10_data$id))
+q10_plot <- clean_single_select(q10_data)
+r10 <- plot_single_select(q10_plot, q10_t, q10_n)
+r10
+```
+
+```{r}
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n))
+```
+
+```{r}
+dir.create("output/q10_vote_rationale")
+write.csv(q10_plot2, paste0("output/q10_vote_rationale/q10_vote_rationale_", q10_n,".csv"), row.names=F)
+```

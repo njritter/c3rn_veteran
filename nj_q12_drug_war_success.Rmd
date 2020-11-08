@@ -1,0 +1,41 @@
+---
+title: "q12 'In my opinion, the War on Drugs was successful at reducing drug related crimes."
+author: "David Ritter"
+date: "12/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q12 <- "In.my.opinion..the.War.on.Drugs.was.successful.at.reducing.drug.related.crimes."
+q12_t <- "In my opinion, the War on Drugs was successful at reducing 
+drug related crimes."
+q12_data <- get_single_selection(data = raw_data, q.name = q12)
+q12_n <- length(unique(q12_data$id))
+q12_plot <- clean_single_select(q12_data)
+r12 <- plot_single_select(q12_plot, q12_t, q12_n)
+r12
+```
+
+```{r}
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n))
+```
+
+```{r}
+dir.create("output/q12_drug_war_success")
+ggsave(filename = 'output/q12_drug_war_success/q12_drug_war_success.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_drug_war_success/q12_drug_war_success_", q12_n,".csv"), row.names=F)
+```

@@ -1,0 +1,480 @@
+---
+title: "nj survey master"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+#use only this out of first chunks before q4 if not filtering.
+#block this chunk out and run next chunk if filtering
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q4 <- "In.your.opinion..do.you.think.cannabis.should.be.legal.for.adult..21..years..recreational.use.in.New.Jersey."
+q4_t <- "In your opinion, do you think cannabis should be legal for 
+adult (21+ years) recreational use in New Jersey?"
+q4_data <- get_single_selection(data = raw_data, q.name = q4)
+q4_n <- length(unique(q4_data$id))
+q4_plot <- clean_single_select(q4_data)
+r4 <- plot_single_select(q4_plot, q4_t, q4_n)
+r4
+```
+
+```{r}
+row3 <- colnames(q4_plot)
+q4_plot2 <- rbind(row3, q4_plot)
+names(q4_plot2) <- c("q4", q4_t, paste("n = ", q4_n))
+```
+
+```{r}
+dir.create("output/q4_rec_cannabis_legalization")
+ggsave(filename = 'output/q4_rec_cannabis_legalization/q4_rec_cannabis_legalization.png', plot = r4, device = 'png')
+write.csv(q4_plot2, paste0("output/q4_rec_cannabis_legalization/q4_rec_cannabis_legalization_", q4_n,".csv"), row.names=F)
+```
+
+```{r}
+q5 <- "How.do.you.think.legalizing.cannabis.would.affect.the.economic.conditions.of.New.Jersey."
+q5_t <- "How do you think legalizing cannabis would affect the economic
+conditions of New Jersey?"
+q5_data <- get_single_selection(data = raw_data, q.name = q5)
+q5_n <- length(unique(q5_data$id))
+q5_plot <- clean_single_select(q5_data)
+r5 <- plot_single_select(q5_plot, q5_t, q5_n)
+r5
+```
+
+```{r}
+row3 <- colnames(q5_plot)
+q5_plot2 <- rbind(row3, q5_plot)
+names(q5_plot2) <- c("q5", q5_t, paste("n = ", q5_n))
+```
+
+```{r}
+dir.create("output/q5_affect_economy")
+ggsave(filename = 'output/q5_affect_economy/q5_affect_economy.png', plot = r5, device = 'png')
+write.csv(q5_plot2, paste0("output/q5_affect_economy/q5_affect_economy_", q5_n,".csv"), row.names=F)
+```
+
+```{r}
+q6 <- "How.do.you.think.legalizing.cannabis.will.change.affect.racial.and.ethnic.disparities.in.the.criminal.justice.system.in.New.Jersey."
+q6_t <- "How do you think legalizing cannabis will change/affect racial and ethnic
+disparities in the criminal justice system in New Jersey?"
+q6_data <- get_single_selection(data = raw_data, q.name = q6)
+q6_n <- length(unique(q6_data$id))
+q6_plot <- clean_single_select(q6_data)
+r6 <- plot_single_select(q6_plot, q6_t, q6_n)
+r6
+```
+
+```{r}
+row3 <- colnames(q6_plot)
+q6_plot2 <- rbind(row3, q6_plot)
+names(q6_plot2) <- c("q6", q6_t, paste("n = ", q6_n))
+```
+
+```{r}
+dir.create("output/q6_affect_race")
+ggsave(filename = 'output/q6_affect_race/q6_affect_race.png', plot = r6, device = 'png')
+write.csv(q6_plot2, paste0("output/q6_affect_race/q6_affect_race_", q6_n,".csv"), row.names=F)
+```
+
+```{r}
+q7 <- "Are.you.registered.to.vote.in.New.Jersey."
+q7_t <- "Are you registered to vote in New Jersey?"
+q7_data <- get_single_selection(data = raw_data, q.name = q7)
+q7_n <- length(unique(q7_data$id))
+q7_plot <- clean_single_select(q7_data)
+r7 <- plot_single_select(q7_plot, q7_t, q7_n)
+r7
+```
+
+```{r}
+row3 <- colnames(q7_plot)
+q7_plot2 <- rbind(row3, q7_plot)
+names(q7_plot2) <- c("q7", q7_t, paste("n = ", q7_n))
+```
+
+```{r}
+dir.create("output/q7_registered_voter")
+ggsave(filename = 'output/q7_registered_voter/q7_registered_voter.png', plot = r7, device = 'png')
+write.csv(q7_plot2, paste0("output/q7_registered_voter/q7_registered_voter_", q7_n,".csv"), row.names=F)
+```
+
+```{r}
+q8 <- "Are.you.aware.that.there.is.a.ballot.question.â..Public.Question.1..Marijuana.Legalization.Amendmentâ...in.the.upcoming.November.3.election.in.which.New.Jersey.residents.will.vote.on.the.legalization.of.adult.use.cannabis."
+q8_t <- "Are you aware that there is a ballot question (Public Question #1,
+Marijuana Legalization Amendment) in the upcoming November 3rd 
+election in which New Jersey residents will vote on the legalization
+of adult use cannabis?"
+q8_data <- get_single_selection(data = raw_data, q.name = q8)
+q8_n <- length(unique(q8_data$id))
+q8_plot <- clean_single_select(q8_data)
+r8 <- plot_single_select(q8_plot, q8_t, q8_n)
+r8
+```
+
+```{r}
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n))
+```
+
+```{r}
+dir.create("output/q8_vote_awareness")
+ggsave(filename = 'output/q8_vote_awareness/q8_vote_awareness.png', plot = r8, device = 'png')
+write.csv(q8_plot2, paste0("output/q8_vote_awareness/q8_vote_awareness_", q8_n,".csv"), row.names=F)
+```
+
+```{r}
+q9 <- "How.will.you.be.voting.on.the.upcoming.ballot.question.in.November..Please.select.one."
+q9_t <- "How will you be voting on the upcoming ballot question in November? Please select one."
+q9_data <- get_single_selection(data = raw_data, q.name = q9)
+q9_n <- length(unique(q9_data$id))
+q9_plot <- clean_single_select(q9_data)
+r9 <- plot_single_select(q9_plot, q9_t, q9_n)
+r9
+```
+
+```{r}
+row3 <- colnames(q9_plot)
+q9_plot2 <- rbind(row3, q9_plot)
+names(q9_plot2) <- c("q9", q9_t, paste("n = ", q9_n))
+```
+
+```{r}
+dir.create("output/q9_vote")
+ggsave(filename = 'output/q9_vote/q9_vote.png', plot = r9, device = 'png')
+write.csv(q9_plot2, paste0("output/q9_vote/q9_vote_", q9_n,".csv"), row.names=F)
+```
+
+```{r}
+q10 <- "In.your.own.words..why.are.you.voting.for.or.against.adult.use.cannabis.legalization."
+q10_t <- "In your own words, why are you voting for or against adult use cannabis legalization?"
+q10_data <- get_single_selection(data = raw_data, q.name = q10)
+q10_n <- length(unique(q10_data$id))
+q10_plot <- clean_single_select(q10_data)
+r10 <- plot_single_select(q10_plot, q10_t, q10_n)
+r10
+```
+
+```{r}
+row3 <- colnames(q10_plot)
+q10_plot2 <- rbind(row3, q10_plot)
+names(q10_plot2) <- c("q10", q10_t, paste("n = ", q10_n))
+```
+
+```{r}
+dir.create("output/q10_vote_rationale")
+write.csv(q10_plot2, paste0("output/q10_vote_rationale/q10_vote_rationale_", q10_n,".csv"), row.names=F)
+```
+
+```{r}
+q11 <- "I.am.familiar.with.the.history.of.the.War.on.Drugs."
+q11_t <- "I am familiar with the history of the War on Drugs"
+q11_data <- get_single_selection(data = raw_data, q.name = q11)
+q11_n <- length(unique(q11_data$id))
+q11_plot <- clean_single_select(q11_data)
+r11 <- plot_single_select(q11_plot, q11_t, q11_n)
+r11
+```
+
+```{r}
+row3 <- colnames(q11_plot)
+q11_plot2 <- rbind(row3, q11_plot)
+names(q11_plot2) <- c("q11", q11_t, paste("n = ", q11_n))
+```
+
+```{r}
+dir.create("output/q11_familiarity_war_on_drugs")
+ggsave(filename = 'output/q11_familiarity_war_on_drugs/q11_familiarity_war_on_drugs.png', plot = r11, device = 'png')
+write.csv(q11_plot2, paste0("output/q11_familiarity_war_on_drugs/q11_familiarity_war_on_drugs_", q11_n,".csv"), row.names=F)
+```
+
+```{r}
+q12 <- "In.my.opinion..the.War.on.Drugs.was.successful.at.reducing.drug.related.crimes."
+q12_t <- "In my opinion, the War on Drugs was successful at reducing 
+drug related crimes."
+q12_data <- get_single_selection(data = raw_data, q.name = q12)
+q12_n <- length(unique(q12_data$id))
+q12_plot <- clean_single_select(q12_data)
+r12 <- plot_single_select(q12_plot, q12_t, q12_n)
+r12
+```
+
+```{r}
+row3 <- colnames(q12_plot)
+q12_plot2 <- rbind(row3, q12_plot)
+names(q12_plot2) <- c("q12", q12_t, paste("n = ", q12_n))
+```
+
+```{r}
+dir.create("output/q12_drug_war_success")
+ggsave(filename = 'output/q12_drug_war_success/q12_drug_war_success.png', plot = r12, device = 'png')
+write.csv(q12_plot2, paste0("output/q12_drug_war_success/q12_drug_war_success_", q12_n,".csv"), row.names=F)
+```
+
+```{r}
+q13 <- "New.Jersey.should.include.a.strong.social.equity.program.if.cannabis.is.legalized.for.adult.use."
+q13_t <- "New Jersey should include a strong social equity program 
+if cannabis is legalized for adult use."
+q13_data <- get_single_selection(data = raw_data, q.name = q13)
+q13_n <- length(unique(q13_data$id))
+q13_plot <- clean_single_select(q13_data)
+r13 <- plot_single_select(q13_plot, q13_t, q13_n)
+r13
+```
+
+```{r}
+row3 <- colnames(q13_plot)
+q13_plot2 <- rbind(row3, q13_plot)
+names(q13_plot2) <- c("q13", q13_t, paste("n = ", q13_n))
+```
+
+```{r}
+dir.create("output/q13_social_equity_cannabis_program")
+ggsave(filename = 'output/q13_social_equity_cannabis_program/q13_social_equity_cannabis_program.png', plot = r13, device = 'png')
+write.csv(q13_plot2, paste0("output/q13_social_equity_cannabis_program/q13_social_equity_cannabis_program_", q13_n,".csv"), row.names=F)
+```
+
+```{r}
+q14 <- "Those.previously.convicted.of.cannabis.crimes.should.not.be.able.to.participate.in.the.legal.cannabis.industry.as.part.of.the.workforce."
+q14_t <- "Those previously convicted of cannabis crimes should not be 
+able to participate in the legal cannabis industry as part of the 
+workforce."
+q14_data <- get_single_selection(data = raw_data, q.name = q14)
+q14_n <- length(unique(q14_data$id))
+q14_plot <- clean_single_select(q14_data)
+r14 <- plot_single_select(q14_plot, q14_t, q14_n)
+r14
+```
+
+```{r}
+row3 <- colnames(q14_plot)
+q14_plot2 <- rbind(row3, q14_plot)
+names(q14_plot2) <- c("q14", q14_t, paste("n = ", q14_n))
+```
+
+```{r}
+dir.create("output/q14_cannabis_convicts_in_industry")
+ggsave(filename = 'output/q14_cannabis_convicts_in_industry/q14_cannabis_convicts_in_industry.png', plot = r14, device = 'png')
+write.csv(q14_plot2, paste0("output/q14_cannabis_convicts_in_industry/q14_cannabis_convicts_in_industry_", q14_n,".csv"), row.names=F)
+```
+
+```{r}
+q15 <- "Those.previously.convicted.of.cannabis.crimes.should.not.be.able.to.participate.in.the.legal.cannabis.industry.as.business.owners.and.license.holders."
+q15_t <- "Those previously convicted of cannabis crimes should not be
+able to participate in the legal cannabis industry as business 
+owners and license holders."
+q15_data <- get_single_selection(data = raw_data, q.name = q15)
+q15_n <- length(unique(q15_data$id))
+q15_plot <- clean_single_select(q15_data)
+r15 <- plot_single_select(q15_plot, q15_t, q15_n)
+r15
+```
+
+```{r}
+row3 <- colnames(q15_plot)
+q15_plot2 <- rbind(row3, q15_plot)
+names(q15_plot2) <- c("q15", q15_t, paste("n = ", q15_n))
+```
+
+```{r}
+dir.create("output/q15_convicts_hold_license")
+ggsave(filename = 'output/q15_convicts_hold_license/q15_convicts_hold_license.png', plot = r15, device = 'png')
+write.csv(q15_plot2, paste0("output/q15_convicts_hold_license/q15_convicts_hold_license_", q15_n,".csv"), row.names=F)
+```
+
+```{r}
+q16 <- "New.Jersey.should.implement.a.loan.or.grant.fund.to.support.those.negatively.impacted.by.the.drug.war.for.non.felony.related.cannabis.convictions.to.have.access.to.capital.to.enter.the.industry."
+q16_t <- "New Jersey should implement a loan or grant fund to support
+those negatively impacted by the drug war for non felony related
+cannabis convictions to have access to capital to enter 
+the industry."
+q16_data <- get_single_selection(data = raw_data, q.name = q16)
+q16_n <- length(unique(q16_data$id))
+q16_plot <- clean_single_select(q16_data)
+r16 <- plot_single_select(q16_plot, q16_t, q16_n)
+r16
+```
+
+```{r}
+row3 <- colnames(q16_plot)
+q16_plot2 <- rbind(row3, q16_plot)
+names(q16_plot2) <- c("q16", q16_t, paste("n = ", q16_n))
+```
+
+```{r}
+dir.create("output/q16_grants_for_impacted")
+ggsave(filename = 'output/q16_grants_for_impacted/q16_grants_for_impacted.png', plot = r16, device = 'png')
+write.csv(q16_plot2, paste0("output/q16_grants_for_impacted/q16_grants_for_impacted_", q16_n,".csv"), row.names=F)
+```
+
+```{r}
+q17 <- "New.Jersey.should.prioritize.expungement.of.prior.cannabis.convictions."
+q17_t <- "New Jersey should prioritize expungement of prior 
+cannabis convictions."
+q17_data <- get_single_selection(data = raw_data, q.name = q17)
+q17_n <- length(unique(q17_data$id))
+q17_plot <- clean_single_select(q17_data)
+r17 <- plot_single_select(q17_plot, q17_t, q17_n)
+r17
+```
+
+```{r}
+row3 <- colnames(q17_plot)
+q17_plot2 <- rbind(row3, q17_plot)
+names(q17_plot2) <- c("q17", q17_t, paste("n = ", q17_n))
+```
+
+```{r}
+dir.create("output/q17_expunge_cannabis_convictions")
+ggsave(filename = 'output/q17_expunge_cannabis_convictions/q17_expunge_cannabis_convictions.png', plot = r17, device = 'png')
+write.csv(q17_plot2, paste0("output/q17_expunge_cannabis_convictions/q17_expunge_cannabis_convictions_", q17_n,".csv"), row.names=F)
+```
+
+```{r}
+q18 <- "New.Jersey.should.not.allow.for.social.consumption.for.cannabis.in.the.regulations."
+q18_t <- "New Jersey should not allow for social consumption for
+cannabis in the regulations."
+q18_data <- get_single_selection(data = raw_data, q.name = q18)
+q18_n <- length(unique(q18_data$id))
+q18_plot <- clean_single_select(q18_data)
+r18 <- plot_single_select(q18_plot, q18_t, q18_n)
+r18
+```
+
+```{r}
+row3 <- colnames(q18_plot)
+q18_plot2 <- rbind(row3, q18_plot)
+names(q18_plot2) <- c("q18", q18_t, paste("n = ", q18_n))
+```
+
+```{r}
+dir.create("output/q18_social_consumption")
+ggsave(filename = 'output/q18_social_consumption/q18_social_consumption.png', plot = r18, device = 'png')
+write.csv(q18_plot2, paste0("output/q18_social_consumption/q18_social_consumption_", q18_n,".csv"), row.names=F)
+```
+
+```{r}
+q19 <- "Equity..the.quality.of.being.fair.and.impartial..is.an.important.value.I.hold."
+q19_t <- "Equity (the quality of being fair and impartial) is an
+important value I hold."
+q19_data <- get_single_selection(data = raw_data, q.name = q19)
+q19_n <- length(unique(q19_data$id))
+q19_plot <- clean_single_select(q19_data)
+r19 <- plot_single_select(q19_plot, q19_t, q19_n)
+r19
+```
+
+```{r}
+row3 <- colnames(q19_plot)
+q19_plot2 <- rbind(row3, q19_plot)
+names(q19_plot2) <- c("q19", q19_t, paste("n = ", q19_n))
+```
+
+```{r}
+dir.create("output/q19_value_equity")
+ggsave(filename = 'output/q19_value_equity/q19_value_equity.png', plot = r19, device = 'png')
+write.csv(q19_plot2, paste0("output/q19_value_equity/q19_value_equity_", q19_n,".csv"), row.names=F)
+```
+
+```{r}
+q20 <- "A.social.equity.and.restorative.justice.program.should.be.included.in.the.existing.medical.cannabis.regulations.and.program.in.New.Jersey."
+q20_t <- "A social equity and restorative justice program should
+be included in the existing medical cannabis regulations
+and program in New Jersey."
+q20_data <- get_single_selection(data = raw_data, q.name = q20)
+q20_n <- length(unique(q20_data$id))
+q20_plot <- clean_single_select(q20_data)
+r20 <- plot_single_select(q20_plot, q20_t, q20_n)
+r20
+```
+
+```{r}
+row3 <- colnames(q20_plot)
+q20_plot2 <- rbind(row3, q20_plot)
+names(q20_plot2) <- c("q20", q20_t, paste("n = ", q20_n))
+```
+
+```{r}
+dir.create("output/q20_medical_social_equity")
+ggsave(filename = 'output/q20_medical_social_equity/q20_medical_social_equity.png', plot = r20, device = 'png')
+write.csv(q20_plot2, paste0("output/q20_medical_social_equity/q20_medical_social_equity_", q20_n,".csv"), row.names=F)
+```
+
+```{r}
+q21 <- "Legalization.will.not.alleviate.the.societal.impacts.created.by.the.War.on.Drugs."
+q21_t <- "Legalization will not alleviate the societal impacts created
+by the War on Drugs."
+q21_data <- get_single_selection(data = raw_data, q.name = q21)
+q21_n <- length(unique(q21_data$id))
+q21_plot <- clean_single_select(q21_data)
+r21 <- plot_single_select(q21_plot, q21_t, q21_n)
+r21
+```
+
+```{r}
+row3 <- colnames(q21_plot)
+q21_plot2 <- rbind(row3, q21_plot)
+names(q21_plot2) <- c("q21", q21_t, paste("n = ", q21_n))
+```
+
+```{r}
+dir.create("output/q21_legalization_impact_drug_war")
+ggsave(filename = 'output/q21_legalization_impact_drug_war/q21_legalization_impact_drug_war.png', plot = r21, device = 'png')
+write.csv(q21_plot2, paste0("output/q21_legalization_impact_drug_war/q21_legalization_impact_drug_war_", q21_n,".csv"), row.names=F)
+```
+
+```{r}
+q22 <- "The.possession.of.small.amounts.of.cannabis.should.be.decriminalized."
+q22_t <- "The possession of small amounts of cannabis
+should be decriminalized."
+q22_data <- get_single_selection(data = raw_data, q.name = q22)
+q22_n <- length(unique(q22_data$id))
+q22_plot <- clean_single_select(q22_data)
+r22 <- plot_single_select(q22_plot, q22_t, q22_n)
+r22
+```
+
+```{r}
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
+dir.create("output/q22_decriminalization")
+ggsave(filename = 'output/q22_decriminalization/q22_decriminalization.png', plot = r22, device = 'png')
+write.csv(q22_plot2, paste0("output/q22_decriminalization/q22_decriminalization_", q22_n,".csv"), row.names=F)
+```
+
+```{r}
+q23 <- "In.your.own.words..how.do.you.think.about.social.equity.and.restorative.justice.will.be.affected.if.adult.use.cannabis.is.legalized.in.New.Jersey."
+q23_t <- "In your own words, how do you think social equity and restorative justice will be affected if adult use cannabis is legalized in New Jersey."
+q23_data <- get_single_selection(data = raw_data, q.name = q23)
+q23_n <- length(unique(q23_data$id))
+q23_plot <- clean_single_select(q23_data)
+r23 <- plot_single_select(q23_plot, q23_t, q23_n)
+r23
+```
+
+```{r}
+row3 <- colnames(q23_plot)
+q23_plot2 <- rbind(row3, q23_plot)
+names(q23_plot2) <- c("q23", q23_t, paste("n = ", q23_n))
+```
+
+```{r}
+dir.create("output/q23_legalization_affect_equity_justice")
+write.csv(q23_plot2, paste0("output/q23_legalization_affect_equity_justice/q23_legalization_affect_equity_justice_", q23_n,".csv"), row.names=F)
+```

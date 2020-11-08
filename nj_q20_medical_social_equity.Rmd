@@ -1,0 +1,42 @@
+---
+title: "q20 'A social equity and restorative justice program should be included in the existing medical cannabis regulations and program in New Jersey.'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q20 <- "A.social.equity.and.restorative.justice.program.should.be.included.in.the.existing.medical.cannabis.regulations.and.program.in.New.Jersey."
+q20_t <- "A social equity and restorative justice program should
+be included in the existing medical cannabis regulations
+and program in New Jersey."
+q20_data <- get_single_selection(data = raw_data, q.name = q20)
+q20_n <- length(unique(q20_data$id))
+q20_plot <- clean_single_select(q20_data)
+r20 <- plot_single_select(q20_plot, q20_t, q20_n)
+r20
+```
+
+```{r}
+row3 <- colnames(q20_plot)
+q20_plot2 <- rbind(row3, q20_plot)
+names(q20_plot2) <- c("q20", q20_t, paste("n = ", q20_n))
+```
+
+```{r}
+dir.create("output/q20_medical_social_equity")
+ggsave(filename = 'output/q20_medical_social_equity/q20_medical_social_equity.png', plot = r20, device = 'png')
+write.csv(q20_plot2, paste0("output/q20_medical_social_equity/q20_medical_social_equity_", q20_n,".csv"), row.names=F)
+```

@@ -1,0 +1,43 @@
+---
+title: "q8 'Are you aware that there is a ballot question (Public Question #1, Marijuana Legalization Amendment) in the upcoming November 3rd election in which New Jersey residents will vote on the legalization of adult use cannabis?"
+author: "David Ritter"
+date: "11/8/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q8 <- "Are.you.aware.that.there.is.a.ballot.question.â..Public.Question.1..Marijuana.Legalization.Amendmentâ...in.the.upcoming.November.3.election.in.which.New.Jersey.residents.will.vote.on.the.legalization.of.adult.use.cannabis."
+q8_t <- "Are you aware that there is a ballot question (Public Question #1,
+Marijuana Legalization Amendment) in the upcoming November 3rd 
+election in which New Jersey residents will vote on the legalization
+of adult use cannabis?"
+q8_data <- get_single_selection(data = raw_data, q.name = q8)
+q8_n <- length(unique(q8_data$id))
+q8_plot <- clean_single_select(q8_data)
+r8 <- plot_single_select(q8_plot, q8_t, q8_n)
+r8
+```
+
+```{r}
+row3 <- colnames(q8_plot)
+q8_plot2 <- rbind(row3, q8_plot)
+names(q8_plot2) <- c("q8", q8_t, paste("n = ", q8_n))
+```
+
+```{r}
+dir.create("output/q8_vote_awareness")
+ggsave(filename = 'output/q8_vote_awareness/q8_vote_awareness.png', plot = r8, device = 'png')
+write.csv(q8_plot2, paste0("output/q8_vote_awareness/q8_vote_awareness_", q8_n,".csv"), row.names=F)
+```

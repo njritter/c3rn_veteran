@@ -1,0 +1,41 @@
+---
+title: "q18 'New Jersey should not allow for social consumption for cannabis in the regulations.'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q18 <- "New.Jersey.should.not.allow.for.social.consumption.for.cannabis.in.the.regulations."
+q18_t <- "New Jersey should not allow for social consumption for
+cannabis in the regulations."
+q18_data <- get_single_selection(data = raw_data, q.name = q18)
+q18_n <- length(unique(q18_data$id))
+q18_plot <- clean_single_select(q18_data)
+r18 <- plot_single_select(q18_plot, q18_t, q18_n)
+r18
+```
+
+```{r}
+row3 <- colnames(q18_plot)
+q18_plot2 <- rbind(row3, q18_plot)
+names(q18_plot2) <- c("q18", q18_t, paste("n = ", q18_n))
+```
+
+```{r}
+dir.create("output/q18_social_consumption")
+ggsave(filename = 'output/q18_social_consumption/q18_social_consumption.png', plot = r18, device = 'png')
+write.csv(q18_plot2, paste0("output/q18_social_consumption/q18_social_consumption_", q18_n,".csv"), row.names=F)
+```

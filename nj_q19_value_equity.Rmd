@@ -1,0 +1,41 @@
+---
+title: "q19 'Equity (the quality of being fair and impartial) is an important value I hold.' "
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q19 <- "Equity..the.quality.of.being.fair.and.impartial..is.an.important.value.I.hold."
+q19_t <- "Equity (the quality of being fair and impartial) is an
+important value I hold."
+q19_data <- get_single_selection(data = raw_data, q.name = q19)
+q19_n <- length(unique(q19_data$id))
+q19_plot <- clean_single_select(q19_data)
+r19 <- plot_single_select(q19_plot, q19_t, q19_n)
+r19
+```
+
+```{r}
+row3 <- colnames(q19_plot)
+q19_plot2 <- rbind(row3, q19_plot)
+names(q19_plot2) <- c("q19", q19_t, paste("n = ", q19_n))
+```
+
+```{r}
+dir.create("output/q19_value_equity")
+ggsave(filename = 'output/q19_value_equity/q19_value_equity.png', plot = r19, device = 'png')
+write.csv(q19_plot2, paste0("output/q19_value_equity/q19_value_equity_", q19_n,".csv"), row.names=F)
+```

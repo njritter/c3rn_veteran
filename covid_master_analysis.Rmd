@@ -1,7 +1,7 @@
 ---
-title: "covid_master_analysis"
+title: "Covid Survey Master Analysis Document"
 author: "David Ritter"
-date: "9/8/2020"
+date: "10/13/2020"
 output: html_document
 runtime: shiny
 ---
@@ -16,19 +16,27 @@ source("helper.R")
 ```{r}
 #use only this out of first chunks before q4 if not filtering.
 #block this chunk out and run next chunk if filtering
-raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+#raw_data <- read.csv("data/master.csv", stringsAsFactors = FALSE)
 ```
 
 ```{r}
 #run this then determine appropriate subsequent chunk to run depending on question type. then run remainder of document.
-#master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
-#headers <- master[c(1), ]
+master <- read.csv("data/master.csv", stringsAsFactors = FALSE)
+headers <- master[c(1), ]
 ```
 
 ```{r}
 #Filtering for single select questions
 #filtered_data <- filter(master, master$How.do.you.use.cannabis..Please.select.all.that.apply. == "Medically indicated, recommended by a licensed clinical provider")
 #raw_data <- rbind(headers, filtered_data)
+```
+
+```{r}
+#Filtering for numerical responses/age
+filtered_data <- filter(master, master$What.is.your.age..in.years..Â. > "41")
+#Use if going under 42, second part if over 41
+#raw_data <- rbind(headers, filtered_data)
+raw_data <- filtered_data
 ```
 
 ```{r}
@@ -378,7 +386,7 @@ write.csv(q16_plot2, paste0("output/q16_cannabis_delivery/q16_cannabis_delivery_
 
 ```{r}
 q17 <- "What.are.you.looking.for.in.cannabis.products..Please.select.all.that.apply."
-q17_final_response <- "X.120"
+q17_final_response <- "X.118"
 q17_t  <- "What are you looking for in cannabis products? 
 Please select all that apply."
 q17_data <- get_choose_all(raw_data, q.name = q17, f.response = q17_final_response) %>%
@@ -404,7 +412,7 @@ write.csv(q17_data, 'output/q17_cannabis_aspects/q17_cannabis_aspects_ids.csv', 
 
 ```{r}
 q18 <- "What.is.your.top.three.selection.criteria.for.cannabis.products."
-q18_final_response <- "X.121"
+q18_final_response <- "X.120"
 q18_t <- "What is your top 3 selection criteria for cannabis products?"
 q18_data <- get_choose_all(raw_data, q.name = q18, f.response = q18_final_response)
 dir.create("output/q18_top_3_cannabis_aspect")
@@ -597,7 +605,7 @@ write.csv(q24_plot2, paste0("output/q24_home_grow/q24_home_grow_", q24_n,".csv")
 
 ```{r}
 q25 <- "Where.do.you.get.your.information.to.make.informed.decisions.about.cannabis.products..Please.check.all.that.apply."
-q25_final_response <- "X.128"
+q25_final_response <- "X.127"
 q25_t  <- "Where do you get your information to make informed decisions
 about cannabis products? Please check all that apply."
 q25_data <- get_choose_all(raw_data, q.name = q25, f.response = q25_final_response) %>%
@@ -623,7 +631,7 @@ write.csv(q25_data, 'output/q25_cannabis_info/q25_cannabis_info_ids.csv', row.na
 
 ```{r}
 q26 <- "Which.apps.websites.do.you.use.to.get.information.on.cannabis..Please.check.all.that.apply."
-q26_final_response <- "X.137"
+q26_final_response <- "X.136"
 q26_t  <- "Which apps/websites do you use to get information on cannabis? 
 Please check all that apply."
 q26_data <- get_choose_all(raw_data, q.name = q26, f.response = q26_final_response) %>%
@@ -672,7 +680,7 @@ write.csv(q27_plot2, paste0("output/q27_top_app_website/q27_top_app_website_", q
 
 ```{r}
 q28 <- "Since.the.COVID.19.pandemic.started..has.any.of.the.following.impacted.your.life...check.all.that.apply."
-q28_final_response <- "X.155"
+q28_final_response <- "X.154"
 q28_t  <- "Since the COVID-19 pandemic started, has 
 any of the following impacted your life? 
 Check all that apply."
@@ -699,7 +707,7 @@ write.csv(q28_data, 'output/q28_covid_impact/q28_covid_impact_ids.csv', row.name
 
 ```{r}
 q29 <- "Do.you.currently.have.any.symptoms.of.COVID.19..Please.check.all.that.apply"
-q29_final_response <- "X.164"
+q29_final_response <- "X.163"
 q29_t  <- "Do you currently have any symptoms of COVID-19? 
 Please check all that apply."
 q29_data <- get_choose_all(raw_data, q.name = q29, f.response = q29_final_response) %>%
@@ -771,7 +779,7 @@ write.csv(q31_plot2, paste0("output/q31_testing_access/q31_testing_access_", q31
 
 ```{r}
 q32 <- "Has.your.cannabis.use.changed.since.the.COVID.19.pandemic.in.any.of.the.following.ways...Please.select.all.that.apply."
-q32_final_response <- "X.173"
+q32_final_response <- "X.172"
 q32_t  <- "Has your cannabis use changed since the 
 COVID-19 pandemic in any of the following
 ways? Please select all that apply."
@@ -798,7 +806,7 @@ write.csv(q32_data, 'output/q32_use_since_covid/q32_use_since_covid_ids.csv', ro
 
 ```{r}
 q33 <- "Has.COVID.19.impacted.how.you.purchase.cannabis...please.select.all.that.apply."
-q33_final_response <- "X.182"
+q33_final_response <- "X.181"
 q33_t  <- "Has 
 COVID-19 
 impacted 
@@ -828,7 +836,7 @@ write.csv(q33_data, 'output/q33_purchases_since_covid/q33_purchases_since_covid_
 
 ```{r}
 q34 <- "Has.COVID.19.impacted.any.of.the.following.for.you.personally...please.select.all.that.apply."
-q34_final_response <- "X.193"
+q34_final_response <- "X.191"
 q34_t  <- "Has COVID-19 impacted any of the following 
 for you personally? Please select all 
 that apply."
@@ -945,7 +953,7 @@ write.csv(q38_plot2, paste0("output/q38_home_grow_since_covid/q38_home_grow_sinc
 
 ```{r}
 q39 <- "PRIOR.to.COVID.19..what.were.some.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
-q39_final_response <- "X.205"
+q39_final_response <- "X.203"
 q39_t  <- "PRIOR to COVID-19, what were some barriers for you 
 consuming cannabis? Please select all that apply."
 q39_data <- get_choose_all(raw_data, q.name = q39, f.response = q39_final_response) %>%
@@ -971,7 +979,7 @@ write.csv(q39_data, 'output/q39_barriers_prior_covid/q39_barriers_prior_covid_id
 
 ```{r}
 q40 <- "After.the.start.of.COVID.19..whatÂ.areÂ.currentÂ.barriers.for.you.consuming.cannabis...Please.select.all.that.apply."
-q40_final_response <- "X.214"
+q40_final_response <- "X.212"
 q40_t  <- "After the start of COVID-19, what are current barriers for you 
 consuming cannabis? Please select all that apply."
 q40_data <- get_choose_all(raw_data, q.name = q40, f.response = q40_final_response) %>%
@@ -1093,7 +1101,7 @@ write.csv(q44_data, 'output/q44_age/q44_age_ids.csv', row.names = FALSE)
 
 ```{r}
 q45 <- 'What.US.state.do.you.live.in.'
-q45_final_response <- "X.219"
+q45_final_response <- "X.217"
 q45_t <- "What US state do you live in?"
 q45_data <- get_choose_all(raw_data, q.name = q45, f.response = q45_final_response)
 dir.create("output/q45_state")
@@ -1116,7 +1124,7 @@ write.csv(q45_data1, paste0("output/q45_state/q45_state_", q45_n1, ".csv"), row.
 
 ```{r}
 q46 <- 'What.country.do.you.live.in.Â.'
-q46_final_response <- "X.230"
+q46_final_response <- "X.228"
 q46_t <- "What country do you live in?"
 q46_data <- get_choose_all(raw_data, q.name = q46, f.response = q46_final_response)
 dir.create("output/q46_country")

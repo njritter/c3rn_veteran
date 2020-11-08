@@ -1,0 +1,42 @@
+---
+title: "q22 'The possession of small amounts of cannabis should be decriminalized.' "
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q22 <- "The.possession.of.small.amounts.of.cannabis.should.be.decriminalized."
+q22_t <- "The possession of small amounts of cannabis
+should be decriminalized."
+q22_data <- get_single_selection(data = raw_data, q.name = q22)
+q22_n <- length(unique(q22_data$id))
+q22_plot <- clean_single_select(q22_data)
+r22 <- plot_single_select(q22_plot, q22_t, q22_n)
+r22
+```
+
+```{r}
+row3 <- colnames(q22_plot)
+q22_plot2 <- rbind(row3, q22_plot)
+names(q22_plot2) <- c("q22", q22_t, paste("n = ", q22_n))
+```
+
+```{r}
+dir.create("output/q22_decriminalization")
+ggsave(filename = 'output/q22_decriminalization/q22_decriminalization.png', plot = r22, device = 'png')
+write.csv(q22_plot2, paste0("output/q22_decriminalization/q22_decriminalization_", q22_n,".csv"), row.names=F)
+```
