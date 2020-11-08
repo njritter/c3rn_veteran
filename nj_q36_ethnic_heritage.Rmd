@@ -1,0 +1,45 @@
+---
+title: "q36 'Which of the following best represents your ethnic heritage? Please select all that apply."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q36 <- "Which.of.the.following.best.represents.your.ethnic.heritage..Please.select.all.that.apply."
+q36_final_response <- "X.130"
+q36_t  <- "Which of the following best
+represents your ethnic heritage? 
+Please select all that apply."
+q36_data <- get_choose_all(raw_data, q.name = q36, f.response = q36_final_response) %>%
+  tidy_choose_all()
+q36_n <- length(unique(q36_data$id))
+q36_plot <- clean_choose_all(q36_data, q36_n)
+r36 <- plot_choose_all(q36_plot, q36_t, q36_n)
+r36
+```
+
+```{r}
+row3 <- colnames(q36_plot)
+q36_plot2 <- rbind(row3, q36_plot)
+names(q36_plot2) <- c("q36", q36_t, paste("n = ", q36_n))
+```
+
+```{r}
+dir.create("output/q36_ethnic_heritage")
+ggsave(filename = 'output/q36_ethnic_heritage/q36_ethnic_heritage.png', plot = r36, device = 'png')
+write.csv(q36_plot2, paste0("output/q36_ethnic_heritage/q36_ethnic_heritage_", q36_n,".csv"), row.names=F)
+write.csv(q36_data, 'output/q36_ethnic_heritage/q36_ethnic_heritage_ids.csv', row.names = FALSE)
+```

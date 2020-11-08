@@ -1,0 +1,51 @@
+---
+title: "q43 'What is your zip code?"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q43 <- "What.is.your.zip.code."
+q43_t <- "What is your zip code?"
+q43_data <- get_single_selection(data = raw_data, q.name = q43)
+q43_n <- length(unique(q43_data$id))
+q43_plot <- clean_single_select(q43_data)
+r43 <- plot_single_select(q43_plot, q43_t, q43_n)
+r43
+```
+
+```{r}
+row3 <- colnames(q43_plot)
+q43_plot2 <- rbind(row3, q43_plot)
+names(q43_plot2) <- c("q43", q43_t, paste("n = ", q43_n))
+```
+
+```{r}
+dir.create("output/q43_zip_code")
+ggsave(filename = 'output/q43_zip_code/q43_zip_code.png', plot = r43, device = 'png')
+write.csv(q43_plot2, paste0("output/q43_zip_code/q43_zip_code_", q43_n,".csv"), row.names=F)
+```

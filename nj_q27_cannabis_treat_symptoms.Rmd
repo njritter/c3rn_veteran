@@ -1,0 +1,45 @@
+---
+title: "q27 'What symptoms do you find medical cannabis is most helpful in treating/alleviating? Please select all that apply."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q27 <- "What.symptoms.do.you.find.medical.cannabis.is.most.helpful.in.treating.alleviating..Please.select.all.that.apply."
+q27_final_response <- "X.49"
+q27_t  <- "What symptoms do you find medical cannabis
+is most helpful in treating/alleviating? Please 
+select all that apply."
+q27_data <- get_choose_all(raw_data, q.name = q27, f.response = q27_final_response) %>%
+  tidy_choose_all()
+q27_n <- length(unique(q27_data$id))
+q27_plot <- clean_choose_all(q27_data, q27_n)
+r27 <- plot_choose_all(q27_plot, q27_t, q27_n)
+r27
+```
+
+```{r}
+row3 <- colnames(q27_plot)
+q27_plot2 <- rbind(row3, q27_plot)
+names(q27_plot2) <- c("q27", q27_t, paste("n = ", q27_n))
+```
+
+```{r}
+dir.create("output/q27_symptoms_treated_cannabis")
+ggsave(filename = 'output/q27_symptoms_treated_cannabis/q27_symptoms_treated_cannabis.png', plot = r27, device = 'png')
+write.csv(q27_plot2, paste0("output/q27_symptoms_treated_cannabis/q27_symptoms_treated_cannabis_", q27_n,".csv"), row.names=F)
+write.csv(q27_data, 'output/q27_symptoms_treated_cannabis/q27_symptoms_treated_cannabis_ids.csv', row.names = FALSE)
+```

@@ -1,0 +1,40 @@
+---
+title: "q24 'Do you consume cannabis?' "
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q24 <- "Do.you.consume.cannabis."
+q24_t <- "Do you consume cannabis?"
+q24_data <- get_single_selection(data = raw_data, q.name = q24)
+q24_n <- length(unique(q24_data$id))
+q24_plot <- clean_single_select(q24_data)
+r24 <- plot_single_select(q24_plot, q24_t, q24_n)
+r24
+```
+
+```{r}
+row3 <- colnames(q24_plot)
+q24_plot2 <- rbind(row3, q24_plot)
+names(q24_plot2) <- c("q24", q24_t, paste("n = ", q24_n))
+```
+
+```{r}
+dir.create("output/q24_cannabis_consumption")
+ggsave(filename = 'output/q24_cannabis_consumption/q24_cannabis_consumption.png', plot = r24, device = 'png')
+write.csv(q24_plot2, paste0("output/q24_cannabis_consumption/q24_cannabis_consumption_", q24_n,".csv"), row.names=F)
+```

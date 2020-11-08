@@ -1,0 +1,47 @@
+---
+title: "q30 'Do you have a cannabis use preference? Please select all that apply."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q30 <- "Do.you.have.a.cannabis.use.preference..Please.select.all.that.apply."
+q30_final_response <- "X.96"
+q30_t  <- "Do you have 
+a cannabis use 
+preference? 
+Please select 
+all that apply."
+q30_data <- get_choose_all(raw_data, q.name = q30, f.response = q30_final_response) %>%
+  tidy_choose_all()
+q30_n <- length(unique(q30_data$id))
+q30_plot <- clean_choose_all(q30_data, q30_n)
+r30 <- plot_choose_all(q30_plot, q30_t, q30_n)
+r30
+```
+
+```{r}
+row3 <- colnames(q30_plot)
+q30_plot2 <- rbind(row3, q30_plot)
+names(q30_plot2) <- c("q30", q30_t, paste("n = ", q30_n))
+```
+
+```{r}
+dir.create("output/q30_cannabis_use_preference")
+ggsave(filename = 'output/q30_cannabis_use_preference/q30_cannabis_use_preference.png', plot = r30, device = 'png')
+write.csv(q30_plot2, paste0("output/q30_cannabis_use_preference/q30_cannabis_use_preference_", q30_n,".csv"), row.names=F)
+write.csv(q30_data, 'output/q30_cannabis_use_preference/q30_cannabis_use_preference_ids.csv', row.names = FALSE)
+```

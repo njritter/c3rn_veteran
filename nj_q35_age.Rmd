@@ -1,0 +1,47 @@
+---
+title: "q35"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r, message = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q35 <- "What.is.your.age..in.years.."
+q35_t <- "What is your age? (in years)"
+q35_data <- get_single_selection_0(data = raw_data, q.name = q35) %>%
+  filter(response != "")
+q35_n <- length(unique(q35_data$id))
+q35_mean_data <- as.numeric(as.character(q35_data$response))
+q35_mean <- mean(q35_mean_data) %>%
+  round(3) %>%
+  print()
+q35_plot <- clean_single_select(q35_data)
+r35 <- plot_single_select_0(q35_plot, q35_t, q35_n, q35_mean)
+r35
+```
+
+```{r}
+row3 <- colnames(q35_plot)
+q35_plot2 <- rbind(row3, q35_plot)
+names(q35_plot2) <- c("q35", q35_t, paste("n = ", q35_n, paste(" avg = ", q35_mean)))
+```
+
+```{r}
+dir.create("output/q35_age")
+ggsave(filename = 'output/q35_age/q35_age.png', plot = r35, device = 'png')
+write.csv(q35_plot2, paste0("output/q35_age/q35_age_", q35_n,".csv"), row.names=F)
+write.csv(q35_data, 'output/q35_age/q35_age_ids.csv', row.names = FALSE)
+```
+

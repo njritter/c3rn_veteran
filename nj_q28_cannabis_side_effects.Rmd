@@ -1,0 +1,47 @@
+---
+title: "q28 'Have you experienced any side effects from using cannabis? Please select all that apply."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q28 <- "Have.you.experienced.any.side.effects.from.using.cannabis..Please.select.all.that.apply"
+q28_final_response <- "X.72"
+q28_t  <- "Have you
+experienced any side 
+effects from using 
+cannabis? Please 
+select all that apply."
+q28_data <- get_choose_all(raw_data, q.name = q28, f.response = q28_final_response) %>%
+  tidy_choose_all()
+q28_n <- length(unique(q28_data$id))
+q28_plot <- clean_choose_all(q28_data, q28_n)
+r28 <- plot_choose_all(q28_plot, q28_t, q28_n)
+r28
+```
+
+```{r}
+row3 <- colnames(q28_plot)
+q28_plot2 <- rbind(row3, q28_plot)
+names(q28_plot2) <- c("q28", q28_t, paste("n = ", q28_n))
+```
+
+```{r}
+dir.create("output/q28_cannabis_side_effects")
+ggsave(filename = 'output/q28_cannabis_side_effects/q28_cannabis_side_effects.png', plot = r28, device = 'png')
+write.csv(q28_plot2, paste0("output/q28_cannabis_side_effects/q28_cannabis_side_effects_", q28_n,".csv"), row.names=F)
+write.csv(q28_data, 'output/q28_cannabis_side_effects/q28_cannabis_side_effects_ids.csv', row.names = FALSE)
+```

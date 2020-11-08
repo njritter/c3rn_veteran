@@ -1,0 +1,41 @@
+---
+title: "q41 'Have you been arrested for a cannabis related charge in the past?"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q41 <- "Have.you.been.arrested.for.a.cannabis.related.charge.in.the.past."
+q41_t <- "Have you been arrested for a cannabis related charge 
+in the past?"
+q41_data <- get_single_selection(data = raw_data, q.name = q41)
+q41_n <- length(unique(q41_data$id))
+q41_plot <- clean_single_select(q41_data)
+r41 <- plot_single_select(q41_plot, q41_t, q41_n)
+r41
+```
+
+```{r}
+row3 <- colnames(q41_plot)
+q41_plot2 <- rbind(row3, q41_plot)
+names(q41_plot2) <- c("q41", q41_t, paste("n = ", q41_n))
+```
+
+```{r}
+dir.create("output/q41_previous_cannabis_arrest")
+ggsave(filename = 'output/q41_previous_cannabis_arrest/q41_previous_cannabis_arrest.png', plot = r41, device = 'png')
+write.csv(q41_plot2, paste0("output/q41_previous_cannabis_arrest/q41_previous_cannabis_arrest_", q41_n,".csv"), row.names=F)
+```

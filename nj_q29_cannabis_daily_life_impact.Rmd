@@ -1,0 +1,49 @@
+---
+title: "q29 'How does cannabis impact your daily life? Please select all that apply."
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q29 <- "How.does.cannabis.impact.your.daily.life..Please.select.all.that.apply."
+q29_final_response <- "X.85"
+q29_t  <- "How does 
+cannabis 
+impact
+your daily 
+life? Please 
+select all 
+that apply."
+q29_data <- get_choose_all(raw_data, q.name = q29, f.response = q29_final_response) %>%
+  tidy_choose_all()
+q29_n <- length(unique(q29_data$id))
+q29_plot <- clean_choose_all(q29_data, q29_n)
+r29 <- plot_choose_all(q29_plot, q29_t, q29_n)
+r29
+```
+
+```{r}
+row3 <- colnames(q29_plot)
+q29_plot2 <- rbind(row3, q29_plot)
+names(q29_plot2) <- c("q29", q29_t, paste("n = ", q29_n))
+```
+
+```{r}
+dir.create("output/q29_cannabis_daily_life_impact")
+ggsave(filename = 'output/q29_cannabis_daily_life_impact/q29_cannabis_daily_life_impact.png', plot = r29, device = 'png')
+write.csv(q29_plot2, paste0("output/q29_cannabis_daily_life_impact/q29_cannabis_daily_life_impact_", q29_n,".csv"), row.names=F)
+write.csv(q29_data, 'output/q29_cannabis_daily_life_impact/q29_cannabis_daily_life_impact_ids.csv', row.names = FALSE)
+```

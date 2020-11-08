@@ -1,0 +1,40 @@
+---
+title: "q37 'To which gender do you most identify?'"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q37 <- "To.which.gender.do.you.most.identify."
+q37_t <- "To which gender do you most identify?"
+q37_data <- get_single_selection(data = raw_data, q.name = q37)
+q37_n <- length(unique(q37_data$id))
+q37_plot <- clean_single_select(q37_data)
+r37 <- plot_single_select(q37_plot, q37_t, q37_n)
+r37
+```
+
+```{r}
+row3 <- colnames(q37_plot)
+q37_plot2 <- rbind(row3, q37_plot)
+names(q37_plot2) <- c("q37", q37_t, paste("n = ", q37_n))
+```
+
+```{r}
+dir.create("output/q37_gender")
+ggsave(filename = 'output/q37_gender/q37_gender.png', plot = r37, device = 'png')
+write.csv(q37_plot2, paste0("output/q37_gender/q37_gender_", q37_n,".csv"), row.names=F)
+```

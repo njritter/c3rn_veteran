@@ -1,0 +1,40 @@
+---
+title: "q40 'Do you consider yourself disabled?"
+author: "David Ritter"
+date: "11/7/2020"
+output: html_document
+runtime: shiny
+---
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(stringr)
+source("helper.R")
+```
+
+```{r}
+raw_data <- read.csv("data/njsurvey.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+q40 <- "Do.you.consider.yourself.disabled."
+q40_t <- "Do you consider yourself disabled?"
+q40_data <- get_single_selection(data = raw_data, q.name = q40)
+q40_n <- length(unique(q40_data$id))
+q40_plot <- clean_single_select(q40_data)
+r40 <- plot_single_select(q40_plot, q40_t, q40_n)
+r40
+```
+
+```{r}
+row3 <- colnames(q40_plot)
+q40_plot2 <- rbind(row3, q40_plot)
+names(q40_plot2) <- c("q40", q40_t, paste("n = ", q40_n))
+```
+
+```{r}
+dir.create("output/q40_disability")
+ggsave(filename = 'output/q40_disability/q40_disability.png', plot = r40, device = 'png')
+write.csv(q40_plot2, paste0("output/q40_disability/q40_disability_", q40_n,".csv"), row.names=F)
+```
